@@ -4,3 +4,10 @@ Admin
 Citas_usuarios
 Promociones
 Tratamientos
+
+Citas: idCita, fecha, hora, idUsuario, estado, idTratamiento, notas
+Usuarios: idUsuario, nombre, apellidos, email, telefono, fechaNacim, sexo, dni?
+Admin: idAdmin, nombre, email, telefono
+Citas_usuarios: idUsuario, idCita
+Promociones: idPromocion, descripcion, fechaInicio, fechaFin, descuento
+Tratamientos: idTratamiento, nombre, descripcion, precio, duracion 
