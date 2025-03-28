@@ -1,13 +1,15 @@
 Citas
-Usuarios
+Pacientes
 Admin
-Citas_usuarios
 Promociones
 Tratamientos
+Historial
 
-Citas: idCita, fecha, hora, idUsuario, estado, idTratamiento, notas
-Usuarios: idUsuario, nombre, apellidos, email, telefono, fechaNacim, sexo, dni?
-Admin: idAdmin, nombre, email, telefono
-?? Citas_usuarios: idUsuario, idCita
-Promociones: idPromocion, descripcion, fechaInicio, fechaFin, descuento
-Tratamientos: idTratamiento, nombre, descripcion, precio, duracion 
+
+
+Citas: idCita(PK), fecha, hora, idPacientes(FK), estado, idTratamiento(FK), anotaciones
+Pacientes: idPacientes(PK), nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni
+Admin: idAdmin(PK), nombre, email, telefono
+Promociones: idPromocion(PK), descripcion, fechaInicio, fechaFin, descuento
+Tratamientos: idTratamiento(PK), nombre, descripcion, precio, duracion 
+Historial: idHistorial, idPacientes(FK), fecha, descripcion
