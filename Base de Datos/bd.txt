@@ -12,4 +12,4 @@ Pacientes: idPacientes(PK), nombre, apellido1, apellido2, email, telefono, fecha
 Admin: idAdmin(PK), nombre, email, telefono
 Promociones: idPromocion(PK), descripcion, fechaInicio, fechaFin, descuento
 Tratamientos: idTratamiento(PK), nombre, descripcion, precio, duracion 
-Historial: idHistorial, idPacientes(FK), fecha, descripcion
+Historial: idHistorial(PK), idPacientes(FK), fecha, descripcion
