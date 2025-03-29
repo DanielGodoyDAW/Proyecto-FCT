@@ -1,0 +1,129 @@
+window.onload = iniciar;
+
+function iniciar() {
+    document.getElementById("validacionRegistro").addEventListener("submit", validarRegistro, false);
+}
+
+//funcion validar registro
+function validarRegistro(event) {
+    event.preventDefault();
+    if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarFecha() && validarSexo()) {
+        alert("Formulario enviado correctamente");
+        return true;
+    } else {
+        alert("Error en el formulario, por favor corrige los campos marcados.");
+        return false;
+    }
+}
+
+//validar nombre
+function validarNombre() {
+    let nombre = document.getElementById("c1");
+    if (!nombre.checkValidity()) {
+        error(nombre);
+        return false;
+    } else {
+        nombre.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar apellido 1
+function validarApellido1() {
+    let apellido1 = document.getElementById("c2");
+    if (!apellido1.checkValidity()) {
+        error(apellido1);
+        return false;
+    } else {
+        apellido1.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar apellido 2
+function validarApellido2() {
+    let apellido2 = document.getElementById("c3");
+    if (!apellido2.checkValidity()) {
+        error(apellido2);
+        return false;
+    } else {
+        apellido2.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar dni
+function validarDNI() {
+    let dni = document.getElementById("c4");
+    if (!dni.checkValidity()) {
+        error(dni);
+        return false;
+    } else {
+        dni.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar email
+function validarEmail() {
+    let email = document.getElementById("c5");
+    if (!email.checkValidity()) {
+        error(email);
+        return false;
+    } else {
+        email.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar tlf
+function validarTlf() {
+    let tlf = document.getElementById("c6");
+    if (!tlf.checkValidity()) {
+        error(tlf);
+        return false;
+    } else {
+        tlf.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar fecha
+function validarFecha() {
+    let fecha = document.getElementById("c7");
+    if (!fecha.checkValidity()) {
+        error(fecha);
+        return false;
+    } else {
+        fecha.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar sexo
+function validarSexo() {
+    let sexo = document.getElementById("c8");
+    if (!sexo.checkValidity()) {
+        error(sexo);
+        return false;
+    } else {
+        sexo.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar error
+function error(elemento) {
+    document.getElementById("error").innerHTML = elemento.validationMessage;
+    elemento.style.border = "2px solid red";
+    elemento.focus();
+}
+
+//validar borrar error
+function borrarError() {
+    let formulario = document.forms[0];
+    for (let i = 0; i < formulario.elements.length; i++) {
+        formulario.elements[i].style.border = "";
+    }
+    document.getElementById("error").innerHTML = "";
+}
