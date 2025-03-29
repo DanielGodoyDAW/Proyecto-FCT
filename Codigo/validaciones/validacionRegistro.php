@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "El email no es válido.";
     }
 
-    // Validar teléfono
-    if (!preg_match('/^\+\d{2} \d{3}-\d{3}-\d{3}$/', $_POST['telefono'])) {
-        $errores[] = "El teléfono debe tener el formato +99 999-999-999.";
+    // Validar telefono
+    if (!preg_match('/^\+\d{2} \d{3} \d{3} \d{3}$/', $_POST['telefono'])) {
+        $errores[] = "El teléfono debe tener el formato +99 999 999 999.";
     }
 
     // Validar fecha de nacimiento
