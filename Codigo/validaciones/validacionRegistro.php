@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<p style='color: green;'>Formulario enviado correctamente.</p>";
         //! Aqui procesaremos los datos, como guardarlos en la base de datos
-        header('Location: ../citas.php');
+        header('Location: /Codigo/citas.php');
         exit();
     }
 }

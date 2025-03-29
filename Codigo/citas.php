@@ -2,11 +2,11 @@
 <html lang="en">
 <?php session_start();
 
-if (!isset($_SESSION['idPaciente']) || !isset($_SESSION['nombrePaciente'])) {
-    header("Location: index.php");
-}
+// if (!isset($_SESSION['idPaciente']) || !isset($_SESSION['nombrePaciente'])) {
+//     header("Location: index.php");
+// }
 
-require_once "./validaciones/conexion.php";
+// require_once "./validaciones/conexion.php";
 ?>
 
 <head>

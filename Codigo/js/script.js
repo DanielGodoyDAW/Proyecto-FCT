@@ -9,6 +9,7 @@ function validarRegistro(event) {
     event.preventDefault();
     if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarFecha() && validarSexo()) {
         alert("Formulario enviado correctamente");
+        window.location.href = "/Codigo/citas.php";
         return true;
     } else {
         alert("Error en el formulario, por favor corrige los campos marcados.");
