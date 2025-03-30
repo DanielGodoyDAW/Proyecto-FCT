@@ -1,3 +1,5 @@
+-- Estimacion de la Base de datos para la clínica de podología
+
 -- Tabla Citas
 CREATE TABLE Citas (
     idCita INT PRIMARY KEY,

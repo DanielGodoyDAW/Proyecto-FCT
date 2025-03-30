@@ -1,0 +1,54 @@
+.contenedor-principal {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+/* Contenedor del calendario */
+#calendar-container {
+    width: 300px;  
+    height: 150px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Asegura que el calendario respete el tamaño */
+#calendar {
+    width: 300px;
+    height: 150px;
+}
+
+/* Estilo para los encabezados (días de la semana) */
+.fc .fc-col-header-cell {
+    background-color: #0f8088;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilo para los eventos */
+.fc-event {
+    background-color: #0f8088;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-size: 12px;
+}
+
+/* Cambiar el color del día actual */
+.fc-day-today {
+    background-color: #e0f7fa;
+}
+
+.modal-content .close {
+    display: none; 
+}
+.fc-toolbar-title {
+    text-transform: capitalize; 
+}

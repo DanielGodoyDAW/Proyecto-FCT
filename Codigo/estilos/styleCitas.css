@@ -1,0 +1,17 @@
+main.contenedor{
+    display: flex;
+    flex-direction: row;
+}
+
+.seccion.calendario {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    height: auto; 
+}
+.seccion.horarios{
+    display: flex;
+}

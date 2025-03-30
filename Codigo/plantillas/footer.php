@@ -1,0 +1,1 @@
+<p>© 2025 Clinica de Podología Carmen Godoy</p>

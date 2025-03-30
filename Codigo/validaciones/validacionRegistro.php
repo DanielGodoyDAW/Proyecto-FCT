@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "El email no es válido.";
     }
 
-    // Validar teléfono
-    if (!preg_match('/^\+\d{2} \d{3}-\d{3}-\d{3}$/', $_POST['telefono'])) {
-        $errores[] = "El teléfono debe tener el formato +99 999-999-999.";
+    // Validar telefono
+    if (!preg_match('/^\+\d{2} \d{3} \d{3} \d{3}$/', $_POST['telefono'])) {
+        $errores[] = "El teléfono debe tener el formato +99 999 999 999.";
     }
 
     // Validar fecha de nacimiento
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<p style='color: green;'>Formulario enviado correctamente.</p>";
         //! Aqui procesaremos los datos, como guardarlos en la base de datos
-        header('Location: ../citas.php');
+        header('Location: /Codigo/citas.php');
         exit();
     }
 }

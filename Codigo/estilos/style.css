@@ -1,0 +1,85 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+:root {
+    --colorFondo: #f0f0f0;
+    --colorTexto: #333;
+    --colorBoton: #0f8088;
+}
+
+/* Header */
+header {
+    ul {
+        display: flex;
+    }
+
+    li {
+        list-style-type: none;
+    }
+    text-align: center;
+}
+
+.logo{
+    width: 100px;
+    height: auto;
+    margin: 10px;
+}
+
+/* Estilo para el menu de navegacion */
+nav{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+}
+
+nav ul {
+    display: flex; 
+    gap: 20px; 
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none; 
+    color: var(--colorTexto); 
+    font-weight: bold;
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+}
+
+nav ul li a:hover {
+    background-color: var(--colorBoton); 
+    color: white; 
+}
+
+.contenedorLogin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tablaLogin {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.btnIS {
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0;
+}
