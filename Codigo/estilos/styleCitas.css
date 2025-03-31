@@ -1,6 +1,8 @@
-main.contenedor{
+/* main.contenedor{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .seccion.calendario {
@@ -11,7 +13,15 @@ main.contenedor{
     border: 1px solid #ccc; 
     border-radius: 8px; 
     height: auto; 
+    width: 300px;
 }
 .seccion.horarios{
     display: flex;
-}
+    justify-content: center; 
+    align-items: center;
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    height: auto; 
+    width: 300px;
+} */
