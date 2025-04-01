@@ -31,13 +31,7 @@
                 </table>
                 <input class="btnIS" type="submit" value="Iniciár Sesión">
             </div>
-
         </form>
-        <!-- <br>
-        <p>¿Aun no tienes una cuenta?</p>
-        <a href="./validaciones/registro.php">
-            <button type="button">Registrarse</button>
-        </a> -->
     </main>
     <?php require_once './plantillas/footer.php'; ?>
 </body>
