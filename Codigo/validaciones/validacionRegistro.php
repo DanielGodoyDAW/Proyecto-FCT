@@ -2,6 +2,18 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores = [];
 
+      // Validar DNI
+      if (empty($_POST['dni'])) {
+        $errores[] = "El DNI es obligatorio.";
+    }
+    //! tengo que cambiar el nombre de la bd o pacientes o usuarios
+    //consulta a la bd si el dni esta registrado
+    // $sql = "SELECT * FROM usuarios WHERE dni = ".$_Post['dni'];
+    // $resultado = mysqli_query($conexion, $sql);
+    // if (mysqli_num_rows($resultado) > 0) {
+    //     $errores[] = "El DNI ya está registrado.";
+    // }
+
     // Validar nombre
     if (!preg_match('/^[A-Z][A-Za-z]{2,9}$/', $_POST['nombre'])) {
         $errores[] = "El nombre debe tener entre 3 y 10 caracteres, comenzando con mayúscula.";
@@ -15,11 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar segundo apellido (opcional)
     if (!empty($_POST['apellido2']) && !preg_match('/^[A-Za-z]{4,8}$/', $_POST['apellido2'])) {
         $errores[] = "El segundo apellido debe tener entre 4 y 8 caracteres.";
-    }
-
-    // Validar DNI
-    if (empty($_POST['dni'])) {
-        $errores[] = "El DNI es obligatorio.";
     }
 
     // Validar email

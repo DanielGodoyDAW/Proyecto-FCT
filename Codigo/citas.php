@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
-    <link rel="stylesheet" href="../estilos/styleCitas.css">
+    <link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">
     <title>Reserva tu Cita</title>
 </head>
 

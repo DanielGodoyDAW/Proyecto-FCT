@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales/es.js"></script>
-    <link rel="stylesheet" href="../estilos/styleCalendario.css">
+    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
     <title>Calendario de Reserva</title>
 </head>
 
@@ -31,20 +31,19 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
-            // FullCalendar configuración corregida
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth', // Vista mensual
                 locale: 'es', // Español
                 dayHeaderContent: function(info) {
-                    // Personaliza los nombres de los dias para que aparezca en mayusculas
+                    // Personaliza los nombres de los días para que aparezcan en mayúsculas
                     const dias = {
-                        'lun': 'Lunes',
-                        'mar': 'Martes',
-                        'mié': 'Miércoles',
-                        'jue': 'Jueves',
-                        'vie': 'Viernes',
-                        'sáb': 'Sábado',
-                        'dom': 'Domingo'
+                        'lun': 'Lun',
+                        'mar': 'Mar',
+                        'mié': 'Mié',
+                        'jue': 'Jue',
+                        'vie': 'Vie',
+                        'sáb': 'Sáb',
+                        'dom': 'Dom'
                     };
                     return dias[info.text] || info.text; // Devuelve el nombre personalizado
                 },
@@ -63,9 +62,20 @@
                     modal.style.display = 'block';
                 },
                 events: function(fetchInfo, successCallback, failureCallback) {
-                    fetch('php/get-events.php')
+                    // Llamada a un archivo PHP para obtener los datos de disponibilidad
+                    fetch('validaciones/calendario/get-availability.php')
                         .then(response => response.json())
-                        .then(data => successCallback(data))
+                        .then(data => {
+                            // Procesar los datos y asignar clases personalizadas
+                            const events = data.map(day => {
+                                return {
+                                    start: day.date, // Fecha del día
+                                    display: 'background', // Mostrar como fondo
+                                    classNames: [day.status] // Clase CSS según el estado
+                                };
+                            });
+                            successCallback(events);
+                        })
                         .catch(error => failureCallback(error));
                 }
             });
