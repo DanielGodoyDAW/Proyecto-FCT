@@ -1,3 +1,16 @@
+#calendar-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#calendar {
+    width: 90%; 
+    height: 90%; 
+}
+
 /* Dia disponible (verde) */
 .fc-day.available {
     background-color: #d4edda; /* Verde claro */
@@ -6,12 +19,12 @@
 
 /* Dia con algun campo (amarillo) */
 .fc-day.partial {
-    background-color: #fff3cd; /* Amarillo claro */
-    color: #856404; /* Texto amarillo oscuro */
+    background-color: #fff3cd; 
+    color: #856404; 
 }
 
 /* Dia completamente ocupado (rojo) */
 .fc-day.full {
-    background-color: #f8d7da; /* Rojo claro */
-    color: #721c24; /* Texto rojo oscuro */
+    background-color: #f8d7da; 
+    color: #721c24;
 }

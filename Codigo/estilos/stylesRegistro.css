@@ -2,6 +2,7 @@
     --colorFondo: #f0f0f0;
     --colorTexto: #333;
     --colorBoton: #0f8088;
+    --colorBotonHover: #0f2788;
 }
 .contenedorRegistro {
     width: 100%;
@@ -26,6 +27,10 @@
     cursor: pointer;
     border-radius: 4px;
     margin: 0;
+}
+.btnRegis:hover {
+    background-color: var(--colorBotonHover);
+    color: white;
 }
 #error{
     margin-top: 20px;

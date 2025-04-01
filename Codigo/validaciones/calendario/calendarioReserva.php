@@ -37,13 +37,13 @@
                 dayHeaderContent: function(info) {
                     // Personaliza los nombres de los días para que aparezcan en mayúsculas
                     const dias = {
-                        'lun': 'Lunes',
-                        'mar': 'Martes',
-                        'mié': 'Miércoles',
-                        'jue': 'Jueves',
-                        'vie': 'Viernes',
-                        'sáb': 'Sábado',
-                        'dom': 'Domingo'
+                        'lun': 'Lun',
+                        'mar': 'Mar',
+                        'mié': 'Mié',
+                        'jue': 'Jue',
+                        'vie': 'Vie',
+                        'sáb': 'Sáb',
+                        'dom': 'Dom'
                     };
                     return dias[info.text] || info.text; // Devuelve el nombre personalizado
                 },
