@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
 
     <?php
+    $_SESSION['admin'] = "Carmen Godoy";
     $_SESSION['pacientes'] = "Carmen Godoy"; // Simulando que el usuario ha iniciado sesión
     $_SESSION['sexo'] = "F"; // Simulando que el usuario es mujer
     
@@ -29,6 +30,9 @@
                 echo "<li><a class='btnA' href='/Codigo/citas.php'>Citas</a></li>";
             } else { 
             echo "<li><a class='btnA' href='/Codigo/validaciones/registro.php'>Registro</a></li>";
+            } ?>
+            <?php if(isset($_SESSION['admin'])){
+                echo "<li><a class='btnA' href='/Codigo/validaciones/admin.php'>Administrar</a></li>";
             } ?>
             <?php if (isset($_SESSION['pacientes'])) {
                 echo  "<li><a class='btnA' href='/Codigo/validaciones/cerrar_sesion.php'>Cerrar Sesion</a></li>";

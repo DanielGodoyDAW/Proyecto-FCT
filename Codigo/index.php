@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica de Podologia</title>
     <link rel="stylesheet" href="estilos/style.css">
+    <script src="/Codigo/js/validacionUsuario.js"></script> <!-- para probar la validacion -->
 </head>
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
     <main>
-        <form class="formularioLogin" action="./validaciones/validacionUsuario.php" method="post">
+        <form class="formularioLogin" action="./validaciones/validacionUsuario.php" id="validacionUsuario" method="post">
             <?php if (isset($_GET['error'])) : ?>
                 <p style="color: red;">Usuario o contraseña incorrectos</p>
             <?php endif; ?>
-            <p></p>
             <br>
             <div class="contenedorLogin">
                 <table class="tablaLogin">
@@ -23,10 +23,10 @@
                         <th>Iniciar Sesión</th>
                     </tr>
                     <tr>
-                        <td><input type="text" id="c1" name="paciente" placeholder="Usuario" required></td>
+                        <td><input type="text" id="c1" name="paciente" placeholder="Usuario" minlength="3" maxlength="20" required></td>
                     </tr>
                     <tr>
-                        <td><input type="password" id="c2" name="password" placeholder="Contraseña" required></td>
+                        <td><input type="password" id="c2" name="password" placeholder="Contraseña" minlength="8" maxlength="20" required></td>
                     </tr>
                 </table>
                 <input class="btnIS" type="submit" value="Iniciár Sesión">
