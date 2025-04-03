@@ -81,6 +81,14 @@
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <td><label for="c9">Contraseña:</label></td>
+                    <td><input type="password" id="c9" name="pass" minlength="8" placeholder="Contraseña" required></td>
+                </tr>
+                <tr>
+                    <td><label for="c10">Confirmar Contraseña:</label></td>
+                    <td><input type="password" id="c10" name="confirmar_pass" minlength="8" placeholder="Confirmar Contraseña" required></td>
+                </tr>
             </table>
             <button class="btnRegis" type="submit" name="enviar">Registrarse</button>
         </div>   
