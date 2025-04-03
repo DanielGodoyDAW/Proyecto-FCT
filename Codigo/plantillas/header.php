@@ -43,9 +43,13 @@
             <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
                 echo "<li><a class='btnA' href='/Codigo/promociones.php'>Promociones</a></li>";
             } ?>
+             <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
+                echo "<li><a class='btnA' href='/Codigo/editar_perfil.php'>Editar Perfil</a></li>";
+            } ?>
             <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
                 echo  "<li><a class='btnA' href='/Codigo/validaciones/cerrar_sesion.php'>Cerrar Sesion</a></li>";
             } ?>
         </ul>
     </nav>
+        <!-- Agregar un editar perfil -->
 </header>
