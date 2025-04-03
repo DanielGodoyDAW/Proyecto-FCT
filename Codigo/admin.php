@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <?php require_once '../Codigo/plantillas/header.php'; ?>
+<?php require_once '../Codigo/plantillas/header.php'; ?>
     <main class="contenedor">
         <!-- Seccion izquierda busqueda -->
         <div class="seccion busqueda">
@@ -23,7 +23,17 @@
             <h2>Listado de tratamientos</h2>
             <?php require_once '../Codigo/validaciones/tratamientos.php'; ?>
         </div>
+
+        <!-- Seccion para administrar promociones -->
+         <div class="seccion promociones">
+            <?php require_once '../Codigo/validaciones/promociones/promociones_form.php'; ?>
+         </div>
+        <div class="seccion promociones-lista">
+            <h2>Promociones Existentes</h2>
+            <?php require_once '../Codigo/validaciones/promociones/promociones_lista.php'; ?>
+        </div>
     </main>
+
     <!-- Seccion para ver las proximas citas -->
     <div class="historial">
         <h2>Historial</h2>

@@ -42,6 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar fecha de nacimiento
     if (empty($_POST['fecha_nacimiento'])) {
         $errores[] = "La fecha de nacimiento es obligatoria.";
+    }else{ //comprueba que la fecha no es posterior a la actual
+        $fecha_nacimiento = DateTime::createFromFormat('Y-m-d', $_POST['fecha_nacimiento']);
+        $fecha_actual = new DateTime();
+
+        if (!$fecha_nacimiento) {
+            $errores[] = "El formato de la fecha de nacimiento no es válido.";
+        } elseif ($fecha_nacimiento > $fecha_actual) {
+            $errores[] = "La fecha de nacimiento no puede ser posterior a la fecha actual.";
+        }
     }
 
     // Validar sexo
@@ -54,9 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($errores as $error) {
             echo "<p style='color: red;'>$error</p>";
         }
+        exit(); // Detener la ejecución si hay errores
     } else {
         echo "<p style='color: green;'>Formulario enviado correctamente.</p>";
-        //! Aqui procesaremos los datos, como guardarlos en la base de datos
+        //! Aqui procesaremos los datos, interpreto que la consulta sera asi
+        $sql = "INSERT INTO pacientes (nombre, apellido1, apellido2, dni, email, telefono, fecha_nacimiento, sexo) VALUES ('".$_POST['nombre']."', '".$_POST['apellido1']."', '".$_POST['apellido2']."', '".$_POST['dni']."', '".$_POST['email']."', '".$_POST['telefono']."', '".$_POST['fecha_nacimiento']."', '".$_POST['sexo']."')";
         header('Location: /Codigo/citas.php');
         exit();
     }
