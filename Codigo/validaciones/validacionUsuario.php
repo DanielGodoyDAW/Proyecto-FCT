@@ -2,13 +2,13 @@
 session_start(); // Iniciar la sesion
 
 if(isset($_POST["paciente"]) && isset($_POST["password"])){
-    $usuario = htmlspecialchars($_POST["paciente"]);
+    $pacientes = htmlspecialchars($_POST["paciente"]);
     $password = htmlspecialchars($_POST["password"]);
 
     // Conectar a la base de datos
     require_once './Validaciones/conexion.php';
 
-    // Consultar si el usuario existe en la base de datos
+    // Consultar si el usuario existe en la base de datos supongamos que seria algo asi la consulta
     $query = "SELECT * FROM pacientes WHERE pacientes='$pacientes' AND password='$password'";
     $result = mysqli_query($con, $query);
 

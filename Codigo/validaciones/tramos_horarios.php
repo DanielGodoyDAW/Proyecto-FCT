@@ -1,4 +1,5 @@
 <?php
+//simulacion
 // filepath: d:\Escritorio\instituto\2 Segundo DAW\Repositorio github\Proyecto FCT\Proyecto-FCT\Codigo\validaciones\tramos_horarios.php
 
 // Obtener los datos enviados desde el cliente

@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
 
     <?php
+    // session_start();
+    // require_once './validaciones/conexion.php'; 
+    
     //aqui poner la conexion a la base de datos y la consulta para ver si el usuario ha iniciado sesion o no
     $adminName = "Carmen Godoy"; // Este usuario siempre sera el admin
     $_SESSION['admin'] = $adminName;
@@ -35,7 +38,10 @@
                 echo "<li><a class='btnA' href='/Codigo/validaciones/registro.php'>Registro</a></li>";
             } ?>
             <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] === $adminName) {
-                echo "<li><a class='btnA' href='/Codigo/validaciones/admin.php'>Administrar</a></li>";
+                echo "<li><a class='btnA' href='/Codigo/admin.php'>Administrar</a></li>";
+            } ?>
+            <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
+                echo "<li><a class='btnA' href='/Codigo/promociones.php'>Promociones</a></li>";
             } ?>
             <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
                 echo  "<li><a class='btnA' href='/Codigo/validaciones/cerrar_sesion.php'>Cerrar Sesion</a></li>";
