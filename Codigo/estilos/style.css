@@ -2,7 +2,10 @@ body,
 html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 :root {
@@ -109,9 +112,11 @@ nav ul li a {
     background-color: var(--colorBotonHover);
     color: white;
 }
+main{
+   flex-grow: 1; /* Permite que el main ocupe el espacio restante */
+}
 
 footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -119,4 +124,26 @@ footer {
     text-align: center;
     padding: 10px 0;
     z-index: 10;
+
+}
+.footerIzquierda, .footerCentro, .footerDerecha{
+    width: 33%;
+    display: inline-block;
+}
+.footerIzquierda{
+    text-align: center;
+}
+.liFoo{
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    a{
+        text-decoration: none;
+    }
+}
+.redes{
+    justify-content: center;
+    width: 25px;
+    height: 25px;
 }
