@@ -14,7 +14,7 @@ if (empty($email) || empty($telefono) || empty($sexo)) {
 }
 
 // Actualizar los datos en la base de datos
-$sql = "UPDATE usuarios SET email = ?, telefono = ?, sexo = ?" . (!empty($password) ? ", password = ?" : "") . " WHERE id = ?";
+$sql = "UPDATE pacientes SET email = ?, telefono = ?, sexo = ?" . (!empty($password) ? ", password = ?" : "") . " WHERE id = ?";
 $stmt = $conn->prepare($sql);
 
 // Si se envió una nueva contraseña, incluirla en la consulta

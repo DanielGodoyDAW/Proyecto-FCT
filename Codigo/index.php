@@ -23,7 +23,7 @@
                         <th>Iniciar Sesión</th>
                     </tr>
                     <tr>
-                        <td><input type="text" id="c1" name="paciente" placeholder="Usuario" minlength="3" maxlength="20" required></td>
+                        <td><input type="text" id="c1" name="paciente" placeholder="Email" minlength="3" maxlength="50" required></td>
                     </tr>
                     <tr>
                         <td><input type="password" id="c2" name="password" placeholder="Contraseña" minlength="8" maxlength="20" required></td>
