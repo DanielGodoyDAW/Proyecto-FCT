@@ -33,6 +33,18 @@
             </ul>
         </div>
     </main>
+    <main class="contenedor">
+        <!-- Seccion Proximas citas -->
+        <div class="seccion prox-citas">
+            <h2>Proximas Citas</h2>
+                <?php require_once './validaciones/proximas_citas.php'; ?>
+        </div>
+        <!-- Seccion Historial de citas -->
+    <div class="seccion reserva">
+        <h2>Historial de Citas</h2>
+        <?php require_once './validaciones/historial.php'; ?> <!-- en historial una consulta para ver solo las activas o proximas -->
+    </div>
+    </main>
     <?php require_once './plantillas/footer.php'; ?>
 </body>
 

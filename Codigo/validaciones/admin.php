@@ -12,20 +12,21 @@
 <body>
     <?php require_once '../plantillas/header.php'; ?>
     <main class="contenedor">
-        <!-- Seccion izquierda Calendario -->
-        <div class="seccion calendario">
-            <?php include '../validaciones/calendario/calendarioReserva.php'; ?>
+        <!-- Seccion izquierda busqueda -->
+        <div class="seccion busqueda">
+            <h2>Busqueda de paciente</h2>
+            <?php require_once '../validaciones/busqueda.php'; ?>
         </div>
 
-        <!-- Seccion derecha Tramos horarios -->
-        <div class="seccion horarios">
-            <h2>Selecciona un tramo horario</h2>
-            <ul id="tramos">
-                <?php require_once '../validaciones/tramos_horarios.php'; ?>
-            </ul>
+        <!-- Seccion derecha tratamiento -->
+        <div class="seccion tratamiento">
+            <h2>Listado de tratamientos</h2>
+            <?php require_once '../validaciones/tratamientos.php'; ?>
         </div>
     </main>
+    <!-- Seccion para ver las proximas citas -->
     <div class="historial">
+        <h2>Historial</h2>
         <?php require_once '../validaciones/historial.php'; ?>
     </div>
     <?php require_once '../plantillas/footer.php'; ?>
