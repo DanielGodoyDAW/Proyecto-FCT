@@ -23,7 +23,8 @@ CREATE TABLE Pacientes (
     telefono VARCHAR(15),
     fechaNacim DATE,
     sexo CHAR(1),
-    dni VARCHAR(20)
+    dni VARCHAR(20),
+    pass VARCHAR(255)
 );
 
 -- Tabla Admin
@@ -40,7 +41,9 @@ CREATE TABLE Promociones (
     descripcion TEXT,
     fechaInicio DATE,
     fechaFin DATE,
-    descuento DECIMAL(5, 2)
+    descuento DECIMAL(5, 2),
+    titulo VARCHAR(100),
+    imagen VARCHAR(255)
 );
 
 -- Tabla Tratamientos
@@ -49,7 +52,9 @@ CREATE TABLE Tratamientos (
     nombre VARCHAR(100),
     descripcion TEXT,
     precio DECIMAL(10, 2),
-    duracion INT
+    fechaInicio DATE,
+    fechaFin DATE,
+    estado VARCHAR(50)
 );
 
 -- Tabla Historial
@@ -59,4 +64,13 @@ CREATE TABLE Historial (
     fecha DATE,
     descripcion TEXT,
     FOREIGN KEY (idPacientes) REFERENCES Pacientes(idPacientes)
+);
+
+-- Tabla Cancelacion
+
+CREATE TABLE Cancelacion (
+    idCancelacion INT PRIMARY KEY,
+    idCita INT,
+    vista VARCHAR(50),
+    FOREIGN KEY (idCita) REFERENCES Citas(idCita)
 );
