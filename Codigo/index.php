@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php set_time_limit(300); ?>
 
 <head>
     <meta charset="UTF-8">
@@ -32,6 +33,7 @@
                 <input class="btnIS" type="submit" value="Iniciár Sesión">
             </div>
         </form>
+        <div id="error-message"></div>
     </main>
     <?php require_once './plantillas/footer.php'; ?>
 </body>

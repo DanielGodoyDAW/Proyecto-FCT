@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
     <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
-    <title>Admin</title>
+    <title>Administracion</title>
 </head>
 
 <body>

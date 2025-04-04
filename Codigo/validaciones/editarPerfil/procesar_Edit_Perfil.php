@@ -1,6 +1,6 @@
 <?php
 // Conexión a la base de datos
-require_once '../../config/db.php';
+require_once './conexion/conexion.php';
 
 // Obtener los datos enviados por el formulario
 $email = $_POST['email'];

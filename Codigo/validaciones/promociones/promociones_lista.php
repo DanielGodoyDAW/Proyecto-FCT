@@ -1,5 +1,5 @@
 <?php
-require_once 'conexion.php'; // Conexión a la base de datos
+// require_once './conexion/conexion.php'; // Conexión a la base de datos
 $sql = "SELECT * FROM promociones";
 $result = $conn->query($sql);
 

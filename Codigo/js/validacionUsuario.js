@@ -44,10 +44,13 @@ function validarContrasena() {
 }
 
 // Modificar la función de error para aceptar mensajes personalizados
-function error(elemento, mensaje) {
-    document.getElementById("error").innerHTML = mensaje || elemento.validationMessage;
-    elemento.style.border = "2px solid red";
-    elemento.focus();
+function error(message) {
+    const errorElement = document.getElementById('error-message');
+    if (errorElement) {
+        errorElement.innerHTML = message; // Solo intenta modificar si el elemento existe
+    } else {
+        console.error('El elemento con id "error-message" no existe.');
+    }
 }
 //validar borrar error
 function borrarError() {

@@ -1,8 +1,8 @@
 <?php
-require_once 'conexion.php'; // Conexión a la base de datos
+//require_once './conexion/conexion.php'; // Conexión a la base de datos
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM promociones WHERE id = $id";
+$sql = "SELECT * FROM promociones WHERE idPromocion = $id";
 $result = $conn->query($sql);
 $promocion = $result->fetch_assoc();
 
@@ -16,9 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_file = $target_dir . basename($imagen);
         move_uploaded_file($_FILES['imagen']['tmp_name'], $target_file);
 
-        $sql = "UPDATE promociones SET titulo = '$titulo', descripcion = '$descripcion', imagen = '$imagen' WHERE id = $id";
+        $sql = "UPDATE promociones SET titulo = '$titulo', descripcion = '$descripcion', imagen = '$imagen' WHERE idPromocion = $id";
     } else {
-        $sql = "UPDATE promociones SET titulo = '$titulo', descripcion = '$descripcion' WHERE id = $id";
+        $sql = "UPDATE promociones SET titulo = '$titulo', descripcion = '$descripcion' WHERE idPromocion = $id";
     }
 
     $conn->query($sql);

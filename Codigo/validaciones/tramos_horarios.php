@@ -1,4 +1,5 @@
 <?php
+require_once '../conexion/conexion.php'; // Asegúrate de que la ruta sea correcta
 //simulacion
 // filepath: d:\Escritorio\instituto\2 Segundo DAW\Repositorio github\Proyecto FCT\Proyecto-FCT\Codigo\validaciones\tramos_horarios.php
 
@@ -9,9 +10,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 if (isset($data['fecha'])) {
     $fechaSeleccionada = $data['fecha']; // Fecha seleccionada (YYYY-MM-DD)
 
-    // Aquí puedes trabajar con la fecha seleccionada
-    // Por ejemplo, devolver los tramos horarios disponibles
-    $array_tramos_reservaPacientes = array(
+    $tramosHorarios = array(
         "08:00" => "08:30",
         "08:30" => "09:00",
         "09:00" => "09:30",
@@ -32,8 +31,29 @@ if (isset($data['fecha'])) {
         "18:30" => "19:00",
     );
 
-    // Devolver los tramos horarios como respuesta JSON
-    echo json_encode($array_tramos_reservaPacientes);
+    // Consultar los horarios reservados para la fecha seleccionada
+    $query = "SELECT hora FROM Citas WHERE fecha = ?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("s", $fechaSeleccionada);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Crear un array con los horarios reservados
+    $horariosReservados = [];
+    while ($row = $result->fetch_assoc()) {
+        $horariosReservados[] = $row['hora'];
+    }
+
+    // Filtrar los horarios disponibles
+    $horariosLibres = [];
+    foreach ($tramosHorarios as $inicio => $fin) {
+        if (!in_array($inicio, $horariosReservados)) {
+            $horariosLibres[$inicio] = $fin;
+        }
+    }
+
+    // Devolver los horarios libres como respuesta JSON
+    echo json_encode($horariosLibres);
 } else {
     // Si no se recibió la fecha, devolver un error
     echo json_encode(['error' => 'No se recibió la fecha seleccionada']);

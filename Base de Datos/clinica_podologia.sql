@@ -1,19 +1,5 @@
 -- Estimacion de la Base de datos para la clínica de podología
 
--- Tabla Pacientes
-CREATE TABLE Pacientes (
-    idPacientes INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(50),
-    apellido1 VARCHAR(50),
-    apellido2 VARCHAR(50),
-    email VARCHAR(100),
-    telefono VARCHAR(15),
-    fechaNacim DATE,
-    sexo CHAR(1),
-    dni VARCHAR(20) UNIQUE NOT NULL,
-    pass VARCHAR(255)
-);
-
 -- Tabla Tratamientos
 CREATE TABLE Tratamientos (
     idTratamiento INT PRIMARY KEY,
@@ -22,7 +8,7 @@ CREATE TABLE Tratamientos (
     precio DECIMAL(10, 2),
     fechaInicio DATE,
     fechaFin DATE,
-    estado VARCHAR(50)
+    estado VARCHAR(50) -- Puede ser "Pendiente", "Confirmada", "Cancelada"
 );
 
 -- Tabla Admin
@@ -36,37 +22,53 @@ CREATE TABLE Admin (
     pass VARCHAR(255)
 );
 
+-- Tabla Historial
+CREATE TABLE Historial (
+    idHistorial INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE,
+    descripcion TEXT
+);
+
 -- Tabla Promociones
 CREATE TABLE Promociones (
-    idPromocion INT PRIMARY KEY,
+    idPromocion INT PRIMARY KEY AUTO_INCREMENT,
     descripcion TEXT,
     fechaInicio DATE,
     fechaFin DATE,
     descuento DECIMAL(5, 2),
     titulo VARCHAR(100),
-    imagen VARCHAR(255)
+    imagen VARCHAR(255),
+    idAdmin INT,
+    FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)  
+);
+
+-- Tabla Pacientes
+CREATE TABLE Pacientes (
+    idPacientes INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    apellido1 VARCHAR(50),
+    apellido2 VARCHAR(50),
+    email VARCHAR(100),
+    telefono VARCHAR(15),
+    fechaNacim DATE,
+    sexo CHAR(1),
+    dni VARCHAR(20) UNIQUE NOT NULL,
+    pass VARCHAR(255),
+    idHistorial INT,
+    FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
 );
 
 -- Tabla Citas
 CREATE TABLE Citas (
-    idCita INT PRIMARY KEY,
+    idCita INT PRIMARY KEY AUTO_INCREMENT,
     fecha DATE,
     hora TIME,
-    idPacientes INT,
     estado VARCHAR(50),
-    idTratamiento INT,
-    anotaciones TEXT,
-    FOREIGN KEY (idPacientes) REFERENCES Pacientes(idPacientes),
-    FOREIGN KEY (idTratamiento) REFERENCES Tratamientos(idTratamiento)
-);
-
--- Tabla Historial
-CREATE TABLE Historial (
-    idHistorial INT PRIMARY KEY,
+    anotaciones TEXT, -- por si el admin quiere añadir algo
     idPacientes INT,
-    fecha DATE,
-    descripcion TEXT,
-    FOREIGN KEY (idPacientes) REFERENCES Pacientes(idPacientes)
+    idAdmin INT,
+    FOREIGN KEY (idPacientes) REFERENCES Pacientes(idPacientes),
+    FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
 );
 
 -- Tabla Citas_Tratamientos
@@ -87,11 +89,15 @@ CREATE TABLE Citas_Promociones (
     FOREIGN KEY (idPromocion) REFERENCES Promociones(idPromocion)
 );
 
--- INSERTAR ADMIN Carmen Godoy
+-- INSERTAR ADMIN Carmen Godoy Medina
+-- aqui deje el idAdmin en int, ya que al solo haber 1 admin, no vi necesario el autoincrement 
 
 INSERT INTO Admin (idAdmin, nombre, apellido1, apellido2, email, telefono, pass)
-VALUES (1, 'Carmen', 'Godoy', 'Medina', 'carmen.godoy@example.com', '643645579', '12345678A');
+VALUES (1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '643645579', '12345678A');
 
 -- INSERTAR PACIENTE
-INSERT INTO Pacientes ( nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
+
+INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
 VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', '1989-07-22', 'M', '53368486E', '12345678A');
+
+-- INSERTAR 

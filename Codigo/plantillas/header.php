@@ -7,7 +7,7 @@
 
     <?php
     session_start();
-    require_once './validaciones/conexion.php'; 
+    require_once './conexion/conexion.php'; 
 
     // Verificar si el usuario ha iniciado sesión
     if (isset($_SESSION['email'])) {
@@ -44,7 +44,7 @@
     <nav>
         <ul>
             <li><a class="btnA" href="/Codigo/index.php">Inicio</a></li>
-            <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['admin'])) {
                 echo "<li><a class='btnA' href='/Codigo/citas.php'>Citas</a></li>";
             } else {
                 echo "<li><a class='btnA' href='/Codigo/validaciones/registro.php'>Registro</a></li>";
@@ -52,13 +52,13 @@
             <?php if (isset($_SESSION['admin'])) {
                 echo "<li><a class='btnA' href='/Codigo/admin.php'>Administrar</a></li>";
             } ?>
-            <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['admin'])) {
                 echo "<li><a class='btnA' href='/Codigo/promociones.php'>Promociones</a></li>";
             } ?>
-            <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['admin'])) {
                 echo "<li><a class='btnA' href='/Codigo/editar_perfil.php'>Editar Perfil</a></li>";
             } ?>
-            <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['admin'])) {
                 echo "<li><a class='btnA' href='/Codigo/validaciones/cerrar_sesion.php'>Cerrar Sesion</a></li>";
             } ?>
         </ul>

@@ -2,7 +2,7 @@
 session_start(); // Iniciar la sesión
 
 // Conectar a la base de datos
-require_once './Validaciones/conexion.php';
+require_once './conexion/conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset($_POST["password"])) {
     $usuario = htmlspecialchars($_POST["paciente"]);
@@ -24,28 +24,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset(
         exit();
     }
 
-    // Consultar si el usuario es un paciente
-    $queryPaciente = "SELECT * FROM Pacientes WHERE email = ? AND pass = ?";
+    // Consulta para verificar si el usuario es un paciente
+    $queryPaciente = "SELECT idPacientes, nombre, sexo, pass FROM Pacientes WHERE email = ?";
     $stmtPaciente = $con->prepare($queryPaciente);
-    $stmtPaciente->bind_param("ss", $usuario, $password);
+    $stmtPaciente->bind_param("s", $usuario);
     $stmtPaciente->execute();
     $resultPaciente = $stmtPaciente->get_result();
-
+    
     if ($resultPaciente->num_rows > 0) {
-        // Si el usuario es un paciente
         $paciente = $resultPaciente->fetch_assoc();
-        $_SESSION["pacientes"] = $paciente["nombre"];
-        $_SESSION["sexo"] = $paciente["sexo"];
-        header("Location: ../index.php"); // Redirigir a la página principal
-        exit();
+        if ($paciente['pass'] === $password) {
+            // Contraseña correcta
+            $_SESSION['idPacientes'] = $paciente['idPacientes'];
+            $_SESSION['pacientes'] = $paciente['nombre'];
+            $_SESSION['sexo'] = $paciente['sexo'];
+            header("Location: ../citas.php");
+            exit();
+        } else {
+            // Contraseña incorrecta
+            echo "<script>alert('Contraseña incorrecta');</script>";
+            header("Location: ../index.php");
+            exit();
+        }
     } else {
-        // Si el usuario no existe, mostrar un mensaje de error
-        echo "<script>alert('Usuario o contraseña incorrectos');</script>";
-        header("Location: ../index.php"); // Redirigir a la página principal
+        // Usuario no encontrado
+        echo "<script>alert('Usuario no encontrado');</script>";
+        header("Location: ../index.php");
         exit();
     }
-} else {
-    // Si no se han enviado los datos del formulario, redirigir a la página principal
-    header("Location: ../index.php");
-    exit();
 } 
