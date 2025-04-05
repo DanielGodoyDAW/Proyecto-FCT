@@ -29,7 +29,7 @@ $stmt->execute();
 $result = $stmt->get_result()->fetch_assoc();
 
 if ($result['total'] > 0) {
-    echo json_encode(['success' => false, 'error' => 'Este tramo ya está reservado.']);
+    echo json_encode(['success' => false, 'error' => 'Este horario ya está reservado.']);
     exit;
 }
 

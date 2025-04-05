@@ -72,7 +72,7 @@
                     if (diaSemana === 0 || diaSemana === 6) {
                         detalleFecha.textContent = 'No hay horarios disponibles para esta fecha.';
                         modal.style.display = 'block';
-                        listaTramos.innerHTML = '<li style="color: gray;">Día no disponible</li>';
+                        listaTramos.innerHTML = '<p style="color: gray;">Día no disponible</p>';
                         return;
                     }
 
@@ -95,8 +95,12 @@
                         listaTramos.innerHTML = '';
 
                         if (data.error) {
-                            listaTramos.innerHTML = `<li>${data.error}</li>`;
+                            listaTramos.innerHTML = `<p style="color: gray;">${data.error}</p>`;
                         } else {
+                            // Crear contenedor para las dos columnas
+                            const contenedorColumnas = document.createElement('div');
+                            contenedorColumnas.classList.add('horarios-contenedor');
+
                             // Separar horarios de mañana y tarde
                             const horariosManana = [];
                             const horariosTarde = [];
@@ -109,19 +113,22 @@
                                 }
                             }
 
-                            // Mostrar horarios de mañana
+                            // Crear columna de horarios de mañana
                             if (horariosManana.length > 0) {
+                                const columnaManana = document.createElement('div');
+                                columnaManana.classList.add('horarios-columna');
+
                                 const tituloManana = document.createElement('h3');
                                 tituloManana.textContent = 'Horario de mañana:';
-                                listaTramos.appendChild(tituloManana);
+                                columnaManana.appendChild(tituloManana);
 
                                 horariosManana.forEach(horario => {
-                                    const li = document.createElement('li');
-                                    li.textContent = horario;
-                                    li.style.cursor = 'pointer';
+                                    const button = document.createElement('button');
+                                    button.textContent = horario;
+                                    button.classList.add('horario-boton');
 
                                     // Al hacer clic en un tramo
-                                    li.addEventListener('click', () => {
+                                    button.addEventListener('click', () => {
                                         if (confirm(`¿Deseas reservar el tramo ${horario}?`)) {
                                             fetch('validaciones/reservar_tramo.php', {
                                                 method: 'POST',
@@ -147,23 +154,28 @@
                                         }
                                     });
 
-                                    listaTramos.appendChild(li);
+                                    columnaManana.appendChild(button);
                                 });
+
+                                contenedorColumnas.appendChild(columnaManana);
                             }
 
-                            // Mostrar horarios de tarde
+                            // Crear columna de horarios de tarde
                             if (horariosTarde.length > 0) {
+                                const columnaTarde = document.createElement('div');
+                                columnaTarde.classList.add('horarios-columna');
+
                                 const tituloTarde = document.createElement('h3');
                                 tituloTarde.textContent = 'Horario de tarde:';
-                                listaTramos.appendChild(tituloTarde);
+                                columnaTarde.appendChild(tituloTarde);
 
                                 horariosTarde.forEach(horario => {
-                                    const li = document.createElement('li');
-                                    li.textContent = horario;
-                                    li.style.cursor = 'pointer';
+                                    const button = document.createElement('button');
+                                    button.textContent = horario;
+                                    button.classList.add('horario-boton');
 
                                     // Al hacer clic en un tramo
-                                    li.addEventListener('click', () => {
+                                    button.addEventListener('click', () => {
                                         if (confirm(`¿Deseas reservar el tramo ${horario}?`)) {
                                             fetch('validaciones/reservar_tramo.php', {
                                                 method: 'POST',
@@ -189,9 +201,13 @@
                                         }
                                     });
 
-                                    listaTramos.appendChild(li);
+                                    columnaTarde.appendChild(button);
                                 });
+
+                                contenedorColumnas.appendChild(columnaTarde);
                             }
+
+                            listaTramos.appendChild(contenedorColumnas);
                         }
                     })
                     .catch(error => {
