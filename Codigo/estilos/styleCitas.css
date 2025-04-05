@@ -1,3 +1,12 @@
+:root {
+    --colorFondo: #f0f0f0;
+    --colorTexto: #333;
+    --colorBoton: #08A3A9;
+    --colorBotonHover: #0f2788;
+    --colorFondo: #DFF5F6;
+    --colorFondoDivs: #E8F0F1;
+}
+
 .contenedor {
     display: flex;
     flex-direction: column;
@@ -15,7 +24,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: var(--colorFondoDivs);
 }
 
 .columna.izquierda {

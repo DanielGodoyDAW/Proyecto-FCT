@@ -6,6 +6,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: var(--colorFondo);
 }
 
 :root {
@@ -13,6 +14,8 @@ html {
     --colorTexto: #333;
     --colorBoton: #08A3A9;
     --colorBotonHover: #0f2788;
+    --colorFondo: #DFF5F6;
+    --colorFondoDivs: #E8F0F1;
 }
 
 /* Header */
@@ -146,4 +149,16 @@ footer {
     justify-content: center;
     width: 25px;
     height: 25px;
+}
+.btn-eliminar {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.btn-eliminar:hover {
+    color: darkred;
 }

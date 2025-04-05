@@ -93,7 +93,7 @@
             <button class="btnRegis" type="submit" name="enviar">Registrarse</button>
         </div>   
     </form>
-    <div id="error"></div>
+    <div id="error-message"></div>
     <?php require_once '../plantillas/footer.php'; ?>
 </body>
 

@@ -45,7 +45,25 @@
                             const li = document.createElement('li');
                             const fechaFormateada = formatearFecha(cita.fecha);
                             const horaFormateada = formatearHora(cita.hora);
-                            li.textContent = `${fechaFormateada} - ${horaFormateada} (${cita.estado})`;
+
+                            // Crear el texto de la cita
+                            const textoCita = document.createTextNode(`${fechaFormateada} - ${horaFormateada} (${cita.estado})`);
+                            li.appendChild(textoCita);
+
+                            // Crear el botón de eliminar
+                            const botonEliminar = document.createElement('button');
+                            botonEliminar.textContent = '🗑️'; // Ícono de papelera
+                            botonEliminar.classList.add('btn-eliminar');
+                            botonEliminar.title = 'Eliminar cita';
+
+                            // Añadir evento para eliminar la cita
+                            botonEliminar.addEventListener('click', () => {
+                                if (confirm(`¿Estás seguro de que deseas eliminar la cita del ${fechaFormateada} a las ${horaFormateada}?`)) {
+                                    eliminarCita(cita.fecha, cita.hora, li);
+                                }
+                            });
+
+                            li.appendChild(botonEliminar);
                             contenedor.appendChild(li);
                         });
                     }
@@ -55,6 +73,29 @@
             })
             .catch(error => {
                 console.error('Error al cargar las citas:', error);
+            });
+    }
+
+    // Función para eliminar una cita
+    function eliminarCita(fecha, hora, elemento) {
+        fetch('validaciones/eliminar_cita.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fecha, hora }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Cita eliminada con éxito.');
+                    elemento.remove(); // Eliminar el elemento de la lista
+                } else {
+                    alert(`Error al eliminar la cita: ${data.error}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar la cita:', error);
             });
     }
 
