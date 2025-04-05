@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -81,11 +81,19 @@
                         </select>
                     </td>
                 </tr>
+                <tr>
+                    <td><label for="c9">Contraseña:</label></td>
+                    <td><input type="password" id="c9" name="pass" minlength="8" placeholder="Contraseña" required></td>
+                </tr>
+                <tr>
+                    <td><label for="c10">Confirmar Contraseña:</label></td>
+                    <td><input type="password" id="c10" name="confirmar_pass" minlength="8" placeholder="Confirmar Contraseña" required></td>
+                </tr>
             </table>
             <button class="btnRegis" type="submit" name="enviar">Registrarse</button>
         </div>   
     </form>
-    <div id="error"></div>
+    <div id="error-message"></div>
     <?php require_once '../plantillas/footer.php'; ?>
 </body>
 

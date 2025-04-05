@@ -1,13 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<?php session_start();
-
-// if (!isset($_SESSION['idPaciente']) || !isset($_SESSION['nombrePaciente'])) {
-//     header("Location: index.php");
-// }
-
-// require_once "./validaciones/conexion.php";
-?>
+<html lang="es">
+<?php require_once './conexion/conexion.php'; ?>
 
 <head>
     <meta charset="UTF-8">
@@ -20,30 +13,38 @@
 <body>
     <?php require_once './plantillas/header.php'; ?>
     <main class="contenedor">
-        <!-- Seccion izquierda Calendario -->
-        <div class="seccion calendario">
-            <?php include 'validaciones/calendario/calendarioReserva.php'; ?>
+        <!-- Contenedor superior -->
+        <div class="fila">
+            <!-- Sección izquierda: Calendario -->
+            <div class="columna izquierda">
+                <?php include 'validaciones/calendario/calendarioReserva.php'; ?>
+            </div>
+
+            <!-- Sección derecha: Tramos horarios -->
+            <div class="columna derecha">
+                <h2>Selecciona un tramo horario</h2>
+                <ul id="tramos">
+                    <?php // require_once './validaciones/tramos_horarios.php'; ?>
+                </ul>
+            </div>
         </div>
 
-        <!-- Seccion derecha Tramos horarios -->
-        <div class="seccion horarios">
-            <h2>Selecciona un tramo horario</h2>
-            <ul id="tramos">
-                <?php require_once './validaciones/tramos_horarios.php'; ?>
-            </ul>
-        </div>
-    </main>
-    <main class="contenedor">
-        <!-- Seccion Proximas citas -->
-        <div class="seccion prox-citas">
-            <h2>Proximas Citas</h2>
+        <!-- Contenedor inferior -->
+        <div class="fila">
+            <!-- Sección izquierda: Próximas citas -->
+            <div class="columna izquierda">
+                <h2>Próximas Citas</h2>
+                <ul id="proximas-citas"></ul>
                 <?php require_once './validaciones/proximas_citas.php'; ?>
+            </div>
+
+            <!-- Sección derecha: Historial de citas -->
+            <div class="columna derecha">
+                <h2>Historial de Citas</h2>
+                <ul id="historial-citas"></ul>
+                <?php require_once './validaciones/historial.php'; ?>
+            </div>
         </div>
-        <!-- Seccion Historial de citas -->
-    <div class="seccion reserva">
-        <h2>Historial de Citas</h2>
-        <?php require_once './validaciones/historial.php'; ?> <!-- en historial una consulta para ver solo las activas o proximas -->
-    </div>
     </main>
     <?php require_once './plantillas/footer.php'; ?>
 </body>

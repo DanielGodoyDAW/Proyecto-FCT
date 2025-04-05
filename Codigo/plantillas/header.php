@@ -2,44 +2,73 @@
     <a href="/Codigo/index.php">
         <img class="logo" src="/Codigo/imagenes/logo_provisional.png" alt="icono">
     </a>
-    <h1>Clinica de Podología Carmen Godoy</h1>
+    <h1>Clínica de Podología Carmen Godoy</h1>
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
 
     <?php
-    //aqui poner la conexion a la base de datos y la consulta para ver si el usuario ha iniciado sesion o no
-    $adminName = "Carmen Godoy"; // Este usuario siempre sera el admin
-    $_SESSION['admin'] = $adminName;
-    //$_SESSION['pacientes'] = "Daniel Godoy"; // Simulando que el usuario ha iniciado sesión
-    //$_SESSION['sexo'] = "M"; // Simulando que el usuario es hombre
-    if (isset($_SESSION['admin']) && $_SESSION['admin'] === $adminName) {
-        echo '<p class="bienvenida">Bienvenida ' . $adminName . '</p>';
-    } else if (isset($_SESSION['pacientes']) && isset($_SESSION['sexo'])) {
-        if ($_SESSION['sexo'] === 'M') {
-            echo '<p class="bienvenida">Bienvenido ' . $_SESSION['pacientes'] . '</p>';
-        } else if ($_SESSION['sexo'] === 'F') {
-            echo '<p class="bienvenida">Bienvenida ' . $_SESSION['pacientes'] . '</p>';
-        } else {
-            echo '<p class="bienvenida">Bienvenid@ ' . $_SESSION['pacientes'] . '</p>';
+    session_start();
+    require_once __DIR__ . '/../conexion/conexion.php';
+
+    // Verificar si el usuario ha iniciado sesión
+    if (isset($_SESSION['idAdmin'])) {
+        // Si el usuario es administrador
+        $idAdmin = $_SESSION['idAdmin'];
+        $query = "SELECT nombre, apellido1, apellido2 FROM Admin WHERE idAdmin = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $idAdmin);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Si se encuentra el administrador, mostrar sus datos
+            $admin = $result->fetch_assoc();
+            echo '<p class="bienvenida">Bienvenido Administrador: ' . htmlspecialchars($admin['nombre']) . ' ' . htmlspecialchars($admin['apellido1']) . ' ' . htmlspecialchars($admin['apellido2']) . '</p>';
         }
-    } else {
-        echo '<p class="bienvenida">Bienvenido invitado</p>';
+    } else if (isset($_SESSION['idPacientes'])) {
+        // Si el usuario es un paciente
+        if (isset($_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'])) {
+            if ($_SESSION['sexo'] === 'M') {
+                echo '<p class="bienvenida">Bienvenido ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
+            } else if ($_SESSION['sexo'] === 'F') {
+                echo '<p class="bienvenida">Bienvenida ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
+            } else {
+                echo '<p class="bienvenida">Bienvenid@ ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
+            }
+        } else {
+            // Si no hay sesión iniciada
+            echo '<p class="bienvenida">Bienvenido invitado</p>';
+        }
     }
     ?>
 
     <nav>
         <ul>
+            <!-- Opcion siempre visible -->
             <li><a class="btnA" href="/Codigo/index.php">Inicio</a></li>
-            <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
+                // Opcion visible solo si el usuario es paciente o admin
                 echo "<li><a class='btnA' href='/Codigo/citas.php'>Citas</a></li>";
             } else {
+                // Opcion visible para invitados
                 echo "<li><a class='btnA' href='/Codigo/validaciones/registro.php'>Registro</a></li>";
             } ?>
-            <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] === $adminName) {
-                echo "<li><a class='btnA' href='/Codigo/validaciones/admin.php'>Administrar</a></li>";
+            <!-- solo si es admin -->
+            <?php if (isset($_SESSION['idAdmin'])) {
+                echo "<li><a class='btnA' href='/Codigo/admin.php'>Administrar</a></li>";
             } ?>
-            <?php if (isset($_SESSION['pacientes']) || isset($_SESSION['admin'])) {
-                echo  "<li><a class='btnA' href='/Codigo/validaciones/cerrar_sesion.php'>Cerrar Sesion</a></li>";
+            <!-- si es paciente o admin -->
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
+                echo "<li><a class='btnA' href='/Codigo/promociones.php'>Promociones</a></li>";
+            } ?>
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
+                echo "<li><a class='btnA' href='/Codigo/editar_perfil.php'>Editar Perfil</a></li>";
+            } ?>
+            <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
+                echo "<li><a class='btnA' href='/Codigo/conexion/cerrar_sesion.php'>Cerrar Sesion</a></li>";
             } ?>
         </ul>
     </nav>
+    <br>
+    <br>
+    <!-- <?php var_dump($_SESSION); ?> Para depurar la sesión actual -->
 </header>

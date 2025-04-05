@@ -16,26 +16,27 @@
     <div id="calendar-container">
         <div id="calendar-scroll">
             <div id="calendar"></div>
+            <!-- Modal -->
+            <div id="modalDia" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <p id="detalleFecha"></p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div id="modalDia" class="modal" style="display: none;">
-        <div class="modal-content">
-            <!-- <span class="close">&times;</span> -->
-            <p id="detalleFecha"></p>
-        </div>
-    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
+            const calendarEl = document.getElementById('calendar');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth', // Vista mensual
-                locale: 'es', // Español
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                contentHeight: 400,
+
                 dayHeaderContent: function(info) {
-                    // Personaliza los nombres de los días para que aparezcan en mayúsculas
                     const dias = {
                         'lun': 'Lunes',
                         'mar': 'Martes',
@@ -45,59 +46,173 @@
                         'sáb': 'Sábado',
                         'dom': 'Domingo'
                     };
-                    return dias[info.text] || info.text; // Devuelve el nombre personalizado
+                    return dias[info.text] || info.text;
                 },
-                contentHeight: 400,
 
-                // Aquí va el dateClick
+                // Añadir clases a los días deshabilitados (sábados y domingos)
+                dayCellClassNames: function(info) {
+                    const fecha = new Date(info.date);
+                    const diaSemana = fecha.getDay(); // 0 = domingo, 6 = sábado
+
+                    if (diaSemana === 0 || diaSemana === 6) {
+                        return ['fc-disabled-day']; // Clase personalizada para días deshabilitados
+                    }
+                },
+
                 dateClick: function(info) {
-                    var modal = document.getElementById('modalDia');
-                    var detalleFecha = document.getElementById('detalleFecha');
+                    const modal = document.getElementById('modalDia');
+                    const detalleFecha = document.getElementById('detalleFecha');
+                    const listaTramos = document.getElementById('tramos');
 
-                    // Formatear la fecha al estilo español (dd/mm/yyyy)
-                    var fecha = new Date(info.dateStr); // Convierte la fecha a un objeto Date
-                    var dia = fecha.getDate().toString().padStart(2, '0'); // Día con dos dígitos
-                    var mes = (fecha.getMonth() + 1).toString().padStart(2, '0'); // Mes con dos dígitos
-                    var anio = fecha.getFullYear(); // Año
+                    // Obtener el día de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
+                    const fecha = new Date(info.dateStr);
+                    const diaSemana = fecha.getDay();
 
-                    detalleFecha.textContent = 'Has seleccionado el día: ' + dia + '/' + mes + '/' + anio;
+                    // Deshabilitar sábados y domingos
+                    if (diaSemana === 0 || diaSemana === 6) {
+                        detalleFecha.textContent = 'No hay horarios disponibles para esta fecha.';
+                        modal.style.display = 'block';
+                        listaTramos.innerHTML = '<p style="color: gray;">Día no disponible</p>';
+                        return;
+                    }
+
+                    // Mostrar la fecha seleccionada
+                    detalleFecha.textContent = 'Has seleccionado el día: ' + info.dateStr;
                     modal.style.display = 'block';
 
-                    // Enviar la fecha al servidor mediante fetch
+                    // Cargar tramos disponibles desde PHP
                     fetch('validaciones/tramos_horarios.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                fecha: info.dateStr
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Tramos horarios:', data); // Aquí puedes manejar los tramos horarios devueltos
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                },
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            fecha: info.dateStr
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        listaTramos.innerHTML = '';
 
-                events: function(fetchInfo, successCallback, failureCallback) {
-                    // Llamada a un archivo PHP para obtener los datos de disponibilidad
-                    fetch('validaciones/calendario/get-availability.php')
-                        .then(response => response.json())
-                        .then(data => {
-                            // Procesar los datos y asignar clases personalizadas
-                            const events = data.map(day => {
-                                return {
-                                    start: day.date, // Fecha del día
-                                    display: 'background', // Mostrar como fondo
-                                    classNames: [day.status] // Clase CSS según el estado
-                                };
-                            });
-                            successCallback(events);
-                        })
-                        .catch(error => failureCallback(error));
+                        if (data.error) {
+                            listaTramos.innerHTML = `<p style="color: gray;">${data.error}</p>`;
+                        } else {
+                            // Crear contenedor para las dos columnas
+                            const contenedorColumnas = document.createElement('div');
+                            contenedorColumnas.classList.add('horarios-contenedor');
+
+                            // Separar horarios de mañana y tarde
+                            const horariosManana = [];
+                            const horariosTarde = [];
+
+                            for (const [inicio, fin] of Object.entries(data)) {
+                                if (inicio < "14:00") {
+                                    horariosManana.push(`${inicio} - ${fin}`);
+                                } else {
+                                    horariosTarde.push(`${inicio} - ${fin}`);
+                                }
+                            }
+
+                            // Crear columna de horarios de mañana
+                            if (horariosManana.length > 0) {
+                                const columnaManana = document.createElement('div');
+                                columnaManana.classList.add('horarios-columna');
+
+                                const tituloManana = document.createElement('h3');
+                                tituloManana.textContent = 'Horario de mañana:';
+                                columnaManana.appendChild(tituloManana);
+
+                                horariosManana.forEach(horario => {
+                                    const button = document.createElement('button');
+                                    button.textContent = horario;
+                                    button.classList.add('horario-boton');
+
+                                    // Al hacer clic en un tramo
+                                    button.addEventListener('click', () => {
+                                        if (confirm(`¿Deseas reservar el tramo ${horario}?`)) {
+                                            fetch('validaciones/reservar_tramo.php', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    fecha: info.dateStr,
+                                                    hora: horario.split(' - ')[0]
+                                                }),
+                                            })
+                                            .then(res => res.json())
+                                            .then(resp => {
+                                                if (resp.success) {
+                                                    alert(resp.mensaje);
+                                                } else {
+                                                    alert(resp.error || "Error al reservar");
+                                                }
+                                            })
+                                            .catch(err => {
+                                                alert("Error al reservar: " + err);
+                                            });
+                                        }
+                                    });
+
+                                    columnaManana.appendChild(button);
+                                });
+
+                                contenedorColumnas.appendChild(columnaManana);
+                            }
+
+                            // Crear columna de horarios de tarde
+                            if (horariosTarde.length > 0) {
+                                const columnaTarde = document.createElement('div');
+                                columnaTarde.classList.add('horarios-columna');
+
+                                const tituloTarde = document.createElement('h3');
+                                tituloTarde.textContent = 'Horario de tarde:';
+                                columnaTarde.appendChild(tituloTarde);
+
+                                horariosTarde.forEach(horario => {
+                                    const button = document.createElement('button');
+                                    button.textContent = horario;
+                                    button.classList.add('horario-boton');
+
+                                    // Al hacer clic en un tramo
+                                    button.addEventListener('click', () => {
+                                        if (confirm(`¿Deseas reservar el tramo ${horario}?`)) {
+                                            fetch('validaciones/reservar_tramo.php', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                },
+                                                body: JSON.stringify({
+                                                    fecha: info.dateStr,
+                                                    hora: horario.split(' - ')[0]
+                                                }),
+                                            })
+                                            .then(res => res.json())
+                                            .then(resp => {
+                                                if (resp.success) {
+                                                    alert(resp.mensaje);
+                                                } else {
+                                                    alert(resp.error || "Error al reservar");
+                                                }
+                                            })
+                                            .catch(err => {
+                                                alert("Error al reservar: " + err);
+                                            });
+                                        }
+                                    });
+
+                                    columnaTarde.appendChild(button);
+                                });
+
+                                contenedorColumnas.appendChild(columnaTarde);
+                            }
+
+                            listaTramos.appendChild(contenedorColumnas);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
                 }
             });
 

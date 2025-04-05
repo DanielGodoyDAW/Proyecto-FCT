@@ -8,9 +8,9 @@ Historial
 
 
 Citas: idCita(PK), fecha, hora, idPacientes(FK), estado(marca si se cancela), idTratamiento(FK), anotaciones
-Pacientes: idPacientes(PK), nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni
+Pacientes: idPacientes(PK), nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, contraseña
 Admin: idAdmin(PK), nombre, email, telefono
-Promociones: idPromocion(PK), descripcion, fechaInicio, fechaFin, descuento
+Promociones: idPromocion(PK), descripcion, fechaInicio, fechaFin, descuento, titulo, imagen
 Tratamientos: idTratamiento(PK), nombre, descripcion, precio, fechaInicio, fechaFin, estado(en curso o finalizado)
 Historial: idHistorial(PK), idPacientes(FK), fecha, descripcion
 Cancelacion: idCancenlacion, idCita, vista
@@ -20,6 +20,8 @@ menu:
 inicio -> login 
 
 citas -> calendario - tramos - proximas citas - Historial
+
+promociones -> promocion1, promocion2, 
 
 administracion -> Busqueda Paciente (idPacientes (desplegable con los nombres), por fecha (fechaInicio, fechaFin), tratamiento) - Historial - Tratamientos
 

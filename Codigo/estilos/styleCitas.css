@@ -1,22 +1,36 @@
-/* Contenedor principal con altura máxima sin pisar el footer */
-main.contenedor {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-    padding: 20px;
-    gap: 20px; 
+:root {
+    --colorFondo: #f0f0f0;
+    --colorTexto: #333;
+    --colorBoton: #08A3A9;
+    --colorBotonHover: #0f2788;
+    --colorFondo: #DFF5F6;
+    --colorFondoDivs: #E8F0F1;
 }
 
-/* Secciones dentro del contenedor principal */
-.seccion {
-    flex: 1;
-    height: 90vh; 
-    padding: 20px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+.contenedor {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
+
+.fila {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.columna {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: var(--colorFondoDivs);
+}
+
+.columna.izquierda {
+    /* Estilos específicos para la columna izquierda */
+}
+
+.columna.derecha {
+    /* Estilos específicos para la columna derecha */
 }

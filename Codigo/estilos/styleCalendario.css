@@ -1,8 +1,9 @@
 :root{
     --colorFondo: #f0f0f0;
     --colorTexto: #333;
-    --colorBoton: #0f8088;
+    --colorBoton: #08A3A9;
     --colorBotonHover: #0f2788;
+    --colorBotonActivoHover: #0056b3;
 }
 
 #calendar-container {
@@ -60,4 +61,57 @@
 .fc-toolbar .fc-button.fc-button-active {
     background-color: #0f2788; 
     color: white;
+}
+
+.fc-disabled-day {
+    background-color: #f0f0f0; 
+    color: gray; 
+    pointer-events: none; 
+    opacity: 0.6; 
+}
+
+.horarios-contenedor {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.horarios-columna {
+    flex: 1;
+    min-width: 150px;
+}
+
+.horarios-columna h3 {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.horario-boton {
+    display: block;
+    width: 150px;
+    margin: 5px 0;
+    padding: 8px;
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.horario-boton:hover {
+    background-color: var(--colorBotonActivoHover);
+}
+
+.horario-boton:active {
+    background-color: #003f7f;
+}
+
+.horario-boton:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
 }

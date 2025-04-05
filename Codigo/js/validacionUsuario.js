@@ -34,20 +34,26 @@ function validarContrasena() {
     const regexContrasena = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     // Al menos 8 caracteres, una letra mayúscula, un número y un carácter especial
 
-    if (!contrasena.checkValidity() || !regexContrasena.test(contrasena.value)) {
-        error(contrasena, "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.");
+    if (!regexContrasena.test(contrasena.value)) {
+        error("La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.");
+        contrasena.style.border = "2px solid red";
         return false;
     } else {
         contrasena.style.border = "2px solid green";
+        borrarError(); // Borra el mensaje de error si la contraseña es válida
     }
     return true;
 }
 
 // Modificar la función de error para aceptar mensajes personalizados
-function error(elemento, mensaje) {
-    document.getElementById("error").innerHTML = mensaje || elemento.validationMessage;
-    elemento.style.border = "2px solid red";
-    elemento.focus();
+function error(message) {
+    const errorElement = document.getElementById('error-message');
+    if (errorElement) {
+        errorElement.innerHTML = message; // Muestra el mensaje de error
+        errorElement.style.color = "red"; // Opcional: Estilo del mensaje
+    } else {
+        console.error('El elemento con id "error-message" no existe.');
+    }
 }
 //validar borrar error
 function borrarError() {

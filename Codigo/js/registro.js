@@ -7,7 +7,7 @@ function iniciar() {
 //funcion validar registro
 function validarRegistro(event) {
     event.preventDefault();
-    if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarFecha() && validarSexo()) {
+    if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarFecha() && validarSexo() && validarPass() && validarConfirmarPass()) {
         alert("Formulario enviado correctamente");
         window.location.href = "/Codigo/citas.php";
         return true;
@@ -109,6 +109,36 @@ function validarSexo() {
         return false;
     } else {
         sexo.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar contraseña
+function validarPass() {
+    let pass = document.getElementById("c9");
+    const regexPass = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // Al menos 8 caracteres, una letra mayuscula, un numero y un caracter especial
+
+    if (!pass.checkValidity() || !regexPass.test(pass.value)) {
+        error(pass);
+        return false;
+    } else {
+        pass.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar confirmar contraseña
+function validarConfirmarPass() {
+    let pass = document.getElementById("c9");
+    let confirmarPass = document.getElementById("c10");
+
+    if (confirmarPass.value !== pass.value) {
+        error(confirmarPass);
+        document.getElementById("error").innerHTML = "Las contraseñas no coinciden.";
+        return false;
+    } else {
+        confirmarPass.style.border = "2px solid green";
     }
     return true;
 }
