@@ -1,18 +1,29 @@
 <?php
-require_once '../conexion/conexion.php'; // Asegúrate de que la ruta sea correcta
-//simulacion
-// filepath: d:\Escritorio\instituto\2 Segundo DAW\Repositorio github\Proyecto FCT\Proyecto-FCT\Codigo\validaciones\tramos_horarios.php
-
+require_once __DIR__ . '/../conexion/conexion.php';
 // Obtener los datos enviados desde el cliente
 $data = json_decode(file_get_contents('php://input'), true);
+$rawData = file_get_contents('php://input');
+file_put_contents('debug.log', $rawData, FILE_APPEND);
+
+// Depuración: Guardar los datos recibidos en debug.log
+file_put_contents('debug.log', print_r($data, true), FILE_APPEND);
 
 // Verificar si se recibió la fecha
 if (isset($data['fecha'])) {
+    
     $fechaSeleccionada = $data['fecha']; // Fecha seleccionada (YYYY-MM-DD)
 
-    $tramosHorarios = array(
-        "08:00" => "08:30",
-        "08:30" => "09:00",
+    // Obtener el dia de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
+    $diaSemana = date('w', strtotime($fechaSeleccionada));
+
+    // Si es sábado (6) o domingo (0), devolver un mensaje
+    if ($diaSemana == 0 || $diaSemana == 6) {
+        echo json_encode(['error' => 'No hay horarios disponibles para esta fecha']);
+        exit();
+    }
+
+    $tramosHorariosManana = array(
+    
         "09:00" => "09:30",
         "09:30" => "10:00",
         "10:00" => "10:30",
@@ -22,14 +33,24 @@ if (isset($data['fecha'])) {
         "12:00" => "12:30",
         "12:30" => "13:00",
         "13:00" => "13:30",
-        "13:30" => "14:00",
+        
+    );
+    $tramosHorariosTarde = array(
         "16:00" => "16:30",
         "16:30" => "17:00",
         "17:00" => "17:30",
         "17:30" => "18:00",
         "18:00" => "18:30",
         "18:30" => "19:00",
+       
     );
+
+    // Si es viernes (5), eliminar los horarios de la tarde
+    if ($diaSemana == 5) {
+        $tramosHorariosTarde = [];
+    }
+
+    $tramosHorarios = array_merge($tramosHorariosManana, $tramosHorariosTarde);
 
     // Consultar los horarios reservados para la fecha seleccionada
     $query = "SELECT hora FROM Citas WHERE fecha = ?";

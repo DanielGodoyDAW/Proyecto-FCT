@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica de Podologia</title>
     <link rel="stylesheet" href="estilos/style.css">
-    <script src="/Codigo/js/validacionUsuario.js"></script> <!-- para probar la validacion -->
+    <!-- <script src="/Codigo/js/validacionUsuario.js"></script> para probar la validacion -->
 </head>
 
 <body>

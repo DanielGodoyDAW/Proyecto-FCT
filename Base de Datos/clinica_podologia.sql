@@ -100,4 +100,3 @@ VALUES (1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '64364
 INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
 VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', '1989-07-22', 'M', '53368486E', '12345678A');
 
--- INSERTAR 
