@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/registro.js"></script>
+    <script src="/Codigo/js/registro.js"></script>
     <link rel="stylesheet" href="/Codigo/estilos/stylesRegistro.css">
     <title>Registrarse</title>
     <style>
@@ -20,7 +20,7 @@
 
 <body>
     <?php require_once '../plantillas/header.php'; ?>
-    <form action="./validaciones/validacionRegistro.php" method="post" id="validacionRegistro" novalidate>
+    <form action="/Codigo/validaciones/validacionRegistro.php" method="post" id="validacionRegistro" novalidate>
         <div class="contenedorRegistro">
             <p>Por favor, rellena el siguiente formulario para registrarte.</p>
             <table class="tablaRegistro">
@@ -83,17 +83,17 @@
                 </tr>
                 <tr>
                     <td><label for="c9">Contraseña:</label></td>
-                    <td><input type="password" id="c9" name="pass" minlength="8" placeholder="Contraseña" required></td>
+                    <td><input type="password" id="c9" name="pass" placeholder="Contraseña" required></td>
                 </tr>
                 <tr>
                     <td><label for="c10">Confirmar Contraseña:</label></td>
-                    <td><input type="password" id="c10" name="confirmar_pass" minlength="8" placeholder="Confirmar Contraseña" required></td>
+                    <td><input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required></td>
                 </tr>
             </table>
             <button class="btnRegis" type="submit" name="enviar">Registrarse</button>
         </div>   
     </form>
-    <div id="error-message"></div>
+    <div id="error"></div>
     <?php require_once '../plantillas/footer.php'; ?>
 </body>
 

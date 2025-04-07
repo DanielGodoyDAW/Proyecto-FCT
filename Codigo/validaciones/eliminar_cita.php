@@ -16,7 +16,7 @@ $hora = $data['hora'];
 
 // Eliminar la cita de la base de datos
 $query = "DELETE FROM Citas WHERE fecha = ? AND hora = ?";
-$stmt = $con->prepare($query);
+$stmt = $conexion->prepare($query);
 $stmt->bind_param("ss", $fecha, $hora);
 
 if ($stmt->execute()) {

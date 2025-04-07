@@ -1,5 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../conexion/conexion.php'; // Asegúrate de incluir la conexión a la base de datos
+
+if (!$conexion) {
+    die("Error en la conexión a la base de datos: " . mysqli_connect_error());
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores = [];
@@ -42,17 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "El teléfono debe tener el formato +99 999 999 999.";
     }
 
-    // Validar fecha de nacimiento
     if (empty($_POST['fecha_nacimiento'])) {
         $errores[] = "La fecha de nacimiento es obligatoria.";
     } else {
-        $fecha_nacimiento = DateTime::createFromFormat('Y-m-d', $_POST['fecha_nacimiento']);
-        $fecha_actual = new DateTime();
+        try {
+            $fecha_nacimiento = new DateTime($_POST['fecha_nacimiento']);
+            $fecha_actual = new DateTime();
 
-        if (!$fecha_nacimiento) {
-            $errores[] = "El formato de la fecha de nacimiento no es válido.";
-        } elseif ($fecha_nacimiento > $fecha_actual) {
-            $errores[] = "La fecha de nacimiento no puede ser posterior a la fecha actual.";
+            if ($fecha_nacimiento > $fecha_actual) {
+                $errores[] = "La fecha de nacimiento no puede ser posterior a la fecha actual.";
+            }
+        } catch (Exception $e) {
+            $errores[] = "La fecha de nacimiento no tiene un formato válido.";
         }
     }
 
@@ -70,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mostrar errores o procesar datos
     if (!empty($errores)) {
+        var_dump($errores); // Depura los errores
         foreach ($errores as $error) {
             echo "<p style='color: red;'>$error</p>";
         }
@@ -79,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password_encriptada = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
         // Insertar en la base de datos
-        $sql = "INSERT INTO pacientes (nombre, apellido1, apellido2, dni, email, telefono, fecha_nacimiento, sexo, password) 
+        $sql = "INSERT INTO pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param(
@@ -87,21 +94,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['nombre'],
             $_POST['apellido1'],
             $_POST['apellido2'],
-            $_POST['dni'],
             $_POST['email'],
             $_POST['telefono'],
             $_POST['fecha_nacimiento'],
             $_POST['sexo'],
+            $_POST['dni'],
             $password_encriptada
         );
 
         if ($stmt->execute()) {
             // Redirigir al usuario después del registro exitoso
-            header('Location: /Codigo/citas.php');
+            header('Location: /Codigo/index.php');
             exit();
         } else {
             echo "<p style='color: red;'>Error al registrar al usuario. Por favor, inténtalo de nuevo.</p>";
         }
     }
 }
-?>

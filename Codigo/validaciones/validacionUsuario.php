@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset(
 
     // Consultar si el usuario es un administrador
     $queryAdmin = "SELECT * FROM Admin WHERE email = ? AND pass = ?";
-    $stmtAdmin = $con->prepare($queryAdmin);
+    $stmtAdmin = $conexion->prepare($queryAdmin);
     $stmtAdmin->bind_param("ss", $email, $password);
     $stmtAdmin->execute();
     $resultAdmin = $stmtAdmin->get_result();
@@ -28,27 +28,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset(
     }
 
     // Consulta para verificar si el usuario es un paciente
-    $queryPaciente = "SELECT idPacientes, nombre, apellido1, apellido2, sexo FROM Pacientes WHERE email = ? AND pass = ?";
-    $stmtPaciente = $con->prepare($queryPaciente);
-    $stmtPaciente->bind_param("ss", $email, $password);
+    $queryPaciente = "SELECT idPacientes, nombre, apellido1, apellido2, sexo, pass FROM Pacientes WHERE email = ?";
+    $stmtPaciente = $conexion->prepare($queryPaciente);
+    $stmtPaciente->bind_param("s", $email);
     $stmtPaciente->execute();
     $resultPaciente = $stmtPaciente->get_result();
 
     if ($resultPaciente->num_rows > 0) {
-        // Usuario es paciente
         $paciente = $resultPaciente->fetch_assoc();
-        $_SESSION['idPacientes'] = $paciente['idPacientes'];
-        $_SESSION['nombre'] = $paciente['nombre'];
-        $_SESSION['apellido1'] = $paciente['apellido1'];
-        $_SESSION['apellido2'] = $paciente['apellido2'];
-        $_SESSION['sexo'] = $paciente['sexo'];
-        echo "Redirigiendo a citas.php"; // Depuración
-        header("Location: ../citas.php"); // Redirigir a la seccion de citas
+
+        // Verificar la contraseña
+        if (password_verify($password, $paciente['pass'])) {
+            // Iniciar sesión
+            $_SESSION['idPacientes'] = $paciente['idPacientes'];
+            $_SESSION['nombre'] = $paciente['nombre'];
+            $_SESSION['apellido1'] = $paciente['apellido1'];
+            $_SESSION['apellido2'] = $paciente['apellido2'];
+            $_SESSION['sexo'] = $paciente['sexo'];
+            header("Location: ../citas.php");
+            exit();
+        } else {
+            header("Location: ../index.php?error=1"); // Contraseña incorrecta
+            exit();
+        }
+    } else {
+        header("Location: ../index.php?error=1"); // Usuario no encontrado
         exit();
     }
-
-    // Si las credenciales no son validas
-    echo "Credenciales no válidas"; // Depuración
-    header("Location: ../index.php?error=1");
+} else {
+    header("Location: ../index.php?error=1"); // Usuario no encontrado
     exit();
 }

@@ -3,7 +3,7 @@
 
 $id = $_GET['id'];
 $sql = "SELECT * FROM promociones WHERE idPromocion = $id";
-$result = $conn->query($sql);
+$result = $conexion->query($sql);
 $promocion = $result->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

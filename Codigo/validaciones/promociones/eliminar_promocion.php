@@ -3,7 +3,7 @@
 
 $id = $_GET['id'];
 $sql = "DELETE FROM promociones WHERE id = $id";
-$conn->query($sql);
+$conexion->query($sql);
 
 header('Location: ../admin.php');
 exit();

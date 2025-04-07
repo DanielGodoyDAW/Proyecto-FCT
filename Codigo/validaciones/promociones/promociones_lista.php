@@ -1,7 +1,7 @@
 <?php
 // require_once './conexion/conexion.php'; // Conexión a la base de datos
 $sql = "SELECT * FROM promociones";
-$result = $conn->query($sql);
+$result = $conexion->query($sql);
 
 while ($row = $result->fetch_assoc()):
 ?>

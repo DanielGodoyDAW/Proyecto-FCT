@@ -54,7 +54,7 @@ if (isset($data['fecha'])) {
 
     // Consultar los horarios reservados para la fecha seleccionada
     $query = "SELECT hora FROM Citas WHERE fecha = ?";
-    $stmt = $con->prepare($query);
+    $stmt = $conexion->prepare($query);
     $stmt->bind_param("s", $fechaSeleccionada);
     $stmt->execute();
     $result = $stmt->get_result();

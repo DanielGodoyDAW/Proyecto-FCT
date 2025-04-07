@@ -6,10 +6,8 @@ function iniciar() {
 
 //funcion validar registro
 function validarRegistro(event) {
-    event.preventDefault();
     if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarFecha() && validarSexo() && validarPass() && validarConfirmarPass()) {
         alert("Formulario enviado correctamente");
-        window.location.href = "/Codigo/citas.php";
         return true;
     } else {
         alert("Error en el formulario, por favor corrige los campos marcados.");
@@ -116,7 +114,7 @@ function validarSexo() {
 //validar contraseña
 function validarPass() {
     let pass = document.getElementById("c9");
-    const regexPass = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const regexPass = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&+])[A-Za-z\d@$!%*?&+]{8,}$/;
     // Al menos 8 caracteres, una letra mayuscula, un numero y un caracter especial
 
     if (!pass.checkValidity() || !regexPass.test(pass.value)) {
@@ -145,7 +143,18 @@ function validarConfirmarPass() {
 
 //validar error
 function error(elemento) {
-    document.getElementById("error").innerHTML = elemento.validationMessage;
+    const errorDiv = document.getElementById("error");
+    if (!errorDiv) {
+        console.error('El elemento con id "error" no existe en el DOM.');
+        return;
+    }
+
+    if (elemento.validationMessage) {
+        errorDiv.innerHTML = elemento.validationMessage;
+    } else {
+        errorDiv.innerHTML = "Error desconocido.";
+    }
+
     elemento.style.border = "2px solid red";
     elemento.focus();
 }

@@ -14,7 +14,7 @@
         // Si el usuario es administrador
         $idAdmin = $_SESSION['idAdmin'];
         $query = "SELECT nombre, apellido1, apellido2 FROM Admin WHERE idAdmin = ?";
-        $stmt = $conn->prepare($query);
+        $stmt = $conexion->prepare($query);
         $stmt->bind_param("i", $idAdmin);
         $stmt->execute();
         $result = $stmt->get_result();

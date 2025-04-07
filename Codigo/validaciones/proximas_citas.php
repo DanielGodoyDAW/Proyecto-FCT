@@ -1,5 +1,26 @@
 <?php
-//consulta a la bd de las proximas citas, habra que hacer un select que solo muestre las proximas citas, descartando las antiguas
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
+
+// if (!isset($_SESSION['idPacientes'])) {
+//     echo json_encode(['error' => 'Usuario no autenticado']);
+//     exit();
+// }
+
+// $idPaciente = $_SESSION['idPacientes'];
+// $query = "SELECT * FROM citas WHERE idPacientes = ? AND fecha >= CURDATE() ORDER BY fecha ASC";
+// $stmt = $conexion->prepare($query);
+// $stmt->bind_param("i", $idPaciente);
+// $stmt->execute();
+// $result = $stmt->get_result();
+
+// $citas = [];
+// while ($row = $result->fetch_assoc()) {
+//     $citas[] = $row;
+// }
+
+// echo json_encode(['success' => true, 'citas' => $citas]);
 ?>
 
 <script>
