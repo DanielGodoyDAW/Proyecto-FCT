@@ -9,11 +9,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset(
     $password = htmlspecialchars($_POST["password"]);
 
     // Consultar si el usuario es un administrador
-    $queryAdmin = "SELECT * FROM Admin WHERE email = ? AND pass = ?";
-    $stmtAdmin = $conexion->prepare($queryAdmin);
-    $stmtAdmin->bind_param("ss", $email, $password);
-    $stmtAdmin->execute();
-    $resultAdmin = $stmtAdmin->get_result();
+    $queryAdmin = "SELECT * FROM Admin WHERE email ='". $_POST['email']."'";
+    $result = mysqli_query($conexion, $queryAdmin);
+    if(mysqli_num_rows($result) > 0) {
+        $admin = mysqli_fetch_assoc($result);
+        // Verificar la contraseña
+        if (password_verify($password, $admin['pass'])) {
+            // Iniciar sesión
+            $_SESSION['idAdmin'] = $admin['idAdmin'];
+            $_SESSION['nombre'] = $admin['nombre'];
+            $_SESSION['apellido1'] = $admin['apellido1'];
+            $_SESSION['apellido2'] = $admin['apellido2'];
+            echo "Redirigiendo a admin.php"; // Depuración
+            header("Location: ../admin.php"); // Redirigir a la página de administración
+            exit();
+        } else {
+            header("Location: ../index.php?error=1"); // Contraseña incorrecta
+            exit();
+        }
+    }
 
     if ($resultAdmin->num_rows > 0) {
         // Si el usuario es administrador
