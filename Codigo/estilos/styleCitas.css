@@ -27,10 +27,29 @@
     background-color: var(--colorFondoDivs);
 }
 
-.columna.izquierda {
-    /* Estilos específicos para la columna izquierda */
+#proximas-citas {
+    border: 2px solid green; /* Borde temporal para ver el contenedor */
+    background-color: #f5f5f5; /* Fondo temporal */
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
-.columna.derecha {
-    /* Estilos específicos para la columna derecha */
+.btn-eliminar {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    z-index: 10; /* Asegura que esté encima de otros elementos */
+}
+
+.btn-eliminar:hover {
+    background-color: darkred;
+}
+
+#proximas-citas li {
+    border: 1px solid blue; /* Borde temporal para verificar */
+    margin-bottom: 5px;
 }

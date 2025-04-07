@@ -41,7 +41,9 @@
             <!-- Sección derecha: Historial de citas -->
             <div class="columna derecha">
                 <h2>Historial de Citas</h2>
-                <ul id="historial-citas"></ul>
+                <ul id="historial-citas">
+                    <li id="cita-Eliminar"></li>
+                </ul>
                 <?php require_once './validaciones/historial.php'; ?>
             </div>
         </div>
