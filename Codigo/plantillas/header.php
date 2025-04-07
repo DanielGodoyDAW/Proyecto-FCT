@@ -27,9 +27,9 @@
     } else if (isset($_SESSION['idPacientes'])) {
         // Si el usuario es un paciente
         if (isset($_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'])) {
-            if ($_SESSION['sexo'] === 'M') {
+            if ($_SESSION['sexo'] === 'H') {
                 echo '<p class="bienvenida">Bienvenido ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
-            } else if ($_SESSION['sexo'] === 'F') {
+            } else if ($_SESSION['sexo'] === 'M') {
                 echo '<p class="bienvenida">Bienvenida ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
             } else {
                 echo '<p class="bienvenida">Bienvenid@ ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
