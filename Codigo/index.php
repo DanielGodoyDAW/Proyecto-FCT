@@ -15,7 +15,9 @@
     <main>
         <form class="formularioLogin" action="./validaciones/validacionUsuario.php" id="validacionUsuario" method="post">
             <?php if (isset($_GET['error'])) : ?>
-                <p style="color: red;">Usuario o contraseña incorrectos</p>
+                <div style="text-align: center; margin-top: 10px;">
+                    <p style="color: red;">Usuario o contraseña incorrectos</p>
+                </div>
             <?php endif; ?>
             <br>
             <div class="contenedorLogin">
