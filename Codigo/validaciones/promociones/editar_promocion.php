@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = "UPDATE promociones SET titulo = '$titulo', descripcion = '$descripcion' WHERE idPromocion = $id";
     }
 
-    $conn->query($sql);
+    $conexion->query($sql);
     header('Location: ../admin.php');
     exit();
 }

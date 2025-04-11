@@ -1,5 +1,4 @@
 <?php
-//habra que modificar todo cuando llegue aqui
 require_once __DIR__ . '/../conexion/conexion.php';
 
 header('Content-Type: application/json');

@@ -1,5 +1,4 @@
 <?php
-//! habra que modificar cosas cuando llegue aqui
 session_start();
 require_once __DIR__ . '/../conexion/conexion.php';
 

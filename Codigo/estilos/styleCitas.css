@@ -27,13 +27,6 @@
     background-color: var(--colorFondoDivs);
 }
 
-#proximas-citas {
-    border: 2px solid green; /* Borde temporal para ver el contenedor */
-    background-color: #f5f5f5; /* Fondo temporal */
-    padding: 10px;
-    max-height: 400px;
-    overflow-y: auto;
-}
 
 .btn-eliminar {
     background-color: red;
@@ -49,7 +42,3 @@
     background-color: darkred;
 }
 
-#proximas-citas li {
-    border: 1px solid blue; /* Borde temporal para verificar */
-    margin-bottom: 5px;
-}

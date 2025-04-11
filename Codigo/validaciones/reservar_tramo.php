@@ -2,26 +2,27 @@
 session_start();
 require_once __DIR__ . '/../conexion/conexion.php';
 
-header('Content-Type: application/json');
-
-// Comprobamos si hay sesión activa
-if (!isset($_SESSION['idPacientes'])) {
-    echo json_encode(['success' => false, 'error' => 'Debes iniciar sesión para reservar un tramo.']);
-    exit;
+// Verificar si hay sesión activa
+if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
+    die('Error: Debes iniciar sesión para reservar un tramo.');
 }
 
-$idPaciente = $_SESSION['idPacientes'];
-$data = json_decode(file_get_contents('php://input'), true);
+// Obtener el ID del paciente o administrador
+$idPaciente = isset($_SESSION['idPacientes']) ? $_SESSION['idPacientes'] : null;
+$idAdmin = isset($_SESSION['idAdmin']) ? $_SESSION['idAdmin'] : null;
 
-if (!isset($data['fecha']) || !isset($data['hora'])) {
-    echo json_encode(['success' => false, 'error' => 'Datos incompletos.']);
-    exit;
+// Si es el administrador, marcar la cita como bloqueada
+$bloqueada = ($idAdmin && !$idPaciente) ? 1 : 0;
+
+// Verificar si se recibieron la fecha y la hora
+if (!isset($_POST['fecha']) || !isset($_POST['hora'])) {
+    die('Error: Datos incompletos. Asegúrate de enviar la fecha y la hora.');
 }
 
-$fecha = $data['fecha'];
-$hora = $data['hora'];
+$fecha = $_POST['fecha'];
+$hora = $_POST['hora'];
 
-// Primero, verificamos que ese tramo esté libre
+// Verificar que el tramo no esté reservado
 $query = "SELECT COUNT(*) AS total FROM Citas WHERE fecha = ? AND hora = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param("ss", $fecha, $hora);
@@ -29,26 +30,21 @@ $stmt->execute();
 $result = $stmt->get_result()->fetch_assoc();
 
 if ($result['total'] > 0) {
-    echo json_encode(['success' => false, 'error' => 'Este horario ya está reservado.']);
-    exit;
-}
-
-// Insertar la nueva cita, pendiente, confirmada o cancelada
-$estado = 'Pendiente'; // o 'Confirmada', según lógica que uses
-$idAdmin = 1; // solo hay un admin 
-
-$insert = "INSERT INTO Citas (fecha, hora, estado, idPacientes, idAdmin) VALUES (?, ?, ?, ?, ?)";
-$stmt = $conexion->prepare($insert);
-$stmt->bind_param("sssii", $fecha, $hora, $estado, $idPaciente, $idAdmin);
-
-if ($stmt->execute()) {
-    echo json_encode(['success' => true, 'mensaje' => '¡Cita reservada con éxito!']);
+    echo '<script>alert("El tramo horario ya está reservado.");</script>';
+    echo '<script>window.location.href = "../citas.php";</script>'; // Volver a la página anterior
 } else {
-    echo json_encode(['success' => false, 'error' => 'Error al guardar la cita en la base de datos.']);
+    // Insertar la nueva cita en la base de datos
+    $estado = 'Pendiente';
+    $insert = "INSERT INTO Citas (fecha, hora, estado, idPacientes, idAdmin, bloqueada) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conexion->prepare($insert);
+    $stmt->bind_param("sssiii", $fecha, $hora, $estado, $idPaciente, $idAdmin, $bloqueada);
+
+    if ($stmt->execute()) {
+        echo '<script>alert("Cita reservada exitosamente.");</script>';
+        echo '<script>window.location.href = "../citas.php";</script>'; // Redirigir a la pagina de citas
+    } else {
+        echo 'Error: No se pudo guardar la cita en la base de datos.';
+    }
 }
-
-
-
-
 
 ?>
