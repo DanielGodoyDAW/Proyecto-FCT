@@ -30,19 +30,21 @@ $stmt->execute();
 $result = $stmt->get_result()->fetch_assoc();
 
 if ($result['total'] > 0) {
-    die('Error: Este horario ya está reservado.');
-}
-
-// Insertar la nueva cita en la base de datos
-$estado = 'Pendiente';
-$insert = "INSERT INTO Citas (fecha, hora, estado, idPacientes, idAdmin, bloqueada) VALUES (?, ?, ?, ?, ?, ?)";
-$stmt = $conexion->prepare($insert);
-$stmt->bind_param("sssiii", $fecha, $hora, $estado, $idPaciente, $idAdmin, $bloqueada);
-
-if ($stmt->execute()) {
-    echo '<script>alert("Cita reservada exitosamente.");</script>';
-    echo '<script>window.location.href = "../citas.php";</script>'; // Redirigir a la página de citas
+    echo '<script>alert("El tramo horario ya está reservado.");</script>';
+    echo '<script>window.location.href = "../citas.php";</script>'; // Volver a la página anterior
 } else {
-    echo 'Error: No se pudo guardar la cita en la base de datos.';
+    // Insertar la nueva cita en la base de datos
+    $estado = 'Pendiente';
+    $insert = "INSERT INTO Citas (fecha, hora, estado, idPacientes, idAdmin, bloqueada) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conexion->prepare($insert);
+    $stmt->bind_param("sssiii", $fecha, $hora, $estado, $idPaciente, $idAdmin, $bloqueada);
+
+    if ($stmt->execute()) {
+        echo '<script>alert("Cita reservada exitosamente.");</script>';
+        echo '<script>window.location.href = "../citas.php";</script>'; // Redirigir a la pagina de citas
+    } else {
+        echo 'Error: No se pudo guardar la cita en la base de datos.';
+    }
 }
+
 ?>

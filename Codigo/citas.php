@@ -24,7 +24,12 @@
             <div class="columna derecha">
                 <h2>Selecciona un tramo horario</h2>
                 <ul id="tramos">
-                    <?php require_once './validaciones/tramos_horarios.php'; ?>
+                    <?php
+                    if (isset($_SESSION["idAdmin"])) {
+                        require_once './validaciones/citas_Bloqueadas.php';
+                    } else {
+                        require_once './validaciones/tramos_horarios.php';
+                    } ?>
                 </ul>
             </div>
         </div>

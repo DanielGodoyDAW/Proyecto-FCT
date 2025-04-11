@@ -13,10 +13,33 @@
     <div id="calendar-container">
         <div id="calendar-scroll">
             <?php
+
+            $nombreMeses = [
+                "1" => 'Enero',
+                "2" => 'Febrero',
+                "3" => 'Marzo',
+                "4" => 'Abril',
+                "5" => 'Mayo',
+                "6" => 'Junio',
+                "7" => 'Julio',
+                "8" => 'Agosto',
+                "9" => 'Septiembre',
+                "10" => 'Octubre',
+                "11" => 'Noviembre',
+                "12" => 'Diciembre'
+            ];
+
             require_once __DIR__ . '/../../conexion/conexion.php';
 
             // Determinar el mes y el año seleccionados
-            if (isset($_POST['mes']) && isset($_POST['year'])) {
+            // if (isset($_POST['mes']) && isset($_POST['year'])) {
+            //     $mes = $_POST['mes'];
+            //     $year = $_POST['year'];
+            // }
+            if (isset($_POST["fecha"])) {
+                $mes = date('m', strtotime($_POST["fecha"]));
+                $year = date('Y', strtotime($_POST["fecha"]));
+            } else if (isset($_POST['mes']) && isset($_POST['year'])) {
                 $mes = $_POST['mes'];
                 $year = $_POST['year'];
             } else {
@@ -75,7 +98,7 @@
             echo '<input type="hidden" name="year" value="' . $yearAnterior . '">';
             echo '</form>';
 
-            echo '<h3>' . date("F Y", strtotime($year . "-" . $mes . "-01")) . '</h3>';
+            echo '<h3>' . $nombreMeses[(int)$mes] . " " . $year .  '</h3>';
 
             echo '<form action="" method="post">';
             echo '<button type="submit" name="mes" value="' . $mesSiguiente . '">Siguiente</button>';
@@ -111,12 +134,16 @@
                 $claseDisponibilidad = isset($diasDisponibilidad[$fecha]) ? $diasDisponibilidad[$fecha] : 'verde';
 
                 if ($diaSemana > 0 && $diaSemana < 6) { // Días laborables
-                    $calendario .= '<td>
+                    if (date("Y-m-d") <= $fecha) {
+                        $calendario .= '<td>
                         <form action="" method="post" style="display:inline;">
                             <input type="hidden" name="fecha" value="' . $fecha . '">
                             <button type="submit" class="' . $claseDisponibilidad . '">' . $i . '</button>
                         </form>
                     </td>';
+                    } else {
+                        $calendario .= '<td class="calenReDiaNoSeleccionable">' . $i . '</td>';
+                    }
                 } else { // Fines de semana
                     $calendario .= '<td class="calenReDiaNoSeleccionable">' . $i . '</td>';
                 }

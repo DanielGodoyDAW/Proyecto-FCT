@@ -28,17 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             "18:30" => "19:00",
         );
 
-        // Obtener el día de la semana (0 = domingo, 1 = lunes, ..., 6 = sábado)
-        $diaSemana = date('w', strtotime($fechaSeleccionada));
-
-        // Si es viernes (5), solo mostrar los horarios de la mañana
-        if ($diaSemana == 5) {
-            $tramosHorarios = $tramosHorariosManana;
-        } else {
-            // Combinar los horarios de la mañana y la tarde
-            $tramosHorarios = array_merge($tramosHorariosManana, $tramosHorariosTarde);
-        }
-
         // Consultar los horarios reservados para la fecha seleccionada
         $query = "SELECT hora FROM Citas WHERE fecha = ?";
         $stmt = $conexion->prepare($query);
@@ -53,28 +42,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Filtrar los horarios disponibles
-        $horariosLibres = [];
-        foreach ($tramosHorarios as $inicio => $fin) {
-            if (!in_array($inicio, $horariosReservados)) {
-                $horariosLibres[$inicio] = $fin;
+        $horariosLibresManana = [];
+        $horariosLibresTarde = [];
+
+        $horaActual = date('H:i:s'); // Obtener la hora actual
+        if ($fechaSeleccionada == date('Y-m-d')) {
+            foreach ($tramosHorariosManana as $inicio => $fin) {
+                if (!in_array($inicio . ":00", $horariosReservados) && strtotime($inicio . ":00") > strtotime($horaActual)) { //añadimos ":00" para que coincida con el formato de la base de datos
+                    $horariosLibresManana[$inicio] = $fin;
+                }
+            }
+
+            foreach ($tramosHorariosTarde as $inicio => $fin) {
+                if (!in_array($inicio . ":00", $horariosReservados) && strtotime($inicio . ":00") > strtotime($horaActual)) {
+                    $horariosLibresTarde[$inicio] = $fin;
+                }
+            }
+        } else {
+            foreach ($tramosHorariosManana as $inicio => $fin) {
+                if (!in_array($inicio . ":00", $horariosReservados)) { //añadimos ":00" para que coincida con el formato de la base de datos
+                    $horariosLibresManana[$inicio] = $fin;
+                }
+            }
+
+            foreach ($tramosHorariosTarde as $inicio => $fin) {
+                if (!in_array($inicio . ":00", $horariosReservados)) {
+                    $horariosLibresTarde[$inicio] = $fin;
+                }
             }
         }
 
-        // Mostrar los horarios libres como botones
+
+
+        // Mostrar los horarios libres en dos columnas
         echo '<h3>Horarios disponibles para ' . $fechaSeleccionada . ':</h3>';
-        if (!empty($horariosLibres)) {
+        echo '<div class="horarios-container">';
+
+        // Columna de la mañana
+        echo '<div class="horarios-columna">';
+        echo '<h4>Mañana</h4>';
+        if (!empty($horariosLibresManana)) {
             echo '<form action="/Codigo/validaciones/reservar_tramo.php" method="post">';
-            foreach ($horariosLibres as $inicio => $fin) {
+            foreach ($horariosLibresManana as $inicio => $fin) {
                 echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
             }
             echo '<input type="hidden" name="fecha" value="' . $fechaSeleccionada . '">';
             echo '</form>';
         } else {
-            echo '<p>No hay horarios disponibles para esta fecha.</p>';
+            echo '<p>No hay horarios disponibles en la mañana.</p>';
         }
+        echo '</div>';
+
+        // Columna de la tarde
+        echo '<div class="horarios-columna">';
+        echo '<h4>Tarde</h4>';
+        if (date("w", strtotime($fechaSeleccionada)) != 5) {
+            if (!empty($horariosLibresTarde)) {
+                echo '<form action="/Codigo/validaciones/reservar_tramo.php" method="post">';
+                foreach ($horariosLibresTarde as $inicio => $fin) {
+                    echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
+                }
+                echo '<input type="hidden" name="fecha" value="' . $fechaSeleccionada . '">';
+                echo '</form>';
+            } else {
+                echo '<p>No hay horarios disponibles en la tarde.</p>';
+            }
+        }else{
+            echo '<p>Los Viernes por la tarde no hay consulta.</p>';
+        }
+        echo '</div>';
+
+        echo '</div>'; // Cierre de horarios-container
     } else {
         // Si no se recibió la fecha, mostrar un mensaje de error
         echo '<p>Error: No se recibió la fecha seleccionada.</p>';
     }
 }
-?>
