@@ -26,7 +26,7 @@ if ($tipo === 'proximas') {
     exit;
 }
 
-$stmt = $con->prepare($query);
+$stmt = $conexion->prepare($query);
 $stmt->bind_param("ss", $idPaciente, $fechaActual);
 $stmt->execute();
 $result = $stmt->get_result();

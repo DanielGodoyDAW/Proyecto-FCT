@@ -23,7 +23,7 @@ $hora = $data['hora'];
 
 // Primero, verificamos que ese tramo esté libre
 $query = "SELECT COUNT(*) AS total FROM Citas WHERE fecha = ? AND hora = ?";
-$stmt = $con->prepare($query);
+$stmt = $conexion->prepare($query);
 $stmt->bind_param("ss", $fecha, $hora);
 $stmt->execute();
 $result = $stmt->get_result()->fetch_assoc();
@@ -38,7 +38,7 @@ $estado = 'Pendiente'; // o 'Confirmada', según lógica que uses
 $idAdmin = 1; // solo hay un admin 
 
 $insert = "INSERT INTO Citas (fecha, hora, estado, idPacientes, idAdmin) VALUES (?, ?, ?, ?, ?)";
-$stmt = $con->prepare($insert);
+$stmt = $conexion->prepare($insert);
 $stmt->bind_param("sssii", $fecha, $hora, $estado, $idPaciente, $idAdmin);
 
 if ($stmt->execute()) {

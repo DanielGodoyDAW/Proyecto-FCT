@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insertar en la base de datos
     $sql = "INSERT INTO promociones (titulo, descripcion, imagen) VALUES ('$titulo', '$descripcion', '$imagen')";
-    $conn->query($sql);
+    $conexion->query($sql);
 
     header('Location: ../admin.php');
     exit();
