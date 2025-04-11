@@ -27,13 +27,6 @@
     background-color: var(--colorFondoDivs);
 }
 
-/* #proximas-citas {
-    border: 2px solid green; 
-    background-color: #f5f5f5; 
-    padding: 10px;
-    max-height: 400px;
-    overflow-y: auto;
-} */
 
 .btn-eliminar {
     background-color: red;
@@ -48,8 +41,3 @@
 .btn-eliminar:hover {
     background-color: darkred;
 }
-/* 
-#proximas-citas li {
-    border: 1px solid blue; 
-    margin-bottom: 5px;
-} */

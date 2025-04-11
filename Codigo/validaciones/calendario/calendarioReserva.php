@@ -42,6 +42,33 @@
             // Calcular el último día del mes
             $ultimoDiaMes = date("t", strtotime($year . "-" . $mes . "-01"));
 
+            // Consultar la disponibilidad de cada día del mes
+            $diasDisponibilidad = [];
+            for ($i = 1; $i <= $ultimoDiaMes; $i++) {
+                $dia = str_pad($i, 2, "0", STR_PAD_LEFT); // Formatear el día con dos dígitos
+                $fecha = "$year-$mes-$dia";
+
+                // Consultar la cantidad de reservas y horarios disponibles para este día
+                $queryReservas = "SELECT COUNT(*) AS totalReservas FROM Citas WHERE fecha = ?";
+                $stmt = $conexion->prepare($queryReservas);
+                $stmt->bind_param("s", $fecha);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                $totalReservas = $row['totalReservas'];
+
+                // Total de horarios posibles (mañana + tarde)
+                $totalHorarios = 16; // 8 horarios por la mañana + 8 por la tarde
+
+                if ($totalReservas == 0) {
+                    $diasDisponibilidad[$fecha] = 'verde'; // Día completamente disponible
+                } elseif ($totalReservas < $totalHorarios) {
+                    $diasDisponibilidad[$fecha] = 'amarillo'; // Día parcialmente reservado
+                } else {
+                    $diasDisponibilidad[$fecha] = 'rojo'; // Día completamente reservado
+                }
+            }
+
             // Generar los botones de navegación
             echo '<form action="" method="post">';
             echo '<button type="submit" name="mes" value="' . $mesAnterior . '">Anterior</button>';
@@ -73,18 +100,23 @@
             // Generar los días del mes
             for ($i = 1; $i <= $ultimoDiaMes; $i++) {
                 $dia = str_pad($i, 2, "0", STR_PAD_LEFT); // Formatear el día con dos dígitos
-                $diaSemana = date("w", strtotime($year . "-" . $mes . "-" . $dia));
+                $fecha = "$year-$mes-$dia";
+                $diaSemana = date("w", strtotime($fecha));
 
                 if ($diaSemana == 1) {
                     $calendario .= "<tr>";
                 }
 
+                // Determinar la clase CSS según la disponibilidad
+                $claseDisponibilidad = isset($diasDisponibilidad[$fecha]) ? $diasDisponibilidad[$fecha] : 'verde';
+
                 if ($diaSemana > 0 && $diaSemana < 6) { // Días laborables
-                    if (strtotime($year . "-" . $mes . "-" . $dia) < strtotime(date('Y-m-d'))) {
-                        $calendario .= '<td class="calenReDiaNoSeleccionable">' . $i . '</td>';
-                    } else {
-                        $calendario .= '<td class="calenReDiaVacio"><button type="submit" name="fecha" value="' . ($year . "-" . $mes . "-" . $dia) . '">' . $i . '</button></td>';
-                    }
+                    $calendario .= '<td>
+                        <form action="" method="post" style="display:inline;">
+                            <input type="hidden" name="fecha" value="' . $fecha . '">
+                            <button type="submit" class="' . $claseDisponibilidad . '">' . $i . '</button>
+                        </form>
+                    </td>';
                 } else { // Fines de semana
                     $calendario .= '<td class="calenReDiaNoSeleccionable">' . $i . '</td>';
                 }
@@ -103,10 +135,8 @@
 
             $calendario .= "</tr></table>";
 
-            // Mostrar el formulario con el calendario
-            echo '<form action="validaciones/tramos_horarios.php" method="post">';
+            // Mostrar el calendario
             echo $calendario;
-            echo '</form>';
             ?>
         </div>
     </div>

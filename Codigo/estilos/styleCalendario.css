@@ -4,64 +4,49 @@
     --colorBoton: #08A3A9;
     --colorBotonHover: #0f2788;
     --colorBotonActivoHover: #0056b3;
+    --disponible: #155724;
+    --semiDisponible: #856404;
+    --noDisponible: #721c24;
+    --fueraServicio: #6c757d;
 }
 
-/* Dia disponible (verde) */
-.fc-day.available {
-    background-color: #d4edda; 
-    color: #155724; 
+.verde {
+    background-color: var(--disponible);
+    color: var(--colorFondo); 
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
 }
 
-/* Dia con algun campo (amarillo) */
-.fc-day.partial {
-    background-color: #fff3cd; 
-    color: #856404; 
+.amarillo {
+    background-color: var(--semiDisponible); 
+    color: var(--colorFondo);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
 }
 
-/* Dia completamente ocupado (rojo) */
-.fc-day.full {
-    background-color: #f8d7da; 
-    color: #721c24;
+.rojo {
+    background-color: var(--noDisponible);
+    color: var(--colorFondo); 
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
 }
 
-#calendarioReservas{
-    .contenedorBotonesCalendario{
-        select {
-            margin: 10px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        td, th{
-            justify-items: center;
-            border: none;
-            padding: 5px;
-        }
-    }
-    .tablaCalendario{
-        td, th{
-            text-align: center;
-        }
-        .calenReDiaVacio{
-            background-color:  rgba(0, 150, 0,0.5);
-        }
-        .calenReDiaMedio{
-            background-color: rgba(150, 150, 0, 0.5);
-        }
-        .calenReDiaLleno{
-            background-color: rgba(255, 0, 0,0.5);
-        }
-        .calenReDiaNoSeleccionable{
-            background-color: rgba(128, 128, 128,0.5);
-        }
-        button{
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 16px;
-            background: transparent;
-            border: none;
-            width: 100%;
-            &:hover{
-                cursor: pointer;
-            }
-        }
-    }
+.calenReDiaNoSeleccionable {
+    background-color: var(--fueraServicio);
+    color: var(--colorFondo);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: not-allowed;
+
 }
+
