@@ -39,11 +39,11 @@ try {
         $stmt = $conexion->prepare($query);
         $stmt->bind_param("s", $fechaActual);
     } else if ($idPaciente) {
-        // Si es paciente, mostrar solo sus citas
+        // Si es paciente, mostrar solo sus citas disponibles
         if ($tipo === 'proximas') {
-            $query = "SELECT fecha, hora, estado FROM Citas WHERE idPacientes = ? AND fecha >= ? ORDER BY fecha, hora";
+            $query = "SELECT fecha, hora, estado FROM Citas WHERE idPacientes = ? AND fecha >= ? AND bloqueada = 0 ORDER BY fecha, hora";
         } else if ($tipo === 'historial') {
-            $query = "SELECT fecha, hora, estado FROM Citas WHERE idPacientes = ? AND fecha < ? ORDER BY fecha DESC, hora DESC";
+            $query = "SELECT fecha, hora, estado FROM Citas WHERE idPacientes = ? AND fecha < ? AND bloqueada = 0 ORDER BY fecha DESC, hora DESC";
         } else {
             echo json_encode(['success' => false, 'error' => 'Tipo de consulta no válido.']);
             exit;

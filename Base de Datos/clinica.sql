@@ -116,3 +116,6 @@ VALUES ('Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '64364557
 -- Insertar otro paciente
 INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
 VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu');
+
+ALTER TABLE Citas
+ADD bloqueada TINYINT(1) NOT NULL DEFAULT 0;

@@ -1,22 +1,22 @@
 <?php
 // Función para encriptar una contraseña
-function encriptar_contraseña($contraseña) {
-    return password_hash($contraseña, PASSWORD_BCRYPT);
+function encriptar_contraseña($contrasena) {
+    return password_hash($contrasena, PASSWORD_BCRYPT);
 }
 
 // Función para actualizar la contraseña en la base de datos
-function actualizar_contraseña($idAdmin, $contraseña_encriptada, $conexion) {
+function actualizar_contraseña($idAdmin, $contrasena_encriptada, $conexion) {
     $sql = "UPDATE Admin SET pass = ? WHERE idAdmin = ?";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("si", $contraseña_encriptada, $idAdmin);
+    $stmt->bind_param("si", $contrasena_encriptada, $idAdmin);
     $stmt->execute();
     $stmt->close();
 }
 
 // Ejemplo de uso:
 $idAdmin = 1;
-$contraseña_original = "Contra+1234";
-$contraseña_encriptada = encriptar_contraseña($contraseña_original);
+$contrasena_original = "Contra+1234";
+$contrasena_encriptada = encriptar_contraseña($contrasena_original);
 
 // Conexión a la base de datos (modifica con tus propios datos de conexión)
 $host = "localhost";
@@ -31,7 +31,7 @@ if ($conexion->connect_error) {
 }
 
 // Actualizar la contraseña en la base de datos
-actualizar_contraseña($idAdmin, $contraseña_encriptada, $conexion);
+actualizar_contraseña($idAdmin, $contrasena_encriptada, $conexion);
 
 // Cerrar la conexión
 $conexion->close();
