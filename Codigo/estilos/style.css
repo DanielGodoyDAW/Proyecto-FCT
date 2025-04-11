@@ -162,3 +162,17 @@ footer {
 .btn-eliminar:hover {
     color: darkred;
 }
+
+.btn-estado {
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.btn-estado:hover {
+    background-color: var(--colorBotonHover);
+}

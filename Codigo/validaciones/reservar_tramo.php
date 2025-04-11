@@ -5,12 +5,14 @@ require_once __DIR__ . '/../conexion/conexion.php';
 header('Content-Type: application/json');
 
 // Comprobamos si hay sesión activa
-if (!isset($_SESSION['idPacientes'])) {
+if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
     echo json_encode(['success' => false, 'error' => 'Debes iniciar sesión para reservar un tramo.']);
     exit;
 }
 
-$idPaciente = $_SESSION['idPacientes'];
+$idPaciente = isset($_SESSION['idPacientes']) ? $_SESSION['idPacientes'] : null;
+$idAdmin = isset($_SESSION['idAdmin']) ? $_SESSION['idAdmin'] : null;
+
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($data['fecha']) || !isset($data['hora'])) {
@@ -21,7 +23,7 @@ if (!isset($data['fecha']) || !isset($data['hora'])) {
 $fecha = $data['fecha'];
 $hora = $data['hora'];
 
-// Primero, verificamos que ese tramo esté libre
+// Verificar que el tramo esté libre
 $query = "SELECT COUNT(*) AS total FROM Citas WHERE fecha = ? AND hora = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param("ss", $fecha, $hora);
@@ -33,10 +35,8 @@ if ($result['total'] > 0) {
     exit;
 }
 
-// Insertar la nueva cita, pendiente, confirmada o cancelada
-$estado = 'Pendiente'; // o 'Confirmada', según lógica que uses
-$idAdmin = 1; // solo hay un admin 
-
+// Insertar la nueva cita
+$estado = 'Pendiente';
 $insert = "INSERT INTO Citas (fecha, hora, estado, idPacientes, idAdmin) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($insert);
 $stmt->bind_param("sssii", $fecha, $hora, $estado, $idPaciente, $idAdmin);
@@ -46,9 +46,4 @@ if ($stmt->execute()) {
 } else {
     echo json_encode(['success' => false, 'error' => 'Error al guardar la cita en la base de datos.']);
 }
-
-
-
-
-
 ?>

@@ -1,5 +1,5 @@
 <?php
-// Este archivo se encarga de mostrar las próximas citas y el historial de citas del paciente
+// Este archivo se encarga de mostrar las próximas citas y el historial de citas del paciente o administrador
 ?>
 
 <script>
@@ -34,43 +34,41 @@
         fetch(`validaciones/obtener_citas.php?tipo=${tipo}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data); // Verifica lo que recibes del servidor
                 const contenedor = document.getElementById(contenedorId);
-                contenedor.innerHTML = ''; // Limpia el contenedor antes de añadir nuevas citas
+                contenedor.innerHTML = '';
 
                 if (data.success) {
                     if (data.citas.length === 0) {
                         contenedor.innerHTML = '<li>No hay citas disponibles.</li>';
                     } else {
                         data.citas.forEach(cita => {
-                            const li = document.createElement('li'); // Crear un elemento li
+                            const li = document.createElement('li');
                             const fechaFormateada = formatearFecha(cita.fecha);
                             const horaFormateada = formatearHora(cita.hora);
 
                             // Crear el texto de la cita
-                            const textoCita = document.createTextNode(`${fechaFormateada} - ${horaFormateada} (${cita.estado})`);
-                            li.appendChild(textoCita);
+                            let textoCita = `${fechaFormateada} - ${horaFormateada} (${cita.estado})`;
+                            if (cita.idPacientes) {
+                                textoCita += ` - Paciente ID: ${cita.idPacientes}`;
+                            } else {
+                                textoCita += ` - Sin asignar`;
+                            }
+                            li.textContent = textoCita;
 
-                            // Crear el botón de eliminar
-                            const botonEliminar = document.createElement('button');
-                            botonEliminar.textContent = '🗑️'; // icono de papelera
-                            botonEliminar.classList.add('btn-eliminar');
-                            botonEliminar.title = 'Eliminar cita';
+                            // Crear botones para cambiar el estado
+                            const btnCompletada = document.createElement('button');
+                            btnCompletada.textContent = 'Completada';
+                            btnCompletada.classList.add('btn-estado');
+                            btnCompletada.addEventListener('click', () => actualizarEstadoCita(cita.fecha, cita.hora, 'Completada', li));
 
-                            console.log('Botón de eliminar creado:', botonEliminar);
+                            const btnRechazada = document.createElement('button');
+                            btnRechazada.textContent = 'Rechazada';
+                            btnRechazada.classList.add('btn-estado');
+                            btnRechazada.addEventListener('click', () => actualizarEstadoCita(cita.fecha, cita.hora, 'Rechazada', li));
 
-                            // Añadir evento para eliminar la cita
-                            botonEliminar.addEventListener('click', () => {
-                                console.log('Botón de eliminar clickeado');
-                                if (confirm(`¿Estás seguro de que deseas eliminar la cita del ${fechaFormateada} a las ${horaFormateada}?`)) {
-                                    eliminarCita(cita.fecha, cita.hora, li);
-                                }
-                            });
-
-                            li.appendChild(botonEliminar); // Añadir el botón al li
-                            contenedor.appendChild(li); // Añadir el li al contenedor
-
-                            console.log('Elemento li añadido:', li); // Verifica si el li se ha añadido correctamente
+                            li.appendChild(btnCompletada);
+                            li.appendChild(btnRechazada);
+                            contenedor.appendChild(li);
                         });
                     }
                 } else {
@@ -79,6 +77,29 @@
             })
             .catch(error => {
                 console.error('Error al cargar las citas:', error);
+            });
+    }
+
+    // Función para actualizar el estado de una cita
+    function actualizarEstadoCita(fecha, hora, nuevoEstado, elemento) {
+        fetch('validaciones/actualizar_estado_cita.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fecha, hora, estado: nuevoEstado }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Estado actualizado a ${nuevoEstado}.`);
+                    elemento.textContent = `${formatearFecha(fecha)} - ${formatearHora(hora)} (${nuevoEstado})`;
+                } else {
+                    alert(`Error al actualizar el estado: ${data.error}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error al actualizar el estado:', error);
             });
     }
 
