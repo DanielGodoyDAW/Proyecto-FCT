@@ -5,7 +5,7 @@ function getClient() {
     $client = new Google_Client();
     $client->setApplicationName('Reserva de Citas');
     $client->setScopes(Google_Service_Calendar::CALENDAR);
-    $client->setAuthConfig(__DIR__ . '/config/credentials.json');
+    $client->setAuthConfig(__DIR__ . '/../../config/credentials.json');
     $client->setAccessType('offline');
     return $client;
 }
@@ -31,3 +31,5 @@ function crearEvento($fecha, $horaInicio, $horaFin, $descripcion) {
     $eventoCreado = $service->events->insert($calendarId, $evento);
     return $eventoCreado->htmlLink; // Devuelve el enlace al evento en Google Calendar
 }
+
+?>
