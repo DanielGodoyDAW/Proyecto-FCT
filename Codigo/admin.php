@@ -20,7 +20,14 @@
             </div>
             <div class="seccion resultado-busqueda">
                 <h2>Resultado de la Búsqueda</h2>
-                <div id="resultado-busqueda"></div>
+                <div id="resultado-busqueda">
+                    <?php
+                   if (isset($_SESSION['impresion'])) {
+                    echo $_SESSION['impresion'];
+                    unset($_SESSION['impresion']); // Limpiar los resultados después de mostrarlos
+                }
+                    ?>
+                </div>
             </div>
         </div>
 

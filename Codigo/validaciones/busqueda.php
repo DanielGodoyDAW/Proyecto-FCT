@@ -1,17 +1,18 @@
 <?php
+
+
 //consulta a la bd para buscar un paciente por idPaciente (desplegable con los nombres), por fecha (una fecha estimada de inicio y fin)
 //el tratamiento
 
 require_once __DIR__ . '/../conexion/conexion.php';
 
-$idAdmin = $_SESSION['idAdmin'];
 
 //consulta con seleccion de paciente por idPaciente, nombre, apellido1 y apellido2 en formulario de busqueda
 //por numero de telefono
 //por primer apellido o por nombre
 
 ?>
-<form action="busqueda.php" method="get">
+<form action="/Codigo/validaciones/procesar_busqueda.php" method="post">
     <table>
         <tr>
             <td><label for="nombre">Nombre:</label></td>
@@ -65,5 +66,5 @@ $idAdmin = $_SESSION['idAdmin'];
             <td><input type="text" name="telefono" id="telefono"></td>
         </tr>
     </table>
-    <input type="submit" value="Buscar">
+    <button type="submit">Enviar</button>
 </form>
