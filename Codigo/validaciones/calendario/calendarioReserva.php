@@ -94,15 +94,15 @@
 
             // Generar los botones de navegación
             echo '<form action="" method="post">';
-            echo '<button type="submit" name="mes" value="' . $mesAnterior . '">Anterior</button>';
-            echo '<input type="hidden" name="year" value="' . $yearAnterior . '">';
+            echo '<button type="submit" class="next-after" name="mes" value="' . $mesAnterior . '">Anterior</button>';
+            echo '<input type="hidden" class="next-after" name="year" value="' . $yearAnterior . '">';
             echo '</form>';
 
             echo '<h3>' . $nombreMeses[(int)$mes] . " " . $year .  '</h3>';
 
             echo '<form action="" method="post">';
-            echo '<button type="submit" name="mes" value="' . $mesSiguiente . '">Siguiente</button>';
-            echo '<input type="hidden" name="year" value="' . $yearSiguiente . '">';
+            echo '<button type="submit" class="next-after" name="mes" value="' . $mesSiguiente . '">Siguiente</button>';
+            echo '<input type="hidden" class="next-after" name="year" value="' . $yearSiguiente . '">';
             echo '</form>';
 
             // Generar la tabla del calendario

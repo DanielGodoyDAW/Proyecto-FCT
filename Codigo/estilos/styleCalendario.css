@@ -50,3 +50,26 @@
 
 }
 
+.next-after{
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 10px 20px; 
+    margin: 5px; 
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block; 
+    width: auto; 
+    box-sizing: border-box; 
+}
+.next-after:hover {
+    background-color: var(--colorBotonActivoHover);
+}
+
+#calendar-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    
+}
