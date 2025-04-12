@@ -2,6 +2,20 @@
 session_start();
 require_once __DIR__ . '/../conexion/conexion.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $fecha = $_POST['fecha'];
+    $horaInicio = $_POST['hora'];
+    $horaFin = date('H:i', strtotime($horaInicio) + 30 * 60); // Sumar 30 minutos
+    $descripcion = 'Cita reservada por el paciente.';
+
+    // Guardar la cita en la base de datos (ya implementado)
+
+    // Crear el evento en Google Calendar
+    $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion);
+
+    echo 'Cita reservada con éxito. <a href="' . $enlaceEvento . '" target="_blank">Ver en Google Calendar</a>';
+}
+
 // Verificar si hay sesión activa
 if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
     die('Error: Debes iniciar sesión para reservar un tramo.');
