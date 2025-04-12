@@ -7,26 +7,25 @@
 
 /* Contenedor principal */
 .contenedor {
-    display: grid;
-    grid-template-rows: 1fr 1fr; /* Dos filas: superior e inferior */
-    gap: 20px; /* Espacio entre filas */
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Fila con dos columnas */
-.orden {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-    gap: 20px; /* Espacio entre columnas */
+.fila {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 /* Secciones individuales */
 .seccion {
+    flex: 1;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 5px;
     background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 30px;
 }
 
 /* Títulos de las secciones */
@@ -34,6 +33,7 @@
     margin-top: 0;
     font-size: 18px;
     color: #333;
+    margin-bottom: 15px;
 }
 
 /* Botones */
@@ -48,5 +48,10 @@ button {
 
 button:hover {
     background-color: var(--colorBotonHover);
+}
+
+#resultado-busqueda,
+#listado-tratamientos {
+    min-height: 150px; /* Ajusta según el contenido esperado */
 }
 

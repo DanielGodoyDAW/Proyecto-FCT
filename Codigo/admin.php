@@ -12,21 +12,20 @@
 <body>
     <?php require_once '../Codigo/plantillas/header.php'; ?>
     <main class="contenedor">
-        <div class="orden arriba">
-            <!-- Seccion izquierda busqueda -->
+        <!-- Fila 1: Búsqueda de pacientes -->
+        <div class="fila">
             <div class="seccion busqueda">
-                <h2>Busqueda de paciente</h2>
+                <h2>Búsqueda de Paciente</h2>
                 <?php require_once '../Codigo/validaciones/busqueda.php'; ?>
             </div>
-
-            <!-- Seccion derecha tratamiento -->
-            <div class="seccion tratamiento">
-                <h2>Listado de tratamientos</h2>
-                <?php require_once '../Codigo/validaciones/tratamientos.php'; ?>
+            <div class="seccion resultado-busqueda">
+                <h2>Resultado de la Búsqueda</h2>
+                <div id="resultado-busqueda"></div>
             </div>
         </div>
-        <div class="orden abajo">
-            <!-- Seccion para administrar promociones -->
+
+        <!-- Fila 2: Promociones -->
+        <div class="fila">
             <div class="seccion promociones">
                 <?php require_once '../Codigo/validaciones/promociones/promociones_form.php'; ?>
             </div>
@@ -35,10 +34,17 @@
                 <?php require_once '../Codigo/validaciones/promociones/promociones_lista.php'; ?>
             </div>
         </div>
-        <!-- Seccion para ver las proximas citas -->
-        <div class="historial">
-            <h2>Historial</h2>
-            <?php require_once '../Codigo/validaciones/historial.php'; ?>
+
+        <!-- Fila 3: Tratamientos -->
+        <div class="fila">
+            <div class="seccion tratamientos">
+                <h2>Creación de Tratamientos</h2>
+                <?php require_once '../Codigo/validaciones/tratamientos.php'; ?>
+            </div>
+            <div class="seccion tratamientos-lista">
+                <h2>Listado de Tratamientos</h2>
+                <div id="listado-tratamientos"></div>
+            </div>
         </div>
     </main>
     <?php require_once '../Codigo/plantillas/footer.php'; ?>
