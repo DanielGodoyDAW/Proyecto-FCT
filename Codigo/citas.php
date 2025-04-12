@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
     <link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">
     <title>Reserva tu Cita</title>
 </head>
@@ -46,9 +45,7 @@
             <!-- Sección derecha: Historial de citas -->
             <div class="columna derecha">
                 <h2>Historial de Citas</h2>
-                <ul id="historial-citas">
-                    <li id="cita-Eliminar"></li>
-                </ul>
+                <ul id="historial-citas"></ul>
                 <?php require_once './validaciones/historial.php'; ?>
             </div>
         </div>

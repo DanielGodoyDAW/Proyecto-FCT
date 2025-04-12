@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Columna de la mañana
         echo '<div class="horarios-columna">';
-        echo '<h4>Mañana</h4>';
+        echo '<h4>Horario de Mañana:</h4>';
         if (!empty($horariosLibresManana)) {
             echo '<form action="/Codigo/validaciones/reservar_tramo.php" method="post">';
             foreach ($horariosLibresManana as $inicio => $fin) {
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Columna de la tarde
         echo '<div class="horarios-columna">';
-        echo '<h4>Tarde</h4>';
+        echo '<h4>Horario de Tarde:</h4>';
         if (date("w", strtotime($fechaSeleccionada)) != 5) {
             if (!empty($horariosLibresTarde)) {
                 echo '<form action="/Codigo/validaciones/reservar_tramo.php" method="post">';
