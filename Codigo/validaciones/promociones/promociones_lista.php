@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
 
-// Controlar si se muestra el botón "Editar" para no duplicar codigo y usar la misma web en ambos sitios
 $mostrarEditar = $mostrarEditar ?? false;
 
 echo '<link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">';
@@ -26,8 +25,11 @@ if ($result->num_rows > 0) {
         if ($mostrarEditar) {
             echo '<td>';
             echo '<button class="btnA" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
+            echo '<form method="POST" action="/Codigo/validaciones/promociones/eliminar_promocion.php" style="display:inline;">';
             echo ' ';
-            echo '<button class="btnB" onclick="eliminarPromocion(' . $row['idPromocion'] . ')">Eliminar</button>';
+            echo '<input type="hidden" name="idPromocion" value="' . $row['idPromocion'] . '">';
+            echo '<button type="submit" class="btnB" onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta promoción?\');">Eliminar</button>';
+            echo '</form>';
             echo '</td>';
         }
         echo '</tr>';
