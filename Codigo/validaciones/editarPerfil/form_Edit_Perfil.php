@@ -5,11 +5,9 @@ if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Genera un token unico
 }
 
-
-if(isset($_SESSION['idPacientes'])){
+if (isset($_SESSION['idPacientes'])) {
     $idPaciente = $_SESSION['idPacientes'];
-}
-if(isset($_SESSION['idAdmin'])){
+} else if (isset($_SESSION['idAdmin'])) {
     $idPaciente = $_SESSION['idAdmin'];
 }
 
@@ -49,9 +47,9 @@ $pacientes = $result->fetch_assoc();
             <td><label for="c3">Sexo:</label></td>
             <td>
                 <select id="c3" name="sexo" required>
-                    <option value="masculino" <?php echo $pacientes['sexo'] === 'masculino' ? 'selected' : ''; ?>>Masculino</option>
-                    <option value="femenino" <?php echo $pacientes['sexo'] === 'femenino' ? 'selected' : ''; ?>>Femenino</option>
-                    <option value="otro" <?php echo $pacientes['sexo'] === 'otro' ? 'selected' : ''; ?>>Otro</option>
+                    <option value="H" <?php echo $pacientes['sexo'] === 'H' ? 'selected' : ''; ?>>Hombre</option>
+                    <option value="M" <?php echo $pacientes['sexo'] === 'M' ? 'selected' : ''; ?>>Mujer</option>
+                    <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>Otro</option>
                 </select>
             </td>
         </tr>
