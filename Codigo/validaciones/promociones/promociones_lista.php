@@ -24,7 +24,11 @@ if ($result->num_rows > 0) {
         echo '<td>' . htmlspecialchars($row['fechaFin']) . '</td>';
         echo '<td>' . htmlspecialchars($row['descuento']) . '%</td>';
         if ($mostrarEditar) {
-            echo '<td><button class="btnA" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button></td>';
+            echo '<td>';
+            echo '<button class="btnA" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
+            echo ' ';
+            echo '<button class="btnB" onclick="eliminarPromocion(' . $row['idPromocion'] . ')">Eliminar</button>';
+            echo '</td>';
         }
         echo '</tr>';
     }

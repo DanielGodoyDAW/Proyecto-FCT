@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const currentPath = window.location.pathname; // Obtiene la ruta actual
-    const navLinks = document.querySelectorAll(".navegacion"); // Selecciona todos los enlaces del menú
+    const rutaActual = window.location.pathname; // Obtiene la ruta actual
+    const enlacesNavegacion = document.querySelectorAll(".navegacion"); // Selecciona todos los enlaces del menú
 
-    navLinks.forEach(link => {
-        if (link.getAttribute("href") === currentPath) {
+    enlacesNavegacion.forEach(link => {
+        if (link.getAttribute("href") === rutaActual) {
             link.classList.add("active");
         }
     });
