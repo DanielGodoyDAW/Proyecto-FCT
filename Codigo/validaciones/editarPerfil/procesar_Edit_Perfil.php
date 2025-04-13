@@ -63,9 +63,9 @@ $stmt->bind_param('sssi', $email, $telefono, $sexo, $idPaciente);
 
 if ($stmt->execute()) {
 
-    // Actualiza el valor de sexo en la sesión
+    // Actualiza el valor de sexo en la sesión, para que te salude acorde a tu sexo
     $_SESSION['sexo'] = $sexo;
-    
+
     echo '<script>
         alert("Perfil actualizado correctamente.");
         window.location.href = "../../editar_perfil.php"; // Redirigir después de mostrar el alert
