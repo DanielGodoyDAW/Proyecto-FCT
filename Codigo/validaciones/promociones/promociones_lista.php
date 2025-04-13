@@ -1,15 +1,35 @@
 <?php
-// require_once './conexion/conexion.php'; // Conexión a la base de datos
+require_once __DIR__ . '/../../conexion/conexion.php';
+
+// Controlar si se muestra el botón "Editar" para no duplicar codigo y usar la misma web en ambos sitios
+$mostrarEditar = $mostrarEditar ?? false;
+
+echo '<link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">';
+
 $sql = "SELECT * FROM promociones";
 $result = $conexion->query($sql);
 
-while ($row = $result->fetch_assoc()):
+if ($result->num_rows > 0) {
+    echo '<table id="promociones-table">';
+    echo '<tr><th>Título</th><th>Descripción</th><th>Fecha Inicio</th><th>Fecha Fin</th><th>Descuento</th>';
+    if ($mostrarEditar) {
+        echo '<th>Acciones</th>';
+    }
+    echo '</tr>';
+    while ($row = $result->fetch_assoc()) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($row['titulo']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['descripcion']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['fechaInicio']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['fechaFin']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['descuento']) . '%</td>';
+        if ($mostrarEditar) {
+            echo '<td><button class="btnA" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button></td>';
+        }
+        echo '</tr>';
+    }
+    echo '</table>';
+} else {
+    echo 'No hay promociones disponibles.';
+}
 ?>
-    <li>
-        <img src="/Codigo/imagenes/promociones/<?php echo $row['imagen']; ?>" alt="Imagen de promoción" width="100">
-        <strong><?php echo $row['titulo']; ?></strong>
-        <p><?php echo $row['descripcion']; ?></p>
-        <a href="validaciones/editar_promocion.php?id=<?php echo $row['id']; ?>">Editar</a>
-        <a href="validaciones/eliminar_promocion.php?id=<?php echo $row['id']; ?>">Eliminar</a>
-    </li>
-<?php endwhile; ?>

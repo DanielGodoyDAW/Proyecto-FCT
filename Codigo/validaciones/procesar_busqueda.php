@@ -8,7 +8,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
 $idAdmin = $_SESSION['idAdmin'];
 
 // Variables obtenidas del formulario
-$paciente = isset($_POST['paciente']) ? $_POST['paciente'] : ''; // ID del paciente de la búsqueda rápida
+$paciente = isset($_POST['paciente']) ? $_POST['paciente'] : ''; // ID del paciente de la busqueda rapida
 $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
 $apellido1 = isset($_POST['apellido1']) ? $_POST['apellido1'] : '';
 $apellido2 = isset($_POST['apellido2']) ? $_POST['apellido2'] : '';
