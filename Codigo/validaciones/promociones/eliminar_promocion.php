@@ -1,10 +1,18 @@
 <?php
-require_once './conexion/conexion.php'; // Conexión a la base de datos
+require_once __DIR__ . '/../../conexion/conexion.php';
 
-$id = $_GET['id'];
-$sql = "DELETE FROM promociones WHERE id = $id";
-$conexion->query($sql);
+if (isset($_GET['idPromocion'])) {
+    $idPromocion = intval($_GET['idPromocion']);
+    $sql = "DELETE FROM promociones WHERE idPromocion = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("i", $idPromocion);
 
-header('Location: ../admin.php');
-exit();
+    if ($stmt->execute()) {
+        echo "Promoción eliminada correctamente.";
+    } else {
+        echo "Error al eliminar la promoción.";
+    }
+} else {
+    echo "ID de promoción no proporcionado.";
+}
 ?>

@@ -10,3 +10,18 @@ function editarPromocion(idPromocion) {
         `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
     );
 }
+function eliminarPromocion(idPromocion) {
+    if (confirm("¿Estás seguro de que deseas eliminar esta promoción?")) {
+        fetch(`/Codigo/validaciones/promociones/eliminar_promocion.php?idPromocion=${idPromocion}`, {
+            method: 'GET'
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            location.reload(); // Recarga la página para actualizar la lista
+        })
+        .catch(error => {
+            console.error("Error al eliminar la promoción:", error);
+        });
+    }
+}
