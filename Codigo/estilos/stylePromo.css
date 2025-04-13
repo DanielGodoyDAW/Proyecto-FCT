@@ -18,3 +18,23 @@
     max-width: 100%;
     border-radius: 8px;
 }
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload label {
+    background-color: var(--colorBoton);
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+}
+
+.custom-file-upload label:hover {
+    background-color: var(--colorBotonHover);
+    color: white;
+}

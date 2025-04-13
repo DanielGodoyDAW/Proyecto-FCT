@@ -22,10 +22,10 @@
                 <h2>Resultado de la Búsqueda</h2>
                 <div id="resultado-busqueda">
                     <?php
-                   if (isset($_SESSION['impresion'])) {
-                    echo $_SESSION['impresion'];
-                    unset($_SESSION['impresion']); // Limpiar los resultados después de mostrarlos
-                }
+                    if (isset($_SESSION['impresion'])) {
+                        echo $_SESSION['impresion'];
+                        unset($_SESSION['impresion']); // Limpiar los resultados después de mostrarlos
+                    }
                     ?>
                 </div>
             </div>
@@ -38,6 +38,12 @@
             </div>
             <div class="seccion promociones-lista">
                 <h2>Promociones Existentes</h2>
+                <?php
+                if (isset($_SESSION['mensaje'])) {
+                    echo '<p>' . htmlspecialchars($_SESSION['mensaje']) . '</p>';
+                    unset($_SESSION['mensaje']); // Elimina el mensaje después de mostrarlo
+                }
+                ?>
                 <?php require_once '../Codigo/validaciones/promociones/promociones_lista.php'; ?>
             </div>
         </div>
