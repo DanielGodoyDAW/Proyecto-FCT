@@ -4,6 +4,7 @@
     </a>
     <h1>Clínica de Podología Carmen Godoy</h1>
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
+    <script src="/Codigo/js/menuNavegacion.js"></script>
 
     <?php
     session_start();
@@ -44,27 +45,27 @@
     <nav>
         <ul>
             <!-- Opcion siempre visible -->
-            <li><a class="btnA" href="/Codigo/index.php">Inicio</a></li>
+            <li><a class="btnA navegacion" href="/Codigo/index.php">Inicio</a></li>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
                 // Opcion visible solo si el usuario es paciente o admin
-                echo "<li><a class='btnA' href='/Codigo/citas.php'>Citas</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/citas.php'>Citas</a></li>";
             } else {
                 // Opcion visible para invitados
-                echo "<li><a class='btnA' href='/Codigo/validaciones/registro.php'>Registro</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/validaciones/registro.php'>Registro</a></li>";
             } ?>
             <!-- solo si es admin -->
             <?php if (isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA' href='/Codigo/admin.php'>Administrar</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/admin.php'>Administrar</a></li>";
             } ?>
             <!-- si es paciente o admin -->
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA' href='/Codigo/promociones.php'>Promociones</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/promociones.php'>Promociones</a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA' href='/Codigo/editar_perfil.php'>Editar Perfil</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/editar_perfil.php'>Editar Perfil</a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA' href='/Codigo/conexion/cerrar_sesion.php'>Cerrar Sesion</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/conexion/cerrar_sesion.php'>Cerrar Sesion</a></li>";
             } ?>
         </ul>
     </nav>

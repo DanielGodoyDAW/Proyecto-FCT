@@ -9,6 +9,17 @@ html {
     background-color: var(--colorFondo);
 }
 
+/* Cursor de pie y herida, pero no cambian en todos los botones */
+/* body {
+    cursor: url('/Codigo/imagenes/cursores/pie.cur'), auto;
+}
+button, a {
+    cursor: url('/Codigo/imagenes/cursores/herida.cur'), pointer;
+}
+header a {
+    cursor: url('/Codigo/imagenes/cursores/herida.cur'), pointer;
+} */
+
 :root {
     --colorFondo: #f0f0f0;
     --colorTexto: #333;
@@ -226,4 +237,11 @@ footer {
 }
 .btn-horario-ocupado:hover {
     background-color: red;
+}
+
+.navegacion.active {
+    background-color: var(--colorBotonHover);
+    color: var(--colorFondo);
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 255, 255, 0.2);
 }
