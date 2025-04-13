@@ -13,7 +13,7 @@ function newWindow() {
     ventana.document.write(`
         <html>
             <head>
-            <link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
+                <link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
                 <title>Cambiar Contraseña</title>
                 <style>
                     body {
@@ -53,6 +53,10 @@ function newWindow() {
                             <td><input type="password" id="confirmarContrasena" name="confirmarContrasena" required></td>
                         </tr>
                         <tr>
+                            <td><label for="mostrarContrasena">Mostrar contraseñas</label></td>
+                            <td><input type="checkbox" id="mostrarContrasena"> </td>
+                        </tr>
+                        <tr>
                             <td colspan="2" style="text-align: center;">
                                 <button type="submit" class="popUpGuardar">Guardar</button>
                                 <button type="button" class="popUpCerrar" onclick="window.close()">Cerrar</button>
@@ -60,6 +64,19 @@ function newWindow() {
                         </tr>
                     </table>
                 </form>
+                <script>
+                    // Función para alternar entre mostrar y ocultar contraseñas
+                    document.getElementById('mostrarContrasena').addEventListener('change', function () {
+                        const passwordFields = [
+                            document.getElementById('passwordActual'),
+                            document.getElementById('nuevaContrasena'),
+                            document.getElementById('confirmarContrasena')
+                        ];
+                        passwordFields.forEach(field => {
+                            field.type = this.checked ? 'text' : 'password';
+                        });
+                    });
+                </script>
             </body>
         </html>
     `);
