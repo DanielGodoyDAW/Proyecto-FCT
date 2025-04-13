@@ -3,6 +3,8 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .promocion {
@@ -50,7 +52,7 @@
     font-size: 14px;
 }
 
-.promociones h2 {
+.promociones h2, .promociones-lista h2, .busqueda h2, .resultado-busqueda h2, .tratamientos h2, .tratamientos-lista h2 {
     text-align: center; 
     margin-bottom: 20px; 
     font-size: 24px; 
@@ -72,4 +74,20 @@
 #promociones-table th {
     background-color: #f4f4f4; 
     font-weight: bold;
+}
+
+.seccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.seccion h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
 }

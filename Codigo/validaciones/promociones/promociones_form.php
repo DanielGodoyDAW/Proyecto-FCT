@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">
 <link rel="stylesheet" href="/Codigo/estilos/style.css">
 <script src="/Codigo/validaciones/promociones/editarPromocion.js"></script>
-<h2>Agregar Promoción</h2>
 <form action="/Codigo/validaciones/promociones/procesar_promociones.php" method="POST" enctype="multipart/form-data">
     <table>
         <tr>

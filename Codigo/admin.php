@@ -34,6 +34,7 @@
         <!-- Fila 2: Promociones -->
         <div class="fila">
             <div class="seccion promociones">
+                <h2>Agregar Promoción</h2>
                 <?php require_once '../Codigo/validaciones/promociones/promociones_form.php'; ?>
             </div>
             <div class="seccion promociones-lista">
