@@ -11,20 +11,12 @@
 <body>
     <?php require_once '../Codigo/plantillas/header.php'; ?>
     <main class="container promociones">
-        <h2>Promociones</h2>
         <div class="promociones-lista">
-            <div class="promocion-item">
-                <h3>Promoción 1</h3>
-                <p>Descripción de la promoción 1.</p>
-            </div>
-            <div class="promocion-item">
-                <h3>Promoción 2</h3>
-                <p>Descripción de la promoción 2.</p>
-            </div>
-            <div class="promocion-item">
-                <h3>Promoción 3</h3>
-                <p>Descripción de la promoción 3.</p>
-            </div>
+            <h2>Promociones</h2>
+            <?php
+            $mostrarEditar = false;
+            require_once '../Codigo/validaciones/promociones/promociones_lista.php';
+            ?>
         </div>
 
     </main>

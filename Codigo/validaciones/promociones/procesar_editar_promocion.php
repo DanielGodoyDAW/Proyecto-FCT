@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../conexion/conexion.php';
+require_once __DIR__ . '/../../conexion/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idPromocion = $_POST['idPromocion'] ?? null;

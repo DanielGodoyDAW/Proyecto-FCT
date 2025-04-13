@@ -35,6 +35,4 @@
         </tr>
     </table>
     <button type="submit">Agregar Promoción</button>
-    <!-- Botón para editar promoción -->
-    <!-- <button type="button" id="btnEditarPromocion" onclick="newWindowPromocion(1)">Editar Promoción</button> -->
 </form>

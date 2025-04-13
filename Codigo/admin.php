@@ -39,12 +39,9 @@
             <div class="seccion promociones-lista">
                 <h2>Promociones Existentes</h2>
                 <?php
-                if (isset($_SESSION['mensaje'])) {
-                    echo '<p>' . htmlspecialchars($_SESSION['mensaje']) . '</p>';
-                    unset($_SESSION['mensaje']); // Elimina el mensaje después de mostrarlo
-                }
+                $mostrarEditar = true;
+                require_once '../Codigo/validaciones/promociones/promociones_lista.php';
                 ?>
-                <?php require_once '../Codigo/validaciones/promociones/promociones_lista.php'; ?>
             </div>
         </div>
 
