@@ -1,37 +1,65 @@
-<!-- campos a editar del usuario -->
+<?php
+require_once __DIR__ . '/../../conexion/conexion.php';
+
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Genera un token unico
+}
+
+
+if(isset($_SESSION['idPacientes'])){
+    $idPaciente = $_SESSION['idPacientes'];
+}
+if(isset($_SESSION['idAdmin'])){
+    $idPaciente = $_SESSION['idAdmin'];
+}
+
+// Consulta para obtener los datos del usuario
+$query = "SELECT email, telefono, sexo FROM Pacientes WHERE idPacientes = ?";
+$stmt = $conexion->prepare($query);
+$stmt->bind_param("i", $idPaciente);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Verifica si se encontraron datos
+if ($result->num_rows === 0) {
+    die('Error: No se encontraron datos del usuario.');
+}
+
+// Almacenamos los datos del usuario en un array
+$pacientes = $result->fetch_assoc();
+?>
+
+<link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
+<script src="/Codigo/validaciones/editarPerfil/popupContraseña.js"></script>
 <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+
+    <!-- Token CSRF para seguridad -->
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+
     <table>
-        <!-- Campo para el email -->
         <tr>
             <td><label for="c1">Email:</label></td>
-            <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($paciente['email']); ?>" required></td>
+            <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>" required></td>
         </tr>
-
-        <!-- Campo para el teléfono -->
         <tr>
             <td><label for="c2">Teléfono:</label></td>
-            <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($paciente['telefono']); ?>" required></td>
+            <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($pacientes['telefono']); ?>" required></td>
         </tr>
-
-        <!-- Campo para el sexo -->
         <tr>
             <td><label for="c3">Sexo:</label></td>
             <td>
                 <select id="c3" name="sexo" required>
-                    <option value="masculino" <?php echo $paciente['sexo'] === 'masculino' ? 'selected' : ''; ?>>Masculino</option>
-                    <option value="femenino" <?php echo $paciente['sexo'] === 'femenino' ? 'selected' : ''; ?>>Femenino</option>
-                    <option value="otro" <?php echo $paciente['sexo'] === 'otro' ? 'selected' : ''; ?>>Otro</option>
+                    <option value="masculino" <?php echo $pacientes['sexo'] === 'masculino' ? 'selected' : ''; ?>>Masculino</option>
+                    <option value="femenino" <?php echo $pacientes['sexo'] === 'femenino' ? 'selected' : ''; ?>>Femenino</option>
+                    <option value="otro" <?php echo $pacientes['sexo'] === 'otro' ? 'selected' : ''; ?>>Otro</option>
                 </select>
             </td>
         </tr>
-
-        <!-- Campo para la contraseña -->
         <tr>
-            <td><label for="c4">Contraseña:</label></td>
-            <td><input type="password" id="c4" name="password" placeholder="Nueva contraseña"></td>
+            <td colspan="2">
+                <button type="button" id="btnCambiarContrasena" onclick="newWindow()">Cambiar Contraseña</button>
+            </td>
         </tr>
     </table>
-
-    <!-- Botón para enviar el formulario -->
     <button type="submit">Guardar Cambios</button>
 </form>

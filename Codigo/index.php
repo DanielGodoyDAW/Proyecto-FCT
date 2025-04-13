@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<?php set_time_limit(300); ?>
+<?php set_time_limit(300); ?> <!-- esto esta puesto por fallo con el xampp -->
 
 <head>
     <meta charset="UTF-8">

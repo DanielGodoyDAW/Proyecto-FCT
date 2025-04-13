@@ -1,32 +1,49 @@
 <?php
-// Conexión a la base de datos
-require_once './conexion/conexion.php';
+session_start();
+require_once __DIR__ . '/../../conexion/conexion.php';
 
-// Obtener los datos enviados por el formulario
-$email = $_POST['email'];
-$telefono = $_POST['telefono'];
-$sexo = $_POST['sexo'];
-$password = $_POST['password'];
-
-// Validar los datos (puedes agregar más validaciones según sea necesario)
-if (empty($email) || empty($telefono) || empty($sexo)) {
-    die('Todos los campos son obligatorios.');
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['idPacientes'])) {
+    die('Error: Usuario no autenticado.');
 }
 
-// Actualizar los datos en la base de datos
-$sql = "UPDATE pacientes SET email = ?, telefono = ?, sexo = ?" . (!empty($password) ? ", password = ?" : "") . " WHERE id = ?";
-$stmt = $conexion->prepare($sql);
+$idPaciente = $_SESSION['idPacientes'];
 
-// Si se envió una nueva contraseña, incluirla en la consulta
-if (!empty($password)) {
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $stmt->bind_param('ssssi', $email, $telefono, $sexo, $hashedPassword, $usuarioId);
-} else {
-    $stmt->bind_param('sssi', $email, $telefono, $sexo, $usuarioId);
+// Obtén los datos enviados desde el formulario
+$passwordActual = $_POST['passwordActual'] ?? null;
+$nuevaContrasena = $_POST['nuevaContrasena'] ?? null;
+$confirmarContrasena = $_POST['confirmarContrasena'] ?? null;
+
+// Verifica que las contraseñas coincidan
+if ($nuevaContrasena !== $confirmarContrasena) {
+    die('Error: Las contraseñas no coinciden.');
 }
+
+// Verifica la contraseña actual
+$query = "SELECT pass FROM Pacientes WHERE idPacientes = ?";
+$stmt = $conexion->prepare($query);
+$stmt->bind_param('i', $idPaciente);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    die('Error: Usuario no encontrado.');
+}
+
+$usuario = $result->fetch_assoc();
+if (!password_verify($passwordActual, $usuario['pass'])) {
+    die('Error: La contraseña actual es incorrecta.');
+}
+
+// Actualiza la contraseña en la base de datos
+$hashedPassword = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+$query = "UPDATE Pacientes SET pass = ? WHERE idPacientes = ?";
+$stmt = $conexion->prepare($query);
+$stmt->bind_param('si', $hashedPassword, $idPaciente);
 
 if ($stmt->execute()) {
-    echo "Perfil actualizado correctamente.";
+    echo '<script>alert("Contraseña cambiada exitosamente."); window.close();</script>';
 } else {
-    echo "Error al actualizar el perfil: " . $stmt->error;
+    die('Error: No se pudo actualizar la contraseña.');
 }
+?>

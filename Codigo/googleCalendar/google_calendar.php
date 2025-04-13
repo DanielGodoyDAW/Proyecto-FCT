@@ -5,8 +5,8 @@ function getClient() {
     $client = new Google_Client();
     $client->setApplicationName('Reserva de Citas');
     $client->setScopes(Google_Service_Calendar::CALENDAR);
-    $client->setAuthConfig(__DIR__ . '/config/credentials.json');
-    $client->setAccessType('offline');
+    $client->setAuthConfig(__DIR__ . '/../config/credentials.json');
+    //$client->setAuthConfig(__DIR__ . '/../../../config/credentials.json');
     return $client;
 }
 
@@ -14,7 +14,7 @@ function crearEvento($fecha, $horaInicio, $horaFin, $descripcion) {
     $client = getClient();
     $service = new Google_Service_Calendar($client);
 
-    $calendarId = 'primary'; // O usa el ID de un calendario específico
+    $calendarId = 'danielgodoymedina@gmail.com'; // ID calendario específico
     $evento = new Google_Service_Calendar_Event([
         'summary' => 'Cita médica',
         'description' => $descripcion,
@@ -31,3 +31,6 @@ function crearEvento($fecha, $horaInicio, $horaFin, $descripcion) {
     $eventoCreado = $service->events->insert($calendarId, $evento);
     return $eventoCreado->htmlLink; // Devuelve el enlace al evento en Google Calendar
 }
+
+?>
+
