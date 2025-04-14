@@ -145,3 +145,14 @@ h2 {
 .btnCancelar:hover {
     background-color: #e53935;
 }
+.btnE{
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100px;
+}

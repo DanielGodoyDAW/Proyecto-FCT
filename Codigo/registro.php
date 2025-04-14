@@ -58,6 +58,19 @@ $errores = $_SESSION['errores'] ?? [];
                     </td>
                 </tr>
                 <tr>
+                    <td><label for="extension">Extensión:</label></td>
+                    <td><select id="extension" name="extension" required>
+                            <option value="" selected disabled>Selecciona una extensión</option>
+                            <option value="+34">+34 (España)</option>
+                            <option value="+1">+1 (EE.UU.)</option>
+                            <option value="+44">+44 (Reino Unido)</option>
+                            <option value="+66">+66 (Tailandia)</option>
+                            <option value="+52">+52 (México)</option>
+                            <option value="+57">+57 (Colombia)</option>
+                            <option value="+54">+54 (Argentina)</option>
+                        </select></td>
+                </tr>
+                <tr>
                     <td><label for="c6">Teléfono</label></td>
                     <td>
                         <input type="tel" id="c6" name="telefono" placeholder="Teléfono" required>
