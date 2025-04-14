@@ -1,10 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../conexion/conexion.php'; // Asegúrate de incluir la conexión a la base de datos
-
-if (!$conexion) {
-    die("Error en la conexión a la base de datos: " . mysqli_connect_error());
-}
+require_once __DIR__ . '/../conexion/conexion.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores = [];
@@ -23,18 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validar nombre
-    if (!preg_match('/^[A-Z][A-Za-z]{2,9}$/', $_POST['nombre'])) {
-        $errores[] = "El nombre debe tener entre 3 y 10 caracteres, comenzando con mayúscula.";
+    if (!preg_match('/^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚáéíóúñ\s]{2,29}$/', $_POST['nombre'])) {
+        $errores[] = "El nombre debe tener entre 3 y 30 caracteres, comenzando con mayúscula.";
     }
 
     // Validar primer apellido
-    if (!preg_match('/^[A-Za-z]{4,8}$/', $_POST['apellido1'])) {
-        $errores[] = "El primer apellido debe tener entre 4 y 8 caracteres.";
+    if (!preg_match('/^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚáéíóúñ\s]{2,29}$/', $_POST['apellido1'])) {
+        $errores[] = "El primer apellido debe tener entre 3 y 30 caracteres, comenzando con mayúscula.";
     }
 
     // Validar segundo apellido (opcional)
-    if (!empty($_POST['apellido2']) && !preg_match('/^[A-Za-z]{4,8}$/', $_POST['apellido2'])) {
-        $errores[] = "El segundo apellido debe tener entre 4 y 8 caracteres.";
+    if (!empty($_POST['apellido2']) && !preg_match('/^[A-ZÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚáéíóúñ\s]{2,29}$/', $_POST['apellido2'])) {
+        $errores[] = "El segundo apellido debe tener entre 3 y 30 caracteres, comenzando con mayúscula.";
     }
 
     // Validar email
@@ -47,15 +43,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "El teléfono debe tener el formato +99 999 999 999.";
     }
 
+    // Validar fecha de nacimiento
     if (empty($_POST['fecha_nacimiento'])) {
         $errores[] = "La fecha de nacimiento es obligatoria.";
     } else {
         try {
             $fecha_nacimiento = new DateTime($_POST['fecha_nacimiento']);
             $fecha_actual = new DateTime();
+            $fecha_minima = (new DateTime())->modify('-13 years'); // Fecha minima para mayores de 13 años
 
-            if ($fecha_nacimiento > $fecha_actual) {
-                $errores[] = "La fecha de nacimiento no puede ser posterior a la fecha actual.";
+            if ($fecha_nacimiento >= $fecha_actual) {
+                $errores[] = "La fecha de nacimiento no puede ser la actual, ni una fecha futura.";
+            } elseif ($fecha_nacimiento > $fecha_minima) {
+                $errores[] = "Debes tener al menos 13 años para registrarte.";
             }
         } catch (Exception $e) {
             $errores[] = "La fecha de nacimiento no tiene un formato válido.";
@@ -76,11 +76,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mostrar errores o procesar datos
     if (!empty($errores)) {
-        var_dump($errores); // Depura los errores
-        foreach ($errores as $error) {
-            echo "<p style='color: red;'>$error</p>";
-        }
-        exit(); // Detener la ejecución si hay errores
+        // Convierte los errores en un string para mostrarlos en un alert
+        $erroresString = implode("\\n", $errores);
+
+        // Redirige al formulario de registro con un alert
+        echo "<script>
+            alert('$erroresString');
+            window.location.href = '/Codigo/registro.php';
+        </script>";
+        exit(); 
     } else {
         // Encriptar la contraseña
         $password_encriptada = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -107,7 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: /Codigo/index.php');
             exit();
         } else {
-            echo "<p style='color: red;'>Error al registrar al usuario. Por favor, inténtalo de nuevo.</p>";
+            echo "<script>
+                alert('Error al registrar al usuario. Por favor, inténtalo de nuevo.');
+                window.location.href = '/Codigo/registro.php';
+            </script>";
         }
     }
 }

@@ -3,36 +3,97 @@
     --colorTexto: #333;
     --colorBoton: #08A3A9;
     --colorBotonHover: #0f2788;
+    --colorCamposInvalidosFondo: #ffe6e6;
+    --colorCamposValidosFondo: #e6ffe6;
 }
-.contenedorRegistro {
-    width: 100%;
+
+body {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--colorFondo);
+    font-family: Arial, sans-serif;
 }
+
+.contenedorRegistro {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .tablaRegistro {
+    width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-.btnRegis{
+.tablaRegistro td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input {
+    border: 1px solid #ccc;
+}
+
+/* para que los campos muestren el color de fondo si el campo cumple o no*/
+input:invalid {
+    border: 2px solid red;
+    background-color: var(--colorCamposInvalidosFondo);
+}
+
+input:valid {
+    border: 2px solid green;
+    background-color: var(--colorCamposValidosFondo);
+}
+
+.btnRegis {
     background-color: var(--colorBoton);
     color: white;
     border: none;
     padding: 10px 20px;
     text-align: center;
-    text-decoration: none;
     font-size: 16px;
     cursor: pointer;
     border-radius: 4px;
     margin: 0;
 }
+
 .btnRegis:hover {
     background-color: var(--colorBotonHover);
-    color: white;
 }
-#error{
+
+#error {
     margin-top: 20px;
     text-align: center;
+    color: red;
+    font-size: 14px;
+}
+
+button#mostrar_contrasena, button#mostrar_confirmar_contrasena {
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+button#mostrar_contrasena:hover, button#mostrar_confirmar_contrasena:hover {
+    background-color: var(--colorBotonHover);
 }

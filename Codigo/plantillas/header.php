@@ -51,7 +51,7 @@
                 echo "<li><a class='btnA navegacion' href='/Codigo/citas.php'>Citas</a></li>";
             } else {
                 // Opcion visible para invitados
-                echo "<li><a class='btnA navegacion' href='/Codigo/validaciones/registro.php'>Registro</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/registro.php'>Registro</a></li>";
             } ?>
             <!-- solo si es admin -->
             <?php if (isset($_SESSION['idAdmin'])) {

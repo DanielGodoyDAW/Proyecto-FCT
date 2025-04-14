@@ -7,7 +7,7 @@ function iniciar() {
 //funcion validar registro
 function validarRegistro(event) {
     if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarFecha() && validarSexo() && validarPass() && validarConfirmarPass()) {
-        alert("Formulario enviado correctamente");
+        alert("Formulario a la espera de verificación");
         return true;
     } else {
         alert("Error en el formulario, por favor corrige los campos marcados.");
@@ -22,7 +22,8 @@ function validarNombre() {
         error(nombre);
         return false;
     } else {
-        nombre.style.border = "2px solid green";
+        nombre.classList.remove("error");
+        nombre.classList.add("success");
     }
     return true;
 }
@@ -155,7 +156,8 @@ function error(elemento) {
         errorDiv.innerHTML = "Error desconocido.";
     }
 
-    elemento.style.border = "2px solid red";
+    elemento.classList.remove("success");
+    elemento.classList.add("error");
     elemento.focus();
 }
 
@@ -163,7 +165,22 @@ function error(elemento) {
 function borrarError() {
     let formulario = document.forms[0];
     for (let i = 0; i < formulario.elements.length; i++) {
-        formulario.elements[i].style.border = "";
+        formulario.elements[i].classList.remove("error");
+        formulario.elements[i].classList.remove("success");
     }
     document.getElementById("error").innerHTML = "";
+}
+
+//para ver la contraseña introducida
+
+function alternarContrasena(campoId) {
+    const campo = document.getElementById(campoId);
+    const boton = document.querySelector(`#mostrar_${campoId}`);
+    if (campo.type === "password") {
+        campo.type = "text";
+        boton.textContent = "Ocultar";
+    } else {
+        campo.type = "password";
+        boton.textContent = "Mostrar";
+    }
 }

@@ -1,48 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php
+$registro = $_SESSION['registro'] ?? [];
+$errores = $_SESSION['errores'] ?? [];
+?>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/Codigo/js/registro.js"></script>
     <link rel="stylesheet" href="/Codigo/estilos/stylesRegistro.css">
+    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
     <title>Registrarse</title>
-    <style>
-        input:invalid {
-            border: 2px solid red;
-        }
-
-        input:valid {
-            border: 2px solid green;
-        }
-    </style>
 </head>
 
 <body>
-    <?php require_once '../plantillas/header.php'; ?>
+    <?php require_once './plantillas/header.php'; ?>
     <form action="/Codigo/validaciones/validacionRegistro.php" method="post" id="validacionRegistro" novalidate>
         <div class="contenedorRegistro">
-            <p>Por favor, rellena el siguiente formulario para registrarte.</p>
+            <?php if (!empty($errores)) { ?>
+                <div id="error">
+                    <?php foreach ($errores as $error) { ?>
+                        <p><?php echo htmlspecialchars($error); ?></p>
+                    <?php } ?>
+                </div>
+                <?php unset($_SESSION['errores']); ?>
+            <?php } ?>
             <table class="tablaRegistro">
                 <tr>
                     <td><label for="c1">Nombre</label></td>
                     <td>
-                        <input type="text" id="c1" name="nombre" placeholder="Nombre" pattern="[A-Z][A-Za-z]{2,9}"
-                            title="El nombre debe tener entre 3 y 10 caracteres, el primero con mayúscula." required>
+                        <input type="text" id="c1" name="nombre" placeholder="Nombre" required>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c2">Primer apellido</label></td>
                     <td>
-                        <input type="text" id="c2" name="apellido1" placeholder="Primer apellido" pattern="[A-Za-z]{4,8}"
-                            title="El primer apellido debe tener entre 4 y 8 caracteres, el primero con mayúscula." required>
+                        <input type="text" id="c2" name="apellido1" placeholder="Primer apellido" required>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c3">Segundo apellido</label></td>
                     <td>
-                        <input type="text" id="c3" name="apellido2" placeholder="Segundo apellido" pattern="[A-Za-z]{4,8}"
-                            title="El segundo apellido debe tener entre 4 y 8 caracteres, el primero con mayúscula.">
+                        <input type="text" id="c3" name="apellido2" placeholder="Segundo apellido">
                     </td>
                 </tr>
                 <tr>
@@ -54,15 +54,13 @@
                 <tr>
                     <td><label for="c5">Email</label></td>
                     <td>
-                        <input type="email" id="c5" name="email" placeholder="Email" pattern="[A-Za-z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}"
-                            title="El email no es valido" required>
+                        <input type="email" id="c5" name="email" placeholder="Email" required>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c6">Teléfono</label></td>
                     <td>
-                        <input type="tel" id="c6" name="telefono" placeholder="Teléfono" pattern="\+\d{2} \d{3} \d{3} \d{3}"
-                            title="El telefono debe empezar en +99 y tener este formato +99 999 999 999" required>
+                        <input type="tel" id="c6" name="telefono" placeholder="Teléfono" required>
                     </td>
                 </tr>
                 <tr>
@@ -83,18 +81,23 @@
                 </tr>
                 <tr>
                     <td><label for="c9">Contraseña:</label></td>
-                    <td><input type="password" id="c9" name="pass" placeholder="Contraseña" required></td>
+                    <td>
+                        <input type="password" id="c9" name="pass" placeholder="Contraseña" required>
+                        <button type="button" id="mostrar_contrasena" onclick="alternarContrasena('c9')">Mostrar</button>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="c10">Confirmar Contraseña:</label></td>
-                    <td><input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required></td>
+                    <td>
+                        <input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required>
+                        <button type="button" id="mostrar_confirmar_contrasena" onclick="alternarContrasena('c10')">Mostrar</button>
+                    </td>
                 </tr>
             </table>
             <button class="btnRegis" type="submit" name="enviar">Registrarse</button>
-        </div>   
+        </div>
     </form>
-    <div id="error"></div>
-    <?php require_once '../plantillas/footer.php'; ?>
+    <?php require_once './plantillas/footer.php'; ?>
 </body>
 
 </html>
