@@ -28,56 +28,58 @@ $promocion = $result->fetch_assoc();
     <meta charset="UTF-8">
     <title>Editar Promoción</title>
     <link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
+    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css"> <!-- agrego este styles, porque tiene casi todas las variables de color -->
 </head>
 
 <body>
     <h2>Editar Promoción</h2>
-    <form action="procesar_editar_promocion.php" method="POST">
-        <table>
-            <tr>
-                <td><input type="hidden" name="idPromocion" value="<?php echo htmlspecialchars($idPromocion); ?>"></td>
-            </tr>
-            <tr>
-                <td><label for="titulo">Título:</label></td>
-                <td><input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($promocion['titulo']); ?>" required></td>
-            </tr>
-            <tr>
-                <td><label for="descripcion">Descripción:</label></td>
-                <td><textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($promocion['descripcion']); ?></textarea></td>
-            </tr>
-            <tr>
-                <td><label for="fechaInicio">Fecha de Inicio:</label></td>
-                <td><input type="date" id="fechaInicio" name="fechaInicio" value="<?php echo htmlspecialchars($promocion['fechaInicio']); ?>"></td>
-            </tr>
-            <tr>
-                <td><label for="fechaFin">Fecha de Fin:</label></td>
-                <td><input type="date" id="fechaFin" name="fechaFin" value="<?php echo htmlspecialchars($promocion['fechaFin']); ?>"></td>
-            </tr>
-            <tr>
-                <td><label for="descuento">Descuento:</label></td>
-                <td><input type="number" id="descuento" name="descuento" value="<?php echo htmlspecialchars($promocion['descuento']); ?>" min="0" max="100"></td>
-            </tr>
-            <tr>
-                <td><label for="imagen">Imagen:</label></td>
-                <td><input type="file" id="imagen" name="imagen" accept="image/*"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><label for="imagen">Imagen Actual:</label></td>
-                <td colspan="2">
-                    <?php if (!empty($promocion['imagen'])){ ?>
-                        <img src="<?php echo '/Codigo' . htmlspecialchars($promocion['imagen']); ?>" alt="Imagen de la promoción" style="max-width: 100px; max-height: 100px;">
-                    <?php } else { ?>
-                        Sin imagen
-                    <?php } ?>
-                </td>
-            </tr>
-            <tr>
-                <td><button type="submit" class="btnGuardar">Guardar Cambios</button></td>
-                <td><button type="button" class="btnCancelar" onclick="window.close()">Cancelar</button></td>
-            </tr>
-        </table>
-    </form>
+    <div class="form-container">
+        <form action="procesar_editar_promocion.php" method="POST">
+            <table>
+                <tr>
+                    <td><input type="hidden" name="idPromocion" value="<?php echo htmlspecialchars($idPromocion); ?>"></td>
+                </tr>
+                <tr>
+                    <td><label for="titulo">Título:</label></td>
+                    <td><input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($promocion['titulo']); ?>" required></td>
+                </tr>
+                <tr>
+                    <td><label for="descripcion">Descripción:</label></td>
+                    <td><textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($promocion['descripcion']); ?></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="fechaInicio">Fecha de Inicio:</label></td>
+                    <td><input type="date" id="fechaInicio" name="fechaInicio" value="<?php echo htmlspecialchars($promocion['fechaInicio']); ?>"></td>
+                </tr>
+                <tr>
+                    <td><label for="fechaFin">Fecha de Fin:</label></td>
+                    <td><input type="date" id="fechaFin" name="fechaFin" value="<?php echo htmlspecialchars($promocion['fechaFin']); ?>"></td>
+                </tr>
+                <tr>
+                    <td><label for="descuento">Descuento:</label></td>
+                    <td><input type="number" id="descuento" name="descuento" value="<?php echo htmlspecialchars($promocion['descuento']); ?>" min="0" max="100"></td>
+                </tr>
+                <tr>
+                    <td><label for="imagen">Imagen:</label></td>
+                    <td><input type="file" id="imagen" name="imagen" accept="image/*"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><label for="imagen">Imagen Actual:</label></td>
+                    <td colspan="2">
+                        <?php if (!empty($promocion['imagen'])) { ?>
+                            <img src="<?php echo '/Codigo' . htmlspecialchars($promocion['imagen']); ?>" alt="Imagen de la promoción" style="max-width: 100px; max-height: 100px;">
+                        <?php } else { ?>
+                            Sin imagen
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="btnGuardar">Guardar</button></td>
+                    <td><button type="button" class="btnCancelar" onclick="window.close()">Cancelar</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </body>
 
 </html>
