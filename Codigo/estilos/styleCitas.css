@@ -17,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    width: 80%;
 }
 
 .columna {
@@ -43,3 +44,31 @@
     background-color: darkred;
 }
 
+.navegacion-calendario {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+    margin-bottom: 20px; 
+}
+
+.navegacion-calendario h3 {
+    margin: 0; 
+    font-size: 1.5rem; /
+}
+
+.next-after {
+    padding: 5px 10px; 
+    font-size: 1rem; 
+    cursor: pointer;   
+}
+
+
+.columna.izquierda-arriba {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.columna.derecha-arriba {
+    height: 100%;
+}
