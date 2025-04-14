@@ -58,6 +58,10 @@ $pacientes = $result->fetch_assoc();
                 <button type="button" id="btnCambiarContrasena" onclick="newWindow()">Cambiar Contraseña</button>
             </td>
         </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Guardar Cambios</button>
+            </td>
+        </tr>
     </table>
-    <button type="submit">Guardar Cambios</button>
 </form>

@@ -9,6 +9,16 @@ html {
     background-color: var(--colorFondo);
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--colorFondo);
+    font-family: Arial, sans-serif;
+}
+
 /* Cursor de pie y herida, pero no cambian en todos los botones */
 /* body {
     cursor: url('/Codigo/imagenes/cursores/pie.cur'), auto;
@@ -101,11 +111,40 @@ nav ul li a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-width: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .tablaLogin {
     border-collapse: collapse;
     margin-bottom: 20px;
+    width: 100%;
+}
+
+.tablaLogin th {
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    color: var(--colorTexto);
+}
+
+.tablaLogin td {
+    padding: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .btnIS {
@@ -120,6 +159,7 @@ nav ul li a {
     cursor: pointer;
     border-radius: 4px;
     margin: 0;
+    width: 100%;
 }
 
 .btnIS:hover {
@@ -127,8 +167,22 @@ nav ul li a {
     background-color: var(--colorBotonHover);
     color: white;
 }
-main{
-   flex-grow: 1; /* Permite que el main ocupe el espacio restante */
+
+#error-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 footer {
