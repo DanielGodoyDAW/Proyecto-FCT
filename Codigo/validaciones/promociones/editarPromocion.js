@@ -1,6 +1,6 @@
 function editarPromocion(idPromocion) {
-    let width = 600;
-    let height = 400;
+    let width = 700;
+    let height = 550;
     let left = (window.screen.width / 2) - (width / 2);
     let top = (window.screen.height / 2) - (height / 2);
 
