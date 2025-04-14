@@ -285,8 +285,6 @@ footer {
     padding: 10px 15px;
     margin: 5px 0;
     border-radius: 5px;
-    cursor: pointer;
-    width: 40%;
     text-align: center;
 }
 .btn-horario-ocupado:hover {

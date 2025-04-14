@@ -6,7 +6,7 @@ function iniciar() {
 
 //funcion validar registro
 function validarRegistro(event) {
-    if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarFecha() && validarSexo() && validarPass() && validarConfirmarPass()) {
+    if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarExtension() && validarFecha() && validarSexo() && validarPass() && validarConfirmarPass()) {
         alert("Formulario a la espera de verificación");
         return true;
     } else {
@@ -84,6 +84,18 @@ function validarTlf() {
         return false;
     } else {
         tlf.style.border = "2px solid green";
+    }
+    return true;
+}
+
+//validar extension
+function validarExtension() {
+    let extension = document.getElementById("extension");
+    if (!extension.checkValidity()) {
+        error(extension);
+        return false;
+    } else {
+        extension.style.border = "2px solid green";
     }
     return true;
 }

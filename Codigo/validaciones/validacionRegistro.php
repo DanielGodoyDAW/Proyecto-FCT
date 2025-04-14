@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../conexion/conexion.php'; 
+require_once __DIR__ . '/../conexion/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores = [];
@@ -40,8 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validar teléfono
     if (!preg_match('/^\+\d{2} \d{3} \d{3} \d{3}$/', $_POST['telefono'])) {
-        $errores[] = "El teléfono debe tener el formato +99 999 999 999.";
+        $errores[] = "El teléfono debe tener el formato 999 999 999.";
     }
+
+    if (empty($_POST['extension']) || !preg_match('/^\+\d{1,3}$/', $_POST['extension'])) {
+        $errores[] = "Por favor, selecciona una extensión válida.";
+    }
+
+    $extension = $_POST['extension'] ?? '';
+    $telefono = $_POST['telefono'] ?? '';
+    $telefonoCompleto = $extension . ' ' . $telefono;
 
     // Validar fecha de nacimiento
     if (empty($_POST['fecha_nacimiento'])) {
@@ -84,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             alert('$erroresString');
             window.location.href = '/Codigo/registro.php';
         </script>";
-        exit(); 
+        exit();
     } else {
         // Encriptar la contraseña
         $password_encriptada = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -99,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['apellido1'],
             $_POST['apellido2'],
             $_POST['email'],
-            $_POST['telefono'],
+            $telefonoCompleto,
             $_POST['fecha_nacimiento'],
             $_POST['sexo'],
             $_POST['dni'],
