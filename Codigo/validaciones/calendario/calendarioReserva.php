@@ -81,7 +81,7 @@
                 $totalReservas = $row['totalReservas'];
 
                 // Total de horarios posibles (mañana + tarde)
-                $totalHorarios = 16; // 8 horarios por la mañana + 8 por la tarde
+                $totalHorarios = 16; 
 
                 if ($totalReservas == 0) {
                     $diasDisponibilidad[$fecha] = 'verde'; // Día completamente disponible
@@ -93,6 +93,7 @@
             }
 
             // Generar los botones de navegación
+            echo '<div class="navegacion-calendario">';
             echo '<form action="" method="post">';
             echo '<button type="submit" class="next-after" name="mes" value="' . $mesAnterior . '">Anterior</button>';
             echo '<input type="hidden" class="next-after" name="year" value="' . $yearAnterior . '">';
@@ -104,6 +105,7 @@
             echo '<button type="submit" class="next-after" name="mes" value="' . $mesSiguiente . '">Siguiente</button>';
             echo '<input type="hidden" class="next-after" name="year" value="' . $yearSiguiente . '">';
             echo '</form>';
+            echo '</div>';
 
             // Generar la tabla del calendario
             $calendario = "<table class='tablaCalendario'><tr><th>Lun</th><th>Mar</th><th>Mie</th><th>Jue</th><th>Vie</th><th>Sab</th><th>Dom</th></tr>";

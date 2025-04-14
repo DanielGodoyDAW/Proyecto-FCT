@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         // Mostrar los horarios libres en dos columnas
+        echo '<h2>Selecciona un tramo horario</h2>';
         echo '<h3>Horarios disponibles para ' . $fechaSeleccionada . ':</h3>';
         echo '<div class="horarios-container">';
 

@@ -242,7 +242,7 @@ footer {
 .btn-estado:hover {
     background-color: var(--colorBotonHover);
 }
-
+/* estilos de citas seleccion de horario */
 .horarios-container {
     display: flex;
     justify-content: space-between;
@@ -253,7 +253,7 @@ footer {
 
 .horarios-columna {
     flex: 1;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */ /* para ver el borde*/
     padding: 10px;
     border-radius: 5px;
     max-width: 45%; 
@@ -272,7 +272,6 @@ footer {
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
-    width: 40%;
     text-align: center;
 }
 
@@ -294,6 +293,7 @@ footer {
     background-color: red;
 }
 
+/*Estilos para el boton activo del header*/
 .navegacion.active {
     background-color: var(--colorActive);
     color: var(--colorFondo);
