@@ -15,6 +15,7 @@
             <h2>Promociones</h2>
             <?php
             $mostrarEditar = false;
+            $mostrarImagen = true;
             require_once '../Codigo/validaciones/promociones/promociones_lista.php';
             ?>
         </div>

@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
 
-$mostrarEditar = $mostrarEditar ?? false;
+$mostrarEditar = $mostrarEditar ?? false; //para mostar edirtar si eres admin
+$mostrarImagen = $mostrarImagen ?? false; // para mostrar la imagenes en promociones
 
 echo '<link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">';
 
@@ -10,7 +11,15 @@ $result = $conexion->query($sql);
 
 if ($result->num_rows > 0) {
     echo '<table id="promociones-table">';
-    echo '<tr><th>Título</th><th>Descripción</th><th>Fecha Inicio</th><th>Fecha Fin</th><th>Descuento</th>';
+    echo '<tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Descuento</th>';
+    if ($mostrarImagen) {
+        echo '<th>Imagen</th>'; // Solo muestra la columna de imágenes si $mostrarImagen es true
+    }
     if ($mostrarEditar) {
         echo '<th>Acciones</th>';
     }
@@ -22,10 +31,17 @@ if ($result->num_rows > 0) {
         echo '<td>' . htmlspecialchars($row['fechaInicio']) . '</td>';
         echo '<td>' . htmlspecialchars($row['fechaFin']) . '</td>';
         echo '<td>' . htmlspecialchars($row['descuento']) . '%</td>';
+        if ($mostrarImagen) {
+            if (!empty($row['imagen'])) {
+                echo '<td><img src="'. '/Codigo' . htmlspecialchars($row['imagen']) . '" alt="Imagen de la promoción" style="max-width: 100px; max-height: 100px;"></td>';
+            } else {
+                echo '<td>Sin imagen</td>';
+            }
+        }
         if ($mostrarEditar) {
             echo '<td>';
             echo '<button class="btnA" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
-            echo '<form method="POST" action="/Codigo/validaciones/promociones/eliminar_promocion.php" style="display:inline;">';
+            echo '<form action="/Codigo/validaciones/promociones/eliminar_promocion.php" method="POST" style="display:inline;">';
             echo ' ';
             echo '<input type="hidden" name="idPromocion" value="' . $row['idPromocion'] . '">';
             echo '<button type="submit" class="btnB" onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta promoción?\');">Eliminar</button>';

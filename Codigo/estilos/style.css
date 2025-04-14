@@ -27,6 +27,7 @@ header a {
     --colorBotonHover: #0f2788;
     --colorFondo: #DFF5F6;
     --colorFondoDivs: #E8F0F1;
+    --colorActive: #008aca;
 }
 
 /* Header */
@@ -240,8 +241,13 @@ footer {
 }
 
 .navegacion.active {
-    background-color: var(--colorBotonHover);
+    background-color: var(--colorActive);
     color: var(--colorFondo);
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 102, 255, 0.4), 0 0 10px rgba(0, 153, 255, 0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+}
+.navegacion.active:hover {
+    background-color: var(--colorBotonHover); 
+    box-shadow: 0 6px 12px rgba(0, 102, 255, 0.6); 
 }
