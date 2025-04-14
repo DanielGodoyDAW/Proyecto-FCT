@@ -1,14 +1,14 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
 
-$idPromocion = $_GET['idPromocion'] ?? null;
+$idPromocion = $_GET['idPromocion'] ?? null; //usamos el get, para recogerlos del formulario de js
 
 if (!$idPromocion) {
     die('Error: ID de promoción no proporcionado.');
 }
 
 // Obtener los datos de la promoción
-$query = "SELECT titulo, descripcion, fechaInicio, fechaFin, descuento FROM promociones WHERE idPromocion = ?";
+$query = "SELECT titulo, descripcion, fechaInicio, fechaFin, descuento, imagen FROM promociones WHERE idPromocion = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param('i', $idPromocion);
 $stmt->execute();
@@ -57,6 +57,20 @@ $promocion = $result->fetch_assoc();
             <tr>
                 <td><label for="descuento">Descuento:</label></td>
                 <td><input type="number" id="descuento" name="descuento" value="<?php echo htmlspecialchars($promocion['descuento']); ?>" min="0" max="100"></td>
+            </tr>
+            <tr>
+                <td><label for="imagen">Imagen:</label></td>
+                <td><input type="file" id="imagen" name="imagen" accept="image/*"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><label for="imagen">Imagen Actual:</label></td>
+                <td colspan="2">
+                    <?php if (!empty($promocion['imagen'])){ ?>
+                        <img src="<?php echo '/Codigo' . htmlspecialchars($promocion['imagen']); ?>" alt="Imagen de la promoción" style="max-width: 100px; max-height: 100px;">
+                    <?php } else { ?>
+                        Sin imagen
+                    <?php } ?>
+                </td>
             </tr>
             <tr>
                 <td><button type="submit" class="btnGuardar">Guardar Cambios</button></td>
