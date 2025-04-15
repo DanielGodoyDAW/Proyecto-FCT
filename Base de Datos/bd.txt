@@ -26,3 +26,5 @@ promociones -> promocion1, promocion2,
 administracion -> Busqueda Paciente (idPacientes (desplegable con los nombres), por fecha (fechaInicio, fechaFin), tratamiento) - Historial - Tratamientos
 
 cerrar sesion
+
+agregacion de 2 campos en la tabla pacientes para la verificacion de la recuperacion de la contraseña

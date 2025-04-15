@@ -26,6 +26,7 @@
                         <td><input type="password" id="c2" name="password" placeholder="Contraseña" minlength="8" maxlength="20" required></td>
                     </tr>
                 </table>
+                <p><a href="/Codigo/validaciones/recuperarContra/recuperar_contrasena.php">¿Olvidaste tu contraseña?</a></p>
                 <input class="btnIS" type="submit" value="Iniciar Sesión">
                 <?php if (isset($_GET['error'])) : ?>
                     <div id="error-message">Usuario o contraseña incorrectos</div>
