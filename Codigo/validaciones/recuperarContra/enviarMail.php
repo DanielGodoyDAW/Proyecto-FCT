@@ -6,7 +6,8 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-function enviarCorreoRecuperacion($email, $token) {
+function enviarCorreoRecuperacion($email, $token)
+{
     global $conexion;
 
     $sql = "SELECT nombre, apellido1, apellido2, sexo FROM pacientes WHERE email = ?";
@@ -19,8 +20,11 @@ function enviarCorreoRecuperacion($email, $token) {
         $paciente = $result->fetch_assoc();
 
         $saludo = "D.";
-        if ($paciente['sexo'] === 'F') $saludo = "Dña.";
-        elseif ($paciente['sexo'] === 'O') $saludo = "Estimad@";
+        if ($paciente['sexo'] === 'F') {
+            $saludo = "Dña.";
+        } elseif ($paciente['sexo'] === 'O') {
+            $saludo = "Estimad@";
+        }
 
         $nombreCompleto = "$saludo {$paciente['nombre']} {$paciente['apellido1']} {$paciente['apellido2']}";
 
@@ -31,15 +35,15 @@ function enviarCorreoRecuperacion($email, $token) {
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'dgodmed486@g.educaand.es';
-            $mail->Password = 'hjoi hosx csoe uqdr'; 
+            $mail->Password = 'hjoi hosx csoe uqdr';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            $mail->setFrom('danielgodoymedina@gmail.com', 'Clínica de Podología Carmen Godoy');
+            $mail->setFrom('danielgodoymedina@gmail.com', 'Clinica de Podologia Carmen Godoy');
             $mail->addAddress($email);
 
             $mail->isHTML(true);
-            $mail->Subject = 'Recuperación de contraseña';
+            $mail->Subject = 'Recuperacion de password';
 
             // Usa URL encode por si acaso
             $tokenEncoded = urlencode($token);
@@ -47,12 +51,12 @@ function enviarCorreoRecuperacion($email, $token) {
             $mail->Body = "
                 <p>$nombreCompleto ha solicitado la recuperación de su contraseña.</p>
                 <p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
-                <p><a href='http://localhost/Proyecto_FTC/Proyecto_FCT/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>Restablecer contraseña</a></p>
+                <p><a href='http://localhost:3310/Proyecto-FTC/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>Restablecer contraseña</a></p>
                 <p>Si no has solicitado este cambio, ignora este mensaje.</p>";
 
+            //<p><a href='http://localhost:/Proyecto-FTC/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>Restablecer contraseña</a></p> ruta para la prueba del portatil
             $mail->send();
             return true;
-
         } catch (Exception $e) {
             return "Error al enviar el correo: {$mail->ErrorInfo}";
         }
