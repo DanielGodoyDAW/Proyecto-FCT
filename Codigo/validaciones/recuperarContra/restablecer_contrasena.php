@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+ob_start();
 
-if (!isset($_GET['token'])) {
+if (!isset($_GET['token']) || empty($_GET['token'])) {
     echo "Token no proporcionado.";
     exit;
 }
@@ -19,7 +20,7 @@ if ($result->num_rows === 0) {
     exit;
 }
 
-$usuario = $result->fetch_assoc();
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +33,7 @@ $usuario = $result->fetch_assoc();
 <body>
     <div class="containerRecuperar">
         <h2>Restablecer Contraseña</h2>
-        <form action="guardar_nueva_contra.php" method="post">
+        <form action="/Codigo/validaciones/recuperarContra/guardar_nueva_contra.php" method="post">
             <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
             <label for="password">Nueva contraseña:</label>
             <input type="password" name="password" id="password" required minlength="8"><br>

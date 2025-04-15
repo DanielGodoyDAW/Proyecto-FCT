@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Verificar si el correo existe
+    // Verifica si el correo existe
     $sql = "SELECT * FROM pacientes WHERE email = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultadoCorreo = enviarCorreoRecuperacion($email, $token);
 
         if ($resultadoCorreo === true) {
-            echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo.'); window.location.href='/Codigo/validaciones/recuperarContra/restablecer_contrasena.php';</script>";
+            echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo.'); window.close();</script>";
         } else {
             echo "<script>alert('Error: $resultadoCorreo'); window.location.href='/Codigo/validaciones/recuperarContra/recuperar_contrasena.html';</script>";
         }
