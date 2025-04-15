@@ -1,7 +1,9 @@
+<link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">
 <?php
 // Este archivo se encarga de mostrar las próximas citas y el historial de citas del paciente o administrador
 
 require_once __DIR__ . '/../conexion/conexion.php';
+
 
 if (isset($_SESSION["idPacientes"])) {
 
@@ -31,14 +33,23 @@ if (isset($_SESSION["idPacientes"])) {
         ];
     }
     // Mostrar las próximas citas
-    echo '<ul id="proximas-citas">';
+    echo '<table class="citas" border="1">
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+        </tr>';
     foreach ($proximasCitas as $cita) {
-        echo '<li>';
-        echo '<strong>Fecha:</strong> ' . $cita['fecha'] . ' <strong>Hora:</strong> ' . $cita['hora'] . ' <strong>Paciente:</strong> ' . $cita['nombre'] . ' ' . $cita['apellido1'] . ' ' . $cita['apellido2'];
-        echo '</li>';
+        echo '<tr>
+            <td>' . $cita['fecha'] . '</td>
+            <td>' . $cita['hora'] . '</td>
+            <td>' . $cita['nombre'] . '</td>
+            <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+        </tr>';
     }
-    echo '</ul>';
-}else{
+    echo '</table>';
+} else {
     //! pediente de cambio ya que actualmente sale lo mismo que en historial
     //consulta para ver todas las citas del mes (pasadas o futras) de cada paciente
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 FROM Citas INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes WHERE Citas.fecha >= CURDATE() ORDER BY Citas.fecha ASC";
@@ -58,10 +69,22 @@ if (isset($_SESSION["idPacientes"])) {
         ];
     }
     // Mostrar las próximas citas
-    echo '<ul id="historial-citas">';
+    echo '<table class="citas" border="1">
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+        </tr>';
     foreach ($proximasCitas as $cita) {
-        echo '<li>';
-        echo '<strong>Fecha:</strong> ' . $cita['fecha'] . ' <strong>Hora:</strong> ' . $cita['hora'] . ' <strong>Paciente:</strong> ' . $cita['nombre'] . ' ' . $cita['apellido1'] . ' ' . $cita['apellido2'];
-        echo '</li>';
+        echo '<tr>
+            <td>' . $cita['fecha'] . '</td>
+            <td>' . $cita['hora'] . '</td>
+            <td>' . $cita['nombre'] . '</td>
+            <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+        </tr>';
     }
+    echo '</table>';
 }
+
+?>

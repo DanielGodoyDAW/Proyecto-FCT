@@ -1,6 +1,6 @@
 <header>
     <a href="/Codigo/index.php">
-        <img class="logo" src="/Codigo/imagenes/logo_provisional.png" alt="icono">
+        <img class="logo" src="/Codigo/imagenes/logo.png" alt="icono">
     </a>
     <h1>Clínica de Podología Carmen Godoy</h1>
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
@@ -23,7 +23,7 @@
         if ($result->num_rows > 0) {
             // Si se encuentra el administrador, mostrar sus datos
             $admin = $result->fetch_assoc();
-            echo '<p class="bienvenida">Bienvenido Administrador: ' . htmlspecialchars($admin['nombre']) . ' ' . htmlspecialchars($admin['apellido1']) . ' ' . htmlspecialchars($admin['apellido2']) . '</p>';
+            echo '<p class="bienvenida">Bienvenida Administradora: ' . htmlspecialchars($admin['nombre']) . ' ' . htmlspecialchars($admin['apellido1']) . ' ' . htmlspecialchars($admin['apellido2']) . '</p>';
         }
     } else if (isset($_SESSION['idPacientes'])) {
         // Si el usuario es un paciente
