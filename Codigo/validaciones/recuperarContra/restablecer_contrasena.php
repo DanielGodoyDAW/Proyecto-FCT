@@ -8,18 +8,18 @@ if (!isset($_GET['token'])) {
 
 $token = $_GET['token'];
 
-$sql = "SELECT email FROM pacientes WHERE token_recuperacion = ? AND token_expira > NOW()";
+$sql = "SELECT * FROM pacientes WHERE token_recuperacion = ? AND token_expira > NOW()";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("s", $token);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 0) {
-    echo "El enlace de recuperación no es válido o ha expirado.";
+    echo "Token inválido o expirado.";
     exit;
 }
 
-$email = $result->fetch_assoc()['email'];
+$usuario = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -32,12 +32,13 @@ $email = $result->fetch_assoc()['email'];
 <body>
     <div class="containerRecuperar">
         <h2>Restablecer Contraseña</h2>
-        <form action="guardar_nueva_contrasena.php" method="POST">
+        <form action="guardar_nueva_contra.php" method="post">
             <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-            <label for="password">Nueva Contraseña:</label>
-            <input type="password" name="password" required minlength="8">
-            <br>
-            <input type="submit" value="Guardar nueva contraseña">
+            <label for="password">Nueva contraseña:</label>
+            <input type="password" name="password" id="password" required minlength="8"><br>
+            <label for="confirm_password">Confirmar contraseña:</label>
+            <input type="password" name="confirm_password" id="confirm_password" required minlength="8"><br>
+            <input class="btnPss" type="submit" value="Restablecer contraseña">
         </form>
     </div>
 </body>
