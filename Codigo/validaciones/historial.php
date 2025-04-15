@@ -24,12 +24,22 @@ if (isset($_SESSION["idAdmin"])) {
         ];
     }
     // Mostrar las próximas citas
-    echo '<ul id="historial-citas">';
+    echo '<table class="citas" border="1">
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+        </tr>';
     foreach ($proximasCitas as $cita) {
-        echo '<li>';
-        echo '<strong>Fecha:</strong> ' . $cita['fecha'] . ' <strong>Hora:</strong> ' . $cita['hora'] . ' <strong>Paciente:</strong> ' . $cita['nombre'] . ' ' . $cita['apellido1'] . ' ' . $cita['apellido2'];
-        echo '</li>';
+        echo '<tr>
+            <td>' . $cita['fecha'] . '</td>
+            <td>' . $cita['hora'] . '</td>
+            <td>' . $cita['nombre'] . '</td>
+            <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+        </tr>';
     }
+    echo '</table>';
 } else {
     //si eres paciente
     $idPaciente = $_SESSION["idPacientes"];
@@ -57,13 +67,22 @@ if (isset($_SESSION["idAdmin"])) {
         ];
     }
     // Mostrar las próximas citas
-    echo '<ul id="proximas-citas">';
+    echo '<table class="citas" border="1">
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+        </tr>';
     foreach ($proximasCitas as $cita) {
-        echo '<li>';
-        echo '<strong>Fecha:</strong> ' . $cita['fecha'] . ' <strong>Hora:</strong> ' . $cita['hora'] . ' <strong>Paciente:</strong> ' . $cita['nombre'] . ' ' . $cita['apellido1'] . ' ' . $cita['apellido2'];
-        echo '</li>';
+        echo '<tr>
+            <td>' . $cita['fecha'] . '</td>
+            <td>' . $cita['hora'] . '</td>
+            <td>' . $cita['nombre'] . '</td>
+            <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+        </tr>';
     }
-    echo '</ul>';
+    echo '</table>';
 }
 
 ?>

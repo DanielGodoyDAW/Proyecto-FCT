@@ -5,7 +5,7 @@ function newWindow() {
     let top = (window.screen.height / 2) - (height / 2); // Centrar verticalmente
 
     let ventana = window.open(
-        "", // Deja vacío para generar el contenido dinámicamente
+        "", 
         "popup",
         `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no`
     );

@@ -6,7 +6,8 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: var(--colorFondo);
+    overflow-x: hidden;
+    /* background-color: var(--colorFondo); */
 }
 
 body {
@@ -15,8 +16,20 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: var(--colorFondo);
-    font-family: Arial, sans-serif;
+    /* background-color: var(--colorFondo); */
+    background-image: url('/Codigo/imagenes/redimension3_fondo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Amazing Grotesk, sans-serif;
+}
+/*Agregacion de fuente externa para el texto de la web*/
+@font-face {
+    font-family: 'Amazing Grotesk';
+    src: url('/Codigo/fuenteTexto/amazing_grotesk/Amazing\ Grotesk\ Book.otf') format('woff2'),
+         url('/Codigo/fuenteTexto/amazing_grotesk/Amazing\ Grotesk\ Ultra.otf') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* Cursor de pie y herida, pero no cambian en todos los botones */
@@ -54,8 +67,8 @@ header {
 }
 
 .logo {
-    width: 100px;
-    height: auto;
+    width: 250px;
+    height: 200px;
     margin: 10px;
 }
 
@@ -189,10 +202,11 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: var(--colorFondo);
     text-align: center;
     padding: 10px 0;
     z-index: 10;
+
+    /* justify-content: center; */
 
 }
 .footerIzquierda, .footerCentro, .footerDerecha{
@@ -302,4 +316,62 @@ footer {
 .navegacion.active:hover {
     background-color: var(--colorBotonHover); 
     box-shadow: 0 6px 12px rgba(0, 102, 255, 0.6); 
+}
+
+/* Responsive para moviles*/
+
+@media (max-width: 768px) {
+    body, html {
+        font-size: 14px; /* Reduce el tamaño de fuente general */
+    }
+
+    .contenedorLogin {
+        width: 90%; /* Ajusta el ancho del contenedor */
+        padding: 15px; /* Reduce el padding */
+    }
+
+    .tablaLogin th {
+        font-size: 18px; /* Reduce el tamaño del texto */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 14px; /* Reduce el tamaño del texto en los inputs */
+        padding: 8px; /* Reduce el padding */
+    }
+
+    .btnIS {
+        font-size: 14px; /* Reduce el tamaño del botón */
+        padding: 8px 15px; /* Ajusta el padding */
+    }
+
+    footer {
+        font-size: 12px; /* Reduce el tamaño del texto en el footer */
+        padding: 5px 0; /* Reduce el padding */
+    }
+
+    .footerIzquierda, .footerCentro, .footerDerecha {
+        width: 100%; /* Apila las secciones del footer */
+        display: block;
+        text-align: center;
+    }
+
+    .horarios-container {
+        flex-direction: column; /* Apila las columnas de horarios */
+        gap: 20px; /* Añade espacio entre las columnas */
+    }
+
+    .horarios-columna {
+        max-width: 100%; /* Asegura que ocupen todo el ancho */
+    }
+
+    nav ul {
+        flex-direction: column; /* Apila los elementos del menú */
+        gap: 10px; /* Añade espacio entre los elementos */
+    }
+
+    nav ul li a {
+        font-size: 14px; /* Reduce el tamaño del texto */
+        padding: 8px; /* Ajusta el padding */
+    }
 }

@@ -37,14 +37,12 @@
             <!-- Sección izquierda: Próximas citas -->
             <div class="columna izquierda-abajo">
                 <h2>Próximas Citas</h2>
-                <ul id="proximas-citas"></ul>
                 <?php require_once './validaciones/proximas_citas.php'; ?>
             </div>
 
             <!-- Sección derecha: Historial de citas -->
             <div class="columna derecha-abajo">
                 <h2>Historial de Citas</h2>
-                <ul id="historial-citas"></ul>
                 <?php require_once './validaciones/historial.php'; ?>
             </div>
         </div>

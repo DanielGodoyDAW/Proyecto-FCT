@@ -72,3 +72,34 @@
 .columna.derecha-arriba {
     height: 100%;
 }
+
+.columna.izquierda-abajo, .columna.derecha-abajo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+.columna.izquierda-abajo h2, .columna.derecha-abajo h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+table .citas {
+    border-collapse: collapse; 
+    width: 100%; 
+    table-layout: fixed; 
+}
+
+table.citas th, table.citas td {
+    border: 1px solid #ddd; 
+    text-align: center; 
+    padding: 8px; 
+    word-wrap: break-word; 
+}
+
+table.citas th {
+    background-color: #f4f4f4; 
+    font-weight: bold; 
+}
