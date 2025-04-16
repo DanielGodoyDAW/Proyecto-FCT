@@ -1,15 +1,15 @@
 -- Estimacion de la Base de datos para la clínica de podología
 
--- Tabla Tratamientos
-CREATE TABLE Tratamientos (
-    idTratamiento INT PRIMARY KEY,
-    nombre VARCHAR(100),
-    descripcion TEXT,
-    precio DECIMAL(10, 2),
-    fechaInicio DATE,
-    fechaFin DATE,
-    estado VARCHAR(50) -- Puede ser "Pendiente", "Confirmada", "Cancelada"
-);
+-- Tabla Tratamientos esta tabla no hara falta
+-- CREATE TABLE Tratamientos (
+--     idTratamiento INT PRIMARY KEY,
+--     nombre VARCHAR(100),
+--     descripcion TEXT,
+--     precio DECIMAL(10, 2),
+--     fechaInicio DATE,
+--     fechaFin DATE,
+--     estado VARCHAR(50) -- Puede ser "Pendiente", "Confirmada", "Cancelada"
+-- );
 
 -- Tabla Admin
 CREATE TABLE Admin (
@@ -78,8 +78,8 @@ CREATE TABLE Citas (
     FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
 );
 
-CREATE TABLE Servicios (
-    idServicio INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Promociones (
+    idPromocion INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100),
     descripcion TEXT,
     duracion INT, -- Duración en minutos
@@ -101,21 +101,21 @@ CREATE TABLE Servicios (
 -- );
 
 -- Tabla Citas_Tratamientos
-CREATE TABLE Citas_Tratamientos (
-    idCita INT,
-    idTratamiento INT,
-    PRIMARY KEY (idCita, idTratamiento),
-    FOREIGN KEY (idCita) REFERENCES Citas(idCita),
-    FOREIGN KEY (idTratamiento) REFERENCES Tratamientos(idTratamiento)
-);
+-- CREATE TABLE Citas_Tratamientos (
+--     idCita INT,
+--     idTratamiento INT,
+--     PRIMARY KEY (idCita, idTratamiento),
+--     FOREIGN KEY (idCita) REFERENCES Citas(idCita),
+--     FOREIGN KEY (idTratamiento) REFERENCES Tratamientos(idTratamiento)
+-- );
 
 -- Tabla Citas_Promociones
-CREATE TABLE Citas_Servicios (
+CREATE TABLE Citas_Promociones (
     idCita INT,
-    idServicio INT,
+    idPromocion INT,
     PRIMARY KEY (idCita, idPromocion),
     FOREIGN KEY (idCita) REFERENCES Citas(idCita),
-    FOREIGN KEY (idServicio) REFERENCES Servicios(idServicio)
+    FOREIGN KEY (idPromocion) REFERENCES Promociones(idPromocion)
 );
 
 -- Insertar ADMIN 
@@ -130,9 +130,5 @@ VALUES ('Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '64364557
 INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
 VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu');
 
--- ALTER TABLE Pacientes
--- ADD COLUMN token_recuperacion VARCHAR(64) DEFAULT NULL,
--- ADD COLUMN token_expira DATETIME DEFAULT NULL;
 
---Promociones pasa a llamarse Servicios
 
