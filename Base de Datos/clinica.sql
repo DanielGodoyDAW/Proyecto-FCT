@@ -41,6 +41,8 @@ CREATE TABLE Pacientes (
     sexo CHAR(1),
     dni VARCHAR(20) UNIQUE NOT NULL,
     pass VARCHAR(255),
+    token_recuperacion VARCHAR(64) DEFAULT NULL,
+    token_expira DATETIME DEFAULT NULL,
     idHistorial INT NOT NULL,
     FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
 );
@@ -119,6 +121,6 @@ VALUES ('Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '64364557
 INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
 VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu');
 
-ALTER TABLE Pacientes
-ADD COLUMN token_recuperacion VARCHAR(64) DEFAULT NULL,
-ADD COLUMN token_expira DATETIME DEFAULT NULL;
+-- ALTER TABLE Pacientes
+-- ADD COLUMN token_recuperacion VARCHAR(64) DEFAULT NULL,
+-- ADD COLUMN token_expira DATETIME DEFAULT NULL;

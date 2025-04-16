@@ -25,21 +25,34 @@ ob_end_flush();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Restablecer Contraseña</title>
     <link rel="stylesheet" href="/Codigo/estilos/styleRecuperarContra.css">
+    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
 </head>
+
 <body>
     <div class="containerRecuperar">
         <h2>Restablecer Contraseña</h2>
-        <form action="/Codigo/validaciones/recuperarContra/guardar_nueva_contra.php" method="post">
-            <input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>">
-            <label for="password">Nueva contraseña:</label>
-            <input type="password" name="password" id="password" required minlength="8"><br>
-            <label for="confirm_password">Confirmar contraseña:</label>
-            <input type="password" name="confirm_password" id="confirm_password" required minlength="8"><br>
-            <input class="btnPss" type="submit" value="Restablecer contraseña">
+        <form id="formRestablecer" class="formularioRestablecer" action="/Codigo/validaciones/recuperarContra/guardar_nueva_contra.php" method="post">
+            <table>
+                <tr>
+                    <td><input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>"></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Nueva contraseña:</label></td>
+                    <td><input type="password" name="password" id="password" class="inputPassword" required minlength="8"></td>
+                </tr>
+                <tr>
+                    <td><label for="confirm_password">Confirmar contraseña:</label></td>
+                    <td><input type="password" name="confirm_password" id="confirm_password" class="inputPassword" required minlength="8"></td>
+                </tr>
+                <tr>
+                    <td><input class="btnRestablecer" type="submit" value="Restablecer contraseña"></td>
+                </tr>
+            </table>
         </form>
     </div>
 </body>
