@@ -4,6 +4,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
 require_once __DIR__ . '/../googleCalendar/google_calendar.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idPaciente = $_SESSION['idPacientes'];
     $fecha = $_POST['fecha'];
     $horaInicio = $_POST['hora'];
     $horaFin = date('H:i', strtotime($horaInicio) + 30 * 60); // Sumar 30 minutos
@@ -12,9 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Guardar la cita en la base de datos (ya implementado)
 
     // Crear el evento en Google Calendar
-    $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion);
-
-    echo 'Cita reservada con éxito. <a href="' . $enlaceEvento . '" target="_blank">Ver en Google Calendar</a>';
+    try {
+        $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente);
+        echo 'Evento creado: <a href="' . $enlaceEvento . '">Ver en Google Calendar</a>';
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
 }
 
 // Verificar si hay sesión activa
