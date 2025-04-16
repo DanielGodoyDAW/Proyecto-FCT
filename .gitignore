@@ -1,0 +1,23 @@
+# Ignorar dependencias de Composer
+/vendor/
+
+# Ignorar archivos de configuración sensibles
+/.env
+
+# Ignorar configuraciones específicas de IDEs o editores
+/.idea/
+/.vscode/
+
+# Ignorar archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar logs y cachés
+*.log
+/cache/
+/tmp/
+
+# Ignorar carpetas de pruebas locales o datos temporales
+/tests/
+/backup/
+/debug/
