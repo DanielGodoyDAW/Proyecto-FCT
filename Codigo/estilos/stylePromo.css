@@ -138,11 +138,11 @@ h2 {
     cursor: pointer;
 }
 
-.btnGuardar:hover {
+.btnGuardar:hover, #btn-color-V:hover {
     background-color: #45a049;
 }
 
-.btnCancelar:hover {
+.btnCancelar:hover, #btn-color-R:hover {
     background-color: #e53935;
 }
 .btnE{

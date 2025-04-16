@@ -4,20 +4,57 @@
 
 require_once __DIR__ . '/../conexion/conexion.php';
 
-
 if (isset($_SESSION["idPacientes"])) {
-
+    // Si el usuario es un paciente, se muestran solo sus citas
     $idPaciente = $_SESSION["idPacientes"];
 
-    //consulta para ver las proximas citas deñ usuario conectado
-    // Si el usuario es un paciente, se muestran sus citas. Si es un administrador, se muestran todas las citas.
-    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
-          FROM Citas 
-          INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
-          WHERE Citas.fecha >= CURDATE() AND Citas.idPacientes = ? 
-          ORDER BY Citas.fecha ASC";
+    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 
+              FROM Citas 
+              INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
+              WHERE Citas.fecha >= CURDATE() AND Citas.idPacientes = ? 
+              ORDER BY Citas.fecha ASC";
     $stmt = $conexion->prepare($query);
     $stmt->bind_param("i", $idPaciente);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $proximasCitas = [];
+    while ($row = $result->fetch_assoc()) {
+        $proximasCitas[] = [
+            'idCita' => $row['idCita'],
+            'fecha' => $row['fecha'],
+            'hora' => $row['hora'],
+            'nombre' => $row['nombre'],
+            'apellido1' => $row['apellido1'],
+            'apellido2' => $row['apellido2']
+        ];
+    }
+
+    // Mostrar las próximas citas del paciente
+    echo '<table class="citas" border="1">
+        <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+        </tr>';
+    foreach ($proximasCitas as $cita) {
+        echo '<tr>
+            <td>' . $cita['fecha'] . '</td>
+            <td>' . $cita['hora'] . '</td>
+            <td>' . $cita['nombre'] . '</td>
+            <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+        </tr>';
+    }
+    echo '</table>';
+} else {
+    // Si el usuario es un administrador, se muestran todas las citas con el teléfono incluido
+    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
+              FROM Citas 
+              INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
+              WHERE Citas.fecha >= CURDATE() 
+              ORDER BY Citas.fecha ASC";
+    $stmt = $conexion->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -33,7 +70,8 @@ if (isset($_SESSION["idPacientes"])) {
             'telefono' => $row['telefono']
         ];
     }
-    // Mostrar las próximas citas
+
+    // Mostrar las próximas citas con el teléfono
     echo '<table class="citas" border="1">
         <tr>
             <th>Fecha</th>
@@ -52,42 +90,5 @@ if (isset($_SESSION["idPacientes"])) {
         </tr>';
     }
     echo '</table>';
-} else {
-    //! pediente de cambio ya que actualmente sale lo mismo que en historial
-    //consulta para ver todas las citas del mes (pasadas o futras) de cada paciente
-    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 FROM Citas INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes WHERE Citas.fecha >= CURDATE() ORDER BY Citas.fecha ASC";
-    $stmt = $conexion->prepare($query);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $proximasCitas = [];
-    while ($row = $result->fetch_assoc()) {
-        $proximasCitas[] = [
-            'idCita' => $row['idCita'],
-            'fecha' => $row['fecha'],
-            'hora' => $row['hora'],
-            'nombre' => $row['nombre'],
-            'apellido1' => $row['apellido1'],
-            'apellido2' => $row['apellido2']
-        ];
-    }
-    // Mostrar las próximas citas
-    echo '<table class="citas" border="1">
-        <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Nombre</th>
-            <th>Apellidos</th>
-        </tr>';
-    foreach ($proximasCitas as $cita) {
-        echo '<tr>
-            <td>' . $cita['fecha'] . '</td>
-            <td>' . $cita['hora'] . '</td>
-            <td>' . $cita['nombre'] . '</td>
-            <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
-        </tr>';
-    }
-    echo '</table>';
 }
-
 ?>

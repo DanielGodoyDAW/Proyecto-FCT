@@ -3,11 +3,15 @@ session_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 
 // Verifica si el usuario está autenticado
-if (!isset($_SESSION['idPacientes'])) {
+if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
     die('Error: Usuario no autenticado.');
 }
 
-$idPaciente = $_SESSION['idPacientes'];
+if (isset($_SESSION['idPacientes'])) {
+    $idUsuario = $_SESSION['idPacientes'];
+} elseif (isset($_SESSION['idAdmin'])) {
+    $idUsuario = $_SESSION['idAdmin'];
+}
 
 // Obtén los datos enviados desde el formulario
 $email = $_POST['email'] ?? null;
