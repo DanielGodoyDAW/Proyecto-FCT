@@ -49,7 +49,7 @@ $promocion = $result->fetch_assoc();
                 </tr>
                 <tr>
                     <td><label for="duracion">Duracion:</label></td>
-                    <td><input type="date" id="duracion" name="duracion" value="<?php echo htmlspecialchars($promocion['duracion']); ?>"></td>
+                    <td><input type="text" id="duracion" name="duracion" value="<?php echo htmlspecialchars($promocion['duracion']); ?>"></td>
                 </tr>
                 <tr>
                     <td><label for="imagen">Imagen:</label></td>
