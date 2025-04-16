@@ -65,6 +65,12 @@ button {
 button:hover {
     background-color: var(--colorBotonHover);
 }
+.popUpGuardar:hover {
+    background-color: #218838;
+}
+.popUpCerrar:hover {
+    background-color: #c82333;
+}
 #popupContasena {
     display: none; 
     position: fixed;

@@ -7,7 +7,11 @@ require_once __DIR__ . '/../conexion/conexion.php';
 
 if (isset($_SESSION["idAdmin"])) {
     //consulta para ver todas las citas del mes (pasadas o futras) de cada paciente
-    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 FROM Citas INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes WHERE Citas.fecha >= CURDATE() ORDER BY Citas.fecha ASC";
+    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
+              FROM Citas 
+              INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
+              WHERE Citas.fecha >= CURDATE() 
+              ORDER BY Citas.fecha ASC";
     $stmt = $conexion->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -20,7 +24,8 @@ if (isset($_SESSION["idAdmin"])) {
             'hora' => $row['hora'],
             'nombre' => $row['nombre'],
             'apellido1' => $row['apellido1'],
-            'apellido2' => $row['apellido2']
+            'apellido2' => $row['apellido2'],
+            'telefono' => $row['telefono']
         ];
     }
     // Mostrar las próximas citas
@@ -30,6 +35,7 @@ if (isset($_SESSION["idAdmin"])) {
             <th>Hora</th>
             <th>Nombre</th>
             <th>Apellidos</th>
+            <th>Teléfono</th>
         </tr>';
     foreach ($proximasCitas as $cita) {
         echo '<tr>
@@ -37,6 +43,7 @@ if (isset($_SESSION["idAdmin"])) {
             <td>' . $cita['hora'] . '</td>
             <td>' . $cita['nombre'] . '</td>
             <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+            <td>' . $cita['telefono'] . '</td>
         </tr>';
     }
     echo '</table>';
