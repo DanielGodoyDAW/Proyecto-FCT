@@ -36,7 +36,7 @@ ob_end_flush();
 <body>
     <div class="containerRecuperar">
         <h2>Restablecer Contraseña</h2>
-        <form id="formRestablecer" class="formularioRestablecer" action="/Codigo/validaciones/recuperarContra/guardar_nueva_contra.php" method="post">
+        <form id="formRestablecer" class="formularioRestablecer" action="/Proyecto-FCT/Codigo/validaciones/recuperarContra/guardar_nueva_contra.php" method="post">
             <table>
                 <tr>
                     <td><input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>"></td>
