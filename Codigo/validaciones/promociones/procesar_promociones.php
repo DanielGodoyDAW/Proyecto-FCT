@@ -7,9 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
     $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-    $fechaInicio = isset($_POST['fechaInicio']) && !empty($_POST['fechaInicio']) ? $_POST['fechaInicio'] : null;
-    $fechaFin = isset($_POST['fechaFin']) && !empty($_POST['fechaFin']) ? $_POST['fechaFin'] : null;
-    $descuento = isset($_POST['descuento']) && !empty($_POST['descuento']) ? $_POST['descuento'] : null;
+    $duracion = isset($_POST['duracion']) && !empty($_POST['duracion']) ? $_POST['duracion'] : null;
+    
 
     // Manejar la imagen opcionalmente
     $rutaImagen = null;
@@ -34,10 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insertar en la base de datos
-    $sql = "INSERT INTO promociones (descripcion, fechaInicio, fechaFin, descuento, titulo, imagen, idAdmin) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO promociones (titulo, descripcion, duracion, imagen, idAdmin) 
+            VALUES (?, ?, ?, ?, ?)";
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param('ssssssi', $descripcion, $fechaInicio, $fechaFin, $descuento, $titulo, $rutaImagen, $idAdmin);
+    $stmt->bind_param('ssiss', $titulo, $descripcion, $duracion, $rutaImagen, $idAdmin);
 
     if ($stmt->execute()) {
         echo "<script>

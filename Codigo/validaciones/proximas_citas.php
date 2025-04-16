@@ -11,7 +11,7 @@ if (isset($_SESSION["idPacientes"])) {
 
     //consulta para ver las proximas citas deñ usuario conectado
     // Si el usuario es un paciente, se muestran sus citas. Si es un administrador, se muestran todas las citas.
-    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 
+    $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
           FROM Citas 
           INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
           WHERE Citas.fecha >= CURDATE() AND Citas.idPacientes = ? 
@@ -29,7 +29,8 @@ if (isset($_SESSION["idPacientes"])) {
             'hora' => $row['hora'],
             'nombre' => $row['nombre'],
             'apellido1' => $row['apellido1'],
-            'apellido2' => $row['apellido2']
+            'apellido2' => $row['apellido2'],
+            'telefono' => $row['telefono']
         ];
     }
     // Mostrar las próximas citas
@@ -39,6 +40,7 @@ if (isset($_SESSION["idPacientes"])) {
             <th>Hora</th>
             <th>Nombre</th>
             <th>Apellidos</th>
+            <th>Teléfono</th>
         </tr>';
     foreach ($proximasCitas as $cita) {
         echo '<tr>
@@ -46,6 +48,7 @@ if (isset($_SESSION["idPacientes"])) {
             <td>' . $cita['hora'] . '</td>
             <td>' . $cita['nombre'] . '</td>
             <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+            <td>' . $cita['telefono'] . '</td>
         </tr>';
     }
     echo '</table>';

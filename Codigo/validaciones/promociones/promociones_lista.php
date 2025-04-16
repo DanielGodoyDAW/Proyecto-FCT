@@ -14,9 +14,7 @@ if ($result->num_rows > 0) {
     echo '<tr>
             <th>Título</th>
             <th>Descripción</th>
-            <th>Fecha Inicio</th>
-            <th>Fecha Fin</th>
-            <th>Descuento</th>';
+            <th>Duracion</th>';
     if ($mostrarImagen) {
         echo '<th>Imagen</th>'; // Solo muestra la columna de imágenes si $mostrarImagen es true
     }
@@ -28,9 +26,7 @@ if ($result->num_rows > 0) {
         echo '<tr>';
         echo '<td>' . htmlspecialchars($row['titulo']) . '</td>';
         echo '<td>' . htmlspecialchars($row['descripcion']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['fechaInicio']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['fechaFin']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['descuento']) . '%</td>';
+        echo '<td>' . htmlspecialchars($row['duracion']) . ' min'. '</td>';
         if ($mostrarImagen) {
             if (!empty($row['imagen'])) {
                 echo '<td><img src="'. '/Codigo' . htmlspecialchars($row['imagen']) . '" alt="Imagen de la promoción" style="max-width: 100px; max-height: 100px;"></td>';

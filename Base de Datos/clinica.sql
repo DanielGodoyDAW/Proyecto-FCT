@@ -36,7 +36,7 @@ CREATE TABLE Pacientes (
     apellido1 VARCHAR(50),
     apellido2 VARCHAR(50),
     email VARCHAR(100),
-    telefono VARCHAR(15),
+    telefono VARCHAR(30),
     fechaNacim DATE,
     sexo CHAR(1),
     dni VARCHAR(20) UNIQUE NOT NULL,

@@ -9,19 +9,11 @@
         </tr>
         <tr>
             <td><label for="descripcion">Descripción:</label></td>
-            <td><textarea id="descripcion" name="descripcion" required></textarea></td>
+            <td><textarea id="descripcion" name="descripcion" ></textarea></td>
         </tr>
         <tr>
-            <td><label for="fechaInicio">Fecha de Inicio:</label></td>
-            <td><input type="date" name="fechaInicio" id="fechaInicio"></td>
-        </tr>
-        <tr>
-            <td><label for="fechaFin">Fecha de Fin:</label></td>
-            <td><input type="date" name="fechaFin" id="fechaFin"></td>
-        </tr>
-        <tr>
-            <td><label for="descuento">Descuento:</label></td>
-            <td><input type="number" name="descuento" id="descuento"></td>
+            <td><label for="duracion">Duracion:</label></td>
+            <td><input type="text" name="duracion" id="duracion"></td>
         </tr>
         <tr>
             <td><label for="imagen">Imagen:</label></td>

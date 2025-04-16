@@ -39,17 +39,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validar teléfono
-    if (!preg_match('/^\+\d{2} \d{3} \d{3} \d{3}$/', $_POST['telefono'])) {
-        $errores[] = "El teléfono debe tener el formato 999 999 999.";
+    if (!preg_match('/^[0-9\s]+$/', $_POST['telefono'])) {
+        $errores[] = "El número de teléfono no es válido.";
     }
 
     if (empty($_POST['extension']) || !preg_match('/^\+\d{1,3}$/', $_POST['extension'])) {
         $errores[] = "Por favor, selecciona una extensión válida.";
     }
 
-    $extension = $_POST['extension'] ?? '';
-    $telefono = $_POST['telefono'] ?? '';
+    $extension = trim($_POST['extension'] ?? '');
+    $telefono = preg_replace('/\s+/', '', $_POST['telefono'] ?? ''); // Elimina espacios
     $telefonoCompleto = $extension . ' ' . $telefono;
+
+    if (strlen($telefonoCompleto) > 15) {
+        $errores[] = "El número de teléfono completo no puede exceder los 15 caracteres.";
+    }
 
     // Validar fecha de nacimiento
     if (empty($_POST['fecha_nacimiento'])) {
