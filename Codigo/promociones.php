@@ -12,7 +12,7 @@
     <?php require_once '../Codigo/plantillas/header.php'; ?>
     <main class="container promociones">
         <div class="promociones-lista">
-            <h2>Promociones</h2>
+            <h2>Servicios</h2>
             <?php
             $mostrarEditar = false;
             $mostrarImagen = true;

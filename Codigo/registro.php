@@ -68,12 +68,50 @@ $errores = $_SESSION['errores'] ?? [];
                             <option value="+52">+52 (México)</option>
                             <option value="+57">+57 (Colombia)</option>
                             <option value="+54">+54 (Argentina)</option>
+                            <option value="+33">+33 (Francia)</option>
+                            <option value="+49">+49 (Alemania)</option>
+                            <option value="+39">+39 (Italia)</option>
+                            <option value="+81">+81 (Japón)</option>
+                            <option value="+82">+82 (Corea del Sur)</option>
+                            <option value="+86">+86 (China)</option>
+                            <option value="+91">+91 (India)</option>
+                            <option value="+7">+7 (Rusia)</option>
+                            <option value="+61">+61 (Australia)</option>
+                            <option value="+55">+55 (Brasil)</option>
+                            <option value="+27">+27 (Sudáfrica)</option>
+                            <option value="+47">+47 (Noruega)</option>
+                            <option value="+46">+46 (Suecia)</option>
+                            <option value="+48">+48 (Polonia)</option>
+                            <option value="+90">+90 (Turquía)</option>
+                            <option value="+63">+63 (Filipinas)</option>
+                            <option value="+64">+64 (Nueva Zelanda)</option>
+                            <option value="+20">+20 (Egipto)</option>
+                            <option value="+234">+234 (Nigeria)</option>
+                            <option value="+62">+62 (Indonesia)</option>
+                            <option value="+94">+94 (Sri Lanka)</option>
+                            <option value="+98">+98 (Irán)</option>
+                            <option value="+31">+31 (Países Bajos)</option>
+                            <option value="+41">+41 (Suiza)</option>
+                            <option value="+32">+32 (Bélgica)</option>
+                            <option value="+351">+351 (Portugal)</option>
+                            <option value="+45">+45 (Dinamarca)</option>
+                            <option value="+420">+420 (República Checa)</option>
+                            <option value="+421">+421 (Eslovaquia)</option>
+                            <option value="+36">+36 (Hungría)</option>
+                            <option value="+40">+40 (Rumanía)</option>
+                            <option value="+56">+56 (Chile)</option>
+                            <option value="+58">+58 (Venezuela)</option>
+                            <option value="+593">+593 (Ecuador)</option>
+                            <option value="+598">+598 (Uruguay)</option>
+                            <option value="+505">+505 (Nicaragua)</option>
+                            <option value="+506">+506 (Costa Rica)</option>
+                            <option value="+507">+507 (Panamá)</option>
                         </select></td>
                 </tr>
                 <tr>
                     <td><label for="c6">Teléfono</label></td>
                     <td>
-                        <input type="tel" id="c6" name="telefono" placeholder="Teléfono" required>
+                        <input type="tel" id="c6" name="telefono" placeholder="Teléfono" required pattern="[0-9\s]+" title="Introduce un número de teléfono válido.">
                     </td>
                 </tr>
                 <tr>

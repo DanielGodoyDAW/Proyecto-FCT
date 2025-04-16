@@ -8,7 +8,7 @@ if (!$idPromocion) {
 }
 
 // Obtener los datos de la promoción
-$query = "SELECT titulo, descripcion, fechaInicio, fechaFin, descuento, imagen FROM promociones WHERE idPromocion = ?";
+$query = "SELECT titulo, descripcion, duracion, imagen FROM promociones WHERE idPromocion = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param('i', $idPromocion);
 $stmt->execute();
@@ -32,7 +32,7 @@ $promocion = $result->fetch_assoc();
 </head>
 
 <body>
-    <h2>Editar Promoción</h2>
+    <h2>Editar Servicio</h2>
     <div class="form-container">
         <form action="procesar_editar_promocion.php" method="POST">
             <table>
@@ -48,16 +48,8 @@ $promocion = $result->fetch_assoc();
                     <td><textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($promocion['descripcion']); ?></textarea></td>
                 </tr>
                 <tr>
-                    <td><label for="fechaInicio">Fecha de Inicio:</label></td>
-                    <td><input type="date" id="fechaInicio" name="fechaInicio" value="<?php echo htmlspecialchars($promocion['fechaInicio']); ?>"></td>
-                </tr>
-                <tr>
-                    <td><label for="fechaFin">Fecha de Fin:</label></td>
-                    <td><input type="date" id="fechaFin" name="fechaFin" value="<?php echo htmlspecialchars($promocion['fechaFin']); ?>"></td>
-                </tr>
-                <tr>
-                    <td><label for="descuento">Descuento:</label></td>
-                    <td><input type="number" id="descuento" name="descuento" value="<?php echo htmlspecialchars($promocion['descuento']); ?>" min="0" max="100"></td>
+                    <td><label for="duracion">Duracion:</label></td>
+                    <td><input type="date" id="duracion" name="duracion" value="<?php echo htmlspecialchars($promocion['duracion']); ?>"></td>
                 </tr>
                 <tr>
                     <td><label for="imagen">Imagen:</label></td>
