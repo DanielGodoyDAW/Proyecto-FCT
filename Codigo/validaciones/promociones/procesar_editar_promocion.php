@@ -5,9 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idPromocion = $_POST['idPromocion'] ?? null;
     $titulo = $_POST['titulo'] ?? '';
     $descripcion = $_POST['descripcion'] ?? '';
-    $fechaInicio = $_POST['fechaInicio'] ?? null;
-    $fechaFin = $_POST['fechaFin'] ?? null;
-    $descuento = $_POST['descuento'] ?? null;
+    $duracion = $_POST['duracion'] ?? null;
+    
 
     if (!$idPromocion) {
         die('Error: ID de promoción no proporcionado.');
@@ -55,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $query = "UPDATE promociones SET titulo = ?, descripcion = ?, fechaInicio = ?, fechaFin = ?, descuento = ?";
+    $query = "UPDATE promociones SET titulo = ?, descripcion = ?, duracion = ?";
     if ($rutaImagen) {
         $query .= ", imagen = ?";
     }
@@ -64,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conexion->prepare($query);
 
     if ($rutaImagen) {
-        $stmt->bind_param('ssssisi', $titulo, $descripcion, $fechaInicio, $fechaFin, $descuento, $rutaImagen, $idPromocion);
+        $stmt->bind_param('ssisi', $titulo, $descripcion, $duracion, $rutaImagen, $idPromocion);
     } else {
-        $stmt->bind_param('sssssi', $titulo, $descripcion, $fechaInicio, $fechaFin, $descuento, $idPromocion);
+        $stmt->bind_param('ssii', $titulo, $descripcion, $duracion, $idPromocion);
     }
 
     if ($stmt->execute()) {
