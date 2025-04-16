@@ -64,8 +64,8 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $impresion .= '<ul>';
         foreach ($row as $key => $value) {
-            // Excluir la columna "contraseña"
-            if ($key === 'pass') {
+            // Excluir la columna contraseña, y los tokens
+            if (($key === 'pass') || ($key === 'token_recuperacion') || ($key === 'token_expira')) {
                 continue;
             }
             $impresion .= '<li><strong>' . ucfirst($key) . ':</strong> ' . htmlspecialchars($value) . '</li>';

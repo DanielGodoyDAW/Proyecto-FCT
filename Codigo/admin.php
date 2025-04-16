@@ -46,16 +46,16 @@
         </div>
 
         <!-- Fila 3: Tratamientos -->
-        <!-- <div class="fila">
-            <div class="seccion tratamientos">
-                <h2>Creación de Tratamientos</h2>
-                <?php require_once '../Codigo/validaciones/tratamientos.php'; ?>
+        <div class="fila">
+            <div class="seccion historial">
+                <h2>Creación Historial Clinico</h2>
+                <?php require_once '../Codigo/validaciones/historialClinico/historial_clinico_form.php'; ?>
             </div>
-            <div class="seccion tratamientos-lista">
-                <h2>Listado de Tratamientos</h2>
-                <div id="listado-tratamientos"></div>
+            <div class="seccion historial-lista">
+                <h2>Historiales Clinicos</h2>
+                <div id="listado-historiales"></div>
             </div>
-        </div> -->
+        </div>
     </main>
     <?php require_once '../Codigo/plantillas/footer.php'; ?>
 </body>

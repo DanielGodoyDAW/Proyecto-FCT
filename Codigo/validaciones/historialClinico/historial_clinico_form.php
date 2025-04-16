@@ -1,12 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../conexion/conexion.php';
+require_once __DIR__ . '/../../conexion/conexion.php';
 
-//primero crear un formulario para crear el tratamiento y luego otro para buscarlo
-
-//consulta en la bd para ver lso tratamientos disponibles y aplicados al paciente que coincida con la busqueda de busqueda.php
-//deberia de ser un select que muestre el nombre del tratamiento, la fecha de inicio y la fecha de fin, el estado (si esta en curso o finalizado) y el id del tratamiento
-//para poder modificarlo o eliminarlo
+//para agregar el historial clinico de los pacientes
 ?>
 
 <form action="insertar_tratamiento.php" method="post">
