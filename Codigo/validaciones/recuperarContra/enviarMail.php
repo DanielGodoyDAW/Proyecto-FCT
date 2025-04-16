@@ -51,7 +51,7 @@ function enviarCorreoRecuperacion($email, $token)
             $mail->Body = "
                 <p>$nombreCompleto ha solicitado la recuperación de su contraseña.</p>
                 <p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
-                <p><a href='http://localhost:3310/Proyecto-FTC/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>Restablecer contraseña</a></p>
+                <p><a href='http://localhost/Proyecto-FCT/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>Restablecer contraseña</p>
                 <p>Si no has solicitado este cambio, ignora este mensaje.</p>";
 
             //<p><a href='http://localhost:/Proyecto-FTC/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>Restablecer contraseña</a></p> ruta para la prueba del portatil

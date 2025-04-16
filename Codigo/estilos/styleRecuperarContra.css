@@ -23,3 +23,31 @@ table {
     cursor: pointer;
     border-radius: 4px;
 }
+/* Estilo para el formulario de restablecer contraseña */
+#formRestablecer {
+    margin-top: 20px;
+}
+
+.inputPassword {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btnRestablecer {
+    background-color: var(--colorBoton);
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btnRestablecer:hover {
+    background-color: var(--colorBotonActivoHover);
+}
