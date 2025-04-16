@@ -28,3 +28,5 @@ administracion -> Busqueda Paciente (idPacientes (desplegable con los nombres), 
 cerrar sesion
 
 agregacion de 2 campos en la tabla pacientes para la verificacion de la recuperacion de la contraseña
+
+la tabla de promociones pasara a ser servicios en el programa y por no enredar mas, la dejo con el nombre anterior
