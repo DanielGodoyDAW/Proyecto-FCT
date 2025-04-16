@@ -59,7 +59,7 @@
             } ?>
             <!-- si es paciente o admin -->
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/promociones.php'>Promociones</a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/promociones.php'>Servicios</a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
                 echo "<li><a class='btnA navegacion' href='/Codigo/editar_perfil.php'>Editar Perfil</a></li>";

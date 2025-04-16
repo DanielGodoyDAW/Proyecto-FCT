@@ -78,18 +78,27 @@ CREATE TABLE Citas (
     FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
 );
 
--- Tabla Promociones
-CREATE TABLE Promociones (
-    idPromocion INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion TEXT,
-    fechaInicio DATE,
-    fechaFin DATE,
-    descuento DECIMAL(5, 2),
+CREATE TABLE Servicios (
+    idServicio INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100),
+    descripcion TEXT,
+    duracion INT, -- Duración en minutos
     imagen VARCHAR(255),
     idAdmin INT,
     FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
 );
+-- Tabla Promociones
+-- CREATE TABLE Promociones (
+--     idPromocion INT PRIMARY KEY AUTO_INCREMENT,
+--     descripcion TEXT,
+--     fechaInicio DATE,
+--     fechaFin DATE,
+--     descuento DECIMAL(5, 2),
+--     titulo VARCHAR(100),
+--     imagen VARCHAR(255),
+--     idAdmin INT,
+--     FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
+-- );
 
 -- Tabla Citas_Tratamientos
 CREATE TABLE Citas_Tratamientos (
@@ -101,12 +110,12 @@ CREATE TABLE Citas_Tratamientos (
 );
 
 -- Tabla Citas_Promociones
-CREATE TABLE Citas_Promociones (
+CREATE TABLE Citas_Servicios (
     idCita INT,
-    idPromocion INT,
+    idServicio INT,
     PRIMARY KEY (idCita, idPromocion),
     FOREIGN KEY (idCita) REFERENCES Citas(idCita),
-    FOREIGN KEY (idPromocion) REFERENCES Promociones(idPromocion)
+    FOREIGN KEY (idServicio) REFERENCES Servicios(idServicio)
 );
 
 -- Insertar ADMIN 
@@ -124,3 +133,6 @@ VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', 
 -- ALTER TABLE Pacientes
 -- ADD COLUMN token_recuperacion VARCHAR(64) DEFAULT NULL,
 -- ADD COLUMN token_expira DATETIME DEFAULT NULL;
+
+--Promociones pasa a llamarse Servicios
+
