@@ -33,5 +33,5 @@
             </td>
         </tr>
     </table>
-    <button type="submit">Agregar Promoción</button>
+    <button type="submit">Agregar Servicio</button>
 </form>
