@@ -50,7 +50,7 @@ $result = $stmt->get_result()->fetch_assoc();
 
 if ($result['total'] > 0) {
     echo '<script>alert("El tramo horario ya está reservado.");</script>';
-    echo '<script>window.location.href = "../citas.php";</script>'; // Volver a la página anterior
+    echo '<script>window.location.href = "/Codigo/citas.php";</script>'; // Volver a la página anterior
 } else {
     // Insertar la nueva cita en la base de datos
     $estado = 'Pendiente';
@@ -60,7 +60,7 @@ if ($result['total'] > 0) {
 
     if ($stmt->execute()) {
         echo '<script>alert("Cita reservada exitosamente.");</script>';
-        echo '<script>window.location.href = "../citas.php";</script>'; // Redirigir a la pagina de citas
+        echo '<script>window.location.href = "/Codigo/citas.php";</script>'; // Redirigir a la pagina de citas
     } else {
         echo 'Error: No se pudo guardar la cita en la base de datos.';
     }
