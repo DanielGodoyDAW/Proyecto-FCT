@@ -30,3 +30,8 @@ cerrar sesion
 agregacion de 2 campos en la tabla pacientes para la verificacion de la recuperacion de la contraseña
 
 la tabla de promociones pasara a ser servicios en el programa y por no enredar mas, la dejo con el nombre anterior
+
+tareas
+
+añadir algun sitio para agregar anotaciones de los pacientes 
+agregar que el admin pueda habilitar las citas
