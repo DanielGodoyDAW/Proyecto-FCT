@@ -1,22 +1,23 @@
 <?php
+session_start(); // Asegúrate de que la sesión está iniciada si usas $_SESSION
+
 require_once __DIR__ . '/../../conexion/conexion.php';
-require_once __DIR__ . '/../../googleCalendar/google_calendar.php'; // Para usar getClient()
-require_once __DIR__ . '/../../../vendor/autoload.php'; // Asegúrate de que esté cargado
+require_once __DIR__ . '/../../googleCalendar/google_calendar.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-//Eliminar el evento de Google Calendar
+// Eliminar evento de Google Calendar
 function eliminarEventoGoogleCalendar($eventId)
 {
     if (empty($eventId)) {
         throw new Exception("El ID del evento no puede estar vacío.");
     }
 
-    $client = getClient(); // Obtiene el cliente autenticado
+    $client = getClient();
     $service = new Google_Service_Calendar($client);
-
-    $calendarId = 'danielgodoymedina@gmail.com'; // Mismo calendario usado en crearEvento()
+    $calendarId = 'danielgodoymedina@gmail.com';
 
     try {
         $service->events->delete($calendarId, $eventId);
@@ -25,27 +26,38 @@ function eliminarEventoGoogleCalendar($eventId)
     }
 }
 
-// Cuando se envía el formulario de cancelación
+// Procesar cancelación
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
     $idCita = $_POST['idCita'];
 
-    //Obtener el ID del evento de Google Calendar antes de borrar la cita
-    $query = "SELECT google_event_id FROM Citas WHERE idCita = ?";
-    $stmt = $conexion->prepare($query);
+    // Obtener info de la cita
+    $stmt = $conexion->prepare("SELECT google_event_id, fecha, hora FROM Citas WHERE idCita = ?");
     $stmt->bind_param("i", $idCita);
     $stmt->execute();
     $result = $stmt->get_result();
     $eventData = $result->fetch_assoc();
-    $googleEventId = $eventData['google_event_id'] ?? null;
 
-    //Eliminar la cita de la base de datos
-    $query = "DELETE FROM Citas WHERE idCita = ?";
-    $stmt = $conexion->prepare($query);
+    $googleEventId = $eventData['google_event_id'] ?? null;
+    $fechaCita = $eventData['fecha'] ?? 'Desconocida';
+    $horaCita = $eventData['hora'] ?? 'Desconocida';
+
+    // Obtener nombre del paciente
+    $paciente = 'Desconocido';
+    if (isset($_SESSION['idPacientes'])) {
+        $stmt = $conexion->prepare("SELECT CONCAT(nombre, ' ', apellido1, ' ', apellido2) AS nombreCompleto FROM Pacientes WHERE idPacientes = ?");
+        $stmt->bind_param("i", $_SESSION['idPacientes']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $usuarioData = $result->fetch_assoc();
+        $paciente = $usuarioData['nombreCompleto'] ?? 'Paciente desconocido';
+    }
+
+    // Borrar la cita
+    $stmt = $conexion->prepare("DELETE FROM Citas WHERE idCita = ?");
     $stmt->bind_param("i", $idCita);
 
     if ($stmt->execute()) {
-
-        //Eliminar también el evento de Google Calendar si existe
+        // Eliminar evento de Google Calendar
         if (!empty($googleEventId)) {
             try {
                 eliminarEventoGoogleCalendar($googleEventId);
@@ -54,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
             }
         }
 
-        // 2. Enviar email al administrador
-        $adminEmail = "danielgodoymedina@gmail.com"; 
+        // Preparar y enviar correo
+        $adminEmail = "danielgodoymedina@gmail.com";
         $subject = "Cancelación de cita (ID: $idCita)";
         $message = "
         <html>
@@ -65,7 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
         <body style='font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px;'>
           <div style='background-color: #fff; border-radius: 8px; padding: 20px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1);'>
             <h2 style='color: #d9534f;'>Cita Cancelada</h2>
-            <p>Se ha cancelado la cita con el ID <strong>$idCita</strong>.</p>";
+            <p>Se ha cancelado la cita con el ID <strong>$idCita</strong>.</p>
+            <p><strong>Fecha:</strong> $fechaCita</p>
+            <p><strong>Hora:</strong> $horaCita</p>
+            <p><strong>Cancelada por:</strong> $paciente</p>";
 
         if (!empty($googleEventId)) {
             $message .= "<p>El evento en Google Calendar (ID: <code>$googleEventId</code>) fue eliminado.</p>";
@@ -78,18 +93,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
             <p style='color: #777;'>Este correo es solo informativo. No respondas a este mensaje.</p>
           </div>
         </body>
-        </html>
-        ";
-
-        // Configuración de PHPMailer
-        $mail = new PHPMailer(true);
+        </html>";
 
         try {
+            $mail = new PHPMailer(true);
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'dgodmed486@g.educaand.es'; // Cambia esto por tu correo
-            $mail->Password = 'hjoi hosx csoe uqdr'; // Cambia esto por tu contraseña de aplicación
+            $mail->Username = 'dgodmed486@g.educaand.es';
+            $mail->Password = 'hjoi hosx csoe uqdr'; // Contraseña de aplicación
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
@@ -105,7 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
             error_log("Error al enviar el correo: " . $mail->ErrorInfo);
         }
     }
-    // Redirigir al usuario a la página de citas
+
+    // Limpiar cualquier salida y redirigir
+    ob_clean();
     header("Location: /Codigo/citas.php");
     exit();
 }
+?>
