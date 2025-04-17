@@ -9,12 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $horaInicio = $_POST['hora'];
     $horaFin = date('H:i', strtotime($horaInicio) + 30 * 60); // Sumar 30 minutos
     $descripcion = 'Cita reservada por el paciente.';
+    $bloqueada = isset($_POST['bloqueada']) ? 1 : 0; // Si es bloqueada, se establece a 1
 
     // Guardar la cita en la base de datos (ya implementado)
 
     // Crear el evento en Google Calendar
     try {
-        $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente);
+        $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada);
         echo 'Evento creado: <a href="' . $enlaceEvento . '">Ver en Google Calendar</a>';
     } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();
@@ -42,15 +43,16 @@ $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
 
 // Verificar que el tramo no esté reservado
-$query = "SELECT COUNT(*) AS total FROM Citas WHERE fecha = ? AND hora = ?";
+$query = "SELECT COUNT(*) AS total FROM Citas WHERE fecha = ? AND hora = ? AND bloqueada = 0";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param("ss", $fecha, $hora);
 $stmt->execute();
 $result = $stmt->get_result()->fetch_assoc();
 
-if ($result['total'] > 0) {
-    echo '<script>alert("El tramo horario ya está reservado.");</script>';
-    echo '<script>window.location.href = "/Codigo/citas.php";</script>'; // Volver a la página anterior
+if ($result['total'] == 0) {
+    echo '<script>alert("El tramo horario no está disponible.");</script>';
+    echo '<script>window.location.href = "/Codigo/citas.php";</script>';
+    exit();
 } else {
     // Insertar la nueva cita en la base de datos
     $estado = 'Pendiente';

@@ -103,3 +103,47 @@ table.citas th {
     background-color: #f4f4f4; 
     font-weight: bold; 
 }
+/* bloqueo de citas*/
+
+.horarios-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.boton-bloqueo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-bloquear {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    background-color: var(--colorBoton);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-bloquear:hover {
+    background-color: var(--colorBotonHover);
+}
+
+.horario-bloqueado {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 0.85rem;
+    background-color: darkred;
+    color: white;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    max-width: 100%;
+}
