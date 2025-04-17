@@ -72,6 +72,7 @@ CREATE TABLE Citas (
     anotaciones TEXT,
     bloqueada TINYINT(1) NOT NULL DEFAULT 0,
     confirmada TINYINT(1) NOT NULL DEFAULT 0,
+    google_event_id VARCHAR(255) NULL,
     idPacientes INT,
     idAdmin INT,
     FOREIGN KEY (idPacientes) REFERENCES Pacientes(idPacientes),
