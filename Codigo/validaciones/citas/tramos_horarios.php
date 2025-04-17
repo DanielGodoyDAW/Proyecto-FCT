@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../conexion/conexion.php';
+require_once __DIR__ . '/../../conexion/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<div class="horarios-columna">';
         echo '<h4>Horario de Mañana:</h4>';
         if (!empty($horariosLibresManana)) {
-            echo '<form action="/Codigo/validaciones/reservar_tramo.php" method="post">';
+            echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
             foreach ($horariosLibresManana as $inicio => $fin) {
                 echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
             }
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<h4>Horario de Tarde:</h4>';
         if (date("w", strtotime($fechaSeleccionada)) != 5) {
             if (!empty($horariosLibresTarde)) {
-                echo '<form action="/Codigo/validaciones/reservar_tramo.php" method="post">';
+                echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
                 foreach ($horariosLibresTarde as $inicio => $fin) {
                     echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
                 }
