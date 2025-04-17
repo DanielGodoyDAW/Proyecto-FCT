@@ -29,8 +29,77 @@ ob_end_flush();
 <head>
     <meta charset="UTF-8">
     <title>Restablecer Contraseña</title>
-    <link rel="stylesheet" href="/Codigo/estilos/styleRecuperarContra.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
+    <link rel="stylesheet" href="http://localhost:3000/Proyecto-FCT/Codigo/estilos/styleRecuperarContra.css">
+    <link rel="stylesheet" href="http://localhost:3000/Proyecto-FCT/Codigo/estilos/styleCalendario.css">
+    <style>
+        @font-face {
+            font-family: 'Amazing Grotesk';
+            src: url('/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf') format('woff2'),
+                url('/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Amazing Grotesk', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            background-image: url('/Codigo/imagenes/redimension3_fondo.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .containerRecuperar {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .btnRestablecer {
+            background-color: #08A3A9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .btnRestablecer:hover {
+            background-color: #0056b3;
+        }
+        button{
+            background-color: #08A3A9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        button:hover{
+            background-color: #0056b3;
+        }
+    </style>
+    <!-- Como no consigo que cargue archivos externo, por los puertos, lo declaro aqui -->
+    <script>
+        function alternarContrasena(id) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -44,10 +113,12 @@ ob_end_flush();
                 <tr>
                     <td><label for="password">Nueva contraseña:</label></td>
                     <td><input type="password" name="password" id="password" class="inputPassword" required minlength="8"></td>
+                    <td><button type="button" onclick="alternarContrasena('password')">Mostrar</button></td>
                 </tr>
                 <tr>
                     <td><label for="confirm_password">Confirmar contraseña:</label></td>
                     <td><input type="password" name="confirm_password" id="confirm_password" class="inputPassword" required minlength="8"></td>
+                    <td><button type="button" onclick="alternarContrasena('confirm_password')">Mostrar</button></td>
                 </tr>
                 <tr>
                     <td><input class="btnRestablecer" type="submit" value="Restablecer contraseña"></td>
@@ -55,5 +126,7 @@ ob_end_flush();
             </table>
         </form>
     </div>
+    
 </body>
+
 </html>
