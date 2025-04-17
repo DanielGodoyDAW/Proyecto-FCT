@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $hash = password_hash($password, PASSWORD_BCRYPT);
 
-    $update = $conexion->prepare("UPDATE pacientes SET contrasena = ?, token_recuperacion = NULL, token_expira = NULL WHERE token_recuperacion = ?");
+    $update = $conexion->prepare("UPDATE pacientes SET pass = ?, token_recuperacion = NULL, token_expira = NULL WHERE token_recuperacion = ?");
     $update->bind_param("ss", $hash, $token);
     $update->execute();
 
-    echo "<script>alert('Contraseña restablecida correctamente.'); window.location.href='/Codigo/index.php';</script>";
+    echo "<script>alert('Contraseña restablecida correctamente.'); window.location.href='http://localhost:3000/Codigo/index.php';</script>";
 }
