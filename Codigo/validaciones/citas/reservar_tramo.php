@@ -49,7 +49,7 @@ $stmt->bind_param("ss", $fecha, $hora);
 $stmt->execute();
 $result = $stmt->get_result()->fetch_assoc();
 
-if ($result['total'] == 0) {
+if ($result['total'] > 0) {
     echo '<script>alert("El tramo horario no está disponible.");</script>';
     echo '<script>window.location.href = "/Codigo/citas.php";</script>';
     exit();
