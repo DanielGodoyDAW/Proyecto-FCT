@@ -60,22 +60,8 @@ function crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $
     ]);
 
     $eventoCreado = $service->events->insert($calendarId, $evento);
-    return $eventoCreado->htmlLink; // Devuelve el enlace al evento en Google Calendar
+    return $eventoCreado->id;; // Devuelve el id
 }
 
-// Ejemplo de uso
-try {
-    $idPaciente = $_SESSION["idPacientes"]; // ID del paciente desde la sesión
-    $fecha = '2025-04-20';
-    $horaInicio = '10:00';
-    $horaFin = '11:00';
-    $descripcion = 'Consulta general';
-    $bloqueada = 0; // Ejemplo de valor para la variable bloqueada
-
-    $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada);
-    echo 'Evento creado: <a href="' . $enlaceEvento . '">Ver en Google Calendar</a>';
-} catch (Exception $e) {
-    echo 'Error: ' . $e->getMessage();
-}
 ?>
 

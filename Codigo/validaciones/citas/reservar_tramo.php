@@ -11,14 +11,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $descripcion = 'Cita reservada por el paciente.';
     $bloqueada = isset($_POST['bloqueada']) ? 1 : 0; // Si es bloqueada, se establece a 1
 
-    // Guardar la cita en la base de datos (ya implementado)
+    // Verificar que el tramo no esté reservado
+    $query = "SELECT COUNT(*) AS total FROM Citas WHERE fecha = ? AND hora = ? AND bloqueada = 0";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("ss", $fecha, $horaInicio);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_assoc();
+
+    if ($result['total'] > 0) {
+        echo '<script>alert("El tramo horario no está disponible.");</script>';
+        echo '<script>window.location.href = "/Codigo/citas.php";</script>';
+        exit();
+    }
 
     // Crear el evento en Google Calendar
     try {
-        $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada);
-        echo 'Evento creado: <a href="' . $enlaceEvento . '">Ver en Google Calendar</a>';
+        $googleEventId = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada); // Devuelve el eventId
     } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
+        echo 'Error al crear el evento en Google Calendar: ' . $e->getMessage();
+        exit();
+    }
+
+    // Insertar la nueva cita en la base de datos
+    $estado = 'Pendiente';
+    $insert = "INSERT INTO Citas (fecha, hora, estado, idPacientes, idAdmin, bloqueada, google_event_id) VALUES (?, ?, ?, ?, NULL, ?, ?)";
+    $stmt = $conexion->prepare($insert);
+    $stmt->bind_param("sssiss", $fecha, $horaInicio, $estado, $idPaciente, $bloqueada, $googleEventId);
+
+    if ($stmt->execute()) {
+        echo '<script>alert("Cita reservada exitosamente.");</script>';
+        echo '<script>window.location.href = "/Codigo/citas.php";</script>'; // Redirigir a la página de citas
+    } else {
+        echo 'Error: No se pudo guardar la cita en la base de datos.';
     }
 }
 
@@ -49,7 +73,7 @@ $stmt->bind_param("ss", $fecha, $hora);
 $stmt->execute();
 $result = $stmt->get_result()->fetch_assoc();
 
-if ($result['total'] > 0) {
+if ($result['total'] == 0) {
     echo '<script>alert("El tramo horario no está disponible.");</script>';
     echo '<script>window.location.href = "/Codigo/citas.php";</script>';
     exit();
