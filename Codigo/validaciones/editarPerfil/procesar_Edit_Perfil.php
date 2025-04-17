@@ -2,11 +2,6 @@
 session_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 
-// Verifica si el usuario está autenticado
-if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
-    die('Error: Usuario no autenticado.');
-}
-
 if (isset($_SESSION['idPacientes'])) {
     $idUsuario = $_SESSION['idPacientes'];
 } elseif (isset($_SESSION['idAdmin'])) {
@@ -16,15 +11,15 @@ if (isset($_SESSION['idPacientes'])) {
 // Obtén los datos enviados desde el formulario
 $email = $_POST['email'] ?? null;
 $telefono = $_POST['telefono'] ?? null;
-$sexo = $_POST['sexo'] ?? null; // Obtén directamente el valor de sexo
+$extension = $_POST['extension'] ?? null; 
+$sexo = $_POST['sexo'] ?? null;
 $passwordActual = $_POST['passwordActual'] ?? null;
 $nuevaContrasena = $_POST['nuevaContrasena'] ?? null;
 $confirmarContrasena = $_POST['confirmarContrasena'] ?? null;
 
-// Verifica que el valor del sexo sea válido
-if (!in_array($sexo, ['H', 'M', 'O'])) {
-    die('Error: Valor de sexo no válido.');
-}
+// Unificamos el teléfono con la extensión
+$telefonoCompleto = $extension . ' ' . $telefono;
+error_log("Teléfono completo a guardar: $telefonoCompleto");
 
 // Verifica si se desea cambiar la contraseña
 if (!empty($passwordActual) || !empty($nuevaContrasena) || !empty($confirmarContrasena)) {
@@ -36,7 +31,7 @@ if (!empty($passwordActual) || !empty($nuevaContrasena) || !empty($confirmarCont
     // Verifica la contraseña actual
     $query = "SELECT pass FROM Pacientes WHERE idPacientes = ?";
     $stmt = $conexion->prepare($query);
-    $stmt->bind_param('i', $idPaciente);
+    $stmt->bind_param('i', $idUsuario);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -53,28 +48,27 @@ if (!empty($passwordActual) || !empty($nuevaContrasena) || !empty($confirmarCont
     $hashedPassword = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
     $query = "UPDATE Pacientes SET pass = ? WHERE idPacientes = ?";
     $stmt = $conexion->prepare($query);
-    $stmt->bind_param('si', $hashedPassword, $idPaciente);
+    $stmt->bind_param('si', $hashedPassword, $idUsuario);
 
     if (!$stmt->execute()) {
         die('Error: No se pudo actualizar la contraseña.');
     }
 }
 
-// Actualiza otros campos (correo, telefono y sexo)
+// Actualiza email, teléfono y sexo
 $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ? WHERE idPacientes = ?";
 $stmt = $conexion->prepare($query);
-$stmt->bind_param('sssi', $email, $telefono, $sexo, $idPaciente);
+$stmt->bind_param('sssi', $email, $telefonoCompleto, $sexo, $idUsuario);
 
 if ($stmt->execute()) {
-
-    // Actualiza el valor de sexo en la sesión, para que te salude acorde a tu sexo
+    // Actualiza el sexo en sesión si aplica
     $_SESSION['sexo'] = $sexo;
 
     echo '<script>
         alert("Perfil actualizado correctamente.");
-        window.location.href = "../../editar_perfil.php"; // Redirigir después de mostrar el alert
+        window.location.href = "../../editar_perfil.php";
     </script>';
-    exit; 
+    exit;
 } else {
     die('Error: No se pudo actualizar el perfil.');
 }
