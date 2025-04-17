@@ -15,7 +15,7 @@
         <div class="fila">
             <div class="seccion busqueda">
                 <h2>Búsqueda de Paciente</h2>
-                <?php require_once '../Codigo/validaciones/busqueda.php'; ?>
+                <?php require_once '../Codigo/validaciones/busqueda/busqueda.php'; ?>
             </div>
             <div class="seccion resultado-busqueda">
                 <h2>Resultado de la Búsqueda</h2>

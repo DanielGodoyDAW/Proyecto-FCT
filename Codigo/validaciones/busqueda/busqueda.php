@@ -4,7 +4,7 @@
 //consulta a la bd para buscar un paciente por idPaciente (desplegable con los nombres), por fecha (una fecha estimada de inicio y fin)
 //el tratamiento
 
-require_once __DIR__ . '/../conexion/conexion.php';
+require_once __DIR__ . '/../../conexion/conexion.php';
 
 
 //consulta con seleccion de paciente por idPaciente, nombre, apellido1 y apellido2 en formulario de busqueda
@@ -12,7 +12,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
 //por primer apellido o por nombre
 
 ?>
-<form action="/Codigo/validaciones/procesar_busqueda.php" method="post">
+<form action="/Codigo/validaciones/busqueda/procesar_busqueda.php" method="post">
     <table>
         <tr>
             <td><label for="nombre">Nombre:</label></td>
