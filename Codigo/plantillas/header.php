@@ -44,8 +44,10 @@
 
     <nav>
         <ul>
-            <!-- Opcion siempre visible -->
-            <li><a class="btnA navegacion" href="/Codigo/index.php">Inicio</a></li>
+            <!-- Opcion siempre visible cuando no estas logueado -->
+             <?php if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
+                echo "<li><a class='btnA navegacion' href='/Codigo/index.php'>Inicio</a></li>";
+            } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
                 // Opcion visible solo si el usuario es paciente o admin
                 echo "<li><a class='btnA navegacion' href='/Codigo/citas.php'>Citas</a></li>";
