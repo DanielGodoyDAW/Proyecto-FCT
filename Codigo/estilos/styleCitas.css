@@ -147,3 +147,16 @@ table.citas th {
     margin-bottom: 5px;
     max-width: 100%;
 }
+/* cancelar cita*/
+.btnCancelar {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btnCancelar:hover {
+    background-color: #cc0000;
+}

@@ -44,6 +44,12 @@ if (isset($_SESSION["idPacientes"])) {
             <td>' . $cita['hora'] . '</td>
             <td>' . $cita['nombre'] . '</td>
             <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
+             <td>
+                <form action="/Codigo/validaciones/citas/cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">
+                    <input type="hidden" name="idCita" value="' . $cita['idCita'] . '">
+                    <button type="submit" class="btnCancelar">Cancelar</button>
+                </form>
+            </td>
         </tr>';
     }
     echo '</table>';
