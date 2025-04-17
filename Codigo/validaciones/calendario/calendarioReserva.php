@@ -71,6 +71,18 @@
                 $dia = str_pad($i, 2, "0", STR_PAD_LEFT); // Formatear el día con dos dígitos
                 $fecha = "$year-$mes-$dia";
 
+                // Determinar el día de la semana (1 = lunes, 7 = domingo)
+                $diaSemana = date('N', strtotime($fecha));
+
+                // Establecer el total de horarios según el día de la semana
+                if ($diaSemana >= 1 && $diaSemana <= 4) { // Lunes a jueves
+                    $totalHorarios = 14; // 8 por la mañana + 6 por la tarde
+                } elseif ($diaSemana == 5) { // Viernes
+                    $totalHorarios = 8; // Solo por la mañana
+                } else { // Sábado y domingo
+                    $totalHorarios = 0; // Sin horarios disponibles
+                }
+
                 // Consultar la cantidad de reservas y horarios disponibles para este día
                 $queryReservas = "SELECT COUNT(*) AS totalReservas FROM Citas WHERE fecha = ?";
                 $stmt = $conexion->prepare($queryReservas);
@@ -79,9 +91,6 @@
                 $result = $stmt->get_result();
                 $row = $result->fetch_assoc();
                 $totalReservas = $row['totalReservas'];
-
-                // Total de horarios posibles (mañana + tarde)
-                $totalHorarios = 16; 
 
                 if ($totalReservas == 0) {
                     $diasDisponibilidad[$fecha] = 'verde'; // Día completamente disponible
