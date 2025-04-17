@@ -24,9 +24,9 @@
                 <ul id="tramos">
                     <?php
                     if (isset($_SESSION["idAdmin"])) {
-                        require_once './validaciones/citas_Bloqueadas.php';
+                        require_once './validaciones/citas/citas_Bloqueadas.php';
                     } else {
-                        require_once './validaciones/tramos_horarios.php';
+                        require_once './validaciones/citas/tramos_horarios.php';
                     } ?>
                 </ul>
             </div>
@@ -37,7 +37,7 @@
             <!-- Sección izquierda: Próximas citas -->
             <div class="columna izquierda-abajo">
                 <h2>Próximas Citas</h2>
-                <?php require_once './validaciones/proximas_citas.php'; ?>
+                <?php require_once './validaciones/citas/proximas_citas.php'; ?>
             </div>
 
             <!-- Sección derecha: Historial de citas -->

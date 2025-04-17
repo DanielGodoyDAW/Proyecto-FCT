@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../conexion/conexion.php';
-require_once __DIR__ . '/../googleCalendar/google_calendar.php';
+require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../googleCalendar/google_calendar.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idPaciente = $_SESSION['idPacientes'];
