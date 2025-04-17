@@ -109,7 +109,7 @@ $extensiones = [
         </tr>
         <tr>
             <td><label for="c2">Teléfono:</label></td>
-            <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($pacientes['telefono']); ?>" required></td>
+            <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>" required></td>
         </tr>
         <tr>
             <td><label for="c3">Sexo:</label></td>
