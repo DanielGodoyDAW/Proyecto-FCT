@@ -6,6 +6,6 @@ $horaInicio = '10:00';
 $horaFin = '10:30';
 $descripcion = 'Prueba de evento automático';
 
-$link = crearEvento($fecha, $horaInicio, $horaFin, $descripcion);
+$link = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente);
 echo "Evento creado: <a href='$link' target='_blank'>Ver en Calendar</a>";
 ?>

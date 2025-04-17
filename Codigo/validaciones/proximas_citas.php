@@ -48,12 +48,12 @@ if (isset($_SESSION["idPacientes"])) {
     }
     echo '</table>';
 } else {
-    // Si el usuario es un administrador, se muestran todas las citas con el teléfono incluido
+    // Si el usuario es un administrador, se muestran todas las citas con el teléfono incluido y por orden de hora
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
               FROM Citas 
               INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
               WHERE Citas.fecha >= CURDATE() 
-              ORDER BY Citas.fecha ASC";
+              ORDER BY Citas.fecha ASC, Citas.hora ASC";
     $stmt = $conexion->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();

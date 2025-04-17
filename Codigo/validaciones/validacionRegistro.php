@@ -36,6 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validar email
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errores[] = "El email no es válido.";
+    } else {
+        // Consulta a la base de datos para verificar si el email ya esta registrado
+        $email = mysqli_real_escape_string($conexion, $_POST['email']);
+        $sqlEmail = "SELECT * FROM pacientes WHERE email = '$email'";
+        $resultadoEmail = mysqli_query($conexion, $sqlEmail);
+        if (mysqli_num_rows($resultadoEmail) > 0) {
+            $errores[] = "El email ya está registrado.";
+        }
     }
 
     // Validar teléfono
