@@ -26,7 +26,12 @@ function obtenerDatosPaciente($idPaciente) {
     }
 }
 
-function crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente) {
+function crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada) {
+    if ($bloqueada == 1) {
+        // No crear evento en Google Calendar si la cita está bloqueada
+        return;
+    }
+
     $client = getClient();
     $service = new Google_Service_Calendar($client);
 
@@ -65,8 +70,9 @@ try {
     $horaInicio = '10:00';
     $horaFin = '11:00';
     $descripcion = 'Consulta general';
+    $bloqueada = 0; // Ejemplo de valor para la variable bloqueada
 
-    $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente);
+    $enlaceEvento = crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada);
     echo 'Evento creado: <a href="' . $enlaceEvento . '">Ver en Google Calendar</a>';
 } catch (Exception $e) {
     echo 'Error: ' . $e->getMessage();

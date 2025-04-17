@@ -41,39 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $horariosReservados[] = ["hora" => $row['hora'], "idPaciente" => $row['idPacientes']];
         }
 
-        // // Filtrar los horarios disponibles
-        // $horariosLibresManana = [];
-        // $horariosLibresTarde = [];
-
-        // $horaActual = date('H:i:s'); // Obtener la hora actual
-        // if ($fechaSeleccionada == date('Y-m-d')) {
-        //     foreach ($tramosHorariosManana as $inicio => $fin) {
-        //         if (!in_array($inicio . ":00", $horariosReservados) && strtotime($inicio . ":00") > strtotime($horaActual)) { //añadimos ":00" para que coincida con el formato de la base de datos
-        //             $horariosLibresManana[$inicio] = $fin;
-        //         }
-        //     }
-
-        //     foreach ($tramosHorariosTarde as $inicio => $fin) {
-        //         if (!in_array($inicio . ":00", $horariosReservados) && strtotime($inicio . ":00") > strtotime($horaActual)) {
-        //             $horariosLibresTarde[$inicio] = $fin;
-        //         }
-        //     }
-        // } else {
-        //     foreach ($tramosHorariosManana as $inicio => $fin) {
-        //         if (!in_array($inicio . ":00", $horariosReservados)) { //añadimos ":00" para que coincida con el formato de la base de datos
-        //             $horariosLibresManana[$inicio] = $fin;
-        //         }
-        //     }
-
-        //     foreach ($tramosHorariosTarde as $inicio => $fin) {
-        //         if (!in_array($inicio . ":00", $horariosReservados)) {
-        //             $horariosLibresTarde[$inicio] = $fin;
-        //         }
-        //     }
-        // }
-
-
-
         // Mostrar los horarios libres en dos columnas
         echo '<h3>Horarios disponibles para ' . $fechaSeleccionada . ':</h3>';
         echo '<div class="horarios-container">';
@@ -129,6 +96,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '</div>';
 
         echo '</div>'; // Cierre de horarios-container
+
+        if (isset($_SESSION['idAdmin'])) { // Solo mostrar esta funcionalidad si es admin
+            echo '<form action="/Codigo/validaciones/citas/bloquear_citas.php" method="post">';
+            echo '<link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">';
+            echo '<link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">';
+            echo '<h3>Selecciona las citas que deseas bloquear:</h3>';
+            echo '<div class="horarios-container">';
+
+            // Columna de la mañana
+            echo '<div class="horarios-columna">';
+            echo '<h4>Mañana</h4>';
+            foreach ($tramosHorariosManana as $inicio => $fin) {
+                $id = -1;
+                for ($i = 0; $i < count($horariosReservados); $i++) {
+                    if ($horariosReservados[$i]['hora'] == $inicio . ":00") {
+                        $id = $horariosReservados[$i]['idPaciente'];
+                        break;
+                    }
+                }
+                if ($id == -1) { // Solo mostrar las citas no reservadas
+                    echo '<label>';
+                    echo '<input type="checkbox" name="bloquear[]" value="' . $inicio . '"> ' . $inicio . ' - ' . $fin;
+                    echo '</label><br>';
+                } else {
+                    echo '<span class="horario-bloqueado">' . $inicio . ' - ' . $fin . ' (Reservada)</span> <br>';
+                }
+            }
+            echo '</div>';
+
+            // Columna de la tarde
+            echo '<div class="horarios-columna">';
+            echo '<h4>Tarde</h4>';
+            foreach ($tramosHorariosTarde as $inicio => $fin) {
+                $id = -1;
+                for ($i = 0; $i < count($horariosReservados); $i++) {
+                    if ($horariosReservados[$i]['hora'] == $inicio . ":00") {
+                        $id = $horariosReservados[$i]['idPaciente'];
+                        break;
+                    }
+                }
+                if ($id == -1) { // Solo mostrar las citas no reservadas
+                    echo '<label>';
+                    echo '<input type="checkbox" name="bloquear[]" value="' . $inicio . '"> ' . $inicio . ' - ' . $fin;
+                    echo '</label><br>';
+                } else {
+                    echo '<span class="horario-bloqueado">' . $inicio . ' - ' . $fin . ' (Reservada)</span> <br>';
+                }
+            }
+            echo '</div>';
+
+            echo '<input type="hidden" name="fecha" value="' . $fechaSeleccionada . '">';
+            echo '<div class="boton-bloqueo-container">';
+            echo '<button type="submit" class="btn-bloquear">Bloquear citas seleccionadas</button>';
+            echo '</div>';
+            echo '</form>';
+        }
     } else {
         // Si no se recibió la fecha, mostrar un mensaje de error
         echo '<p>Error: No se recibió la fecha seleccionada.</p>';
