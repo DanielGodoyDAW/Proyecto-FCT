@@ -35,3 +35,4 @@ tareas
 
 añadir algun sitio para agregar anotaciones de los pacientes 
 agregar que el admin pueda habilitar las citas
+no poder cancelar citas antes de 24h y para futuro si añadimos el metodo de pago que te cobre el 50%

@@ -41,6 +41,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
     $fechaCita = $eventData['fecha'] ?? 'Desconocida';
     $horaCita = $eventData['hora'] ?? 'Desconocida';
 
+    // Verificar si faltan menos de 24 horas para la cita | a futuro agregar el pago de un porcentaje
+    $fechaHoraCita = new DateTime($fechaCita . ' ' . $horaCita);
+    $fechaHoraActual = new DateTime();
+
+    $diferencia = $fechaHoraActual->diff($fechaHoraCita);
+
+    if ($fechaHoraActual > $fechaHoraCita || $diferencia->days < 1) {
+        echo '<script>
+            alert("No puedes cancelar una cita con menos de 24 horas de antelación.");
+            window.location.href = "/Codigo/citas.php";
+        </script>';
+        exit;
+    }
+
     // Obtener nombre del paciente
     $paciente = 'Desconocido';
     if (isset($_SESSION['idPacientes'])) {
