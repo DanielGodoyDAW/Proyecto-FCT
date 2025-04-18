@@ -1,8 +1,8 @@
 function newWindow() {
-    let width = 800; // Ancho de la ventana
-    let height = 600; // Alto de la ventana
-    let left = (window.screen.width / 2) - (width / 2); // Centrar horizontalmente
-    let top = (window.screen.height / 2) - (height / 2); // Centrar verticalmente
+    let width = 800;
+    let height = 600;
+    let left = (window.screen.width / 2) - (width / 2);
+    let top = (window.screen.height / 2) - (height / 2);
 
     let ventana = window.open(
         "",
@@ -39,6 +39,7 @@ function newWindow() {
             <body>
                 <h1>Cambiar Contraseña</h1>
                 <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+                    <input type="hidden" name="fromPopup" value="1">
                     <table>
                         <tr>
                             <td><label for="passwordActual">Contraseña Actual:</label></td>
@@ -65,7 +66,6 @@ function newWindow() {
                     </table>
                 </form>
                 <script>
-                    // Función para alternar entre mostrar y ocultar contraseñas
                     document.getElementById('mostrarContrasena').addEventListener('change', function () {
                         const passwordFields = [
                             document.getElementById('passwordActual'),
@@ -82,11 +82,4 @@ function newWindow() {
     `);
 
     ventana.document.close();
-}
-
-function cerrarPopup() {
-    const popup = window.open("", "popup");
-    if (popup) {
-        popup.close();
-    }
 }

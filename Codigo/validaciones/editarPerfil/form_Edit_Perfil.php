@@ -84,7 +84,7 @@ $extensiones = [
 ?>
 
 <link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
-<script src="/Codigo/validaciones/editarPerfil/popupContraseña.js"></script>
+<script src="/Codigo/validaciones/editarPerfil/popupContrasena.js"></script>
 <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
 
     <!-- Token CSRF para seguridad -->
