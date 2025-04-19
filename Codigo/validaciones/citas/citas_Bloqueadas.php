@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         );
 
         // Consultar los horarios reservados para la fecha seleccionada
-        $query = "SELECT hora, idPacientes FROM Citas WHERE fecha = ?";
+        $query = "SELECT hora, idCita, bloqueada FROM Citas WHERE fecha = ?";
         $stmt = $conexion->prepare($query);
         $stmt->bind_param("s", $fechaSeleccionada);
         $stmt->execute();
@@ -38,7 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Crear un array con los horarios reservados
         $horariosReservados = [];
         while ($row = $result->fetch_assoc()) {
-            $horariosReservados[] = ["hora" => $row['hora'], "idPaciente" => $row['idPacientes']];
+            $horariosReservados[] = [
+                "hora" => $row['hora'],
+                "idCita" => $row['idCita']
+            ];
         }
 
         // Mostrar los horarios libres en dos columnas
@@ -72,14 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!empty($tramosHorariosTarde)) {
                 echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
                 foreach ($tramosHorariosTarde as $inicio => $fin) {
-                    $id = -1;
+                    $idCita = -1;
                     for ($i = 0; $i < count($horariosReservados); $i++) {
-                        if($horariosReservados[$i]['hora'] == $inicio . ":00") {
-                            $id = $horariosReservados[$i]['idPaciente'];
+                        if ($horariosReservados[$i]['hora'] == $inicio . ":00") {
+                            $idCita = $horariosReservados[$i]['idCita'];
                             break;
                         }
                     }
-                    if($id != -1) {
+                    if ($idCita != -1) {
                         echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario-ocupado">' . $inicio . ' - ' . $fin . '</button><br>';
                     } else {
                         echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
@@ -98,59 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '</div>'; // Cierre de horarios-container
 
         if (isset($_SESSION['idAdmin'])) { // Solo mostrar esta funcionalidad si es admin
-            echo '<form action="/Codigo/validaciones/citas/bloquear_citas.php" method="post">';
-            echo '<link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">';
-            echo '<link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">';
-            echo '<h3>Selecciona las citas que deseas bloquear:</h3>';
-            echo '<div class="horarios-container">';
-
-            // Columna de la mañana
-            echo '<div class="horarios-columna">';
-            echo '<h4>Mañana</h4>';
-            foreach ($tramosHorariosManana as $inicio => $fin) {
-                $id = -1;
-                for ($i = 0; $i < count($horariosReservados); $i++) {
-                    if ($horariosReservados[$i]['hora'] == $inicio . ":00") {
-                        $id = $horariosReservados[$i]['idPaciente'];
-                        break;
-                    }
-                }
-                if ($id == -1) { // Solo mostrar las citas no reservadas
-                    echo '<label>';
-                    echo '<input type="checkbox" name="bloquear[]" value="' . $inicio . '"> ' . $inicio . ' - ' . $fin;
-                    echo '</label><br>';
-                } else {
-                    echo '<span class="horario-bloqueado">' . $inicio . ' - ' . $fin . ' (Reservada)</span> <br>';
-                }
-            }
-            echo '</div>';
-
-            // Columna de la tarde
-            echo '<div class="horarios-columna">';
-            echo '<h4>Tarde</h4>';
-            foreach ($tramosHorariosTarde as $inicio => $fin) {
-                $id = -1;
-                for ($i = 0; $i < count($horariosReservados); $i++) {
-                    if ($horariosReservados[$i]['hora'] == $inicio . ":00") {
-                        $id = $horariosReservados[$i]['idPaciente'];
-                        break;
-                    }
-                }
-                if ($id == -1) { // Solo mostrar las citas no reservadas
-                    echo '<label>';
-                    echo '<input type="checkbox" name="bloquear[]" value="' . $inicio . '"> ' . $inicio . ' - ' . $fin;
-                    echo '</label><br>';
-                } else {
-                    echo '<span class="horario-bloqueado">' . $inicio . ' - ' . $fin . ' (Reservada)</span> <br>';
-                }
-            }
-            echo '</div>';
-
-            echo '<input type="hidden" name="fecha" value="' . $fechaSeleccionada . '">';
-            echo '<div class="boton-bloqueo-container">';
-            echo '<button type="submit" class="btn-bloquear">Bloquear citas seleccionadas</button>';
-            echo '</div>';
-            echo '</form>';
+            require_once 'bloquear_reactivar_agenda.php';
         }
     } else {
         // Si no se recibió la fecha, mostrar un mensaje de error
