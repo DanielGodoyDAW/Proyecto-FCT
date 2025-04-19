@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 ob_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 
@@ -150,4 +150,4 @@ while ($row = $result->fetch_assoc()) {
         <br>
         <button type="submit" name="desbloquear">Desbloquear seleccionadas</button>
     </form>
-</div>
+</div> -->
