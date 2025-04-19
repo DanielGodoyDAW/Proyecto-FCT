@@ -31,6 +31,17 @@
                 </ul>
             </div>
         </div>
+        
+        <?php if (isset($_SESSION["idAdmin"])) { ?>
+            <div class="fila">
+                <div class="columna medio-izquierda">
+                    <?php require_once './validaciones/citas/bloquear_citas.php'; ?>
+                </div>
+                <div class="columna medio-derecha">
+                    <?php require_once './validaciones/citas/desbloquear_citas.php'; ?>
+                </div>
+            </div>
+        <?php } ?>
 
         <!-- Contenedor inferior -->
         <div class="fila">

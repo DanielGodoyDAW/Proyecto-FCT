@@ -107,9 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo '</div>'; // Cierre de horarios-container
 
-        if ($isAdmin) { // Solo mostrar esta funcionalidad si es admin
-            require_once 'bloquear_reactivar_agenda.php';
-        }
+        //movido a dos div independientes, para que se vea mejor
+        // if ($isAdmin) { // Solo mostrar esta funcionalidad si es admin
+        //     require_once 'bloquear_reactivar_agenda.php';
+        // }
     } else {
         // Si no se recibió la fecha, mostrar un mensaje de error
         echo '<p>Error: No se recibió la fecha seleccionada.</p>';
