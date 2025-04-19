@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
 
+// Verificar si el usuario es un administrador
+$isAdmin = isset($_SESSION['idAdmin']);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Verificar si se recibió la fecha
@@ -50,15 +53,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Columna de la mañana
         echo '<div class="horarios-columna">';
-        echo '<h4>Mañana</h4>';
+        echo '<h4>Horario de Mañana</h4>';
         if (!empty($tramosHorariosManana)) {
             echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
             foreach ($tramosHorariosManana as $inicio => $fin) {
-                if (in_array($inicio . ":00", array_column($horariosReservados, 'hora'))) {
-                    echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario-ocupado">' . $inicio . ' - ' . $fin . '</button><br>';
-                } else {
-                    echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
-                }
+                $isReservado = in_array($inicio . ":00", array_column($horariosReservados, 'hora'));
+                $isBloqueado = false; // Puedes agregar lógica para determinar si está bloqueado
+
+                // Determinar la clase del botón
+                $btnClass = $isReservado ? 'btn-horario-ocupado' : 'btn-horario';
+                $btnDisabled = $isAdmin ? 'disabled' : ''; // Deshabilitar si es admin
+
+                // Mostrar el botón
+                echo '<button type="submit" name="hora" value="' . $inicio . '" class="' . $btnClass . '" ' . $btnDisabled . '>';
+                echo $inicio . ' - ' . $fin;
+                echo '</button><br>';
             }
             echo '<input type="hidden" name="fecha" value="' . $fechaSeleccionada . '">';
             echo '</form>';
@@ -70,23 +79,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Columna de la tarde
         echo '<div class="horarios-columna">';
         echo '<h4>Tarde</h4>';
-
         if (date("w", strtotime($fechaSeleccionada)) != 5) {
             if (!empty($tramosHorariosTarde)) {
                 echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
                 foreach ($tramosHorariosTarde as $inicio => $fin) {
-                    $idCita = -1;
-                    for ($i = 0; $i < count($horariosReservados); $i++) {
-                        if ($horariosReservados[$i]['hora'] == $inicio . ":00") {
-                            $idCita = $horariosReservados[$i]['idCita'];
-                            break;
-                        }
-                    }
-                    if ($idCita != -1) {
-                        echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario-ocupado">' . $inicio . ' - ' . $fin . '</button><br>';
-                    } else {
-                        echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
-                    }
+                    $isReservado = in_array($inicio . ":00", array_column($horariosReservados, 'hora'));
+                    $isBloqueado = false; // Puedes agregar lógica para determinar si está bloqueado
+
+                    // Determinar la clase del botón
+                    $btnClass = $isReservado ? 'btn-horario-ocupado' : 'btn-horario';
+                    $btnDisabled = $isAdmin ? 'disabled' : ''; // Deshabilitar si es admin
+
+                    // Mostrar el botón
+                    echo '<button type="submit" name="hora" value="' . $inicio . '" class="' . $btnClass . '" ' . $btnDisabled . '>';
+                    echo $inicio . ' - ' . $fin;
+                    echo '</button><br>';
                 }
                 echo '<input type="hidden" name="fecha" value="' . $fechaSeleccionada . '">';
                 echo '</form>';
@@ -100,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo '</div>'; // Cierre de horarios-container
 
-        if (isset($_SESSION['idAdmin'])) { // Solo mostrar esta funcionalidad si es admin
+        if ($isAdmin) { // Solo mostrar esta funcionalidad si es admin
             require_once 'bloquear_reactivar_agenda.php';
         }
     } else {
@@ -108,3 +115,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<p>Error: No se recibió la fecha seleccionada.</p>';
     }
 }
+?>
