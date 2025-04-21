@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = $_POST['titulo'] ?? '';
     $descripcion = $_POST['descripcion'] ?? '';
     $duracion = $_POST['duracion'] ?? null;
-    
+
 
     if (!$idPromocion) {
         die('Error: ID de promoción no proporcionado.');
@@ -38,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die('<script>alert("Error: Solo se permiten imágenes JPEG y PNG."); window.history.back();</script>');
         }
 
-        if ($tamanoImagen > 2000000) {
+        $tamano = 2 * 1024 * 1024; // 2MB
+        if ($tamanoImagen > $tamano) {
             die('<script>alert("Error: La imagen es demasiado grande. El tamaño máximo permitido es 2MB."); window.history.back();</script>');
         }
 
@@ -78,4 +79,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>alert("Error al actualizar la promoción.");</script>';
     }
 }
-?>
