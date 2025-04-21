@@ -53,6 +53,43 @@ button:hover {
 
 #resultado-busqueda,
 #listado-tratamientos {
-    min-height: 150px; /* Ajusta según el contenido esperado */
+    min-height: 150px; 
 }
 
+/*Reponsive */
+
+@media (max-width: 768px) {
+    .administrar-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .administrar-container .columna {
+        width: 100%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .fila {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        overflow-x: hidden;
+    }
+
+    .seccion {
+        margin: 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+}

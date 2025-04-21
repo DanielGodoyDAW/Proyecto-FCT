@@ -160,3 +160,19 @@ table.citas th {
 .btnCancelar:hover {
     background-color: #cc0000;
 }
+
+/*Reponsive */
+@media (max-width: 768px) {
+    .citas-container {
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .citas-columna {
+        width: 100%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+}
