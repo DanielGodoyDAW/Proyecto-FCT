@@ -52,12 +52,12 @@ input {
 
 /* para que los campos muestren el color de fondo si el campo cumple o no*/
 input:invalid {
-    border: 2px solid red;
+    border: 2px solid red !important;
     background-color: var(--colorCamposInvalidosFondo);
 }
 
 input:valid {
-    border: 2px solid green;
+    border: 2px solid green !important;
     background-color: var(--colorCamposValidosFondo);
 }
 
