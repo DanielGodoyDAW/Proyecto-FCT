@@ -21,6 +21,9 @@ $horariosTarde = [
     "19:00:00"
 ];
 
+// Determinar el día de la semana (1 = lunes, 7 = domingo)
+$diaSemana = date('N', strtotime($fechaSeleccionada));
+
 if (isset($_POST['bloquear']) && isset($_POST['bloquear_citas'])) {
     foreach ($_POST['bloquear_citas'] as $hora) {
         // Verificar si ya existe cita bloqueada
