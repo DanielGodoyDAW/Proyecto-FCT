@@ -6,10 +6,10 @@ require_once __DIR__ . '/../conexion/conexion.php';
 //si eres admin
 
 if (isset($_SESSION["idAdmin"])) {
-    //consulta para ver todas las citas del mes (pasadas o futras) de cada paciente
+    //consulta para ver todas las citas del mes (pasadas o futuras) de cada paciente
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
               FROM Citas 
-              INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
+              JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
               WHERE Citas.fecha >= CURDATE() 
               ORDER BY Citas.fecha ASC";
     $stmt = $conexion->prepare($query);
@@ -53,7 +53,7 @@ if (isset($_SESSION["idAdmin"])) {
 
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 
           FROM Citas 
-          INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
+          JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
           WHERE Citas.fecha BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND LAST_DAY(CURDATE()) 
           AND Citas.idPacientes = ? 
           ORDER BY Citas.fecha ASC";
