@@ -71,6 +71,10 @@
 }
 .columna.derecha-arriba {
     height: 100%;
+    min-height: 200px;
+    max-height: 700px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
 }
 
 .columna.izquierda-abajo, .columna.derecha-abajo {
