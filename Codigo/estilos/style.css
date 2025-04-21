@@ -322,32 +322,32 @@ footer {
 
 @media (max-width: 768px) {
     body, html {
-        font-size: 14px; /* Reduce el tamaño de fuente general */
+        font-size: 14px; 
     }
 
     .contenedorLogin {
-        width: 90%; /* Ajusta el ancho del contenedor */
-        padding: 15px; /* Reduce el padding */
+        width: 90%;
+        padding: 15px; 
     }
 
     .tablaLogin th {
-        font-size: 18px; /* Reduce el tamaño del texto */
+        font-size: 18px; 
     }
 
     input[type="text"],
     input[type="password"] {
-        font-size: 14px; /* Reduce el tamaño del texto en los inputs */
-        padding: 8px; /* Reduce el padding */
+        font-size: 14px; 
+        padding: 8px; 
     }
 
     .btnIS {
-        font-size: 14px; /* Reduce el tamaño del botón */
-        padding: 8px 15px; /* Ajusta el padding */
+        font-size: 14px; 
+        padding: 8px 15px; 
     }
 
     footer {
-        font-size: 12px; /* Reduce el tamaño del texto en el footer */
-        padding: 5px 0; /* Reduce el padding */
+        font-size: 12px; 
+        padding: 5px 0; 
     }
 
     .footerIzquierda, .footerCentro, .footerDerecha {
@@ -357,21 +357,78 @@ footer {
     }
 
     .horarios-container {
-        flex-direction: column; /* Apila las columnas de horarios */
+        flex-direction: column; 
         gap: 20px; /* Añade espacio entre las columnas */
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .horarios-columna {
-        max-width: 100%; /* Asegura que ocupen todo el ancho */
+        max-width: 100%; 
+        box-sizing: border-box;
+    }
+    .contenedorAdmin {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .citas-container, .historial-container, .administrar-container {
+        width: 100%;
+        overflow-x: auto;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .administrar-container .columna {
+        width: 100%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .horarios-container {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .horarios-columna {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tablaLogin, .tablaHistorial, .tablaAdmin {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+
+    .tablaLogin th, .tablaHistorial th, .tablaAdmin th {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .tablaLogin td, .tablaHistorial td, .tablaAdmin td {
+        font-size: 12px;
+        text-align: center;
     }
 
     nav ul {
-        flex-direction: column; /* Apila los elementos del menú */
-        gap: 10px; /* Añade espacio entre los elementos */
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
     }
 
     nav ul li a {
-        font-size: 14px; /* Reduce el tamaño del texto */
-        padding: 8px; /* Ajusta el padding */
+        display: block;
+        padding: 10px 15px;
+        font-size: 16px;
     }
 }
