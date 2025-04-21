@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
 
         // Preparar y enviar correo
         $adminEmail = "danielgodoymedina@gmail.com";
-        $subject = "Cancelación de cita (ID: $idCita)";
+        $subject = "Cancelacion de cita (ID: $idCita)";
         $message = "
         <html>
         <head>
@@ -97,14 +97,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
             <p><strong>Cancelada por:</strong> $paciente</p>";
 
         if (!empty($googleEventId)) {
-            $message .= "<p>El evento en Google Calendar (ID: <code>$googleEventId</code>) fue eliminado.</p>";
+            $message .= "<p>El evento con la id de cita $idCita en Google Calendar fue eliminado.</p>";
         } else {
             $message .= "<p>No se encontró un evento de Google Calendar asociado a esta cita.</p>";
         }
 
         $message .= "
             <br>
-            <p style='color: #777;'>Este correo es solo informativo. No respondas a este mensaje.</p>
+            <p style='color: #777;'>Este es un correo informativo. No respondas a este mensaje.</p>
           </div>
         </body>
         </html>";
