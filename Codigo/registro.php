@@ -16,7 +16,7 @@ $errores = $_SESSION['errores'] ?? [];
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
-    <form action="/Codigo/validaciones/validacionRegistro.php" method="post" id="validacionRegistro" novalidate>
+    <form action="/Codigo/validaciones/validacionRegistro.php" method="post" id="validacionRegistro">
         <div class="contenedorRegistro">
             <?php if (!empty($errores)) { ?>
                 <div id="error">
@@ -30,25 +30,25 @@ $errores = $_SESSION['errores'] ?? [];
                 <tr>
                     <td><label for="c1">Nombre</label></td>
                     <td>
-                        <input type="text" id="c1" name="nombre" placeholder="Nombre" required>
+                        <input type="text" id="c1" name="nombre" placeholder="Nombre" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="El nombre debe empezar por mayuscula y debe tener entre 3 y 30 caracteres.">
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c2">Primer apellido</label></td>
                     <td>
-                        <input type="text" id="c2" name="apellido1" placeholder="Primer apellido" required>
+                        <input type="text" id="c2" name="apellido1" placeholder="Primer apellido" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="El apellido debe empezar por mayuscula y debe tener entre 3 y 30 caracteres.">
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c3">Segundo apellido</label></td>
                     <td>
-                        <input type="text" id="c3" name="apellido2" placeholder="Segundo apellido">
+                        <input type="text" id="c3" name="apellido2" placeholder="Segundo apellido" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="El apellido debe empezar por mayuscula y debe tener entre 3 y 30 caracteres.">
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c4">Dni</label></td>
                     <td>
-                        <input type="text" id="c4" name="dni" placeholder="DNI" required>
+                        <input type="text" id="c4" name="dni" placeholder="DNI" required pattern="\d{8}[A-Za-z]" title="El DNI debe contener 8 números seguidos de una letra (por ejemplo, 12345678A).">
                     </td>
                 </tr>
                 <tr>
@@ -133,14 +133,14 @@ $errores = $_SESSION['errores'] ?? [];
                 <tr>
                     <td><label for="c9">Contraseña:</label></td>
                     <td>
-                        <input type="password" id="c9" name="pass" placeholder="Contraseña" required>
+                        <input type="password" id="c9" name="pass" placeholder="Contraseña" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
                         <button type="button" id="mostrar_contrasena" onclick="alternarContrasena('c9')">Mostrar</button>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c10">Confirmar Contraseña:</label></td>
                     <td>
-                        <input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required>
+                        <input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
                         <button type="button" id="mostrar_confirmar_contrasena" onclick="alternarContrasena('c10')">Mostrar</button>
                     </td>
                 </tr>
