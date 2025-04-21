@@ -21,6 +21,9 @@ $horariosTarde = [
     "19:00:00"
 ];
 
+// Capturamos fecha por POST
+$fechaSeleccionada = $_POST['fecha'] ?? null;
+
 // Determinar el día de la semana (1 = lunes, 7 = domingo)
 $diaSemana = date('N', strtotime($fechaSeleccionada));
 
