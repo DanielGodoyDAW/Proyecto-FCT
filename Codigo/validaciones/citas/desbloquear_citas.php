@@ -21,6 +21,9 @@ $horariosTarde = [
     "19:00:00"
 ];
 
+// Determinar el día de la semana (1 = lunes, 7 = domingo)
+$diaSemana = date('N', strtotime($fechaSeleccionada));
+
 if (isset($_POST['desbloquear']) && isset($_POST['desbloquear_citas'])) {
     foreach ($_POST['desbloquear_citas'] as $hora) {
         $stmt = $conexion->prepare("DELETE FROM Citas WHERE fecha = ? AND hora = ? AND bloqueada = 1 AND idPacientes IS NULL");

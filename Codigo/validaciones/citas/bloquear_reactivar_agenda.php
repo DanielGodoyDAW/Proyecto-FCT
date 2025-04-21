@@ -1,4 +1,4 @@
-<!-- <?php
+<!--**********************************Archivo separado en 2************************************ <?php
 ob_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 
