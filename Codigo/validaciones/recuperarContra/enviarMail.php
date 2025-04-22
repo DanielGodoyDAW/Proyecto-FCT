@@ -62,8 +62,6 @@ function enviarCorreoRecuperacion($email, $token)
                     <p>Atentamente,<br>Clinica de Podología Carmen Godoy</p>
                 </body>
                 </html>";
-
-            //<p><a href='http://localhost:/Proyecto-FTC/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>Restablecer contraseña</a></p> ruta para la prueba del portatil
             $mail->send();
             return true;
         } catch (Exception $e) {

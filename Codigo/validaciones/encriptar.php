@@ -1,4 +1,5 @@
 <?php
+// Plantilla copiada de internet y modificada con mis datos para poder actualizar la bd con la contraseña encriptada
 // Función para encriptar una contraseña
 function encriptar_contraseña($contrasena) {
     return password_hash($contrasena, PASSWORD_BCRYPT);
@@ -18,7 +19,7 @@ $idAdmin = 1;
 $contrasena_original = "Contra+1234";
 $contrasena_encriptada = encriptar_contraseña($contrasena_original);
 
-// Conexión a la base de datos (modifica con tus propios datos de conexión)
+// Conexión a la base de datos 
 $host = "localhost";
 $user = "root";
 $pass = "";
