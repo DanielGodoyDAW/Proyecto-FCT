@@ -26,8 +26,17 @@ CREATE TABLE Admin (
 CREATE TABLE Historial (
     idHistorial INT PRIMARY KEY AUTO_INCREMENT,
     fecha DATE,
-    descripcion TEXT
+    descripcion TEXT,
+    idPlantilla INT DEFAULT NULL,
+    FOREIGN KEY (idPlantilla) REFERENCES Plantillas_historial(idPlantilla)
 );
+
+-- Tabla Historial
+-- CREATE TABLE Historial (
+--     idHistorial INT PRIMARY KEY AUTO_INCREMENT,
+--     fecha DATE,
+--     descripcion TEXT
+-- );
 
 -- Tabla Pacientes
 CREATE TABLE Pacientes (
@@ -131,5 +140,16 @@ VALUES ('Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '64364557
 INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
 VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu');
 
+--pensamiento de implementar estos cambios
+CREATE TABLE Plantillas(
+    idPlantilla INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    contenido TEXT NOT NULL,
+    idAdmin INT,
+    FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
+);
 
+ALTER TABLE `Historial`
+ADD COLUMN `idPlantilla` INT DEFAULT NULL,
+ADD CONSTRAINT `historial_ibfk_plantilla` FOREIGN KEY (`idPlantilla`) REFERENCES `Plantillas` (`idPlantilla`) ON DELETE SET NULL;
 
