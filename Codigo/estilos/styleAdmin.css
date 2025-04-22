@@ -112,5 +112,5 @@ button:hover {
 
 .menu-admin a.activo {
     font-weight: bold;
-    color: #007bff; 
+    color: var(--colorBoton); 
 }
