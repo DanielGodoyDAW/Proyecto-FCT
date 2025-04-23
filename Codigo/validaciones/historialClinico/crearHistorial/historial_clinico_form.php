@@ -119,7 +119,7 @@ require_once __DIR__ . '/../../../conexion/conexion.php';
             <td><textarea name="dx" id="dx"></textarea></td>
         </tr>
     </table>
-    <table id="tratamiento">
+    <table id="table-tratamiento">
         <tr>
             <td><label for="tratamiento">Tratamiento:</label></td>
             <td><textarea name="tratamiento" id="tratamiento"></textarea></td>
