@@ -44,3 +44,6 @@ aunque si entras como paciente solo se ven las citas por hora, es decir, si por 
 
 **duda, como hacer que se refresque bien el bloquear cita
 **el calendario si retrocedo se pone en verde hasta ciertos meses
+
+poner las ventanas emergentes como divs ocultos
+el formulario de registro hacerlo mas corto
