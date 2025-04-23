@@ -68,6 +68,7 @@ if ($result->num_rows > 0) {
             if (($key === 'pass') || ($key === 'token_recuperacion') || ($key === 'token_expira')) {
                 continue;
             }
+            //ucfirst convierte la primera letra a mayuscula
             $impresion .= '<li><strong>' . ucfirst($key) . ':</strong> ' . htmlspecialchars($value) . '</li>';
         }
         $impresion .= '</ul>';

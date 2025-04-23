@@ -45,7 +45,7 @@ function enviarCorreoRecuperacion($email, $token)
             $mail->isHTML(true);
             $mail->Subject = 'Recuperacion de password';
 
-            // Usa URL encode por si acaso
+            // Usa URL encode para que el token llegue correctamente con caracteres unicode
             $tokenEncoded = urlencode($token);
 
             $mail->Body = "
