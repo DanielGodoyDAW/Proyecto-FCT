@@ -153,21 +153,15 @@ VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', 
 --     FOREIGN KEY (idPlantilla) REFERENCES Plantillas_historial(idPlantilla)
 -- );
 
-
--- Tabla Historial
-CREATE TABLE Historial (
-    idHistorial INT PRIMARY KEY AUTO_INCREMENT,
-    fecha DATE,
-    descripcion TEXT,
-
-);
-
+-- Tabla patologias
 CREATE TABLE Patologias(
     idPatologias INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     idHistorial INT
+    FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
 );
 
+-- Tabla seguimiento
 CREATE TABLE Seguimiento(
     idSeguimiento INT PRIMARY KEY AUTO_INCREMENT,
     fecha DATE,
@@ -175,3 +169,39 @@ CREATE TABLE Seguimiento(
     idHistorial INT,
     FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
 );
+
+-- Alter Tabla historial 
+ALTER TABLE
+    `Historial`
+ADD
+    COLUMN motivo TEXT,
+ADD
+    COLUMN antec_podologicos TEXT,
+ADD
+    COLUMN antec_quirurgicos TEXT,
+ADD
+    COLUMN antecedentes VARCHAR(255),
+ADD
+    COLUMN alergias VARCHAR(255),
+ADD
+    COLUMN farmacologia VARCHAR(255),
+ADD
+    COLUMN desarrolloPSi VARCHAR(255),
+ADD
+    COLUMN observaciones TEXT,
+ADD
+    COLUMN archivo VARCHAR(255),
+ADD
+    COLUMN onicopatias TINYINT(1) DEFAULT 0,
+ADD
+    COLUMN queratopatias TINYINT(1) DEFAULT 0,
+ADD
+    COLUMN dermatopatias TINYINT(1) DEFAULT 0,
+ADD
+    COLUMN prominenciasOseas TINYINT(1) DEFAULT 0,
+ADD
+    COLUMN altDigitales TINYINT(1) DEFAULT 0,
+ADD
+    COLUMN receta TEXT,
+ADD
+    COLUMN seguimiento TEXT;
