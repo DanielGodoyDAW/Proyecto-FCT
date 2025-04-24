@@ -66,10 +66,10 @@ button:hover {
     background-color: var(--colorBotonHover);
 }
 .popUpGuardar:hover {
-    background-color: #218838;
+    background-color: #45a049;
 }
 .popUpCerrar:hover {
-    background-color: #c82333;
+    background-color: #e53935;
 }
 #popupContasena {
     display: none; 
