@@ -47,13 +47,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ];
         }
 
+        $formatter = new \IntlDateFormatter(
+            'es_ES', // Localización para español de España
+            \IntlDateFormatter::LONG,
+            \IntlDateFormatter::NONE,
+            'Europe/Madrid', // Zona horaria
+            \IntlDateFormatter::GREGORIAN,
+            "d 'de' MMMM 'de' yyyy" // Formato personalizado
+        );
+
+        $fecha = new DateTime($fechaSeleccionada);
+        $fechaFormateada = $formatter->format($fecha);
+
         // Mostrar los horarios libres en dos columnas
-        echo '<h3>Horarios disponibles para ' . $fechaSeleccionada . ':</h3>';
+        echo '<h3>Horarios disponibles para ' . $fechaFormateada . ':</h3>';
         echo '<div class="horarios-container">';
 
         // Columna de la mañana
         echo '<div class="horarios-columna">';
-        echo '<h4>Horario de Mañana</h4>';
+        echo '<h4>Horario de Mañana:</h4>';
         if (!empty($tramosHorariosManana)) {
             echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
             foreach ($tramosHorariosManana as $inicio => $fin) {
@@ -78,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Columna de la tarde
         echo '<div class="horarios-columna">';
-        echo '<h4>Tarde</h4>';
+        echo '<h4>Horario de Tarde:</h4>';
         if (date("w", strtotime($fechaSeleccionada)) != 5) {
             if (!empty($tramosHorariosTarde)) {
                 echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
