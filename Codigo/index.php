@@ -8,7 +8,6 @@
     <title>Clinica de Podologia</title>
     <link rel="stylesheet" href="/Proyecto-FCT/Codigo/estilos/style.css">
     <link rel="stylesheet" href="/Proyecto-FCT/Codigo/estilos/styleCalendario.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleRecuperarContra.css">
     <script src="/Codigo/validaciones/recuperarContra/recuperar_contrasena.js"></script>
 </head>
 
@@ -16,7 +15,6 @@
     <?php require_once './plantillas/header.php'; ?>
     <main>
         <div class="contenedorLogin" id="login">
-            <!-- <div> -->
             <form class="formularioLogin" action="./validaciones/validacionUsuario.php" id="validacionUsuario" method="post">
                 <table class="tablaLogin">
                     <tr>
@@ -31,37 +29,29 @@
                 </table>
                 <input class="btnIS" type="submit" value="Iniciar Sesión">
             </form>
-            <!-- </div> -->
-            <!-- <div> -->
             <p><a href="#" onclick="mostrarRecuperar()">¿Olvidaste tu contraseña?</a></p>
-            
-            <!-- </div> -->
         </div>
         <div class="contenedorLogin" id="recuperar">
-        <!-- <div class="contenidoRecuperar"> -->
-                    <h2>Recuperar Contraseña</h2>
-                    <form action="/Codigo/validaciones/recuperarContra/procesar_recuperacion.php" method="post">
-                        <table class="tablaLogin">
-                            <tr>
-                                <td><label for="email">Introduce tu correo electrónico:</label></td>
-                            </tr>
-                            <tr>
-                                <td><input type="email" id="email" name="email" placeholder="Correo electrónico" required></td>
-                            </tr>
-                        </table>
-                        <input class="btnPss" type="submit" value="Enviar enlace de recuperación">
-                    </form>
-                    <p><a href="#" onclick="mostrarInicio()">Volver a Inicio</a></p>
-                <!-- </div> -->
+            <h2>Recuperar Contraseña</h2>
+            <form action="/Codigo/validaciones/recuperarContra/procesar_recuperacion.php" method="post">
+                <table class="tablaLogin">
+                    <tr>
+                        <td><label for="email">Introduce tu correo electrónico:</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="email" id="email" name="email" placeholder="Correo electrónico" required></td>
+                    </tr>
+                </table>
+                <input class="btnPss" type="submit" value="Enviar enlace de recuperación">
+            </form>
+            <p><a href="#" onclick="mostrarInicio()">Volver a Inicio</a></p>
         </div>
-        <?php if (isset($_GET['recuperar'])){
+        <?php if (isset($_GET['recuperar'])) {
             echo "<script>mostrarRecuperar();</script>";
         } ?>
         <?php if (isset($_GET['error'])) : ?>
             <div id="error-message">Usuario o contraseña incorrectos</div>
         <?php endif; ?>
-
-
     </main>
     <?php require_once './plantillas/footer.php'; ?>
 </body>

@@ -63,17 +63,14 @@ if ($fromPopup) {
         if (!$stmt->execute()) {
             echo '<script>
                 alert("Error: No se pudo actualizar la contraseña.");
-                window.close();
+                window.location.href = "/Codigo/editar_perfil.php";
             </script>';
             exit;
         }
 
         echo '<script>
             alert("Contraseña actualizada correctamente.");
-            if (window.opener) {
-                window.opener.location.reload();
-            }
-            window.close();
+            window.location.href = "/Codigo/editar_perfil.php";
         </script>';
         exit;
     }
@@ -97,7 +94,7 @@ if ($stmt->execute()) {
 } else {
     echo '<script>
         alert("Error: No se pudo actualizar el perfil.");
-        window.close();
+        window.location.href = "/Codigo/editar_perfil.php";
     </script>';
     exit;
 }

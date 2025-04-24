@@ -126,7 +126,7 @@ $errores = $_SESSION['errores'] ?? [];
                         <select id="c8" name="sexo" required>
                             <option value="Hombre">Hombre</option>
                             <option value="Mujer">Mujer</option>
-                            <option value="Otro">Otro</option>
+                            <option value="Otro">Binario</option>
                         </select>
                     </td>
                 </tr>
