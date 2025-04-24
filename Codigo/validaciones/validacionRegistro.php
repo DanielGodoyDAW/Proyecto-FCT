@@ -64,9 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validar fecha de nacimiento
-    if (empty($_POST['fecha_nacimiento'])) {
-        $errores[] = "La fecha de nacimiento es obligatoria.";
-    } else {
+    if (isset($_POST['fecha_nacimiento']) && !empty($_POST['fecha_nacimiento'])) {
         try {
             $fecha_nacimiento = new DateTime($_POST['fecha_nacimiento']);
             $fecha_actual = new DateTime();
@@ -83,8 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Validar sexo
-    if (!in_array($_POST['sexo'], ['Hombre', 'Mujer', 'Otro'])) {
-        $errores[] = "El sexo seleccionado no es válido.";
+    $sexo = $_POST['sexo'] ?? 'O'; // Por defecto, asignar 'O' (Otro)
+    if ($sexo === 'Seleccione una opción' || !in_array($sexo, ['H', 'M', 'O'])) {
+        $sexo = 'O'; // Si no selecciona un valor válido, asignar 'O'
     }
 
     // Validar contraseña
@@ -110,21 +109,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password_encriptada = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
         // Insertar en la base de datos
-        $sql = "INSERT INTO pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        // $sql = "INSERT INTO pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass) 
+        //         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        // Construir la consulta SQL dinámicamente con SET
+        $sql = "INSERT INTO pacientes SET 
+          nombre = ?, 
+          apellido1 = ?";
+
+        $parametros = [$_POST['nombre'], $_POST['apellido1']];
+        $tipos = "ss"; // Tipos de datos para bind_param
+
+        // Agregar campos opcionales dinámicamente
+        if (!empty($_POST['apellido2'])) {
+            $sql .= ", apellido2 = ?";
+            $parametros[] = $_POST['apellido2'];
+            $tipos .= "s";
+        }
+        if (!empty($_POST['email'])) {
+            $sql .= ", email = ?";
+            $parametros[] = $_POST['email'];
+            $tipos .= "s";
+        }
+        if (!empty($telefonoCompleto)) {
+            $sql .= ", telefono = ?";
+            $parametros[] = $telefonoCompleto;
+            $tipos .= "s";
+        }
+        if (!empty($_POST['fecha_nacimiento'])) {
+            $sql .= ", fechaNacim = ?";
+            $parametros[] = $_POST['fecha_nacimiento'];
+            $tipos .= "s";
+        }
+        if (!empty($_POST['sexo'])) {
+            $sql .= ", sexo = ?";
+            $parametros[] = $_POST['sexo'];
+            $tipos .= "s";
+        }
+        if (!empty($_POST['dni'])) {
+            $sql .= ", dni = ?";
+            $parametros[] = $_POST['dni'];
+            $tipos .= "s";
+        }
+        if (!empty($password_encriptada)) {
+            $sql .= ", pass = ?";
+            $parametros[] = $password_encriptada;
+            $tipos .= "s";
+        }
+
+        // Preparar la consulta
         $stmt = $conexion->prepare($sql);
-        $stmt->bind_param(
-            "sssssssss",
-            $_POST['nombre'],
-            $_POST['apellido1'],
-            $_POST['apellido2'],
-            $_POST['email'],
-            $telefonoCompleto,
-            $_POST['fecha_nacimiento'],
-            $_POST['sexo'],
-            $_POST['dni'],
-            $password_encriptada
-        );
+
+        // Vincular los parámetros dinámicamente
+        $stmt->bind_param($tipos, ...$parametros);
 
         if ($stmt->execute()) {
             // Redirigir al usuario después del registro exitoso

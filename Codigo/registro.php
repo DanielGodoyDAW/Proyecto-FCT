@@ -59,9 +59,9 @@ $errores = $_SESSION['errores'] ?? [];
                 </tr>
                 <tr>
                     <td><label for="extension">Extensión:</label></td>
-                    <td><select id="extension" name="extension" required>
-                            <option value="" selected disabled>Selecciona una extensión</option>
-                            <option value="+34">+34 (España)</option>
+                    <td><select id="extension" name="extension">
+                            <!-- <option value="" selected disabled>Selecciona una extensión</option> -->
+                            <option value="+34" selected>+34 (España)</option>
                             <option value="+1">+1 (EE.UU.)</option>
                             <option value="+44">+44 (Reino Unido)</option>
                             <option value="+66">+66 (Tailandia)</option>
@@ -117,16 +117,17 @@ $errores = $_SESSION['errores'] ?? [];
                 <tr>
                     <td><label for="c7">Fecha nacimiento</label></td>
                     <td>
-                        <input type="date" id="c7" name="fecha_nacimiento" required>
+                        <input type="date" id="c7" name="fecha_nacimiento">
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c8">Sexo</label></td>
                     <td>
-                        <select id="c8" name="sexo" required>
-                            <option value="Hombre">Hombre</option>
-                            <option value="Mujer">Mujer</option>
-                            <option value="Otro">Binario</option>
+                        <select id="c8" name="sexo">
+                            <option value="" selected>Selecciona una opción</option>
+                            <option value="H">Hombre</option>
+                            <option value="M">Mujer</option>
+                            <option value="O">No Binario</option>
                         </select>
                     </td>
                 </tr>

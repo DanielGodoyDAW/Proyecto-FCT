@@ -28,9 +28,12 @@
     } else if (isset($_SESSION['idPacientes'])) {
         // Si el usuario es un paciente
         if (isset($_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'])) {
-            if ($_SESSION['sexo'] === 'H') {
+            // Asignar 'O' (Otro) si el sexo es NULL o no está definido
+            $sexo = $_SESSION['sexo'] ?? 'O';
+            
+            if ($sexo === 'H') {
                 echo '<p class="bienvenida">Bienvenido ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
-            } else if ($_SESSION['sexo'] === 'M') {
+            } else if ($sexo === 'M') {
                 echo '<p class="bienvenida">Bienvenida ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
             } else {
                 echo '<p class="bienvenida">Bienvenid@ ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';

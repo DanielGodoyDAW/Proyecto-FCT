@@ -118,7 +118,7 @@ $extensiones = [
                     <select id="c3" name="sexo" required>
                         <option value="H" <?php echo $pacientes['sexo'] === 'H' ? 'selected' : ''; ?>>Hombre</option>
                         <option value="M" <?php echo $pacientes['sexo'] === 'M' ? 'selected' : ''; ?>>Mujer</option>
-                        <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>Binario</option>
+                        <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>No Binario</option>
                     </select>
                 </td>
             </tr>

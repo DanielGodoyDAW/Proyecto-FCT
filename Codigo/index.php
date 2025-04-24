@@ -27,6 +27,10 @@
                         <td><input type="password" id="c2" name="password" placeholder="Contraseña" minlength="8" maxlength="20" required></td>
                     </tr>
                 </table>
+                <?php if (isset($_GET['error'])) : ?>
+                    <div id="error-message">Usuario o contraseña incorrectos</div>
+                <?php endif; ?>
+                <br>
                 <input class="btnIS" type="submit" value="Iniciar Sesión">
             </form>
             <p><a href="#" onclick="mostrarRecuperar()">¿Olvidaste tu contraseña?</a></p>
@@ -49,9 +53,7 @@
         <?php if (isset($_GET['recuperar'])) {
             echo "<script>mostrarRecuperar();</script>";
         } ?>
-        <?php if (isset($_GET['error'])) : ?>
-            <div id="error-message">Usuario o contraseña incorrectos</div>
-        <?php endif; ?>
+
     </main>
     <?php require_once './plantillas/footer.php'; ?>
 </body>
