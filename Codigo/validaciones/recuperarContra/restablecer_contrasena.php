@@ -29,8 +29,6 @@ ob_end_flush();
 <head>
     <meta charset="UTF-8">
     <title>Restablecer Contraseña</title>
-    <link rel="stylesheet" href="http://localhost:3000/Proyecto-FCT/Codigo/estilos/styleRecuperarContra.css">
-    <link rel="stylesheet" href="http://localhost:3000/Proyecto-FCT/Codigo/estilos/styleCalendario.css">
     <style>
         @font-face {
             font-family: 'Amazing Grotesk';

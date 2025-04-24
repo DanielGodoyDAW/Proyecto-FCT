@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultadoCorreo = enviarCorreoRecuperacion($email, $token);
 
         if ($resultadoCorreo === true) {
-            echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo.'); window.close();</script>";
+            echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo.'); window.location.href='/Codigo/index.php'</script>";
         } else {
-            echo "<script>alert('Error: $resultadoCorreo'); window.location.href='/Codigo/validaciones/recuperarContra/recuperar_contrasena.html';</script>";
+            echo "<script>alert('Error: $resultadoCorreo'); window.location.href='/Codigo/index.php?recuperar=true';</script>";
         }
     } else {
-        echo "<script>alert('El correo no está registrado.'); window.location.href='/Codigo/validaciones/recuperarContra/recuperar_contrasena.html';</script>";
+        echo "<script>alert('El correo no está registrado.'); window.location.href='/Codigo/index.php?recuperar=true';</script>";
     }
 }
