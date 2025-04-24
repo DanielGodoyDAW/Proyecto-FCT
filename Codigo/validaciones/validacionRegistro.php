@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           apellido1 = ?";
 
         $parametros = [$_POST['nombre'], $_POST['apellido1']];
-        $tipos = "ss"; // Tipos de datos para bind_param
+        $tipos = "ss"; 
 
         // Agregar campos opcionales dinámicamente
         if (!empty($_POST['apellido2'])) {
@@ -141,11 +141,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $parametros[] = $_POST['fecha_nacimiento'];
             $tipos .= "s";
         }
-        if (!empty($_POST['sexo'])) {
             $sql .= ", sexo = ?";
-            $parametros[] = $_POST['sexo'];
+            $parametros[] = $sexo;
             $tipos .= "s";
-        }
+        
         if (!empty($_POST['dni'])) {
             $sql .= ", dni = ?";
             $parametros[] = $_POST['dni'];
