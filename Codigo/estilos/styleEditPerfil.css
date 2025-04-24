@@ -96,3 +96,9 @@ button:hover {
     width: auto; 
     box-sizing: border-box; 
 }
+
+/* formulario cambiar contraseña oculto*/
+
+#cambiarPass{
+    display: none;
+}

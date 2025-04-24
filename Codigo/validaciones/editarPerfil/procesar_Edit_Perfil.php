@@ -16,6 +16,7 @@ $sexo = $_POST['sexo'] ?? null;
 $passwordActual = $_POST['passwordActual'] ?? null;
 $nuevaContrasena = $_POST['nuevaContrasena'] ?? null;
 $confirmarContrasena = $_POST['confirmarContrasena'] ?? null;
+$fechaNacim = $_POST['fechaNacim'] ?? null;
 
 // Unificamos el teléfono con la extensión
 $telefonoCompleto = $extension . ' ' . $telefono;
@@ -63,17 +64,14 @@ if ($fromPopup) {
         if (!$stmt->execute()) {
             echo '<script>
                 alert("Error: No se pudo actualizar la contraseña.");
-                window.close();
+                window.location.href = "/Codigo/editar_perfil.php";
             </script>';
             exit;
         }
 
         echo '<script>
             alert("Contraseña actualizada correctamente.");
-            if (window.opener) {
-                window.opener.location.reload();
-            }
-            window.close();
+            window.location.href = "/Codigo/editar_perfil.php";
         </script>';
         exit;
     }
@@ -82,9 +80,9 @@ if ($fromPopup) {
 }
 
 // --- Solo si NO es popup, actualizamos perfil ---
-$query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ? WHERE idPacientes = ?";
+$query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ? WHERE idPacientes = ?";
 $stmt = $conexion->prepare($query);
-$stmt->bind_param('sssi', $email, $telefonoCompleto, $sexo, $idUsuario);
+$stmt->bind_param('ssssi', $email, $telefonoCompleto, $sexo, $fechaNacim, $idUsuario);
 
 if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo;
@@ -97,7 +95,7 @@ if ($stmt->execute()) {
 } else {
     echo '<script>
         alert("Error: No se pudo actualizar el perfil.");
-        window.close();
+        window.location.href = "/Codigo/editar_perfil.php";
     </script>';
     exit;
 }

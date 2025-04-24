@@ -31,11 +31,6 @@
 
             require_once __DIR__ . '/../../conexion/conexion.php';
 
-            // Determinar el mes y el año seleccionados
-            // if (isset($_POST['mes']) && isset($_POST['year'])) {
-            //     $mes = $_POST['mes'];
-            //     $year = $_POST['year'];
-            // }
             if (isset($_POST["fecha"])) {
                 $mes = date('m', strtotime($_POST["fecha"]));
                 $year = date('Y', strtotime($_POST["fecha"]));
@@ -141,22 +136,20 @@
                     $calendario .= "<tr>";
                 }
 
-                // Determinar la clase CSS según la disponibilidad
-                $claseDisponibilidad = isset($diasDisponibilidad[$fecha]) ? $diasDisponibilidad[$fecha] : 'verde';
+                $claseDisponibilidad = (strtotime($fecha) < strtotime(date("Y-m-d"))) ? 'calenReDiaNoSeleccionable' : (isset($diasDisponibilidad[$fecha]) ? $diasDisponibilidad[$fecha] : 'verde');
 
-                if ($diaSemana > 0 && $diaSemana < 6) { // Días laborables
-                    if (date("Y-m-d") <= $fecha) {
-                        $calendario .= '<td>
+                if ($diaSemana > 0 && $diaSemana < 6 && date("Y-m-d") <= $fecha) {
+                    $calendario .= '<td>
                         <form action="" method="post" style="display:inline;">
                             <input type="hidden" name="fecha" value="' . $fecha . '">
                             <button type="submit" class="' . $claseDisponibilidad . '">' . $i . '</button>
                         </form>
                     </td>';
-                    } else {
-                        $calendario .= '<td class="calenReDiaNoSeleccionable">' . $i . '</td>';
-                    }
-                } else { // Fines de semana
-                    $calendario .= '<td class="calenReDiaNoSeleccionable">' . $i . '</td>';
+                } else {
+                    // Fines de semana o días pasados
+                    $calendario .= '<td>
+                        <button class="calenReDiaNoSeleccionable" title="No disponible" disabled>' . $i . '</button>
+                    </td>';
                 }
 
                 if ($diaSemana == 0) {
@@ -164,7 +157,6 @@
                 }
             }
 
-            // Completar la última fila del calendario
             if (date("w", strtotime($year . "-" . $mes . "-" . $ultimoDiaMes)) != 0) {
                 for ($i = 7; $i > date("w", strtotime($year . "-" . $mes . "-" . $ultimoDiaMes)); $i--) {
                     $calendario .= "<td></td>";
@@ -172,8 +164,6 @@
             }
 
             $calendario .= "</tr></table>";
-
-            // Mostrar el calendario
             echo $calendario;
             ?>
         </div>

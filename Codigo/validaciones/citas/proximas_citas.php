@@ -78,6 +78,7 @@ if (isset($_SESSION["idPacientes"])) {
     }
 
     // Mostrar las próximas citas con el teléfono
+    // Mostrar las próximas citas
     echo '<table class="citas" border="1">
         <tr>
             <th>Fecha</th>
@@ -85,14 +86,39 @@ if (isset($_SESSION["idPacientes"])) {
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Teléfono</th>
+            <th>WhatsApp</th>
         </tr>';
     foreach ($proximasCitas as $cita) {
+
+        $formatter = new \IntlDateFormatter(
+            'es_ES', // Localización para español de España
+            \IntlDateFormatter::LONG,
+            \IntlDateFormatter::NONE,
+            'Europe/Madrid', // Zona horaria
+            \IntlDateFormatter::GREGORIAN,
+            "d 'de' MMMM 'de' yyyy" // Formato personalizado
+        );
+
+        $fecha = new DateTime($cita['fecha']);
+        $fechaFormateada = $formatter->format($fecha);
+
+        $telefonoCompleto = $cita['telefono'];
+        preg_match('/^(\+\d+)\s*(.*)$/', $telefonoCompleto, $matches);
+
+        $extension = $matches[1] ?? '+34'; //por defecto si no se encuentra la extension
+        $telefono = $matches[2] ?? ''; //numero sin la extension
+        $wasap = "https://wa.me/" . $extension . $telefono; //extension de waasap concatenado con el numero sin espacios
         echo '<tr>
-            <td>' . $cita['fecha'] . '</td>
+            <td>' . $fechaFormateada . '</td>
             <td>' . $cita['hora'] . '</td>
             <td>' . $cita['nombre'] . '</td>
             <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
             <td>' . $cita['telefono'] . '</td>
+            <td>
+                <a href="' . $wasap . '" target="_blank">
+                    <img class="redes" src="/Codigo/imagenes/whatsapp.png" alt="WhatsApp">
+                </a>
+            </td>
         </tr>';
     }
     echo '</table>';
