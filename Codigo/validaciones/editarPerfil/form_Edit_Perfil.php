@@ -97,7 +97,7 @@ $extensiones = [
                 <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>" ></td>
             </tr>
             <tr>
-                <td><label for="extension">Extensión:</label></td>
+                <td><label for="extension">Prefijo:</label></td>
                 <td>
                     <select id="extension" name="extension" >
                         <?php foreach ($extensiones as $codigo => $pais) { ?>
