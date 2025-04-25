@@ -73,13 +73,15 @@
                 </div>
             </div>
         </main>
-    <?php } else { ?>
+    <?php } ?>
+
+    <?php if (isset($_SESSION["idPaciente"])) { ?>
         <main class="contenedor">
             <!-- Contenedor superior -->
             <div class="fila">
                 <!-- Sección izquierda: Calendario -->
                 <div class="columna izquierda-arriba">
-                <?php include 'validaciones/calendario/calendarioReserva.php'; ?>
+                    <?php include '../Codigo/validaciones/calendario/calendarioReserva.php'; ?>
                 </div>
 
                 <!-- Sección derecha: Tramos horarios -->
