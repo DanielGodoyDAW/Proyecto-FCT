@@ -97,7 +97,7 @@ $extensiones = [
                 <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>" ></td>
             </tr>
             <tr>
-                <td><label for="extension">Extensión:</label></td>
+                <td><label for="extension">Prefijo:</label></td>
                 <td>
                     <select id="extension" name="extension" >
                         <?php foreach ($extensiones as $codigo => $pais) { ?>
@@ -206,12 +206,15 @@ $extensiones = [
         </form>
     </body>
     <script>
+        // Función para mostrar/ocultar la contraseña
         document.getElementById('mostrarContrasena').addEventListener('change', function() {
+            // Cambia el tipo de los campos de contraseña según el estado del checkbox
             const passwordFields = [
                 document.getElementById('passwordActual'),
                 document.getElementById('nuevaContrasena'),
                 document.getElementById('confirmarContrasena')
             ];
+            //se rrecorre el array de los campos de contraseña y se cambia el tipo a password o text
             passwordFields.forEach(field => {
                 field.type = this.checked ? 'text' : 'password';
             });
