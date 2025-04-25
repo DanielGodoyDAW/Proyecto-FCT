@@ -32,7 +32,7 @@ h3 {
     background-color: #fff;
 }
 
-#submit {
+#submit, .cancel {
     background-color: var(--colorBoton);
     color: white;
     padding: 12px 20px;
@@ -43,10 +43,13 @@ h3 {
     transition: background-color 0.3s ease;
 }
 
-#submit:hover {
+#submit:hover, .cancel:hover {
     background-color: var(--colorBotonHover);
 }
 
-#submit:active {
+#submit:active, .cancel:active {
     background-color: var(--colorBotonActivoHover);
+}
+a{
+    text-decoration: none;
 }

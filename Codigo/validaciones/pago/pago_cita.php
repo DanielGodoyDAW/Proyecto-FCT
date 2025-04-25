@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div id="card-element"></div>
                 <button id="submit">Pagar</button>
             </form>
+            <br>
+            <a href="/Codigo/citas.php" class="cancel">Volver</a>
         </div>
 
         <script src="https://js.stripe.com/v3/"></script>
