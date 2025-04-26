@@ -1,70 +1,87 @@
 <?php
-
-
-//consulta a la bd para buscar un paciente por idPaciente (desplegable con los nombres), por fecha (una fecha estimada de inicio y fin)
-//el tratamiento
-
 require_once __DIR__ . '/../../conexion/conexion.php';
-
-
-//consulta con seleccion de paciente por idPaciente, nombre, apellido1 y apellido2 en formulario de busqueda
-//por numero de telefono
-//por primer apellido o por nombre
-
 ?>
-<form action="/Codigo/validaciones/busqueda/procesar_busqueda.php" method="post">
-    <table>
-        <tr>
-            <td><label for="nombre">Nombre:</label></td>
-            <td>
-                <select name="nombre" id="nombre">
-                    <option value="">Seleccione un nombre</option>
-                    <?php
-                    // Consulta para obtener todos los nombres de los pacientes
-                    $query = "SELECT DISTINCT nombre FROM Pacientes WHERE idPacientes != ?";
-                    $stmt = $conexion->prepare($query);
-                    $stmt->bind_param("i", $idAdmin);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
 
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<option value="' . $row['nombre'] . '">' . $row['nombre'] . '</option>';
-                    }
-                    ?>
-                </select>
-            </td>
-            <td><label for="paciente">Busqueda Rápida:</label></td>
-            <td>
-                <select name="paciente" id="paciente">
-                    <option value="">Seleccione un paciente</option>
-                    <?php
-                    // Consulta para obtener los pacientes, excluyendo al usuario logueado
-                    $query = "SELECT idPacientes, nombre, apellido1, apellido2 
-                  FROM Pacientes 
-                  WHERE idPacientes != ?";
-                    $stmt = $conexion->prepare($query);
-                    $stmt->bind_param("i", $idAdmin);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
+<!-- Buscador dinámico nuevo -->
+<div class="buscador-dinamico">
+    <input type="text" id="busquedaPaciente" placeholder="Buscar paciente por nombre, apellido o teléfono..." autocomplete="off">
+    <div id="sugerencias"></div>
+</div>
+<div id="resultadoBusqueda">
+    <h2>Resultado de la Búsqueda</h2>
+</div>
 
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<option value="' . $row['idPacientes'] . '">' . $row['nombre'] . ' ' . $row['apellido1'] . ' ' . $row['apellido2'] . '</option>';
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td><label for="apellido1">Primer Apellido:</label></td>
-            <td><input type="text" name="apellido1" id="apellido1"></td>
-        </tr>
-        <tr>
+<!-- jQuery y Ajax para el buscador dinámico -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#busquedaPaciente").keyup(function() {
+        let query = $(this).val();
+        if (query.length > 1) {
+            $.ajax({
+                url: '/Codigo/validaciones/busqueda/buscar_paciente.php',
+                method: 'POST',
+                data: {consulta: query},
+                success: function(data) {
+                    $("#sugerencias").fadeIn();
+                    $("#sugerencias").html(data);
+                }
+            });
+        } else {
+            $("#sugerencias").fadeOut();
+        }
+    });
 
-        </tr>
-        <tr>
-            <td><label for="telefono">Telefono:</label></td>
-            <td><input type="text" name="telefono" id="telefono"></td>
-        </tr>
-    </table>
-    <button type="submit">Enviar</button>
-</form>
+    // Cuando hace click en una sugerencia
+    $(document).on('click', '.sugerencia-item', function() {
+        const pacienteSeleccionado = $(this).data('id'); // Usamos el data-id que pongamos en PHP
+        $("#busquedaPaciente").val($(this).text());
+        $("#sugerencias").fadeOut();
+
+        // Nueva petición para mostrar los datos del paciente
+        $.ajax({
+            url: '/Codigo/validaciones/busqueda/procesar_busqueda.php',
+            method: 'POST',
+            data: {paciente: pacienteSeleccionado},
+            success: function(data) {
+                $("#resultadoBusqueda").html(data);
+            }
+        });
+    });
+});
+</script>
+
+
+<style>
+.buscador-dinamico {
+    position: relative;
+    width: 300px;
+    margin: 20px auto;
+}
+
+#busquedaPaciente {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#sugerencias {
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+}
+
+.sugerencia-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sugerencia-item:hover {
+    background-color: #f0f0f0;
+}
+</style>
