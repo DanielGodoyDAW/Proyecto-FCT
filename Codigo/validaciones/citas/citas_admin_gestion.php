@@ -3,17 +3,10 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 
 $fechaSeleccionada = $_POST['fecha'] ?? date('Y-m-d');
 
-// Selector de fecha
-echo '<form method="POST">';
-echo '<label for="fecha">Selecciona una fecha:</label>';
-echo '<input type="date" name="fecha" value="' . $fechaSeleccionada . '" required>';
-echo '<button type="submit">Ver horarios</button>';
-echo '</form><hr>';
-
 // Tramos horarios
 $tramos = [
-    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
-    "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00"
+    "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
+    "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"
 ];
 
 $stmt = $conexion->prepare("SELECT hora FROM Citas WHERE fecha = ?");

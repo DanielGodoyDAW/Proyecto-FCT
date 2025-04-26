@@ -1,12 +1,3 @@
-:root {
-    --colorFondo: #f0f0f0;
-    --colorTexto: #333;
-    --colorBoton: #08A3A9;
-    --colorBotonHover: #0f2788;
-    --colorFondo: #DFF5F6;
-    --colorFondoDivs: #E8F0F1;
-}
-
 .contenedor {
     display: flex;
     flex-direction: column;
@@ -18,6 +9,7 @@
     justify-content: space-between;
     gap: 20px;
     width: 80%;
+    margin: 0 auto;
 }
 
 .columna {
@@ -29,21 +21,21 @@
     margin: 50px;
 }
 
-
-.btn-eliminar {
-    background-color: red;
+/* Botón cancelar cita */
+.btnCancelar {
+    background-color: #ff4d4d;
     color: white;
-    padding: 5px;
-    margin-left: 10px;
     border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
-    z-index: 10; /* Asegura que esté encima de otros elementos */
 }
 
-.btn-eliminar:hover {
-    background-color: darkred;
+.btnCancelar:hover {
+    background-color: #cc0000;
 }
 
+/* Navegación calendario */
 .navegacion-calendario {
     display: flex;
     align-items: center; 
@@ -53,7 +45,7 @@
 
 .navegacion-calendario h3 {
     margin: 0; 
-    font-size: 1.5rem; /
+    font-size: 1.5rem;
 }
 
 .next-after {
@@ -62,35 +54,8 @@
     cursor: pointer;   
 }
 
-
-.columna.izquierda-arriba {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-.columna.derecha-arriba {
-    height: 100%;
-    min-height: 200px;
-    max-height: 700px;
-    overflow-y: auto;
-    transition: all 0.3s ease;
-}
-
-.columna.izquierda-abajo, .columna.derecha-abajo {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20px;
-}
-
-.columna.izquierda-abajo h2, .columna.derecha-abajo h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-table .citas {
+/* Tablas de citas */
+table.citas {
     border-collapse: collapse; 
     width: 100%; 
     table-layout: fixed; 
@@ -107,76 +72,16 @@ table.citas th {
     background-color: #f4f4f4; 
     font-weight: bold; 
 }
-/* bloqueo de citas*/
 
-.horarios-container {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-items: flex-start;
-}
-.boton-bloqueo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.btn-bloquear {
-    display: inline-block;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-    background-color: var(--colorBoton);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-}
-
-.btn-bloquear:hover {
-    background-color: var(--colorBotonHover);
-}
-
-.horario-bloqueado {
-    display: inline-block;
-    padding: 3px 8px;
-    font-size: 0.85rem;
-    background-color: darkred;
-    color: white;
-    border-radius: 4px;
-    margin-bottom: 5px;
-    max-width: 100%;
-}
-/* cancelar cita*/
-.btnCancelar {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btnCancelar:hover {
-    background-color: #cc0000;
-}
-
-/*Reponsive */
+/* Responsive */
 @media (max-width: 768px) {
-    .citas-container {
-        width: 100%;
-        overflow-x: auto;
-        padding: 10px;
-        box-sizing: border-box;
+    .fila {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .citas-columna {
-        width: 100%;
-        margin-bottom: 20px;
-        box-sizing: border-box;
+    .columna {
+        width: 90%;
+        margin: 20px 0;
     }
 }
