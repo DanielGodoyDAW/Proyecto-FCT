@@ -9,8 +9,8 @@ $hora = $_POST['hora'];
 $nombre = $_POST['nombre'];
 $apellido1 = $_POST['apellido1'];
 $apellido2 = $_POST['apellido2'] ?? '';
-$telefono = $_POST['telefono'];
-$email = $_POST['email'] ?: 'temporal_' . uniqid() . '@carmen.godoy';
+$telefono = '+34 ' . preg_replace('/\s+/', '', $_POST['telefono']); //asignamos el prefijo de España por defecto
+$email = $_POST['email'] ?: 'temporal_' . uniqid() . '@carmen.godoy'; //le asinamos un email temporal por si no tienen ninguno
 $temporal = isset($_POST['temporal']);
 $fechaNacim = '1900-01-01';
 $sexo = 'O';
@@ -58,6 +58,7 @@ try {
 }
 
 // 6. Redirigir con mensaje
-header("Location: /Proyecto-FCT/Codigo/citas.php?mensaje=Cita+creada+correctamente");
+echo "<script>alert('Cita creada con éxito.');</script>";
+header("Location: /Proyecto-FCT/Codigo/citas.php");
 exit;
 ?>

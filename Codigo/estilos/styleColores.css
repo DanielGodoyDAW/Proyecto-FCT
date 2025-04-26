@@ -1,0 +1,15 @@
+:root {
+    --colorFondo: #f0f0f0;
+    --colorTexto: #333;
+    --colorBoton: #08A3A9;
+    --colorBotonHover: #0f2788;
+    --colorBotonActivoHover: #0056b3;
+    --colorFondoClarito: #DFF5F6;
+    --colorFondoDivs: #E8F0F1;
+    --disponible: #155724;
+    --semiDisponible: #856404;
+    --noDisponible: #721c24;
+    --fueraServicio: #6c757d;
+    --colorCamposInvalidosFondo: #ffe6e6;
+    --colorCamposValidosFondo: #e6ffe6;
+}
