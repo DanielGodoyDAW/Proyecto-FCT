@@ -11,18 +11,18 @@ $apellido1 = $_POST['apellido1'];
 $apellido2 = $_POST['apellido2'] ?? '';
 $telefono = '+34 ' . preg_replace('/\s+/', '', $_POST['telefono']); //asignamos el prefijo de España por defecto
 $email = $_POST['email'] ?: 'temporal_' . uniqid() . '@carmen.godoy'; //le asinamos un email temporal por si no tienen ninguno
-$temporal = isset($_POST['temporal']);
 $fechaNacim = '1900-01-01';
 $sexo = 'O';
 $dni = 'TEMP' . substr(md5(uniqid()), 0, 8);
-$pass = password_hash('temporal123', PASSWORD_DEFAULT);
+$pass = password_hash('Contra+1234', PASSWORD_DEFAULT);
+$temporal = 1; // Asignamos 1 para indicar que es temporal
 
 // 2. Insertar paciente
 $stmtPaciente = $conexion->prepare("
-    INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass, es_temporal)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
-$stmtPaciente->bind_param("sssssssss", $nombre, $apellido1, $apellido2, $email, $telefono, $fechaNacim, $sexo, $dni, $pass);
+$stmtPaciente->bind_param("sssssssssi", $nombre, $apellido1, $apellido2, $email, $telefono, $fechaNacim, $sexo, $dni, $pass, $temporal);
 
 if (!$stmtPaciente->execute()) {
     die("Error al crear paciente temporal: " . $stmtPaciente->error);
@@ -59,6 +59,5 @@ try {
 
 // 6. Redirigir con mensaje
 echo "<script>alert('Cita creada con éxito.');</script>";
-header("Location: /Proyecto-FCT/Codigo/citas.php");
+header("Location: /Codigo/citas.php");
 exit;
-?>

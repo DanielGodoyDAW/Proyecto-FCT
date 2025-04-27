@@ -12,7 +12,7 @@ if (isset($_SESSION['idPacientes'])) {
 }
 
 // Consulta para obtener los datos del usuario
-$query = "SELECT email, telefono, sexo, fechaNacim FROM Pacientes WHERE idPacientes = ?";
+$query = "SELECT email, telefono, sexo, fechaNacim, es_temporal FROM Pacientes WHERE idPacientes = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param("i", $idPaciente);
 $stmt->execute();
@@ -25,6 +25,7 @@ if ($result->num_rows === 0) {
 
 // Almacenamos los datos del usuario en un array
 $pacientes = $result->fetch_assoc();
+$esTemporal = isset($pacientes['es_temporal']) && $pacientes['es_temporal'] == 1;
 
 //para separar el telefono y la extension
 $telefonoCompleto = $pacientes['telefono'] ?? '';
@@ -94,12 +95,12 @@ $extensiones = [
         <table>
             <tr>
                 <td><label for="c1">Email:</label></td>
-                <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>" ></td>
+                <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>"></td>
             </tr>
             <tr>
                 <td><label for="extension">Prefijo:</label></td>
                 <td>
-                    <select id="extension" name="extension" >
+                    <select id="extension" name="extension">
                         <?php foreach ($extensiones as $codigo => $pais) { ?>
                             <option value="<?php echo $codigo; ?>" <?php echo $extension === $codigo ? 'selected' : ''; ?>>
                                 <?php echo $codigo . " (" . $pais . ")"; ?>
@@ -110,7 +111,7 @@ $extensiones = [
             </tr>
             <tr>
                 <td><label for="c2">Teléfono:</label></td>
-                <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>" ></td>
+                <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>"></td>
             </tr>
             <tr>
                 <td><label for="c3">Sexo:</label></td>
@@ -131,6 +132,16 @@ $extensiones = [
                     <td><input type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
                 <?php } ?>
             </tr>
+            <?php if ($esTemporal) { ?>
+                <tr>
+                    <td><label for="nuevoEmail">Nuevo Email:</label></td>
+                    <td><input type="email" id="nuevoEmail" name="nuevoEmail" placeholder="Introduce tu correo nuevo"></td>
+                </tr>
+                <tr>
+                    <td><label for="nuevoDNI">Nuevo DNI:</label></td>
+                    <td><input type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI"></td>
+                </tr>
+            <?php } ?>
             <tr>
                 <td colspan="2">
                     <button type="button" id="btnCambiarContrasena" onclick="mostrarCambioPass()">Cambiar Contraseña</button>

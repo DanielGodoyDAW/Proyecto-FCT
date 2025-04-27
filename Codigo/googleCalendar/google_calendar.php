@@ -63,5 +63,22 @@ function crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $
     return $eventoCreado->id;; // Devuelve el id
 }
 
+function eliminarEventoGoogleCalendar($eventId)
+{
+    if (empty($eventId)) {
+        throw new Exception("El ID del evento no puede estar vacío.");
+    }
+
+    $client = getClient();
+    $service = new Google_Service_Calendar($client);
+    $calendarId = 'danielgodoymedina@gmail.com'; // Tu calendario
+
+    try {
+        $service->events->delete($calendarId, $eventId);
+    } catch (Exception $e) {
+        throw new Exception("No se pudo eliminar el evento de Google Calendar: " . $e->getMessage());
+    }
+}
+
 ?>
 
