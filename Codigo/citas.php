@@ -27,7 +27,7 @@ require_once './conexion/conexion.php';
         <div id="admin-panel">
             <nav class="menu-citas">
                 <ul>
-                    <li><a href="#" data-seccion="bloquearDEsbloCitas" class="activo">Bloquear o Desbloquear Agenda</a></li>
+                    <li><a href="#" data-seccion="bloquearDEsbloCitas" class="activo">Bloquear o Desbloquear Agenda y Asignar citas temporales</a></li>
                     <li><a href="#" data-seccion="listadoPacientesT">Listado de Pacientes Temporales</a></li>
                     <li><a href="#" data-seccion="proximasCitas">Próximas Citas de este mes</a></li>
                     <li><a href="#" data-seccion="historialCitas">Historial de Citas</a></li>

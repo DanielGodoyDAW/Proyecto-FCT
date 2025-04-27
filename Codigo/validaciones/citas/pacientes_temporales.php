@@ -24,7 +24,7 @@ if ($resultado->num_rows > 0) {
         echo '<td>' . htmlspecialchars($row['dni']) . '</td>';
         echo '<td>
             <form method="POST" action="/Codigo/validaciones/citas/eliminar_paciente_temporal.php" onsubmit="return confirm(\'¿Estás seguro de eliminar este paciente temporal?\');" style="display:inline;">
-                <input type="hidden" name="id" value="' . $row['idPacientes'] . '">
+                <input type="hidden" name="idPacientes" value="' . $row['idPacientes'] . '">
                 <button type="submit" class="btnCancelar">Eliminar</button>
             </form>
         </td>';
