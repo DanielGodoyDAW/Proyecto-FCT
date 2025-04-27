@@ -17,7 +17,6 @@ $fechaNacim = $_POST['fechaNacim'] ?? null;
 $passwordActual = $_POST['passwordActual'] ?? null;
 $nuevaContrasena = $_POST['nuevaContrasena'] ?? null;
 $confirmarContrasena = $_POST['confirmarContrasena'] ?? null;
-$nuevoEmail = $_POST['nuevoEmail'] ?? null;
 $nuevoDNI = $_POST['nuevoDNI'] ?? null;
 
 // Unificamos el teléfono con la extensión
@@ -93,12 +92,20 @@ $resultTemporal = $stmtTemporal->get_result();
 $usuarioTemporal = $resultTemporal->fetch_assoc();
 $esTemporal = isset($usuarioTemporal['es_temporal']) && $usuarioTemporal['es_temporal'] == 1;
 
+if ($esTemporal && empty($nuevoDNI)) {
+    echo '<script>
+        alert("Debes introducir tu DNI para completar tu perfil.");
+        window.location.href = "/Codigo/editar_perfil.php";
+    </script>';
+    exit;
+}
+
 // Ahora actualizamos dependiendo si es temporal y ha puesto datos nuevos
-if ($esTemporal && (!empty($nuevoEmail) || !empty($nuevoDNI))) {
+if ($esTemporal && !empty($nuevoDNI)) {
     // Actualizar también Email, DNI y cambiar es_temporal a 0 (ya es paciente normal)
     $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ?, dni = ?, es_temporal = 0 WHERE idPacientes = ?";
     $stmt = $conexion->prepare($query);
-    $stmt->bind_param('sssssi', $nuevoEmail, $telefonoCompleto, $sexo, $fechaNacim, $nuevoDNI, $idUsuario);
+    $stmt->bind_param('sssssi', $email, $telefonoCompleto, $sexo, $fechaNacim, $nuevoDNI, $idUsuario);
 } else {
     // Caso normal: actualizar email, teléfono, sexo y fecha de nacimiento
     $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ? WHERE idPacientes = ?";
