@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 if (isset($_POST['consulta'])) {
     $busqueda = $_POST['consulta'] . '%';
 
-    $stmt = $conexion->prepare("SELECT idPacientes, nombre, apellido1, telefono FROM Pacientes WHERE CONCAT(nombre, ' ', apellido1) LIKE ? OR telefono LIKE ?");
+    $stmt = $conexion->prepare("SELECT idPacientes, nombre, apellido1, telefono FROM Pacientes WHERE LOWER(CONCAT(nombre, ' ', apellido1)) LIKE ? OR telefono LIKE ?");
     $stmt->bind_param("ss", $busqueda, $busqueda);
     $stmt->execute();
     $result = $stmt->get_result();
