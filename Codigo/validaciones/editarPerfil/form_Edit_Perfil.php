@@ -134,12 +134,8 @@ $extensiones = [
             </tr>
             <?php if ($esTemporal) { ?>
                 <tr>
-                    <td><label for="nuevoEmail">Nuevo Email:</label></td>
-                    <td><input type="email" id="nuevoEmail" name="nuevoEmail" placeholder="Introduce tu correo nuevo"></td>
-                </tr>
-                <tr>
                     <td><label for="nuevoDNI">Nuevo DNI:</label></td>
-                    <td><input type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI"></td>
+                    <td><input type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI" required></td>
                 </tr>
             <?php } ?>
             <tr>
