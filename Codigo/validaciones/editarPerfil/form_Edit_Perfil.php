@@ -12,7 +12,7 @@ if (isset($_SESSION['idPacientes'])) {
 }
 
 // Consulta para obtener los datos del usuario
-$query = "SELECT email, telefono, sexo FROM Pacientes WHERE idPacientes = ?";
+$query = "SELECT email, telefono, sexo, fechaNacim, es_temporal FROM Pacientes WHERE idPacientes = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param("i", $idPaciente);
 $stmt->execute();
@@ -25,13 +25,14 @@ if ($result->num_rows === 0) {
 
 // Almacenamos los datos del usuario en un array
 $pacientes = $result->fetch_assoc();
+$esTemporal = isset($pacientes['es_temporal']) && $pacientes['es_temporal'] == 1;
 
 //para separar el telefono y la extension
 $telefonoCompleto = $pacientes['telefono'] ?? '';
 preg_match('/^(\+\d+)\s*(.*)$/', $telefonoCompleto, $matches);
 
 $extension = $matches[1] ?? '+34'; // Valor predeterminado si no hay extension
-$telefono = $matches[2] ?? ''; 
+$telefono = $matches[2] ?? '';
 
 $extensiones = [
     "+34" => "España",
@@ -85,51 +86,151 @@ $extensiones = [
 
 <link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
 <script src="/Codigo/validaciones/editarPerfil/popupContrasena.js"></script>
-<form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+<div id="perfil">
+    <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
 
-    <!-- Token CSRF para seguridad -->
-    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+        <!-- Token CSRF para seguridad -->
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
-    <table>
-        <tr>
-            <td><label for="c1">Email:</label></td>
-            <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>" required></td>
-        </tr>
-        <tr>
-            <td><label for="extension">Extensión:</label></td>
-            <td>
-                <select id="extension" name="extension" required>
-                    <?php foreach ($extensiones as $codigo => $pais){ ?>
-                        <option value="<?php echo $codigo; ?>" <?php echo $extension === $codigo ? 'selected' : ''; ?>>
-                            <?php echo $codigo . " (" . $pais . ")"; ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td><label for="c2">Teléfono:</label></td>
-            <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>" required></td>
-        </tr>
-        <tr>
-            <td><label for="c3">Sexo:</label></td>
-            <td>
-                <select id="c3" name="sexo" required>
-                    <option value="H" <?php echo $pacientes['sexo'] === 'H' ? 'selected' : ''; ?>>Hombre</option>
-                    <option value="M" <?php echo $pacientes['sexo'] === 'M' ? 'selected' : ''; ?>>Mujer</option>
-                    <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>Otro</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="button" id="btnCambiarContrasena" onclick="newWindow()">Cambiar Contraseña</button>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <button type="submit">Guardar Cambios</button>
-            </td>
-        </tr>
-    </table>
-</form>
+        <table>
+            <tr>
+                <td><label for="c1">Email:</label></td>
+                <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>"></td>
+            </tr>
+            <tr>
+                <td><label for="extension">Prefijo:</label></td>
+                <td>
+                    <select id="extension" name="extension">
+                        <?php foreach ($extensiones as $codigo => $pais) { ?>
+                            <option value="<?php echo $codigo; ?>" <?php echo $extension === $codigo ? 'selected' : ''; ?>>
+                                <?php echo $codigo . " (" . $pais . ")"; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="c2">Teléfono:</label></td>
+                <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>"></td>
+            </tr>
+            <tr>
+                <td><label for="c3">Sexo:</label></td>
+                <td>
+                    <select id="c3" name="sexo">
+                        <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>Selecciona una opción</option>
+                        <option value="H" <?php echo $pacientes['sexo'] === 'H' ? 'selected' : ''; ?>>Hombre</option>
+                        <option value="M" <?php echo $pacientes['sexo'] === 'M' ? 'selected' : ''; ?>>Mujer</option>
+                        <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>No Binario</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="fechaNacim">Fecha de nacimiento:</label></td>
+                <?php if (!isset($pacientes['fechaNacim'])) { ?>
+                    <td><input type="date" name="fechaNacim" id="fechaNacim"></td>
+                <?php } else { ?>
+                    <td><input type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
+                <?php } ?>
+            </tr>
+            <?php if ($esTemporal) { ?>
+                <tr>
+                    <td><label for="nuevoEmail">Nuevo Email:</label></td>
+                    <td><input type="email" id="nuevoEmail" name="nuevoEmail" placeholder="Introduce tu correo nuevo"></td>
+                </tr>
+                <tr>
+                    <td><label for="nuevoDNI">Nuevo DNI:</label></td>
+                    <td><input type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI"></td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <td colspan="2">
+                    <button type="button" id="btnCambiarContrasena" onclick="mostrarCambioPass()">Cambiar Contraseña</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Guardar Cambios</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="cambiarPass">
+    <html>
+
+    <head>
+        <link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
+        <script src="/Codigo/validaciones/editarPerfil/popupContrasena.js"></script>
+        <title>Cambiar Contraseña</title>
+        <style>
+            body {
+                text-align: center;
+                padding: 20px;
+            }
+
+            input {
+                margin: 10px 0;
+                padding: 10px;
+                width: 80%;
+            }
+
+            button {
+                padding: 10px 20px;
+                margin: 10px;
+            }
+
+            table {
+                margin: 0 auto;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Cambiar Contraseña</h1>
+        <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+            <input type="hidden" name="fromPopup" value="1">
+            <table>
+                <tr>
+                    <td><label for="passwordActual">Contraseña Actual:</label></td>
+                    <td><input type="password" id="passwordActual" name="passwordActual" required></td>
+                </tr>
+                <tr>
+                    <td><label for="nuevaContrasena">Nueva Contraseña:</label></td>
+                    <td><input type="password" id="nuevaContrasena" name="nuevaContrasena" required></td>
+                </tr>
+                <tr>
+                    <td><label for="confirmarContrasena">Confirmar Nueva Contraseña:</label></td>
+                    <td><input type="password" id="confirmarContrasena" name="confirmarContrasena" required></td>
+                </tr>
+                <tr>
+                    <td><label for="mostrarContrasena">Mostrar contraseñas</label></td>
+                    <td><input type="checkbox" id="mostrarContrasena"> </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button type="submit" class="popUpGuardar">Guardar</button>
+                        <button type="button" class="popUpCerrar" onclick="mostrarEdit()">Cancelar</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+    <script>
+        // Función para mostrar/ocultar la contraseña
+        document.getElementById('mostrarContrasena').addEventListener('change', function() {
+            // Cambia el tipo de los campos de contraseña según el estado del checkbox
+            const passwordFields = [
+                document.getElementById('passwordActual'),
+                document.getElementById('nuevaContrasena'),
+                document.getElementById('confirmarContrasena')
+            ];
+            //se rrecorre el array de los campos de contraseña y se cambia el tipo a password o text
+            passwordFields.forEach(field => {
+                field.type = this.checked ? 'text' : 'password';
+            });
+        });
+    </script>
+
+    </html>
+</div>

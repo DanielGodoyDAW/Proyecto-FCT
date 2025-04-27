@@ -1,0 +1,6 @@
+clave publicable: pk_test_51RHjoeCWVJE2plq76oTl3HTXrUkm6HhhrwJRucYIduzzsiCOClYD95FK8fOojibH0rvYwezsyhdSrzD62pPGtHQs00nlF1U4SB
+clave secreta: sk_test_51RHjoeCWVJE2plq7ICjPoLnP3wiGhmd0WA3mbTVWt7nwdbZ77Ry1Oo3iE2KVZX329hMLeaSSEjMM9DxAzkYM0VTs00ymmHoEOg
+
+visa 4242424242424242 cvc 3 digitos aleatorios fecha cualquiera futura
+
+https://docs.stripe.com/testing?testing-method=card-numbers

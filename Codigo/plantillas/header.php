@@ -1,3 +1,10 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) { //para corregir problemas de session_start()
+    session_start();
+}
+require_once __DIR__ . '/../conexion/conexion.php';
+?>
+
 <header>
     <a href="/Codigo/index.php">
         <img class="logo" src="/Codigo/imagenes/logo.png" alt="icono">
@@ -7,9 +14,6 @@
     <script src="/Codigo/js/menuNavegacion.js"></script>
 
     <?php
-    session_start();
-    require_once __DIR__ . '/../conexion/conexion.php';
-
     // Verificar si el usuario ha iniciado sesión
     if (isset($_SESSION['idAdmin'])) {
         // Si el usuario es administrador
@@ -27,13 +31,17 @@
         }
     } else if (isset($_SESSION['idPacientes'])) {
         // Si el usuario es un paciente
-        if (isset($_SESSION['nombre'], $_SESSION['apellido1'], $_SESSION['apellido2'])) {
-            if ($_SESSION['sexo'] === 'H') {
-                echo '<p class="bienvenida">Bienvenido ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
-            } else if ($_SESSION['sexo'] === 'M') {
-                echo '<p class="bienvenida">Bienvenida ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
+        if (isset($_SESSION['nombre'], $_SESSION['apellido1'])) {
+            $apellido2 = $_SESSION['apellido2'] ?? ''; // Manejar el caso donde apellido2 no está definido
+            // Asignar 'O' (Otro) si el sexo es NULL o no está definido
+            $sexo = $_SESSION['sexo'] ?? 'O';
+
+            if ($sexo === 'H') {
+                echo '<p class="bienvenida">Bienvenido ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($apellido2) . '</p>';
+            } else if ($sexo === 'M') {
+                echo '<p class="bienvenida">Bienvenida ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($apellido2) . '</p>';
             } else {
-                echo '<p class="bienvenida">Bienvenid@ ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($_SESSION['apellido2']) . '</p>';
+                echo '<p class="bienvenida">Bienvenid@ ' . htmlspecialchars($_SESSION['nombre']) . ' ' . htmlspecialchars($_SESSION['apellido1']) . ' ' . htmlspecialchars($apellido2) . '</p>';
             }
         } else {
             // Si no hay sesión iniciada
@@ -45,7 +53,7 @@
     <nav>
         <ul>
             <!-- Opcion siempre visible cuando no estas logueado -->
-             <?php if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
+            <?php if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
                 echo "<li><a class='btnA navegacion' href='/Codigo/index.php'>Inicio</a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {

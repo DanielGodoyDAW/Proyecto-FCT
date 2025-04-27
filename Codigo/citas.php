@@ -1,63 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
-<?php require_once './conexion/conexion.php'; ?>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once './conexion/conexion.php';
+?>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">
+    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
+    <?php if (isset($_SESSION["idAdmin"])) { ?>
+        <link rel="stylesheet" href="/Codigo/estilos/styleCitasAdmin.css">
+    <?php } else { ?>
+        <link rel="stylesheet" href="/Codigo/estilos/styleCitasPaciente.css">
+    <?php } ?>
+    <script defer src="/Codigo/validaciones/citas/subsecciones_admin_citas.js"></script>
     <title>Reserva tu Cita</title>
 </head>
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
-    <main class="contenedor">
-        <!-- Contenedor superior -->
-        <div class="fila">
-            <!-- Sección izquierda: Calendario -->
-            <div class="columna izquierda-arriba">
-                <?php include 'validaciones/calendario/calendarioReserva.php'; ?>
-            </div>
 
-            <!-- Sección derecha: Tramos horarios -->
-            <div class="columna derecha-arriba">
-                <ul id="tramos">
-                    <?php
-                    if (isset($_SESSION["idAdmin"])) {
-                        require_once './validaciones/citas/citas_Bloqueadas.php';
-                    } else {
-                        require_once './validaciones/citas/tramos_horarios.php';
-                    } ?>
+    <?php if (isset($_SESSION["idAdmin"])) { ?>
+        <div id="admin-panel">
+            <nav class="menu-citas">
+                <ul>
+                    <li><a href="#" data-seccion="bloquearDEsbloCitas" class="activo">Bloquear o Desbloquear Agenda y Asignar citas temporales</a></li>
+                    <li><a href="#" data-seccion="listadoPacientesT">Listado de Pacientes Temporales</a></li>
+                    <li><a href="#" data-seccion="proximasCitas">Próximas Citas de este mes</a></li>
+                    <li><a href="#" data-seccion="historialCitas">Historial de Citas</a></li>
                 </ul>
-            </div>
+            </nav>
+
+            <main class="contenedorAdmin">
+                <!-- Seccion Bloquear y Desbloquear -->
+                <div id="bloquearDEsbloCitas" class="contenido-admin activo">
+                    <div class="filaAdmin">
+                        <div class="columnaAdmin">
+                            <?php include '../Codigo/validaciones/calendario/calendarioReserva.php'; ?>
+                        </div>
+                        <div class="columnaAdmin">
+                            <?php require_once '../Codigo/validaciones/citas/citas_Bloqueadas.php'; ?>
+                        </div>
+                    </div>
+
+                    <div class="filaAdmin">
+                        <div class="columnaAdmin">
+                            <?php require_once './validaciones/citas/bloquear_citas.php'; ?>
+                        </div>
+                        <div class="columnaAdmin">
+                            <?php require_once './validaciones/citas/desbloquear_citas.php'; ?>
+                        </div>
+                    </div>
+
+                    <div class="filaAdmin">
+                        <div class="columnaAdmin-full">
+                            <?php require_once '../Codigo/validaciones/citas/citas_admin_gestion.php'; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seccion Listado de Pacientes Temporales -->
+                <div id="listadoPacientesT" class="contenido-admin">
+                    <div class="contenedorPacientesTemporales">
+                        <h2>Pacientes Temporales</h2>
+                        <?php require_once '../Codigo/validaciones/citas/pacientes_temporales.php'; ?>
+                    </div>
+                </div>
+
+                <!-- Seccion Proximas Citas -->
+                <div id="proximasCitas" class="contenido-admin">
+                    <div class="filaAdmin">
+                        <div class="columnaAdmin-citas">
+                            <h2>Próximas Citas</h2>
+                            <?php require_once './validaciones/citas/proximas_citas.php'; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seccion Historial de Citas -->
+                <div id="historialCitas" class="contenido-admin">
+                    <div class="filaAdmin">
+                        <div class="columnaAdmin-citas">
+                            <h2>Historial de Citas</h2>
+                            <?php require_once './validaciones/historial.php'; ?>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-        
-        <?php if (isset($_SESSION["idAdmin"])) { ?>
+
+    <?php } else { ?>
+
+        <main class="contenedor">
             <div class="fila">
-                <div class="columna medio-izquierda">
-                    <?php require_once './validaciones/citas/bloquear_citas.php'; ?>
+                <div class="columna">
+                    <?php include 'validaciones/calendario/calendarioReserva.php'; ?>
                 </div>
-                <div class="columna medio-derecha">
-                    <?php require_once './validaciones/citas/desbloquear_citas.php'; ?>
+                <div class="columna">
+                    <ul id="tramos">
+                        <?php require_once './validaciones/citas/tramos_horarios.php'; ?>
+                    </ul>
                 </div>
-            </div>
-        <?php } ?>
-
-        <!-- Contenedor inferior -->
-        <div class="fila">
-            <!-- Sección izquierda: Próximas citas -->
-            <div class="columna izquierda-abajo">
-                <h2>Próximas Citas</h2>
-                <?php require_once './validaciones/citas/proximas_citas.php'; ?>
             </div>
 
-            <!-- Sección derecha: Historial de citas -->
-            <div class="columna derecha-abajo">
-                <h2>Historial de Citas</h2>
-                <?php require_once './validaciones/historial.php'; ?>
+            <div class="fila">
+                <div class="columna">
+                    <h2>Próximas Citas</h2>
+                    <?php require_once './validaciones/citas/proximas_citas.php'; ?>
+                </div>
+                <div class="columna">
+                    <h2>Historial de Citas</h2>
+                    <?php require_once './validaciones/historial.php'; ?>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    <?php } ?>
+
     <?php require_once './plantillas/footer.php'; ?>
 </body>
 

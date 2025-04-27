@@ -110,6 +110,51 @@ nav ul li a {
     border-radius: 4px;
 }
 
+/* formulario recuperacion de contraseña oculto*/
+.btnPss{
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#recuperar{
+    display: none;
+} 
+
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.btnPss{
+    /* Boton inicio sesion*/
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0;
+    width: 100%;
+}
+.btnPss:hover{
+    background-color: var(--colorBotonHover);
+    color: white;
+}
+/* fin formulario*/
+
 .btnA:hover {
     background-color: var(--colorBotonHover);
     color: white;

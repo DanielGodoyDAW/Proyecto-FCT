@@ -8,20 +8,24 @@ if (isset($_SESSION['idPacientes'])) {
     $idUsuario = $_SESSION['idAdmin'];
 }
 
-// Obtén los datos enviados desde el formulario
+// Recoger todos los datos del formulario
 $email = $_POST['email'] ?? null;
 $telefono = $_POST['telefono'] ?? null;
-$extension = $_POST['extension'] ?? null; 
+$extension = $_POST['extension'] ?? null;
 $sexo = $_POST['sexo'] ?? null;
+$fechaNacim = $_POST['fechaNacim'] ?? null;
 $passwordActual = $_POST['passwordActual'] ?? null;
 $nuevaContrasena = $_POST['nuevaContrasena'] ?? null;
 $confirmarContrasena = $_POST['confirmarContrasena'] ?? null;
+$nuevoEmail = $_POST['nuevoEmail'] ?? null;
+$nuevoDNI = $_POST['nuevoDNI'] ?? null;
 
 // Unificamos el teléfono con la extensión
 $telefonoCompleto = $extension . ' ' . $telefono;
 
 $fromPopup = isset($_POST['fromPopup']) ? true : false;
 
+// --- Si viene del popup de cambiar contraseña ---
 if ($fromPopup) {
     if (!empty($passwordActual) || !empty($nuevaContrasena) || !empty($confirmarContrasena)) {
         if ($nuevaContrasena !== $confirmarContrasena) {
@@ -63,17 +67,14 @@ if ($fromPopup) {
         if (!$stmt->execute()) {
             echo '<script>
                 alert("Error: No se pudo actualizar la contraseña.");
-                window.close();
+                window.location.href = "/Codigo/editar_perfil.php";
             </script>';
             exit;
         }
 
         echo '<script>
             alert("Contraseña actualizada correctamente.");
-            if (window.opener) {
-                window.opener.location.reload();
-            }
-            window.close();
+            window.location.href = "/Codigo/editar_perfil.php";
         </script>';
         exit;
     }
@@ -81,23 +82,43 @@ if ($fromPopup) {
     exit;
 }
 
-// --- Solo si NO es popup, actualizamos perfil ---
-$query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ? WHERE idPacientes = ?";
-$stmt = $conexion->prepare($query);
-$stmt->bind_param('sssi', $email, $telefonoCompleto, $sexo, $idUsuario);
+// --- Solo si NO viene del popup: Actualizar perfil completo ---
 
+// Primero verificamos si el paciente es temporal
+$queryTemporal = "SELECT es_temporal FROM Pacientes WHERE idPacientes = ?";
+$stmtTemporal = $conexion->prepare($queryTemporal);
+$stmtTemporal->bind_param('i', $idUsuario);
+$stmtTemporal->execute();
+$resultTemporal = $stmtTemporal->get_result();
+$usuarioTemporal = $resultTemporal->fetch_assoc();
+$esTemporal = isset($usuarioTemporal['es_temporal']) && $usuarioTemporal['es_temporal'] == 1;
+
+// Ahora actualizamos dependiendo si es temporal y ha puesto datos nuevos
+if ($esTemporal && (!empty($nuevoEmail) || !empty($nuevoDNI))) {
+    // Actualizar también Email, DNI y cambiar es_temporal a 0 (ya es paciente normal)
+    $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ?, dni = ?, es_temporal = 0 WHERE idPacientes = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param('sssssi', $nuevoEmail, $telefonoCompleto, $sexo, $fechaNacim, $nuevoDNI, $idUsuario);
+} else {
+    // Caso normal: actualizar email, teléfono, sexo y fecha de nacimiento
+    $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ? WHERE idPacientes = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param('ssssi', $email, $telefonoCompleto, $sexo, $fechaNacim, $idUsuario);
+}
+
+// Ejecutamos actualización
 if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo;
 
     echo '<script>
-        alert("Perfil actualizado correctamente.");
+        alert("Perfil actualizado correctamente. ¡Ahora eres un paciente registrado permanentemente!");
         window.location.href = "/Codigo/editar_perfil.php";
     </script>';
     exit;
 } else {
     echo '<script>
         alert("Error: No se pudo actualizar el perfil.");
-        window.close();
+        window.location.href = "/Codigo/editar_perfil.php";
     </script>';
     exit;
 }

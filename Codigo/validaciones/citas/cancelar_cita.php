@@ -1,5 +1,5 @@
 <?php
-session_start(); // Asegúrate de que la sesión está iniciada si usas $_SESSION
+session_start(); 
 
 require_once __DIR__ . '/../../conexion/conexion.php';
 require_once __DIR__ . '/../../googleCalendar/google_calendar.php';
@@ -7,6 +7,11 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Stripe\Stripe;
+use Stripe\Refund;
+
+// Configura tu clave secreta de Stripe (segura)
+Stripe::setApiKey('sk_test_...'); // <-- Aquí pon tu clave privada real
 
 // Eliminar evento de Google Calendar
 function eliminarEventoGoogleCalendar($eventId)
@@ -31,25 +36,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
     $idCita = $_POST['idCita'];
 
     // Obtener info de la cita
-    $stmt = $conexion->prepare("SELECT google_event_id, fecha, hora FROM Citas WHERE idCita = ?");
+    $stmt = $conexion->prepare("SELECT google_event_id, fecha, hora, payment_intent_id FROM Citas WHERE idCita = ?");
     $stmt->bind_param("i", $idCita);
     $stmt->execute();
     $result = $stmt->get_result();
     $eventData = $result->fetch_assoc();
 
+    if (!$eventData) {
+        echo '<script>alert("Cita no encontrada."); window.location.href = "/Codigo/citas.php";</script>';
+        exit;
+    }
+
     $googleEventId = $eventData['google_event_id'] ?? null;
     $fechaCita = $eventData['fecha'] ?? 'Desconocida';
     $horaCita = $eventData['hora'] ?? 'Desconocida';
+    $paymentIntentId = $eventData['payment_intent_id'] ?? null;
 
-    // Verificar si faltan menos de 24 horas para la cita | a futuro agregar el pago de un porcentaje
+    // Verificar si faltan menos de 24 horas para la cita 
     $fechaHoraCita = new DateTime($fechaCita . ' ' . $horaCita);
     $fechaHoraActual = new DateTime();
 
-    $diferencia = $fechaHoraActual->diff($fechaHoraCita);
+    $diferenciaHoras = ($fechaHoraCita->getTimestamp() - $fechaHoraActual->getTimestamp()) / 3600;
 
-    if ($fechaHoraActual > $fechaHoraCita || $diferencia->days < 1) {
+    if ($fechaHoraActual > $fechaHoraCita) {
         echo '<script>
-            alert("No puedes cancelar una cita con menos de 24 horas de antelación.");
+            alert("No puedes cancelar una cita que ya ha pasado.");
+            window.location.href = "/Codigo/citas.php";
+        </script>';
+        exit;
+    }
+
+    if ($diferenciaHoras < 24) {
+        echo '<script>
+            alert("No puedes cancelar una cita con menos de 24 horas de antelación. No se realizará reembolso.");
             window.location.href = "/Codigo/citas.php";
         </script>';
         exit;
@@ -77,6 +96,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
                 eliminarEventoGoogleCalendar($googleEventId);
             } catch (Exception $e) {
                 error_log("Error al eliminar evento de Google Calendar: " . $e->getMessage());
+            }
+        }
+
+        // Devolver el dinero si existe un paymentIntentId
+        if (!empty($paymentIntentId)) {
+            try {
+                $refund = Refund::create([
+                    'payment_intent' => $paymentIntentId,
+                ]);
+                error_log("Reembolso realizado exitosamente para PaymentIntent ID: $paymentIntentId");
+            } catch (Exception $e) {
+                error_log("Error al procesar el reembolso: " . $e->getMessage());
             }
         }
 

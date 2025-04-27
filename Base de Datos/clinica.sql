@@ -205,3 +205,8 @@ ADD
     COLUMN receta TEXT,
 ADD
     COLUMN seguimiento TEXT;
+
+
+ALTER TABLE Citas ADD COLUMN payment_intent_id VARCHAR(255) NULL;
+
+ALTER TABLE Pacientes ADD COLUMN es_temporal TINYINT(1) DEFAULT 0;
