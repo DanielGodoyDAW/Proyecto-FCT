@@ -14,22 +14,22 @@ use Stripe\Refund;
 Stripe::setApiKey('sk_test_...'); // <-- Aquí pon tu clave privada real
 
 // Eliminar evento de Google Calendar
-function eliminarEventoGoogleCalendar($eventId)
-{
-    if (empty($eventId)) {
-        throw new Exception("El ID del evento no puede estar vacío.");
-    }
+// function eliminarEventoGoogleCalendar($eventId)
+// {
+//     if (empty($eventId)) {
+//         throw new Exception("El ID del evento no puede estar vacío.");
+//     }
 
-    $client = getClient();
-    $service = new Google_Service_Calendar($client);
-    $calendarId = 'danielgodoymedina@gmail.com';
+//     $client = getClient();
+//     $service = new Google_Service_Calendar($client);
+//     $calendarId = 'danielgodoymedina@gmail.com';
 
-    try {
-        $service->events->delete($calendarId, $eventId);
-    } catch (Exception $e) {
-        throw new Exception("No se pudo eliminar el evento de Google Calendar: " . $e->getMessage());
-    }
-}
+//     try {
+//         $service->events->delete($calendarId, $eventId);
+//     } catch (Exception $e) {
+//         throw new Exception("No se pudo eliminar el evento de Google Calendar: " . $e->getMessage());
+//     }
+// }
 
 // Procesar cancelación
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
