@@ -1,16 +1,25 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
- 
 
-function getClient() {
+
+function getClient()
+{
     $client = new Google_Client();
     $client->setApplicationName('Reserva de Citas');
     $client->setScopes(Google_Service_Calendar::CALENDAR);
-    $client->setAuthConfig(__DIR__ . '/../config/credentials.json');
+    $config = parse_ini_file(__DIR__ . '/../../config.env');
+    $credentialsPath = $config['GOOGLE_CREDENTIALS_PATH'] ?? null;
+
+    if (!$credentialsPath || !file_exists(__DIR__ . '/../../' . $credentialsPath)) {
+        die('Error: El archivo de credenciales de Google Calendar no existe.');
+    }
+
+    $client->setAuthConfig(__DIR__ . '/../../' . $credentialsPath);
     return $client;
 }
 
-function obtenerDatosPaciente($idPaciente) {
+function obtenerDatosPaciente($idPaciente)
+{
     require_once __DIR__ . '/../conexion/conexion.php';
     global $conexion;
     $query = "SELECT nombre, apellido1, apellido2, telefono FROM Pacientes WHERE idPacientes = ?";
@@ -26,7 +35,8 @@ function obtenerDatosPaciente($idPaciente) {
     }
 }
 
-function crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada) {
+function crearEvento($fecha, $horaInicio, $horaFin, $descripcion, $idPaciente, $bloqueada)
+{
     if ($bloqueada == 1) {
         // No crear evento en Google Calendar si la cita está bloqueada
         return;
@@ -79,6 +89,3 @@ function eliminarEventoGoogleCalendar($eventId)
         throw new Exception("No se pudo eliminar el evento de Google Calendar: " . $e->getMessage());
     }
 }
-
-?>
-
