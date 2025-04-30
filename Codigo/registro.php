@@ -11,6 +11,7 @@ $errores = $_SESSION['errores'] ?? [];
     <script src="/Codigo/js/registro.js"></script>
     <link rel="stylesheet" href="/Codigo/estilos/stylesRegistro.css">
     <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
+    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
     <title>Registrarse</title>
 </head>
 
@@ -28,37 +29,37 @@ $errores = $_SESSION['errores'] ?? [];
             <?php } ?>
             <table class="tablaRegistro">
                 <tr>
-                    <td><label for="c1">Nombre</label></td>
+                    <td><label for="c1">Nombre: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="text" id="c1" name="nombre" placeholder="Nombre" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="El nombre debe empezar por mayuscula y debe tener entre 3 y 30 caracteres.">
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c2">Primer apellido</label></td>
+                    <td><label for="c2">Primer apellido: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="text" id="c2" name="apellido1" placeholder="Primer apellido" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="El apellido debe empezar por mayuscula y debe tener entre 3 y 30 caracteres.">
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c3">Segundo apellido</label></td>
+                    <td><label for="c3">Segundo apellido: </label></td>
                     <td>
                         <input type="text" id="c3" name="apellido2" placeholder="Segundo apellido" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" title="El apellido debe empezar por mayuscula y debe tener entre 3 y 30 caracteres.">
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c4">Dni</label></td>
+                    <td><label for="c4">Dni: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="text" id="c4" name="dni" placeholder="DNI" required pattern="\d{8}[A-Za-z]" title="El DNI debe contener 8 números seguidos de una letra (por ejemplo, 12345678A).">
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c5">Email</label></td>
+                    <td><label for="c5">Email: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="email" id="c5" name="email" placeholder="Email" required>
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="extension">Prefijo:</label></td>
+                    <td><label for="extension">Prefijo: <span class="obligatorio">*</span></label></td>
                     <td><select id="extension" name="extension" required>
                             <option value="" selected disabled>Selecciona un Prefijo</option>
                             <option value="+34">+34 (España)</option>
@@ -109,19 +110,19 @@ $errores = $_SESSION['errores'] ?? [];
                         </select></td>
                 </tr>
                 <tr>
-                    <td><label for="c6">Teléfono</label></td>
+                    <td><label for="c6">Teléfono: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="tel" id="c6" name="telefono" placeholder="Teléfono" required pattern="[0-9\s]+" title="Introduce un número de teléfono válido.">
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c7">Fecha nacimiento</label></td>
+                    <td><label for="c7">Fecha nacimiento: </label></td>
                     <td>
                         <input type="date" id="c7" name="fecha_nacimiento">
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c8">Sexo</label></td>
+                    <td><label for="c8">Sexo: </label></td>
                     <td>
                         <select id="c8" name="sexo">
                             <option value="" selected>Selecciona una opción</option>
@@ -132,14 +133,14 @@ $errores = $_SESSION['errores'] ?? [];
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c9">Contraseña:</label></td>
+                    <td><label for="c9">Contraseña: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="password" id="c9" name="pass" placeholder="Contraseña" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
                         <button type="button" id="mostrar_contrasena" onclick="alternarContrasena('c9')">Mostrar</button>
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="c10">Confirmar Contraseña:</label></td>
+                    <td><label for="c10">Confirmar Contraseña: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
                         <button type="button" id="mostrar_confirmar_contrasena" onclick="alternarContrasena('c10')">Mostrar</button>
