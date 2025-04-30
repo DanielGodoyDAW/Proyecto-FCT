@@ -3,6 +3,9 @@
 
 # Ignorar archivos de configuración sensibles
 /.env
+/config.env
+/googleCalendar/config/credentials.json
+/pagos/stripe_config.php
 
 # Ignorar configuraciones específicas de IDEs o editores
 /.idea/
