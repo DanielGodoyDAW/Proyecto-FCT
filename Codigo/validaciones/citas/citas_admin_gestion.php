@@ -3,6 +3,9 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 
 $fechaSeleccionada = $_POST['fecha'] ?? date('Y-m-d');
 
+// Calcular si es viernes
+$esViernes = date('N', strtotime($fechaSeleccionada)) == 5;
+
 // Tramos horarios (mañana)
 $tramos = [
     "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
