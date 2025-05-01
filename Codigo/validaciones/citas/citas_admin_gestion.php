@@ -3,11 +3,17 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 
 $fechaSeleccionada = $_POST['fecha'] ?? date('Y-m-d');
 
-// Tramos horarios
+// Tramos horarios (mañana)
 $tramos = [
     "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30",
-    "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"
 ];
+
+// Si NO es viernes, agregar tambien la tarde
+if (!$esViernes) {
+    $tramos = array_merge($tramos, [
+        "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"
+    ]);
+}
 
 $stmt = $conexion->prepare("SELECT hora FROM Citas WHERE fecha = ?");
 $stmt->bind_param("s", $fechaSeleccionada);

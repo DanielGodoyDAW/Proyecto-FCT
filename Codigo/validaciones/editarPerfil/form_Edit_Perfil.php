@@ -134,7 +134,7 @@ $extensiones = [
             </tr>
             <?php if ($esTemporal) { ?>
                 <tr>
-                    <td><label for="nuevoDNI">Nuevo DNI:</label></td>
+                    <td><label for="nuevoDNI">Nuevo DNI: <span class="obligatorio">*</span></label></td>
                     <td><input type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI" required></td>
                 </tr>
             <?php } ?>
