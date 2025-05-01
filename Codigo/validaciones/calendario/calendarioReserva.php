@@ -16,6 +16,7 @@
 
             require_once __DIR__ . '/../../conexion/conexion.php';
 
+            //array con los nombres de los meses
             $nombreMeses = [
                 "1" => 'Enero',
                 "2" => 'Febrero',
@@ -73,6 +74,7 @@
                     $totalHorarios = 0;
                 }
 
+                //consulta para ver si ya hay citas en esa fecha
                 $queryReservas = "SELECT COUNT(*) AS totalReservas FROM Citas WHERE fecha = ?";
                 $stmt = $conexion->prepare($queryReservas);
                 $stmt->bind_param("s", $fecha);

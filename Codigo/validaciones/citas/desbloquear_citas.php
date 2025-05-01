@@ -14,7 +14,7 @@ $horariosTarde = [
 $fechaSeleccionada = $_POST['fecha'] ?? null;
 $diaSemana = date('N', strtotime($fechaSeleccionada));
 
-// --- Procesar desbloqueo si se envió formulario ---
+// Procesar desbloqueo si se envió formulario 
 if (isset($_POST['desbloquear']) && isset($_POST['desbloquear_citas'])) {
     foreach ($_POST['desbloquear_citas'] as $hora) {
         $stmt = $conexion->prepare("DELETE FROM Citas WHERE fecha = ? AND hora = ? AND bloqueada = 1 AND idPacientes IS NULL");

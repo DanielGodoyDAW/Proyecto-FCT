@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 seccion.classList.remove('activo');
             });
 
-            // Remover clase activa de todos los enlaces
+            // Borrar clase activa de todos los enlaces
             enlaces.forEach(enlace => {
                 enlace.classList.remove('activo');
             });

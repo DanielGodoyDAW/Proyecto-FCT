@@ -5,6 +5,7 @@ if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Genera un token unico
 }
 
+//si existe la sesion de paciente o admin, se guarda el id del paciente
 if (isset($_SESSION['idPacientes'])) {
     $idPaciente = $_SESSION['idPacientes'];
 } else if (isset($_SESSION['idAdmin'])) {
