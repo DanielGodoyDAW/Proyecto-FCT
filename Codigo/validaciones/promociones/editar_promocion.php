@@ -7,7 +7,7 @@ if (!$idPromocion) {
     die('Error: ID de promoción no proporcionado.');
 }
 
-// Obtener los datos de la promoción
+// Obtener los datos de la promoción (Servicio)
 $query = "SELECT titulo, descripcion, duracion, imagen FROM promociones WHERE idPromocion = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param('i', $idPromocion);
@@ -15,7 +15,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 0) {
-    die('Error: Promoción no encontrada.');
+    die('Error: Servicio no encontrado.');
 }
 
 $promocion = $result->fetch_assoc();

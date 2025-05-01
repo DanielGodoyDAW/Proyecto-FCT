@@ -24,10 +24,10 @@ $telefonoCompleto = $extension . ' ' . $telefono;
 
 $fromPopup = isset($_POST['fromPopup']) ? true : false;
 
-// --- Si viene del popup de cambiar contraseña ---
+// Si viene del popup de cambiar contraseña 
 if ($fromPopup) {
-    if (!empty($passwordActual) || !empty($nuevaContrasena) || !empty($confirmarContrasena)) {
-        if ($nuevaContrasena !== $confirmarContrasena) {
+    if (!empty($passwordActual) || !empty($nuevaContrasena) || !empty($confirmarContrasena)) { // Si hay datos de contraseña
+        if ($nuevaContrasena !== $confirmarContrasena) { // Si las contraseñas no coinciden
             echo '<script>
                 alert("Error: Las contraseñas no coinciden.");
                 window.close();
@@ -35,12 +35,14 @@ if ($fromPopup) {
             exit;
         }
 
+        // consulta para ver la contraseña actual
         $query = "SELECT pass FROM Pacientes WHERE idPacientes = ?";
         $stmt = $conexion->prepare($query);
         $stmt->bind_param('i', $idUsuario);
         $stmt->execute();
         $result = $stmt->get_result();
 
+        // si el resultado de la consulta es 0, no existe el usuario
         if ($result->num_rows === 0) {
             echo '<script>
                 alert("Error: Usuario no encontrado.");
@@ -50,7 +52,7 @@ if ($fromPopup) {
         }
 
         $usuario = $result->fetch_assoc();
-        if (!password_verify($passwordActual, $usuario['pass'])) {
+        if (!password_verify($passwordActual, $usuario['pass'])) { // Si la contraseña actual no coincide
             echo '<script>
                 alert("Error: La contraseña actual es incorrecta.");
                 window.close();
@@ -58,7 +60,9 @@ if ($fromPopup) {
             exit;
         }
 
+        // Si la contraseña actual es correcta, actualizamos la nueva contraseña
         $hashedPassword = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+        // Actualizamos la contraseña en la base de datos
         $query = "UPDATE Pacientes SET pass = ? WHERE idPacientes = ?";
         $stmt = $conexion->prepare($query);
         $stmt->bind_param('si', $hashedPassword, $idUsuario);
@@ -81,7 +85,7 @@ if ($fromPopup) {
     exit;
 }
 
-// --- Solo si NO viene del popup: Actualizar perfil completo ---
+// Solo si NO viene del popup: Actualizar perfil completo
 
 // Primero verificamos si el paciente es temporal
 $queryTemporal = "SELECT es_temporal FROM Pacientes WHERE idPacientes = ?";
@@ -92,7 +96,7 @@ $resultTemporal = $stmtTemporal->get_result();
 $usuarioTemporal = $resultTemporal->fetch_assoc();
 $esTemporal = isset($usuarioTemporal['es_temporal']) && $usuarioTemporal['es_temporal'] == 1;
 
-if ($esTemporal && empty($nuevoDNI)) {
+if ($esTemporal && empty($nuevoDNI)) { // Si es temporal y no ha puesto DNI
     echo '<script>
         alert("Debes introducir tu DNI para completar tu perfil.");
         window.location.href = "/Codigo/editar_perfil.php";

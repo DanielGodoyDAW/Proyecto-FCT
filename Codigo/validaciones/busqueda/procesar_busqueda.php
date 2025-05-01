@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 if (isset($_POST['paciente'])) {
     $idPaciente = intval($_POST['paciente']);
 
+    //consulta para mostrar todos los datos del paciente que coincide con el idPacientes
     $stmt = $conexion->prepare("SELECT * FROM Pacientes WHERE idPacientes = ?");
     $stmt->bind_param("i", $idPaciente);
     $stmt->execute();
@@ -13,7 +14,7 @@ if (isset($_POST['paciente'])) {
         echo "<h3>Ficha del Paciente</h3>";
         echo "<ul>";
         foreach ($row as $campo => $valor) {
-            if (!in_array($campo, ['pass', 'token_recuperacion', 'token_expira'])) {
+            if (!in_array($campo, ['pass', 'token_recuperacion', 'token_expira'])) { // Excluir estos campos
                 echo "<li><strong>" . ucfirst($campo) . ":</strong> " . htmlspecialchars($valor) . "</li>";
             }
         }

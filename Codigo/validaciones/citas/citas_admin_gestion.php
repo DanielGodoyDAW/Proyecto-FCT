@@ -15,13 +15,14 @@ if (!$esViernes) {
     ]);
 }
 
+//consulta para ver si ya hay citas en esa fecha
 $stmt = $conexion->prepare("SELECT hora FROM Citas WHERE fecha = ?");
 $stmt->bind_param("s", $fechaSeleccionada);
 $stmt->execute();
 $res = $stmt->get_result();
 
 $reservadas = [];
-while ($row = $res->fetch_assoc()) {
+while ($row = $res->fetch_assoc()) { 
     $reservadas[] = $row['hora'];
 }
 

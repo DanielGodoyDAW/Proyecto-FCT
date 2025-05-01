@@ -58,7 +58,7 @@ if (isset($_SESSION["idAdmin"])) {
 
         $extension = $matches[1] ?? '+34'; //por defecto si no se encuentra la extension
         $telefono = $matches[2] ?? ''; //numero sin la extension
-        $wasap = "https://wa.me/" . $extension . $telefono; //extension de waasap concatenado con el numero sin espacios
+        $wasap = "https://wa.me/" . $extension . $telefono; //extension de wasap concatenado con el numero sin espacios
         echo '<tr>
             <td>' . $fechaFormateada  . '</td>
             <td>' . $cita['hora'] . '</td>
