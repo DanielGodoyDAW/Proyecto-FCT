@@ -173,3 +173,38 @@ table.pacientes-temporales th {
     justify-content: center;
     align-items: center;
 }
+
+/* responsive*/
+
+@media (max-width: 768px) {
+    .filaAdmin {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 10px;
+    }
+  
+    .columnaAdmin,
+    .columnaAdmin-citas,
+    .columnaAdmin-full {
+      width: 95% !important;
+      margin: 10px 0 !important;
+      padding: 15px;
+    }
+  
+    .menu-citas ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .menu-citas li {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .menu-citas li a {
+      display: block;
+      width: 100%;
+      padding: 10px;
+    }
+  }
