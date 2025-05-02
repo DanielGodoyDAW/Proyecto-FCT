@@ -156,3 +156,43 @@ h2 {
     font-size: 14px;
     width: 100px;
 }
+
+/* responsive para moviles*/
+.fichas-movil {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .solo-escritorio {
+      display: none;
+    }
+  
+    .fichas-movil {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+  
+    .ficha {
+      background-color: #f8f8f8;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 15px;
+      font-size: 14px;
+    }
+  
+    .ficha p {
+      margin: 5px 0;
+    }
+  
+    .acciones {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+  
+    .acciones form {
+      display: inline;
+    }
+  }
