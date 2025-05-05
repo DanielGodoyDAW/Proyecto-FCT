@@ -60,6 +60,27 @@ require_once __DIR__ . '/../../conexion/conexion.php';
             });
         });
     });
+
+    $(document).on('click', '.redirigir-historial', function() {
+        const sub = $(this).data('subseccion');
+
+        // Cambiar vista principal
+        $('.contenido-admin').removeClass('activo');
+        $('.menu-admin a').removeClass('activo');
+        $('#historial').addClass('activo');
+        $('.menu-admin a[data-seccion="historial"]').addClass('activo');
+
+        // Cambiar submenú historial
+        $('#historial .subcontenido').removeClass('activo');
+        $('.submenu-historial a').removeClass('activo');
+        $('#' + sub).addClass('activo');
+        $('.submenu-historial a[data-seccion="' + sub + '"]').addClass('activo');
+
+        // Scroll automático opcional
+        $('html, body').animate({
+            scrollTop: $('#historial').offset().top
+        }, 300);
+    });
 </script>
 
 

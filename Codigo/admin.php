@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
     <script defer src="/Codigo/validaciones/subseccionesAdmin/subseccion.js"></script>
+    <script defer src="/Codigo/validaciones/subseccionesAdmin/subMenuHistorial.js"></script>
     <title>Administración</title>
 </head>
 
@@ -16,7 +17,7 @@
     <nav class="menu-admin">
         <ul>
             <li><a href="#" data-seccion="busqueda" class="activo">Búsqueda de Paciente</a></li>
-            <li><a href="#" data-seccion="historial">Creación Historial Clínico</a></li>
+            <li><a href="#" data-seccion="historial">Historial Clínico</a></li>
             <li><a href="#" data-seccion="promociones">Agregar Servicio</a></li>
         </ul>
     </nav>
@@ -27,7 +28,22 @@
             <?php require_once '../Codigo/validaciones/subseccionesAdmin/busqueda.php'; ?>
         </div>
         <div id="historial" class="contenido-admin">
-            <?php require_once '../Codigo/validaciones/subseccionesAdmin/crearHistorial.php'; ?>
+            <nav class="submenu-historial">
+                <ul>
+                    <li><a href="#" data-seccion="crear" class="activo">Crear</a></li>
+                    <li><a href="#" data-seccion="editar">Editar</a></li>
+                    <li><a href="#" data-seccion="ver">Ver</a></li>
+                </ul>
+            </nav>
+            <div id="crear" class="subcontenido activo">
+                <?php require_once '../Codigo/validaciones/historialClinico/crearHistorial/historial_clinico_form.php'; ?>
+            </div>
+            <div id="editar" class="subcontenido">
+                <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
+            </div>
+            <div id="ver" class="subcontenido">
+                <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php'; ?>
+            </div>
         </div>
         <div id="promociones" class="contenido-admin">
             <?php require_once '../Codigo/validaciones/subseccionesAdmin/agregarServicio.php'; ?>
