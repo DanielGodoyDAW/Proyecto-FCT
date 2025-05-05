@@ -57,6 +57,10 @@
     margin-bottom: 20px; 
     font-size: 24px; 
 }
+/*color de la tabla de servicios*/
+.tabla-escritorio{
+    background-color: var(--colorFondoDivs);
+}
 
 #promociones-table {
     width: 100%;

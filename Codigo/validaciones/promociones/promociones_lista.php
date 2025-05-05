@@ -11,6 +11,7 @@ $result = $conexion->query($sql);
 
 if ($result->num_rows > 0) {
     // Tabla clásica para escritorio
+    echo '<div class="tabla-escritorio">';
     echo '<table id="promociones-table" class="solo-escritorio">';
     echo '<tr>
             <th>Título</th>
@@ -50,6 +51,7 @@ if ($result->num_rows > 0) {
         echo '</tr>';
     }
     echo '</table>';
+    echo '</div>';
 
     // Fichas compactas para móvil
     $result->data_seek(0); // Reinicia el puntero
