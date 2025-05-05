@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/Codigo/estilos/style.css">
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
 
@@ -21,11 +22,13 @@ if (isset($_POST['paciente'])) {
         echo "</ul>";
         echo '
         <div class="acciones-historial">
-            <button class="redirigir-historial" data-subseccion="crear">➕ Crear Historial</button>
-            <button class="redirigir-historial" data-subseccion="editar">✏️ Editar Historial</button>
-            <button class="redirigir-historial" data-subseccion="ver">👁 Ver Historial</button>
+        <button class="redirigir-historial" data-subseccion="crear" data-id="' . $idPaciente . '">➕ Crear Historial</button>
+        <button class="redirigir-historial" data-subseccion="editar" data-id="' . $idPaciente . '">✏️ Editar Historial</button>
+        <button class="redirigir-historial" data-subseccion="ver" data-id="' . $idPaciente . '">👁 Ver Historial</button>
         </div>';
     } else {
         echo "<p>No se encontró el paciente.</p>";
     }
 }
+
+?>

@@ -2,11 +2,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const subEnlaces = document.querySelectorAll('.submenu-historial a');
     const subsecciones = document.querySelectorAll('#historial .subcontenido');
 
-    // Activar la primera subsección
-    subsecciones.forEach(sub => sub.classList.remove('activo'));
-    subEnlaces.forEach(link => link.classList.remove('activo'));
-    if (subsecciones[0]) subsecciones[0].classList.add('activo');
-    if (subEnlaces[0]) subEnlaces[0].classList.add('activo');
+    const yaHayActivo = document.querySelector('#historial .subcontenido.activo');
+    if (!yaHayActivo) {
+        // Activar la primera subsección solo si no hay activa
+        subsecciones.forEach(sub => sub.classList.remove('activo'));
+        subEnlaces.forEach(link => link.classList.remove('activo'));
+        if (subsecciones[0]) subsecciones[0].classList.add('activo');
+        if (subEnlaces[0]) subEnlaces[0].classList.add('activo');
+    }
 
     // Evento de submenú
     subEnlaces.forEach(link => {
