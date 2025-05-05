@@ -143,11 +143,11 @@ button:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Ya lo tienes, pero lo dejo junto para claridad */
 .contenido-admin.activo .subcontenido.activo {
     display: block;
 }
 
+/* estilo para el sub menu de historial clinico*/
 .submenu-historial a.activo {
     font-weight: bold;
     color: var(--colorBoton); 
