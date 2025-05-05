@@ -369,6 +369,13 @@ footer {
     background-color: var(--colorBotonHover); 
     box-shadow: 0 6px 12px rgba(0, 102, 255, 0.6); 
 }
+.decoracion{
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--colorActive);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
 /* Responsive para moviles*/
 
