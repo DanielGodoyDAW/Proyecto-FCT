@@ -2,32 +2,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const enlaces = document.querySelectorAll('.menu-admin a');
     const secciones = document.querySelectorAll('.contenido-admin');
 
-    // Mostrar la primera sección por defecto
+    // Activar la primera sección
     secciones.forEach(seccion => seccion.classList.remove('activo'));
     enlaces.forEach(enlace => enlace.classList.remove('activo'));
-    secciones[0].classList.add('activo');
-    enlaces[0].classList.add('activo');
+    if (secciones[0]) secciones[0].classList.add('activo');
+    if (enlaces[0]) enlaces[0].classList.add('activo');
 
-    // Manejar clics en los enlaces del menú
+    // Evento de navegación principal
     enlaces.forEach(enlace => {
         enlace.addEventListener('click', function (e) {
-            e.preventDefault(); // Evitar que el enlace recargue la página
+            e.preventDefault();
 
-            // Ocultar todas las secciones
-            secciones.forEach(seccion => {
-                seccion.classList.remove('activo');
-            });
-
-            // Borrar clase activa de todos los enlaces
-            enlaces.forEach(enlace => {
-                enlace.classList.remove('activo');
-            });
-
-            // Mostrar la sección correspondiente
             const seccionId = this.getAttribute('data-seccion');
-            document.getElementById(seccionId).classList.add('activo');
 
-            // Añadir clase activa al enlace clicado
+            secciones.forEach(seccion => seccion.classList.remove('activo'));
+            enlaces.forEach(enlace => enlace.classList.remove('activo'));
+
+            document.getElementById(seccionId)?.classList.add('activo');
             this.classList.add('activo');
         });
     });

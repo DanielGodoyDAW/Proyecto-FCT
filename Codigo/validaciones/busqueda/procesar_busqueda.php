@@ -14,13 +14,18 @@ if (isset($_POST['paciente'])) {
         echo "<h3>Ficha del Paciente</h3>";
         echo "<ul>";
         foreach ($row as $campo => $valor) {
-            if (!in_array($campo, ['pass', 'token_recuperacion', 'token_expira'])) { // Excluir estos campos
+            if (!in_array($campo, ['pass', 'token_recuperacion', 'token_expira', 'es_temporal'])) { // Excluir estos campos
                 echo "<li><strong>" . ucfirst($campo) . ":</strong> " . htmlspecialchars($valor) . "</li>";
             }
         }
         echo "</ul>";
+        echo '
+        <div class="acciones-historial">
+            <button class="redirigir-historial" data-subseccion="crear">➕ Crear Historial</button>
+            <button class="redirigir-historial" data-subseccion="editar">✏️ Editar Historial</button>
+            <button class="redirigir-historial" data-subseccion="ver">👁 Ver Historial</button>
+        </div>';
     } else {
         echo "<p>No se encontró el paciente.</p>";
     }
 }
-?>

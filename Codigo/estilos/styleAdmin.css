@@ -114,3 +114,38 @@ button:hover {
     font-weight: bold;
     color: var(--colorBoton); 
 }
+/* sub seccion crear historial*/
+.submenu-historial {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Oculta todas las subsecciones por defecto */
+.subcontenido {
+    display: none;
+}
+
+/* Solo se muestran las subsecciones activas DENTRO de una sección principal activa */
+.contenido-admin.activo .subcontenido.activo {
+    display: block;
+}
+
+.subcontenido {
+    display: none;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ya lo tienes, pero lo dejo junto para claridad */
+.contenido-admin.activo .subcontenido.activo {
+    display: block;
+}
+
+
