@@ -55,7 +55,7 @@ ob_end_flush();
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
-            background: #fff;
+            background-color:  #E8F0F1;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
