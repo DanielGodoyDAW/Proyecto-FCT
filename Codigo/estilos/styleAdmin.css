@@ -63,6 +63,10 @@ button:hover {
 #listado-tratamientos {
     min-height: 150px; 
 }
+/*Estilo para el cuadro de busqueda*/
+.seccion.busqueda, #crear, #editar, #ver {
+    background-color: var(--colorFondoDivs);
+}
 
 /*Reponsive */
 
