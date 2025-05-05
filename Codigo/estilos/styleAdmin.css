@@ -148,4 +148,8 @@ button:hover {
     display: block;
 }
 
+.submenu-historial a.activo {
+    font-weight: bold;
+    color: var(--colorBoton); 
+}
 
