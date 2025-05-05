@@ -7,66 +7,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("ID de paciente no proporcionado.");
     }
 
-    // Recoger datos del formulario
-    $motivo = $_POST['motivo'] ?? '';
-    $antec_podologicos = $_POST['antec_podologicos'] ?? '';
-    $antec_quirurgicos = $_POST['antec_quirurgicos'] ?? '';
-    $antecedentes = $_POST['antecedentes'] ?? '';
-    $alergias = $_POST['alergias'] ?? '';
-    $farmacologia = $_POST['farmacologia'] ?? '';
-    $desarrolloPSi = $_POST['desarrolloPSi'] ?? '';
-    $observaciones = $_POST['observaciones'] ?? '';
-    $dx = $_POST['dx'] ?? '';
-    $tratamiento = $_POST['tratamiento'] ?? '';
-    $receta = $_POST['receta'] ?? '';
-    $fecha = $_POST['fecha'] ?? null;
-    $seguimiento = $_POST['seguimiento'] ?? '';
-    $patologias = isset($_POST['patologias']) ? implode(',', $_POST['patologias']) : '';
+    $campos = [
+        'motivo', 'antec_podologicos', 'antec_quirurgicos', 'patologias',
+        'antecedentes', 'alergias', 'farmacologia', 'desarrolloPSi', 'observaciones',
+        'archivo', 'onicopatias', 'queratopatias', 'dermatopatias', 'prominenciasOseas',
+        'altDigitales', 'dx', 'tratamiento', 'receta', 'fecha', 'seguimiento'
+    ];
 
-    // Checkboxes binarios
-    $onicopatias = isset($_POST['onicopatias']) ? 1 : 0;
-    $queratopatias = isset($_POST['queratopatias']) ? 1 : 0;
-    $dermatopatias = isset($_POST['dermatopatias']) ? 1 : 0;
-    $prominenciasOseas = isset($_POST['prominenciasOseas']) ? 1 : 0;
-    $altDigitales = isset($_POST['altDigitales']) ? 1 : 0;
+    $valores = ['idPaciente'];
+    $marcadores = ['?'];
+    $tipos = 'i'; // idPaciente es int
+    $datos = [$idPaciente];
 
-    // Manejo de archivo
-    $archivo = null;
-    if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) {
-        $nombreArchivo = basename($_FILES['archivo']['name']);
-        $directorioDestino = __DIR__ . '/../historiales/';
-        $rutaDestino = $directorioDestino . $nombreArchivo;
-
-        if (!is_dir($directorioDestino)) {
-            mkdir($directorioDestino, 0777, true);
-        }
-
-        if (move_uploaded_file($_FILES['archivo']['tmp_name'], $rutaDestino)) {
-            $archivo = $nombreArchivo;
+    foreach ($campos as $campo) {
+        if (isset($_POST[$campo])) {
+            $valores[] = $campo;
+            $marcadores[] = '?';
+            $datos[] = $_POST[$campo];
+            $tipos .= is_int($_POST[$campo]) ? 'i' : 's';
+        } elseif (in_array($campo, ['onicopatias', 'queratopatias', 'dermatopatias', 'prominenciasOseas', 'altDigitales'])) {
+            // checkboxes no enviados → marcar como 0
+            $valores[] = $campo;
+            $marcadores[] = '?';
+            $datos[] = 0;
+            $tipos .= 'i';
         }
     }
 
-    // Inserción a la base de datos
-    $stmt = $conexion->prepare("INSERT INTO Historial (
-        idPaciente, motivo, antec_podologicos, antec_quirurgicos, patologias,
-        antecedentes, alergias, farmacologia, desarrolloPSi, observaciones,
-        archivo, onicopatias, queratopatias, dermatopatias, prominenciasOseas,
-        altDigitales, dx, tratamiento, receta, fecha, seguimiento
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $sql = "INSERT INTO Historial (" . implode(', ', $valores) . ") VALUES (" . implode(', ', $marcadores) . ")";
+    $stmt = $conexion->prepare($sql);
 
-    $stmt->bind_param(
-        "isssssssssssiiisssss",
-        $idPaciente, $motivo, $antec_podologicos, $antec_quirurgicos, $patologias,
-        $antecedentes, $alergias, $farmacologia, $desarrolloPSi, $observaciones,
-        $archivo, $onicopatias, $queratopatias, $dermatopatias, $prominenciasOseas,
-        $altDigitales, $dx, $tratamiento, $receta, $fecha, $seguimiento
-    );
+    if (!$stmt) {
+        die("Error en la preparación: " . $conexion->error);
+    }
+
+    $stmt->bind_param($tipos, ...$datos);
 
     if ($stmt->execute()) {
-        echo "<p>✅ Historial guardado correctamente.</p>";
-        echo '<a href="/admin.php">Volver</a>';
+        echo "Historial guardado correctamente.";
     } else {
-        echo "<p>❌ Error al guardar historial: " . $stmt->error . "</p>";
+        echo "Error al guardar historial: " . $stmt->error;
     }
 }
 ?>

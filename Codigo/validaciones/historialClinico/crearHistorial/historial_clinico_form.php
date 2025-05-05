@@ -13,7 +13,7 @@ $idPaciente = $_GET['idPaciente'] ?? null;
     <table id="tabla_historial_clinico">
         <tr>
             <td><label for="motivo">Motivo de la consulta:</label></td>
-            <td><textarea name="motivo" id="motivo" required></textarea></td>
+            <td><textarea name="motivo" id="motivo"></textarea></td>
         </tr>
         <tr>
             <td><label for="antec_podologicos">Antec. podológicos:</label></td>
