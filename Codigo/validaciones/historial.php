@@ -10,8 +10,7 @@ if (isset($_SESSION["idAdmin"])) {
     //consulta para ver todas las citas del mes (pasadas o futuras) de cada paciente
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
               FROM Citas 
-              JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
-              WHERE Citas.fecha >= CURDATE() 
+              JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes  
               ORDER BY Citas.fecha ASC";
     $stmt = $conexion->prepare($query);
     $stmt->execute();
