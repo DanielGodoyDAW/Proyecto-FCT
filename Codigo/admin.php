@@ -30,9 +30,9 @@
         <div id="historial" class="contenido-admin">
             <nav class="submenu-historial">
                 <ul>
-                    <li><a href="#" data-seccion="crear" class="activo">Crear</a></li>
-                    <li><a href="#" data-seccion="editar">Editar</a></li>
-                    <li><a href="#" data-seccion="ver">Ver</a></li>
+                    <li><a href="#" data-subseccion="crear" class="activo">Crear</a></li>
+                    <li><a href="#" data-subseccion="editar">Editar</a></li>
+                    <li><a href="#" data-subseccion="ver">Ver</a></li>
                 </ul>
             </nav>
             <div id="crear" class="subcontenido activo">

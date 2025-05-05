@@ -1,39 +1,19 @@
+<link rel="stylesheet" href="/Codigo/estilos/style.css">
 <?php
 
 require_once __DIR__ . '/../../../conexion/conexion.php';
+
+$idPaciente = $_GET['idPaciente'] ?? null;
 
 //para agregar el historial clinico de los pacientes
 ?>
 
 <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_historial_clinico.php" method="post" enctype="multipart/form-data">
-    <table id="datos_personales">
-        <tr>
-            <td><label for="paciente">Paciente:</label></td>
-            <td>
-                <select name="paciente" id="paciente">
-                    <option value="">Seleccione un paciente</option>
-                    <?php
-                    // Consulta para obtener los pacientes
-                    $query = "SELECT idPacientes, nombre, apellido1, apellido2 
-                  FROM Pacientes 
-                  WHERE idPacientes != ?";
-                    $stmt = $conexion->prepare($query);
-                    $stmt->bind_param("i", $idAdmin);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<option value="' . $row['idPacientes'] . '">' . $row['nombre'] . ' ' . $row['apellido1'] . ' ' . $row['apellido2'] . '</option>';
-                    }
-                    ?>
-                </select>
-            </td>
-        </tr>
-    </table>
+    <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
     <table id="tabla_historial_clinico">
         <tr>
             <td><label for="motivo">Motivo de la consulta:</label></td>
-            <td><textarea name="motivo" id="motivo" required></textarea></td>
+            <td><textarea name="motivo" id="motivo"></textarea></td>
         </tr>
         <tr>
             <td><label for="antec_podologicos">Antec. podológicos:</label></td>
@@ -141,4 +121,4 @@ require_once __DIR__ . '/../../../conexion/conexion.php';
     </table>
     <button type="submit" name="">Crear</button>
 </form>
-<script src="/Codigo/validaciones/historialClinico/agregarPatologia.js"></script>
+<!-- <script src="/Codigo/validaciones/historialClinico/agregarPatologia.js"></script> -->
