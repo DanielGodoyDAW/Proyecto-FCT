@@ -33,7 +33,7 @@
                 <br>
                 <input class="btnIS" type="submit" value="Iniciar Sesión">
             </form>
-            <p><a href="#" onclick="mostrarRecuperar()">¿Olvidaste tu contraseña?</a></p>
+            <p><a class="decoracion" href="#" onclick="mostrarRecuperar()">¿Olvidaste tu contraseña?</a></p>
         </div>
         <div class="contenedorLogin" id="recuperar">
             <h2>Recuperar Contraseña</h2>
@@ -48,7 +48,7 @@
                 </table>
                 <input class="btnPss" type="submit" value="Enviar enlace de recuperación">
             </form>
-            <p><a href="#" onclick="mostrarInicio()">Volver a Inicio</a></p>
+            <p><a class="decoracion" href="#" onclick="mostrarInicio()">Volver a Inicio</a></p>
         </div>
         <?php if (isset($_GET['recuperar'])) {
             echo "<script>mostrarRecuperar();</script>";
