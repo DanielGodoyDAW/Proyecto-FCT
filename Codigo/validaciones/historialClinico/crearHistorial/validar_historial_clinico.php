@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $datos[] = $_POST[$campo];
             $tipos .= is_int($_POST[$campo]) ? 'i' : 's';
         } elseif (in_array($campo, ['onicopatias', 'queratopatias', 'dermatopatias', 'prominenciasOseas', 'altDigitales'])) {
-            // checkboxes no enviados → marcar como 0
+            // checkboxes no enviados los marcamos como 0
             $valores[] = $campo;
             $marcadores[] = '?';
             $datos[] = 0;
