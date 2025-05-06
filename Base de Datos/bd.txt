@@ -33,17 +33,4 @@ la tabla de promociones pasara a ser servicios en el programa y por no enredar m
 
 tareas
 
-añadir algun sitio para agregar anotaciones de los pacientes 
-no poder cancelar citas antes de 24h y para futuro si añadimos el metodo de pago que te cobre el 50%
 
-
--El administrador ve siempre las citas, aunque desabilite la opcion de "coger" cita ya que añadi una seccion para bloquear agenda,
-aunque si entras como paciente solo se ven las citas por hora, es decir, si por ejemplo miras a las 11, solo las posteriores
--Promociones paso a ser servicios y tratamientos entra dentro de este campo 
--El historial clinico esta en desarrollo aun
-
-**duda, como hacer que se refresque bien el bloquear cita
-**el calendario si retrocedo se pone en verde hasta ciertos meses
-
-poner las ventanas emergentes como divs ocultos
-el formulario de registro hacerlo mas corto
