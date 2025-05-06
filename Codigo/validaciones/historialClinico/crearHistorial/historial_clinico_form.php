@@ -59,7 +59,7 @@ $idPaciente = $_GET['idPaciente'] ?? null;
             <td><input type="text" name="desarrolloPSi" id="desarrolloPSi"></td>
         </tr>
         <tr>
-            <td><label for="observaciones">observaciones:</label></td>
+            <td><label for="observaciones">Observaciones:</label></td>
             <td><textarea name="observaciones" id="observaciones"></textarea></td>
         </tr>
     </table>
@@ -67,12 +67,6 @@ $idPaciente = $_GET['idPaciente'] ?? null;
         <tr>
             <td><label for="archivo">Adjuntar Archivo:</label></td>
             <td><input type="file" name="archivo" id="archivo"></td>
-        </tr>
-        <tr>
-            <td>visualizacion imagen</td>
-            <?php
-            //tratado de la imagen
-            ?>
         </tr>
         <tr>
             <td></td>

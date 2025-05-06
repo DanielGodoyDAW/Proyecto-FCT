@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'altDigitales', 'dx', 'tratamiento', 'receta', 'fecha', 'seguimiento'
     ];
 
-    $valores = ['idPaciente'];
+    $valores = ['idHistorial'];
     $marcadores = ['?'];
     $tipos = 'i'; // idPaciente es int
     $datos = [$idPaciente];
@@ -44,7 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param($tipos, ...$datos);
 
     if ($stmt->execute()) {
-        echo "Historial guardado correctamente.";
+        header("Location: /Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php?idPaciente=" . urlencode($idPaciente));
+        exit;
     } else {
         echo "Error al guardar historial: " . $stmt->error;
     }

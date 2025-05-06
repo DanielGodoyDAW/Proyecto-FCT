@@ -210,3 +210,9 @@ ADD
 ALTER TABLE Citas ADD COLUMN payment_intent_id VARCHAR(255) NULL;
 
 ALTER TABLE Pacientes ADD COLUMN es_temporal TINYINT(1) DEFAULT 0;
+
+--posible cambio en la tabla historial
+ALTER TABLE Historial ADD idPaciente INT NOT NULL;
+ALTER TABLE Historial ADD FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPacientes);
+
+ALTER TABLE Historial ADD dx TEXT;
