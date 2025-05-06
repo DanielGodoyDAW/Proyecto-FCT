@@ -5,6 +5,7 @@ if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Genera un token unico
 }
 
+//si existe la sesion de paciente o admin, se guarda el id del paciente
 if (isset($_SESSION['idPacientes'])) {
     $idPaciente = $_SESSION['idPacientes'];
 } else if (isset($_SESSION['idAdmin'])) {
@@ -85,6 +86,7 @@ $extensiones = [
 ?>
 
 <link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
+<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
 <script src="/Codigo/validaciones/editarPerfil/popupContrasena.js"></script>
 <div id="perfil">
     <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">

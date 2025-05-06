@@ -8,6 +8,7 @@ if (isset($_SESSION["idPacientes"])) {
     // Si el usuario es un paciente, se muestran solo sus citas
     $idPaciente = $_SESSION["idPacientes"];
 
+    //consulta para obtener las citas del paciente
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 
               FROM Citas 
               INNER JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 

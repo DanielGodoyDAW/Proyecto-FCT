@@ -4,32 +4,16 @@ session_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 require_once __DIR__ . '/../../googleCalendar/google_calendar.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../config/cargar_env.php';
+cargarEnv(__DIR__ . '/../../config/config.env');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Stripe\Stripe;
 use Stripe\Refund;
 
-// Configura tu clave secreta de Stripe (segura)
-Stripe::setApiKey('sk_test_...'); // <-- Aquí pon tu clave privada real
-
-// Eliminar evento de Google Calendar
-// function eliminarEventoGoogleCalendar($eventId)
-// {
-//     if (empty($eventId)) {
-//         throw new Exception("El ID del evento no puede estar vacío.");
-//     }
-
-//     $client = getClient();
-//     $service = new Google_Service_Calendar($client);
-//     $calendarId = 'danielgodoymedina@gmail.com';
-
-//     try {
-//         $service->events->delete($calendarId, $eventId);
-//     } catch (Exception $e) {
-//         throw new Exception("No se pudo eliminar el evento de Google Calendar: " . $e->getMessage());
-//     }
-// }
+// Configuracion clave secreta de Stripe (segura)
+Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
 
 // Procesar cancelación
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {

@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
                 foreach ($tramosHorariosTarde as $inicio => $fin) {
                     $isReservado = in_array($inicio . ":00", array_column($horariosReservados, 'hora'));
-                    $isBloqueado = false; // Puedes agregar lógica para determinar si está bloqueado
+                    $isBloqueado = false; 
 
                     // Determinar la clase del botón
                     $btnClass = $isReservado ? 'btn-horario-ocupado' : 'btn-horario';
@@ -119,10 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo '</div>'; // Cierre de horarios-container
 
-        //movido a dos div independientes, para que se vea mejor
-        // if ($isAdmin) { // Solo mostrar esta funcionalidad si es admin
-        //     require_once 'bloquear_reactivar_agenda.php';
-        // }
     } else {
         // Si no se recibió la fecha, mostrar un mensaje de error
         echo '<p>Error: No se recibió la fecha seleccionada.</p>';

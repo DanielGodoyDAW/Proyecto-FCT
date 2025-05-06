@@ -21,8 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset(
             $_SESSION['nombre'] = $admin['nombre'];
             $_SESSION['apellido1'] = $admin['apellido1'];
             $_SESSION['apellido2'] = $admin['apellido2'];
-            echo "Redirigiendo a admin.php"; // Depuración
-            header("Location: ../admin.php"); // Redirigir a la página de administración
+            header("Location: ../citas.php"); // Redirigimos a la primera pagina de la web
             exit();
         } else {
             header("Location: ../index.php?error=2"); // Contraseña incorrecta

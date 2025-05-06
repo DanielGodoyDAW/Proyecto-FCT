@@ -20,7 +20,7 @@ body {
 .contenedorRegistro {
     width: 100%;
     max-width: 500px;
-    background-color: white;
+    background-color: var(--colorFondoDivs);
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;

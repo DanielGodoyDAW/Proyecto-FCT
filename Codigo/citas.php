@@ -22,7 +22,7 @@ require_once './conexion/conexion.php';
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
-
+    <!-- Si el usuario logueado es admin, vera una cossa u otra -->
     <?php if (isset($_SESSION["idAdmin"])) { ?>
         <div id="admin-panel">
             <nav class="menu-citas">
@@ -36,6 +36,7 @@ require_once './conexion/conexion.php';
 
             <main class="contenedorAdmin">
                 <!-- Seccion Bloquear y Desbloquear -->
+                <!-- Parte de arriba con el calendario y los tramos -->
                 <div id="bloquearDEsbloCitas" class="contenido-admin activo">
                     <div class="filaAdmin">
                         <div class="columnaAdmin">
@@ -45,7 +46,7 @@ require_once './conexion/conexion.php';
                             <?php require_once '../Codigo/validaciones/citas/citas_Bloqueadas.php'; ?>
                         </div>
                     </div>
-
+                <!-- Parte media para bloquear o desbloquear agenda -->
                     <div class="filaAdmin">
                         <div class="columnaAdmin">
                             <?php require_once './validaciones/citas/bloquear_citas.php'; ?>
@@ -54,7 +55,7 @@ require_once './conexion/conexion.php';
                             <?php require_once './validaciones/citas/desbloquear_citas.php'; ?>
                         </div>
                     </div>
-
+                <!-- Parte de abajo para asignar Citas a pacientes temporales -->
                     <div class="filaAdmin">
                         <div class="columnaAdmin-full">
                             <?php require_once '../Codigo/validaciones/citas/citas_admin_gestion.php'; ?>
@@ -93,7 +94,7 @@ require_once './conexion/conexion.php';
         </div>
 
     <?php } else { ?>
-
+        <!-- Seccion Standar para pacientes -->
         <main class="contenedor">
             <div class="fila">
                 <div class="columna">
