@@ -44,7 +44,7 @@ if ($result->num_rows > 0) {
             echo '<button class="btnE" id="btn-color-V" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
             echo '<form action="/Codigo/validaciones/promociones/eliminar_promocion.php" method="POST" style="display:inline;">';
             echo '<input type="hidden" name="idPromocion" value="' . $row['idPromocion'] . '">';
-            echo '<button type="submit" class="btnE" id="btn-color-R" onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta promoción?\');">Eliminar</button>';
+            echo '<button type="submit" class="btnE" id="btn-color-R" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este servicio?\');">Eliminar</button>';
             echo '</form>';
             echo '</td>';
         }
@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
             echo '<button class="btnE" id="btn-color-V" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
             echo '<form action="/Codigo/validaciones/promociones/eliminar_promocion.php" method="POST" style="display:inline;">';
             echo '<input type="hidden" name="idPromocion" value="' . $row['idPromocion'] . '">';
-            echo '<button type="submit" class="btnE" id="btn-color-R" onclick="return confirm(\'¿Estás seguro de que deseas eliminar esta promoción?\');">Eliminar</button>';
+            echo '<button type="submit" class="btnE" id="btn-color-R" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este servicio?\');">Eliminar</button>';
             echo '</form>';
             echo '</div>';
         }
