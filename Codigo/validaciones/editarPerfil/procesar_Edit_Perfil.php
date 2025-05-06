@@ -122,7 +122,7 @@ if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo;
 
     echo '<script>
-        alert("Perfil actualizado correctamente. ¡Ahora eres un paciente registrado permanentemente!");
+        alert("Perfil actualizado correctamente. ¡Ya formas parte de la clínica como paciente registrado!");
         window.location.href = "/Codigo/editar_perfil.php";
     </script>';
     exit;
