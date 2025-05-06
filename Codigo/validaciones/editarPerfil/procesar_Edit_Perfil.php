@@ -121,10 +121,17 @@ if ($esTemporal && !empty($nuevoDNI)) {
 if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo;
 
-    echo '<script>
-        alert("Perfil actualizado correctamente. ¡Ya formas parte de la clínica como paciente registrado!");
-        window.location.href = "/Codigo/editar_perfil.php";
-    </script>';
+    if ($esTemporal) {
+        echo '<script>
+            alert("¡Perfil actualizado correctamente! Ahora formas parte de la clínica como paciente registrado.");
+            window.location.href = "/Codigo/editar_perfil.php";
+        </script>';
+    } else {
+        echo '<script>
+            alert("Perfil actualizado correctamente.");
+            window.location.href = "/Codigo/editar_perfil.php";
+        </script>';
+    }
     exit;
 } else {
     echo '<script>
