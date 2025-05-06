@@ -46,7 +46,7 @@ while ($row = $result->fetch_assoc()) {
 ?>
 
 <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
-<h3>Bloquear nuevas citas</h3>
+<h3>Bloquear Agenda</h3>
 <div class="bloquear-container">
     <form method="POST">
         <input type="hidden" name="fecha" value="<?php echo htmlspecialchars($fechaSeleccionada); ?>">
