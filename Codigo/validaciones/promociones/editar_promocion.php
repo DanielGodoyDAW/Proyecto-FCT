@@ -28,7 +28,7 @@ $promocion = $result->fetch_assoc();
     <meta charset="UTF-8">
     <title>Editar Promoción</title>
     <link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css"> <!-- agrego este styles, porque tiene casi todas las variables de color -->
+    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
 </head>
 
 <body>
