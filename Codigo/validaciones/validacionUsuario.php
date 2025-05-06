@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset(
     }
 
     // Consulta para verificar si el usuario es un paciente
-    $queryPaciente = "SELECT idPacientes, nombre, apellido1, apellido2, sexo, pass FROM Pacientes WHERE email = ?";
+    $queryPaciente = "SELECT idPacientes, nombre, apellido1, apellido2, sexo, pass, es_temporal FROM Pacientes WHERE email = ?";
     $stmtPaciente = $conexion->prepare($queryPaciente);
     $stmtPaciente->bind_param("s", $email);
     $stmtPaciente->execute();
@@ -59,7 +59,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["paciente"]) && isset(
             $_SESSION['apellido1'] = $paciente['apellido1'];
             $_SESSION['apellido2'] = $paciente['apellido2'];
             $_SESSION['sexo'] = $paciente['sexo'];
-            header("Location: ../citas.php");
+            if($paciente['es_temporal']) {
+                // Si el paciente es temporal, redirigir a la página de citas temporales
+                header("Location: ../editar_perfil.php");
+            } else {
+                // Si el paciente no es temporal, redirigir a la página de citas
+                header("Location: ../citas.php");
+            }
             exit();
         } else {
             header("Location: ../index.php?error=1"); // Contraseña incorrecta
