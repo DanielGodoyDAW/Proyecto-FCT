@@ -36,6 +36,8 @@ Aplicación web para la gestión integral de una clínica podológica. Permite l
 - MySQL
 - HTML/CSS/JavaScript
 - jQuery
+- Stripe API (pagos online)
+- Google Calendar API (sincronización de citas)
 - `IntlDateFormatter` (formateo de fechas en español)
 
 ---
