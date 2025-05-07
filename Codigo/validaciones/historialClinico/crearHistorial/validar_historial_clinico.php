@@ -90,37 +90,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $valores[] = $valorCampo;
         }
     }
-    
+
     // checkboxes: se actualizan siempre
     foreach ($chekbox as $campo => $valor) {
         $camposFinales[] = "$campo = ?";
         $tipos .= 'i';
         $valores[] = $valor;
     }
-    
+
     // archivo si se subió
     if ($archivoRuta) {
         $camposFinales[] = "archivo = ?";
         $tipos .= 's';
         $valores[] = $archivoRuta;
     }
-    
+
     // añadir WHERE y bind idHistorial
     $camposSQL = implode(', ', $camposFinales);
     $tipos .= 'i';
     $valores[] = $idHistorial;
-    
+
     $sql = "UPDATE Historial SET $camposSQL WHERE idHistorial = ?";
     $stmt = $conexion->prepare($sql);
-    
+
     if (!$stmt) {
         die("Error al preparar: " . $conexion->error);
     }
-    
+
     $stmt->bind_param($tipos, ...$valores);
-    
+
     if ($stmt->execute()) {
-        header("Location: /Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php?idPaciente=" . urlencode($idPaciente));
+        echo "<script>
+                alert('Historial actualizado correctamente.');
+                window.location.href = '/Codigo/admin.php#ver';
+            </script>";
         exit;
     } else {
         echo "Error al actualizar historial: " . $stmt->error;

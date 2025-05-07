@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
 
-$idPaciente = $_GET['idPaciente'] ?? null;
-
+if (session_status() === PHP_SESSION_NONE) session_start();
+$idPaciente = $_SESSION['idPaciente'] ?? null;
 if (!$idPaciente) {
-    echo "<p style='color: red; font-weight: bold;'>ID de paciente no proporcionado.</p>";
+    echo "<p>No hay paciente cargado.</p>";
     return;
 }
 
@@ -70,6 +70,8 @@ while ($fila = $result->fetch_assoc()) {
     }
 
     echo '</table>';
+    echo '<div style="text-align:right; margin-top:10px;">';
+    echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial</button>';
+    echo '</div>';
     echo '</div>';
 }
-?>
