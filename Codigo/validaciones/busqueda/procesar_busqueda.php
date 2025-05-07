@@ -20,15 +20,15 @@ if (isset($_POST['paciente'])) {
             }
         }
         echo "</ul>";
-        echo '
-        <div class="acciones-historial">
-        <button class="redirigir-historial" data-subseccion="crear" data-id="' . $idPaciente . '">➕ Crear Historial</button>
-        <button class="redirigir-historial" data-subseccion="editar" data-id="' . $idPaciente . '">✏️ Editar Historial</button>
-        <button class="redirigir-historial" data-subseccion="ver" data-id="' . $idPaciente . '">👁 Ver Historial</button>
-        </div>';
+        echo '<div class="acciones-historial">';
+        echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/crearHistorial/formulario_crear_historial.php?idPaciente=' . $idPaciente . '" class="boton">➕ Crear Historial</a>';
+        echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php?idPaciente=' . $idPaciente . '" class="boton">✏️ Editar Historial</a>';
+        echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php?idPaciente=' . $idPaciente . '" class="boton">👁 Ver Historial</a>';
+        echo '</div>';
     } else {
         echo "<p>No se encontró el paciente.</p>";
     }
 }
 
 ?>
+

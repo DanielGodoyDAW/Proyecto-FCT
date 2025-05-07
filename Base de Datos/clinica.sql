@@ -1,16 +1,5 @@
 -- Estimacion de la Base de datos para la clínica de podología
 
--- Tabla Tratamientos esta tabla no hara falta
--- CREATE TABLE Tratamientos (
---     idTratamiento INT PRIMARY KEY,
---     nombre VARCHAR(100),
---     descripcion TEXT,
---     precio DECIMAL(10, 2),
---     fechaInicio DATE,
---     fechaFin DATE,
---     estado VARCHAR(50) -- Puede ser "Pendiente", "Confirmada", "Cancelada"
--- );
-
 -- Tabla Admin
 CREATE TABLE Admin (
     idAdmin INT PRIMARY KEY,
@@ -23,10 +12,36 @@ CREATE TABLE Admin (
 );
 
 -- Tabla Historial
+-- CREATE TABLE Historial (
+--     idHistorial INT PRIMARY KEY AUTO_INCREMENT,
+--     fecha DATE,
+--     descripcion TEXT
+-- );
+
+-- Tabla Historial
 CREATE TABLE Historial (
     idHistorial INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion TEXT,
+    motivo TEXT,
+    antec_podologicos TEXT,
+    antec_quirurgicos TEXT,
+    patologias TEXT,
+    antecedentes VARCHAR(255),
+    alergias VARCHAR(255),
+    farmacologia VARCHAR(255),
+    desarrolloPSi VARCHAR(255),
+    observaciones TEXT,
+    archivo VARCHAR(255),
+    onicopatias TINYINT(1) DEFAULT 0,
+    queratopatias TINYINT(1) DEFAULT 0,
+    dermatopatias TINYINT(1) DEFAULT 0,
+    prominenciasOseas TINYINT(1) DEFAULT 0,
+    altDigitales TINYINT(1) DEFAULT 0,
+    dx TEXT,
+    tratamiento TEXT,
+    receta TEXT,
     fecha DATE,
-    descripcion TEXT
+    seguimiento TEXT
 );
 
 -- Tabla Pacientes
@@ -88,27 +103,6 @@ CREATE TABLE Promociones (
     idAdmin INT,
     FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
 );
--- Tabla Promociones
--- CREATE TABLE Promociones (
---     idPromocion INT PRIMARY KEY AUTO_INCREMENT,
---     descripcion TEXT,
---     fechaInicio DATE,
---     fechaFin DATE,
---     descuento DECIMAL(5, 2),
---     titulo VARCHAR(100),
---     imagen VARCHAR(255),
---     idAdmin INT,
---     FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
--- );
-
--- Tabla Citas_Tratamientos
--- CREATE TABLE Citas_Tratamientos (
---     idCita INT,
---     idTratamiento INT,
---     PRIMARY KEY (idCita, idTratamiento),
---     FOREIGN KEY (idCita) REFERENCES Citas(idCita),
---     FOREIGN KEY (idTratamiento) REFERENCES Tratamientos(idTratamiento)
--- );
 
 -- Tabla Citas_Promociones
 CREATE TABLE Citas_Promociones (
@@ -121,98 +115,58 @@ CREATE TABLE Citas_Promociones (
 
 -- Insertar ADMIN 
 INSERT INTO Admin (idAdmin, nombre, apellido1, apellido2, email, telefono, pass)
-VALUES (1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '643645579', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe');
+VALUES (1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '+34 643645579', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe');
 
 -- Insertar paciente (automáticamente se le crea un historial)
 INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
-VALUES ('Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '643645579', '1999-04-06', 'M', '00000000A', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe');
+VALUES ('Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '+34 643645579', '1999-04-06', 'M', '00000000A', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe');
 
 -- Insertar otro paciente
 INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass)
-VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu');
+VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','+34 628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu');
 
---pensamiento de implementar estos cambios
--- CREATE TABLE Plantillas(
---     idPlantilla INT PRIMARY KEY AUTO_INCREMENT,
---     titulo VARCHAR(100) NOT NULL,
---     contenido TEXT NOT NULL,
---     idAdmin INT,
---     FOREIGN KEY (idAdmin) REFERENCES Admin(idAdmin)
+-- -- Tabla patologias
+-- CREATE TABLE Patologias(
+--     idPatologias INT PRIMARY KEY AUTO_INCREMENT,
+--     nombre VARCHAR(100) NOT NULL,
+--     idHistorial INT
+--     FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
 -- );
 
--- ALTER TABLE `Historial`
--- ADD COLUMN `idPlantilla` INT DEFAULT NULL,
--- ADD CONSTRAINT `historial_ibfk_plantilla` FOREIGN KEY (`idPlantilla`) REFERENCES `Plantillas` (`idPlantilla`) ON DELETE SET NULL;
-
--- Tabla Historial
--- CREATE TABLE Historial (
---     idHistorial INT PRIMARY KEY AUTO_INCREMENT,
+-- -- Tabla seguimiento
+-- CREATE TABLE Seguimiento(
+--     idSeguimiento INT PRIMARY KEY AUTO_INCREMENT,
 --     fecha DATE,
 --     descripcion TEXT,
---     idPlantilla INT DEFAULT NULL,
---     FOREIGN KEY (idPlantilla) REFERENCES Plantillas_historial(idPlantilla)
+--     idHistorial INT,
+--     FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
 -- );
 
--- Tabla patologias
-CREATE TABLE Patologias(
-    idPatologias INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    idHistorial INT
-    FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
-);
-
--- Tabla seguimiento
-CREATE TABLE Seguimiento(
-    idSeguimiento INT PRIMARY KEY AUTO_INCREMENT,
-    fecha DATE,
-    descripcion TEXT,
-    idHistorial INT,
-    FOREIGN KEY (idHistorial) REFERENCES Historial(idHistorial)
-);
-
--- Alter Tabla historial 
-ALTER TABLE
-    `Historial`
-ADD
-    COLUMN motivo TEXT,
-ADD
-    COLUMN antec_podologicos TEXT,
-ADD
-    COLUMN antec_quirurgicos TEXT,
-ADD
-    COLUMN antecedentes VARCHAR(255),
-ADD
-    COLUMN alergias VARCHAR(255),
-ADD
-    COLUMN farmacologia VARCHAR(255),
-ADD
-    COLUMN desarrolloPSi VARCHAR(255),
-ADD
-    COLUMN observaciones TEXT,
-ADD
-    COLUMN archivo VARCHAR(255),
-ADD
-    COLUMN onicopatias TINYINT(1) DEFAULT 0,
-ADD
-    COLUMN queratopatias TINYINT(1) DEFAULT 0,
-ADD
-    COLUMN dermatopatias TINYINT(1) DEFAULT 0,
-ADD
-    COLUMN prominenciasOseas TINYINT(1) DEFAULT 0,
-ADD
-    COLUMN altDigitales TINYINT(1) DEFAULT 0,
-ADD
-    COLUMN receta TEXT,
-ADD
-    COLUMN seguimiento TEXT;
-
+-- CREATE TABLE Historial (
+--     idHistorial INT PRIMARY KEY AUTO_INCREMENT,
+--     descripcion TEXT,
+--     motivo TEXT,
+--     antec_podologicos TEXT,
+--     antec_quirurgicos TEXT,
+--     patologias TEXT,
+--     antecedentes VARCHAR(255),
+--     alergias VARCHAR(255),
+--     farmacologia VARCHAR(255),
+--     desarrolloPSi VARCHAR(255),
+--     observaciones TEXT,
+--     archivo VARCHAR(255),
+--     onicopatias TINYINT(1) DEFAULT 0,
+--     queratopatias TINYINT(1) DEFAULT 0,
+--     dermatopatias TINYINT(1) DEFAULT 0,
+--     prominenciasOseas TINYINT(1) DEFAULT 0,
+--     altDigitales TINYINT(1) DEFAULT 0,
+--     dx TEXT,
+--     tratamiento TEXT,
+--     receta TEXT,
+--     fecha DATE,
+--     seguimiento TEXT
+-- );
 
 ALTER TABLE Citas ADD COLUMN payment_intent_id VARCHAR(255) NULL;
 
 ALTER TABLE Pacientes ADD COLUMN es_temporal TINYINT(1) DEFAULT 0;
-
---posible cambio en la tabla historial
-ALTER TABLE Historial ADD idPaciente INT NOT NULL;
-ALTER TABLE Historial ADD FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPacientes);
-
-ALTER TABLE Historial ADD dx TEXT;

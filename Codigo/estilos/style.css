@@ -117,6 +117,7 @@ nav ul li a {
     border-radius: 4px;
 }
 
+
 /* formulario recuperacion de contraseña oculto*/
 .btnPss{
     background-color: var(--colorBoton);
@@ -376,6 +377,21 @@ footer {
     color: var(--colorActive);
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+/*botones editar y ver historial*/
+.btnH {
+    
+    background-color: var(--colorBoton);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 5px;
 }
 
 /* Responsive para moviles*/
