@@ -3,6 +3,11 @@ require_once __DIR__ . '/../../../conexion/conexion.php';
 
 $idPaciente = $_GET['idPaciente'] ?? null;
 
+if (!$idPaciente) {
+    echo "<p style='color: red; font-weight: bold;'>ID de paciente no proporcionado.</p>";
+    return;
+}
+
 $sql = "SELECT 
             H.*,
             P.nombre,
@@ -12,53 +17,59 @@ $sql = "SELECT
             P.dni,
             P.fechaNacim
         FROM Historial H
-        JOIN Pacientes P ON H.idHistorial = P.idPacientes
-        WHERE H.idHistorial = ?
+        JOIN Pacientes P ON H.idHistorial = P.idHistorial
+        WHERE P.idPacientes = ?
         ORDER BY H.fecha DESC";
+
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param('i', $idPaciente);
 $stmt->execute();
 $result = $stmt->get_result();
 
 while ($fila = $result->fetch_assoc()) {
-
     $nombreCompleto = $fila['nombre'] . ' ' . $fila['apellido1'];
     if (!empty($fila['apellido2'])) {
         $nombreCompleto .= ' ' . $fila['apellido2'];
     }
 
-    echo "<h3>Consulta del " . htmlspecialchars($fila['fecha']) . "</h3>";
-    echo "<h4>Paciente: " . htmlspecialchars($nombreCompleto) . "</h4>";
-    echo "<h4>Teléfono: " . htmlspecialchars($fila['telefono']) . "</h4>";
-    echo "<h4>DNI: " . htmlspecialchars($fila['dni']) . "</h4>";
-    echo "<h4>Fecha de nacimiento: " . htmlspecialchars($fila['fechaNacim']) . "</h4>";
-    echo "<h4>Descripción: " . nl2br(htmlspecialchars($fila['descripcion'])) . "</h4>";
-    echo "<h4>Motivo: " . nl2br(htmlspecialchars($fila['motivo'])) . "</h4>";
-    echo "<h4>Antecedentes podológicos: " . nl2br(htmlspecialchars($fila['antec_podologicos'])) . "</h4>";
-    echo "<h4>Antecedentes quirúrgicos: " . nl2br(htmlspecialchars($fila['antec_quirurgicos'])) . "</h4>";
-    echo "<h4>Antecedentes familiares: " . htmlspecialchars($fila['antecedentes']) . "</h4>";
-    echo "<h4>Alergias: " . htmlspecialchars($fila['alergias']) . "</h4>";
-    echo "<h4>Farmacología: " . htmlspecialchars($fila['farmacologia']) . "</h4>";
-    echo "<h4>Desarrollo psicomotriz: " . htmlspecialchars($fila['desarrolloPSi']) . "</h4>";
-    echo "<h4>Observaciones: " . nl2br(htmlspecialchars($fila['observaciones'])) . "</h4>";
-
-    echo "<h4>Patologías detectadas:</h4><ul>";
-    if ($fila['onicopatias']) echo "<li>Onicopatías</li>";
-    if ($fila['queratopatias']) echo "<li>Queratopatías</li>";
-    if ($fila['dermatopatias']) echo "<li>Dermatopatías</li>";
-    if ($fila['prominenciasOseas']) echo "<li>Prominencias óseas</li>";
-    if ($fila['altDigitales']) echo "<li>Alteraciones digitales</li>";
-    echo "</ul>";
-
-    echo "<h4>Receta: " . nl2br(htmlspecialchars($fila['receta'])) . "</h4>";
-    echo "<h4>Seguimiento: " . nl2br(htmlspecialchars($fila['seguimiento'])) . "</h4>";
+    echo '<div class="columna">';
+    echo '<h3>Consulta del ' . htmlspecialchars($fila['fecha']) . '</h3>';
+    echo '<table class="citas">';
+    echo '<tr><th>Paciente</th><td>' . htmlspecialchars($nombreCompleto) . '</td></tr>';
+    echo '<tr><th>Teléfono</th><td>' . htmlspecialchars($fila['telefono']) . '</td></tr>';
+    echo '<tr><th>DNI</th><td>' . htmlspecialchars($fila['dni']) . '</td></tr>';
+    echo '<tr><th>Fecha de nacimiento</th><td>' . htmlspecialchars($fila['fechaNacim']) . '</td></tr>';
+    echo '<tr><th>Motivo</th><td>' . nl2br(htmlspecialchars($fila['motivo'])) . '</td></tr>';
+    echo '<tr><th>Descripción</th><td>' . nl2br(htmlspecialchars($fila['descripcion'])) . '</td></tr>';
+    echo '<tr><th>Antecedentes podológicos</th><td>' . nl2br(htmlspecialchars($fila['antec_podologicos'])) . '</td></tr>';
+    echo '<tr><th>Antecedentes quirúrgicos</th><td>' . nl2br(htmlspecialchars($fila['antec_quirurgicos'])) . '</td></tr>';
+    echo '<tr><th>Antecedentes familiares</th><td>' . htmlspecialchars($fila['antecedentes']) . '</td></tr>';
+    echo '<tr><th>Alergias</th><td>' . htmlspecialchars($fila['alergias']) . '</td></tr>';
+    echo '<tr><th>Farmacología</th><td>' . htmlspecialchars($fila['farmacologia']) . '</td></tr>';
+    echo '<tr><th>Desarrollo psicomotriz</th><td>' . htmlspecialchars($fila['desarrolloPSi']) . '</td></tr>';
+    echo '<tr><th>Observaciones</th><td>' . nl2br(htmlspecialchars($fila['observaciones'])) . '</td></tr>';
+    echo '<tr><th>Receta</th><td>' . nl2br(htmlspecialchars($fila['receta'])) . '</td></tr>';
+    echo '<tr><th>Seguimiento</th><td>' . nl2br(htmlspecialchars($fila['seguimiento'])) . '</td></tr>';
+    echo '<tr><th>Patologías detectadas</th><td><ul style="margin:0;padding-left:18px;">';
+    if ($fila['onicopatias']) echo '<li>Onicopatías</li>';
+    if ($fila['queratopatias']) echo '<li>Queratopatías</li>';
+    if ($fila['dermatopatias']) echo '<li>Dermatopatías</li>';
+    if ($fila['prominenciasOseas']) echo '<li>Prominencias óseas</li>';
+    if ($fila['altDigitales']) echo '<li>Alteraciones digitales</li>';
+    echo '</ul></td></tr>';
 
     if (!empty($fila['archivo'])) {
-        echo "<h4>Archivo adjunto:</h4>";
-        echo '<img src="/ruta/archivos/' . htmlspecialchars($fila['archivo']) . '" width="150">';
+        echo '<tr><th>Archivo adjunto</th><td>';
+        $ext = pathinfo($fila['archivo'], PATHINFO_EXTENSION);
+        if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif'])) {
+            echo '<img src="' . htmlspecialchars($fila['archivo']) . '" width="150">';
+        } else {
+            echo '<a href="' . htmlspecialchars($fila['archivo']) . '" target="_blank">Descargar archivo</a>';
+        }
+        echo '</td></tr>';
     }
 
-    echo "<hr>";
+    echo '</table>';
+    echo '</div>';
 }
-
 ?>

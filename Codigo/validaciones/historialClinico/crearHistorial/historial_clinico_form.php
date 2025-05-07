@@ -113,6 +113,6 @@ $idPaciente = $_GET['idPaciente'] ?? null;
             <td><textarea name="seguimiento" id="seguimiento"></textarea></td>
         </tr>
     </table>
-    <button type="submit" name="">Crear</button>
+    <button type="submit">Crear</button>
 </form>
 <!-- <script src="/Codigo/validaciones/historialClinico/agregarPatologia.js"></script> -->
