@@ -17,8 +17,8 @@ $sql = "SELECT
             P.telefono,
             P.dni,
             P.fechaNacim
-        FROM Historial H
-        JOIN Pacientes P ON H.idHistorial = P.idHistorial
+        FROM Pacientes P
+        LEFT JOIN Historial H ON P.idHistorial = H.idHistorial
         WHERE P.idPacientes = ?
         ORDER BY H.fecha DESC";
 
