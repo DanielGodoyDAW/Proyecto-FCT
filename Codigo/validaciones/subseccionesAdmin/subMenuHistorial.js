@@ -11,18 +11,16 @@ document.addEventListener('DOMContentLoaded', function () {
         if (subEnlaces[0]) subEnlaces[0].classList.add('activo');
     }
 
-    // Evento de submenú
-    subEnlaces.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const subId = this.getAttribute('data-seccion');
-
-            subsecciones.forEach(sub => sub.classList.remove('activo'));
-            subEnlaces.forEach(link => link.classList.remove('activo'));
-
-            document.getElementById(subId)?.classList.add('activo');
-            this.classList.add('activo');
-        });
-    });
 });
+
+function mostrarHistorial(subseccionId) {
+    document.querySelectorAll('.contenido-admin').forEach(sec => sec.classList.remove('activo'));
+    document.getElementById('historial').classList.add('activo');
+
+    document.querySelectorAll('.menu-admin a').forEach(link => link.classList.remove('activo'));
+    document.querySelector('[data-seccion="historial"]').classList.add('activo');
+
+    document.querySelectorAll('#historial .subcontenido').forEach(sub => sub.classList.remove('activo'));
+    document.getElementById(subseccionId).classList.add('activo');
+}
+

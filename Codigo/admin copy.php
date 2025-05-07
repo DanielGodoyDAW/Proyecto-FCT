@@ -18,27 +18,32 @@
     <nav class="menu-admin">
         <ul>
             <li><a href="#" data-seccion="busqueda" class="activo">Búsqueda de Paciente e Historial</a></li>
-            <li><a href="#" data-seccion="historial">Historial Clínico</a></li>
+            <li id="menu-historial" style="display: none;"><a href="#" data-seccion="historial">Historial Clínico</a></li>
             <li><a href="#" data-seccion="promociones">Agregar Servicio</a></li>
         </ul>
     </nav>
 
     <main class="contenedor">
         <!-- Secciones de contenido -->
-        <div class="busqueda-historial">
-            <div id="busqueda" class="contenido-admin activo">
-                <?php require_once '../Codigo/validaciones/subseccionesAdmin/busquedaP.php'; ?>
+        <div id="busqueda" class="contenido-admin activo">
+            <?php require_once '../Codigo/validaciones/subseccionesAdmin/busquedaP.php'; ?>
+        </div>
+        <div id="historial" class="contenido-admin">
+            <nav class="submenu-historial">
+                <ul>
+                    <!-- <li><a href="#" data-subseccion="crear" class="activo">Crear</a></li> -->
+                    <li><a href="#" data-subseccion="editar">Editar</a></li>
+                    <li><a href="#" data-subseccion="ver">Ver</a></li>
+                </ul>
+            </nav>
+            <!-- <div id="crear" class="subcontenido activo">
+                <?php //require_once '../Codigo/validaciones/historialClinico/crearHistorial/historial_clinico_form.php'; ?>
+            </div> -->
+            <div id="editar" class="subcontenido activo">
+                <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
             </div>
-            <div id="historial" class="contenido-admin">
-                <nav class="submenu-historial">
-                    <?php  ?>
-                </nav>
-                <div id="editar" class="subcontenido">
-                    <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
-                </div>
-                <div id="ver" class="subcontenido activo">
-                    <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php'; ?>
-                </div>
+            <div id="ver" class="subcontenido">
+                <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php'; ?>
             </div>
         </div>
         <div id="promociones" class="contenido-admin">
