@@ -32,13 +32,25 @@ while ($fila = $result->fetch_assoc()) {
         $nombreCompleto .= ' ' . $fila['apellido2'];
     }
 
+    $formatter = new \IntlDateFormatter(
+        'es_ES', // Localización para español de España
+        \IntlDateFormatter::LONG,
+        \IntlDateFormatter::NONE,
+        'Europe/Madrid', // Zona horaria
+        \IntlDateFormatter::GREGORIAN,
+        "d 'de' MMMM 'de' yyyy" // Formato personalizado
+    );
+
+    $fecha = new DateTime($fila['fechaNacim']);
+    $fechaFormateada = $formatter->format($fecha);
+
     echo '<div class="columna">';
     echo '<h3>Consulta del ' . htmlspecialchars($fila['fecha']) . '</h3>';
     echo '<table class="citas">';
     echo '<tr><th>Paciente</th><td>' . htmlspecialchars($nombreCompleto) . '</td></tr>';
     echo '<tr><th>Teléfono</th><td>' . htmlspecialchars($fila['telefono']) . '</td></tr>';
     echo '<tr><th>DNI</th><td>' . htmlspecialchars($fila['dni']) . '</td></tr>';
-    echo '<tr><th>Fecha de nacimiento</th><td>' . htmlspecialchars($fila['fechaNacim']) . '</td></tr>';
+    echo '<tr><th>Fecha de nacimiento</th><td>' . htmlspecialchars($fechaFormateada) . '</td></tr>';
     echo '<tr><th>Motivo</th><td>' . nl2br(htmlspecialchars($fila['motivo'])) . '</td></tr>';
     echo '<tr><th>Descripción</th><td>' . nl2br(htmlspecialchars($fila['descripcion'])) . '</td></tr>';
     echo '<tr><th>Antecedentes podológicos</th><td>' . nl2br(htmlspecialchars($fila['antec_podologicos'])) . '</td></tr>';
