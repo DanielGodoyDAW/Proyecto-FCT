@@ -68,6 +68,22 @@ button:hover {
     background-color: var(--colorFondoDivs);
 }
 
+/*para los textarea*/
+.texto-limitado {
+    max-height: 150px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+/*icono de whatsapp en historial*/
+.whatsapp-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 6px;
+    width: 18px;
+    height: 18px;
+}
+
 /*Reponsive */
 
 @media (max-width: 768px) {
