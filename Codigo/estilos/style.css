@@ -378,6 +378,25 @@ footer {
     padding: 5px 10px;
     border-radius: 5px;
 }
+/*para borrar patologias*/
+
+.patologia-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.patologia-input input {
+    flex-grow: 1;
+}
+
+.eliminar-patologia {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.2em;
+    cursor: pointer;
+}
 
 /*botones editar y ver historial*/
 .btnH {
@@ -398,6 +417,25 @@ footer {
 
 .acciones-historial{
     margin-top: 10px;
+}
+
+/*Estilos para la tabla de editar historial clinico*/
+
+#tabla_historial_clinico, #inspeccion, #table-tratamiento, #seguimiento{
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+}
+
+ #tabla_historial_clinico td,  #inspeccion td,  #table-tratamiento td, #seguimiento td {
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+    word-break: break-word;
+}
+#tabla_historial_clinico th, #inspeccion th, #table-tratamiento th, #seguimiento th {
+    background-color: #f4f4f4;
+    font-weight: bold;
 }
 
 /* Responsive para moviles*/

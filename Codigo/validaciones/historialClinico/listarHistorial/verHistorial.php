@@ -70,11 +70,12 @@ while ($fila = $result->fetch_assoc()) {
     echo '<tr><th>Descripción</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['descripcion'])) . '</td></tr>';
     echo '<tr><th>Antecedentes podológicos</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['antec_podologicos'])) . '</td></tr>';
     echo '<tr><th>Antecedentes quirúrgicos</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['antec_quirurgicos'])) . '</td></tr>';
-    echo '<tr><th>Antecedentes familiares</th><td>' . htmlspecialchars($fila['antecedentes']) . '</td></tr>';
-    echo '<tr><th>Alergias</th><td>' . htmlspecialchars($fila['alergias']) . '</td></tr>';
-    echo '<tr><th>Farmacología</th><td>' . htmlspecialchars($fila['farmacologia']) . '</td></tr>';
-    echo '<tr><th>Desarrollo psicomotriz</th><td>' . htmlspecialchars($fila['desarrolloPSi']) . '</td></tr>';
-    echo '<tr><th>Observaciones</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['observaciones'])) . '</td></tr>';
+    echo '<tr><th>Patologías</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['patologias'])) . '</td></tr>';
+    echo '<tr><th>Antecedentes familiares</th><td>' . nl2br(htmlspecialchars($fila['antecedentes'])) . '</td></tr>';
+    echo '<tr><th>Alergias</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['alergias'])) . '</td></tr>';
+    echo '<tr><th>Farmacología</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['farmacologia'])) . '</td></tr>';
+    echo '<tr><th>Desarrollo psicomotriz</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['desarrolloPSi'])) . '</td></tr>';
+    echo '<tr><th>Observaciones</th><td class="texto-limitado" class="texto-limitado">' . nl2br(htmlspecialchars($fila['observaciones'])) . '</td></tr>';
     echo '<tr><th>Receta</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['receta'])) . '</td></tr>';
     echo '<tr><th>Seguimiento</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['seguimiento'])) . '</td></tr>';
     echo '<tr><th>Patologías detectadas</th><td><ul style="margin:0;padding-left:18px;">';

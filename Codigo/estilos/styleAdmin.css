@@ -67,6 +67,23 @@ button:hover {
 .seccion.busqueda, #crear, #editar, #ver {
     background-color: var(--colorFondoDivs);
 }
+/* Estilo para tabla de historial */
+table.citas {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+}
+
+table.citas th, table.citas td {
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+    word-break: break-word;
+}
+
+table.citas th {
+    font-weight: bold;
+}
 
 /*para los textarea*/
 .texto-limitado {
