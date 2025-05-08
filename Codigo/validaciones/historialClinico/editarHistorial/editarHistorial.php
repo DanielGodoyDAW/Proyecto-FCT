@@ -26,14 +26,26 @@ $stmt->execute();
 $result = $stmt->get_result();
 $historial = $result->fetch_assoc();
 
+// Verificar si se obtuvo del historial patologias hacemos un trim y un explode para convertirlo en array
 $patologiasMarcadas = isset($historial['patologias']) ? array_map('trim', explode(',', $historial['patologias'])) : [];
+
+//patologias predefinidas
+$patologiasPredefinidas = ["Diabetes", "Colesterol", "HTA", "Alt. Coagulacion", "Artrosis", "Embarazo/Lactancia"];
+//patologias personalizadas si es diferente a las predefinidas y no esta vacia
+$patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefinidas);
+
 ?>
 <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
+<script defer src="/Codigo/validaciones/historialClinico/editarHistorial/agregarPatologia.js"></script>
 <link rel="stylesheet" href="/Codigo/estilos/style.css">
 <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_historial_clinico.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
 
     <table id="tabla_historial_clinico">
+        <tr>
+            <td><label for="descripcion">Descripcion</label></td>
+            <td><textarea name="descripcion" id="descripcion"><?= htmlspecialchars($historial['descripcion']) ?></textarea></td>
+        </tr>
         <tr>
             <td><label for="motivo">Motivo de la consulta:</label></td>
             <td><textarea name="motivo" id="motivo"><?= htmlspecialchars($historial['motivo']) ?></textarea></td>
@@ -61,9 +73,20 @@ $patologiasMarcadas = isset($historial['patologias']) ? array_map('trim', explod
             <td><input type="checkbox" name="patologias[]" value="Artrosis" <?= in_array("Artrosis", $patologiasMarcadas) ? 'checked' : '' ?>>Artrosis</td>
             <td><input type="checkbox" name="patologias[]" value="Embarazo/Lactancia" <?= in_array("Embarazo/Lactancia", $patologiasMarcadas) ? 'checked' : '' ?>>Embarazo/Lactancia</td>
         </tr>
+        <?php foreach ($patologiasPersonalizadas as $personalizada) { ?>
+            <tr>
+                <td></td>
+                <td colspan="3">
+                    <div class="patologia-input">
+                        <input type="text" name="patologias[]" value="<?= htmlspecialchars($personalizada) ?>" style="width: 50%;">
+                        <button type="button" class="eliminar-patologia" title="Eliminar">❌</button>
+                    </div>
+                </td>
+            </tr>
+        <?php }; ?>
         <tr>
             <td>Agregar patologia</td>
-            <td><button id="agregarPatologia">Añadir</button></td>
+            <td colspan="3"><button id="agregarPatologia">Añadir</button></td>
         </tr>
         <tr>
             <td><label for="antecedentes">Antec. familiares:</label></td>
@@ -116,7 +139,7 @@ $patologiasMarcadas = isset($historial['patologias']) ? array_map('trim', explod
         }
         ?>
         <tr>
-            <td><label for="dx">Descripcion:</label></td>
+            <td><label for="dx">Descripcion detallada:</label></td>
             <td><textarea name="dx" id="dx"><?= htmlspecialchars($historial['dx']) ?></textarea></td>
         </tr>
     </table>
