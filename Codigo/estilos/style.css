@@ -394,6 +394,12 @@ footer {
     margin: 5px;
 }
 
+/*div de editar historial, de botones volver y ver historial*/
+
+.acciones-historial{
+    margin-top: 10px;
+}
+
 /* Responsive para moviles*/
 
 @media (max-width: 768px) {

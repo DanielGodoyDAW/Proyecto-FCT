@@ -39,11 +39,15 @@ if (isset($_POST['paciente'])) {
                 $fecha = new DateTime($valor);
                 $valor = $formatter->format($fecha);
             }
-
+            if($campo === 'ID'){
+                $_SESSION['idPaciente'] = $valor;
+            }
             echo "<li><strong>" . htmlspecialchars($campo) . ":</strong> " . htmlspecialchars($valor) . "</li>";
         }
         echo "</ul>";
         echo '<div class="acciones-historial">';
+        // echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php?idPaciente='.$idPaciente.'">✏️ Editar Historial</a>';
+        // echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php?idPaciente='.$idPaciente.'">👁 Ver Historial</a>';
         echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial</button>';
         echo '<button class="btnH" onclick="mostrarHistorial(\'ver\')">👁 Ver Historial</button>';
         echo '</div>';
@@ -51,3 +55,4 @@ if (isset($_POST['paciente'])) {
         echo "<p>No se encontró el paciente.</p>";
     }
 }
+?>

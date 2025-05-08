@@ -143,10 +143,10 @@ $patologiasMarcadas = isset($historial['patologias']) ? array_map('trim', explod
         </tr>
     </table>
 
-    <button type="submit">Guardar Cambios</button>
+    <button class="btnH" type="submit">Guardar Cambios</button>
 </form>
 
 <div class="acciones-historial">
-    <button class="btnH" onclick="location.href='/Codigo/admin.php'">Volver</button>
+    <button class="btnH" onclick="location.href='/Codigo/admin.php'">⬅ Volver</button>
     <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial</button>
 </div>
