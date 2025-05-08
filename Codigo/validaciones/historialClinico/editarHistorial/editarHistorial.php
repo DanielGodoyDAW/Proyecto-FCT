@@ -139,7 +139,7 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
         }
         ?>
         <tr>
-            <td><label for="dx">Descripcion detallada:</label></td>
+            <td><label for="dx">Diagnostico:</label></td>
             <td><textarea name="dx" id="dx"><?= htmlspecialchars($historial['dx']) ?></textarea></td>
         </tr>
     </table>
