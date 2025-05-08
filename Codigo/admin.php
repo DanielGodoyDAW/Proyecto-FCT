@@ -17,7 +17,7 @@
     <!-- Menú de navegación -->
     <nav class="menu-admin">
         <ul>
-            <li><a href="#" data-seccion="busqueda" class="activo">Búsqueda de Paciente e Historial</a></li>
+            <li><a href="#" data-seccion="busqueda" class="activo">Búsqueda de Paciente</a></li>
             <li><a href="#" data-seccion="historial">Historial Clínico</a></li>
             <li><a href="#" data-seccion="promociones">Agregar Servicio</a></li>
         </ul>
