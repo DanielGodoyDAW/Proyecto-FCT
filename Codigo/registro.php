@@ -61,8 +61,7 @@ $errores = $_SESSION['errores'] ?? [];
                 <tr>
                     <td><label for="extension">Prefijo: <span class="obligatorio">*</span></label></td>
                     <td><select id="extension" name="extension" required>
-                            <option value="" selected disabled>Selecciona un Prefijo</option>
-                            <option value="+34">+34 (España)</option>
+                            <option value="+34" selected>+34 (España)</option>
                             <option value="+1">+1 (EE.UU.)</option>
                             <option value="+44">+44 (Reino Unido)</option>
                             <option value="+66">+66 (Tailandia)</option>
