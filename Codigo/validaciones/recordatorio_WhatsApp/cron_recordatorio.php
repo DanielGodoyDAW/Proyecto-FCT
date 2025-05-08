@@ -7,8 +7,7 @@ $pass = '';
 $charset = 'utf8mb4';
 
 // UltraMsg API Config
-$env = parse_ini_file(__DIR__ . '/../../config.env'); 
-
+$env = parse_ini_file('C:/xampp/htdocs/Proyecto-FCT/config.env');
 $instance_id = $env['ULTRAMSG_INSTANCE_ID'];
 $token = $env['ULTRAMSG_API_TOKEN'];
 
@@ -39,9 +38,9 @@ $sql = "
     JOIN 
         Pacientes P ON C.idPacientes = P.idPacientes
     WHERE 
-        C.fecha = CURDATE() + INTERVAL 1 DAY
-        AND C.bloqueada = 0
-        AND C.confirmada = 1
+        C.fecha >= DATE(NOW() + INTERVAL 1 DAY) AND 
+        C.fecha < DATE(NOW() + INTERVAL 2 DAY) AND
+        C.bloqueada = 0
 ";
 
 $stmt = $pdo->query($sql);
@@ -57,21 +56,40 @@ foreach ($citas as $cita) {
 
     $mensaje = "Hola {$nombreCompleto}, te recordamos que mañana tienes una cita a las {$hora}h en la Clínica de Podología.";
 
-    // Llamada a la API de UltraMsg
-    $url = "https://api.ultramsg.com/{$instance_id}/messages/chat";
-    $data = [
+    $params = array(
         'token' => $token,
         'to' => $telefono,
         'body' => $mensaje
-    ];
+    );
 
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($ch);
-    curl_close($ch);
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.ultramsg.com/{$instance_id}/messages/chat",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_SSL_VERIFYHOST => 0,
+        CURLOPT_SSL_VERIFYPEER => 0,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => http_build_query($params),
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded"
+        ),
+    ));
 
-    // Log básico
-    echo "Enviado a {$nombre} {$apellido} ({$telefono}) - Respuesta: {$response}\n";
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    curl_close($curl);
+
+    if ($err) {
+        echo "Error al enviar a {$nombreCompleto} ({$telefono}): $err\n";
+    } else {
+        echo "Enviado a {$nombreCompleto} ({$telefono}) - Respuesta: {$response}\n";
+    }
 }
-?>
+
+
+//para ejecutarlo desde la terminal cmd
+//C:\xampp\php\php.exe C:\xampp\htdocs\Proyecto-FCT\Codigo\validaciones\recordatorio_WhatsApp\cron_recordatorio.php
