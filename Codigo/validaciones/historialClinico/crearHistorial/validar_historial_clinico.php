@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $altDigitales = isset($_POST['altDigitales']) ? 1 : 0;
 
     // Procesar archivo (si se sube uno)
-    $archivoRuta = null;
+
     $archivoRuta = null;
     if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) {
         $nombreArchivo = basename($_FILES['archivo']['name']);
