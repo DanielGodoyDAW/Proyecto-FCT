@@ -5,6 +5,7 @@ require_once __DIR__ . '/enviarMail.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
 
+    // Verifica si el campo de correo está vacío
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "<script>alert('Correo inválido.'); window.location.href='/Codigo/index.php';</script>";
         exit;
@@ -18,14 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $token = bin2hex(random_bytes(32));
-        $expira = date("Y-m-d H:i:s", strtotime("+1 hour"));
+        $token = bin2hex(random_bytes(32)); // Genera un token aleatorio
+        $expira = date("Y-m-d H:i:s", strtotime("+1 hour")); // Establece la expiración del token a 1 hora
 
         $update = $conexion->prepare("UPDATE pacientes SET token_recuperacion = ?, token_expira = ? WHERE email = ?");
         $update->bind_param("sss", $token, $expira, $email);
         $update->execute();
 
-        $resultadoCorreo = enviarCorreoRecuperacion($email, $token);
+        $resultadoCorreo = enviarCorreoRecuperacion($email, $token); // Llama a la función para enviar el correo
 
         if ($resultadoCorreo === true) {
             echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo.'); window.location.href='/Codigo/index.php'</script>";

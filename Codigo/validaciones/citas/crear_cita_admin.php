@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 require_once __DIR__ . '/../../googleCalendar/google_calendar.php';
 
-// 1. Recoger datos del formulario
+// Recoger datos del formulario
 $fecha = $_POST['fecha'];
 $hora = $_POST['hora'];
 $nombre = $_POST['nombre'];
@@ -17,7 +17,7 @@ $dni = 'TEMP' . substr(md5(uniqid()), 0, 8);
 $pass = password_hash('Contra+1234', PASSWORD_DEFAULT);
 $temporal = 1; // Asignamos 1 para indicar que es temporal
 
-// 2. Insertar paciente
+// Insertar paciente
 $stmtPaciente = $conexion->prepare("
     INSERT INTO Pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass, es_temporal)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -29,7 +29,7 @@ if (!$stmtPaciente->execute()) {
 }
 $idPaciente = $stmtPaciente->insert_id;
 
-// 3. Insertar cita
+// Insertar cita
 $stmtCita = $conexion->prepare("
     INSERT INTO Citas (fecha, hora, idPacientes, idAdmin, estado, confirmada)
     VALUES (?, ?, ?, ?, 'pendiente', 1)
@@ -42,14 +42,14 @@ if (!$stmtCita->execute()) {
 }
 $idCita = $stmtCita->insert_id;
 
-// 4. Crear evento en Google Calendar
+// Crear evento en Google Calendar
 try {
     $horaFin = date("H:i", strtotime($hora . " +30 minutes"));
     $anotaciones = "Cita reservada manualmente por el admin.";
     $bloqueada = 0; // No es bloqueada en este caso
     $google_event_id = crearEvento($fecha, $hora, $horaFin, $anotaciones, $idPaciente, $bloqueada);
 
-    // 5. Guardar ID del evento en la BD
+    // Guardar ID del evento en la BD
     $update = $conexion->prepare("UPDATE Citas SET google_event_id = ? WHERE idCita = ?");
     $update->bind_param("si", $google_event_id, $idCita);
     $update->execute();
@@ -57,7 +57,7 @@ try {
     error_log("Error creando evento en Google Calendar: " . $e->getMessage());
 }
 
-// 6. Redirigir con mensaje
+// Redirigir con mensaje
 echo "<script>alert('Cita creada con éxito.');</script>";
 header("Location: /Codigo/citas.php");
 exit;

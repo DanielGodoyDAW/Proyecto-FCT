@@ -22,6 +22,7 @@ function obtenerDatosPaciente($idPaciente)
 {
     require_once __DIR__ . '/../conexion/conexion.php';
     global $conexion;
+    //consulta para obtener los datos del paciente
     $query = "SELECT nombre, apellido1, apellido2, telefono FROM Pacientes WHERE idPacientes = ?";
     $stmt = $conexion->prepare($query);
     $stmt->bind_param("i", $idPaciente);

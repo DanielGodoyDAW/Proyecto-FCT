@@ -81,5 +81,4 @@ require_once __DIR__ . '/../conexion/conexion.php';
     </nav>
     <br>
     <br>
-    <!-- <?php var_dump($_SESSION); ?> Para depurar la sesión actual -->
 </header>

@@ -6,6 +6,7 @@ if (!isset($_SESSION['idAdmin'])) {
     exit;
 }
 
+//consulta para obtener los pacientes temporales
 $query = "SELECT idPacientes, nombre, apellido1, apellido2, telefono, email, dni FROM Pacientes WHERE dni LIKE 'TEMP%'";
 $resultado = $conexion->query($query);
 

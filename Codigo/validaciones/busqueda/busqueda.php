@@ -1,5 +1,16 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+
+$contenidoResultado = '';
+
+if (isset($_SESSION['idPaciente'])) {
+    $_POST['paciente'] = $_SESSION['idPaciente'];
+
+    // Captura la salida del include en un buffer
+    ob_start();
+    include __DIR__ . '/../../validaciones/busqueda/procesar_busqueda.php';
+    $contenidoResultado = ob_get_clean();
+}
 ?>
 
 <!-- Buscador dinámico nuevo -->
@@ -10,57 +21,100 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 </div>
 <div id="resultadoBusqueda">
     <h2>Resultado de la Búsqueda</h2>
+    <?php echo $contenidoResultado; ?>
 </div>
 
 <!-- jQuery y Ajax para el buscador dinámico -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    // Espera a que el DOM esté completamente cargado
     $(document).ready(function() {
+
+        // Cuando se escribe en el campo de búsqueda
         $("#busquedaPaciente").keyup(function() {
-            let query = $(this).val();
+            let query = $(this).val(); // Captura el valor escrito
+
+            // Si el texto tiene más de 1 carácter, lanza búsqueda AJAX
             if (query.length > 1) {
                 $.ajax({
-                    url: '/Codigo/validaciones/busqueda/buscar_paciente.php',
+                    url: '/Codigo/validaciones/busqueda/buscar_paciente.php', // Script que busca pacientes en la base de datos
                     method: 'POST',
                     data: {
-                        consulta: query
+                        consulta: query // Envía el texto escrito al servidor
                     },
                     success: function(data) {
-                        $("#sugerencias").fadeIn();
-                        $("#sugerencias").html(data);
+                        $("#sugerencias").fadeIn(); // Muestra el contenedor de sugerencias
+                        $("#sugerencias").html(data); // Inserta los resultados devueltos
                     }
                 });
             } else {
+                // Si el input tiene 1 carácter o menos, oculta sugerencias
                 $("#sugerencias").fadeOut();
             }
         });
 
+        // Cuando se hace clic en el botón "Resetear"
         $("#resetBusqueda").click(function() {
-            $("#busquedaPaciente").val(''); // Vacía el input
+            $("#busquedaPaciente").val(''); // Limpia el campo de texto
             $("#sugerencias").fadeOut(); // Oculta las sugerencias
-            $("#resultadoBusqueda").html('<h2>Resultado de la Búsqueda</h2>');
+            $("#resultadoBusqueda").html('<h2>Resultado de la Búsqueda</h2>'); // Restaura el contenido inicial
         });
 
-        // Cuando hace click en una sugerencia
+        // Cuando el usuario hace clic en una sugerencia
         $(document).on('click', '.sugerencia-item', function() {
-            const pacienteSeleccionado = $(this).data('id'); // Usamos el data-id que pongamos en PHP
+            const pacienteSeleccionado = $(this).data('id'); // ID del paciente
             $("#busquedaPaciente").val($(this).text());
             $("#sugerencias").fadeOut();
 
-            // Nueva petición para mostrar los datos del paciente
+            // Primero actualiza la sesión en el servidor
             $.ajax({
-                url: '/Codigo/validaciones/busqueda/procesar_busqueda.php',
+                url: '/Codigo/validaciones/busqueda/guardar_id_paciente.php',
                 method: 'POST',
                 data: {
-                    paciente: pacienteSeleccionado
+                    id: pacienteSeleccionado
                 },
-                success: function(data) {
-                    $("#resultadoBusqueda").html(data);
+                success: function(response) {
+                    if (response.trim() === 'ok') {
+                        // Luego recarga la página con la sesión ya actualizada
+                        location.reload();
+                    } else {
+                        console.error('Error al guardar ID en sesión');
+                    }
+                },
+                error: function() {
+                    console.error('Error AJAX al guardar ID en sesión');
                 }
             });
         });
     });
+
+    // Al hacer clic en un enlace o botón con la clase .redirigir-historial
+    $(document).on('click', '.redirigir-historial', function() {
+        const sub = $(this).data('subseccion'); // Captura el valor de la subsección a mostrar
+
+        // Oculta todas las secciones principales y desactiva sus botones
+        $('.contenido-admin').removeClass('activo');
+        $('.menu-admin a').removeClass('activo');
+
+        // Muestra la sección principal del historial
+        $('#historial').addClass('activo');
+        $('.menu-admin a[data-seccion="historial"]').addClass('activo');
+
+        // Oculta todas las subsecciones del historial
+        $('#historial .subcontenido').removeClass('activo');
+        $('.submenu-historial a').removeClass('activo');
+
+        // Activa solo la subsección correspondiente
+        $('#' + sub).addClass('activo');
+        $('.submenu-historial a[data-seccion="' + sub + '"]').addClass('activo');
+
+        // Hace scroll hacia la sección de historial
+        $('html, body').animate({
+            scrollTop: $('#historial').offset().top
+        }, 300);
+    });
 </script>
+
 
 
 <style>

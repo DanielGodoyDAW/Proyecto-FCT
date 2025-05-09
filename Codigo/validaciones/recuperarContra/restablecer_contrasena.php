@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
-ob_start();
+ob_start(); 
 
+//si no existe el token o esta vacio, se le indica al usuario que no se ha proporcionado el token
 if (!isset($_GET['token']) || empty($_GET['token'])) {
     echo "Token no proporcionado.";
     exit;
@@ -9,6 +10,7 @@ if (!isset($_GET['token']) || empty($_GET['token'])) {
 
 $token = $_GET['token'];
 
+//consulta para verificar si el token es válido y no ha expirado
 $sql = "SELECT * FROM pacientes WHERE token_recuperacion = ? AND token_expira > NOW()";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("s", $token);
@@ -25,7 +27,7 @@ ob_end_flush();
 
 <!DOCTYPE html>
 <html lang="es">
-
+<!-- en este archivo declaro todo, tanto js como styles, por diversos problemas que tuve al intentar cargarlos en sus respectivos ficheros -->
 <head>
     <meta charset="UTF-8">
     <title>Restablecer Contraseña</title>
@@ -53,7 +55,7 @@ ob_end_flush();
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
-            background: #fff;
+            background-color:  #E8F0F1;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
@@ -87,8 +89,8 @@ ob_end_flush();
             background-color: #0056b3;
         }
     </style>
-    <!-- Como no consigo que cargue archivos externo, por los puertos, lo declaro aqui -->
     <script>
+        // Función para alternar la visibilidad de la contraseña
         function alternarContrasena(id) {
             const input = document.getElementById(id);
             if (input.type === "password") {

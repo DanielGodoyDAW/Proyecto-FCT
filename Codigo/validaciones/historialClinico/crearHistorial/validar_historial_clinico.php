@@ -1,128 +1,131 @@
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['paciente'])) {
-
-    // Obtener el ID del paciente que es el mismo que el idHistorial
-    $idPaciente = $_POST['idPaciente'];
-   
-    $sql = "INSERT INTO Historial ";
-
-    //tabla 1 historial clinico
-    if (isset($_POST['motivo'])) {
-        $sql.= ",motivo = ".$_POST['motivo'];
-    }
-    if (isset($_POST['antec_podologicos'])) {
-        $antec_podologicos = $_POST['antec_podologicos'];
-    }
-    if (isset($_POST['antec_quirurgicos'])) {
-        $antec_quirurgicos = $_POST['antec_quirurgicos'];
-
-    }
-   
-    if (isset($_POST['antecedentes'])) {
-        $antecedentes = $_POST['antecedentes'];
-    }
-    if (isset($_POST['alergias'])) {
-        $alergias = $_POST['alergias'];
-    }
-    if (isset($_POST['farmacologia'])) {
-        $farmacologia = $_POST['farmacologia'];
-    }
-    if (isset($_POST['desarrolloPSi'])) {
-        $desarrolloPSi = $_POST['desarrolloPSi'];
-    }
-    if (isset($_POST['observaciones'])) {
-        $observaciones = $_POST['observaciones'];
-        // tabla 2 inspeccion
-    }
-    if (isset($_POST['archivo'])) {
-        $archivo = $_POST['archivo'];
-    }
-    if (isset($_POST['onicopatias'])) {
-        $onicopatias = $_POST['onicopatias'];
-    }
-    if (isset($_POST['queratopatias'])) {
-        $inspeccion = $_POST['queratopatias'];
-    }
-    if (isset($_POST['dermatopatias'])) {
-        $alteraciones = $_POST['dermatopatias'];
-    }
-    if (isset($_POST['prominenciasOseas'])) {
-        $alteraciones = $_POST['prominenciasOseas'];
-    }
-    if (isset($_POST['altDigitales'])) {
-        $alteraciones = $_POST['altDigitales'];
-    }
-    if (isset($_POST['dx'])) {
-        $dx = $_POST['dx'];
-        // tabla 3 table-tratamiento
-    }
-    if (isset($_POST['tratamiento'])) {
-        $tratamiento = $_POST['tratamiento'];
-    }
-    if (isset($_POST['receta'])) {
-        $tratamientoTale = $_POST['receta'];
-        //tabla 4 seguimiento
-    }
-    if (isset($_POST['fecha'])) {
-        $seguimiento = $_POST['fecha'];
-    }
-    if (isset($_POST['seguimiento'])) {
-        $observaciones = $_POST['seguimiento'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idPaciente = $_POST['idPaciente'] ?? null;
+    if (!$idPaciente) {
+        die("ID de paciente no proporcionado.");
     }
 
-     //se obtendra el array de patologias seleccionadas
-     if (isset($_POST['patologias'])) {
-        $arrayPatologias = $_POST['patologias'];
+    // Obtener idHistorial desde la tabla Pacientes
+    $stmt = $conexion->prepare("SELECT idHistorial FROM Pacientes WHERE idPacientes = ?");
+    $stmt->bind_param("i", $idPaciente);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $fila = $resultado->fetch_assoc();
+
+    if (!$fila) {
+        die("Paciente no encontrado.");
     }
 
-    
+    $idHistorial = $fila['idHistorial'];
 
-    
+    //patologías como string separado por comas
+    $patologias = $_POST['patologias'] ?? [];
+    $patologias_string = implode(', ', $patologias);
 
+    // Procesar checkboxes
+    $onicopatias = isset($_POST['onicopatias']) ? 1 : 0;
+    $queratopatias = isset($_POST['queratopatias']) ? 1 : 0;
+    $dermatopatias = isset($_POST['dermatopatias']) ? 1 : 0;
+    $prominenciasOseas = isset($_POST['prominenciasOseas']) ? 1 : 0;
+    $altDigitales = isset($_POST['altDigitales']) ? 1 : 0;
 
-    //para validar la imagen--------------------------
+    // Procesar archivo (si se sube uno)
+    $archivoRuta = null;
+    $archivoRuta = null;
+    if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) {
+        $nombreArchivo = basename($_FILES['archivo']['name']);
 
-    // Validar el tipo de archivo
-    $tipoArchivo = pathinfo($archivo['name'], PATHINFO_EXTENSION);
-    $tiposPermitidos = ['jpg', 'jpeg', 'png', 'pdf'];
+        //si no existe la carpeta, la crea
+        $carpetaArchivos = __DIR__ . '/../archivos/';
+        if (!file_exists($carpetaArchivos)) {
+            mkdir($carpetaArchivos, 0755, true);
+        }
 
-    if (!in_array($tipoArchivo, $tiposPermitidos)) {
-        echo "Tipo de archivo no permitido.";
-        exit;
+        $rutaDestino = $carpetaArchivos . $nombreArchivo;
+        move_uploaded_file($_FILES['archivo']['tmp_name'], $rutaDestino);
+
+        $archivoRuta = '/Codigo/validaciones/historialClinico/archivos/' . $nombreArchivo;
     }
 
-    //si no exite el directorio, lo crea
-    $directorioDestino = "/Codigo/validaciones/historialClinico/historiales/";
-    if (!is_dir($directorioDestino)) {
-        if (!mkdir($directorioDestino, 0777, true)) {
-            echo "Error al crear el directorio de destino.";
-            exit;
+    // ya que tengo un trigger que crea un historial automaticamente al crear el paciente
+    //hay que hacer un update en vez de un insert
+
+    $campos = [
+        'motivo',
+        'antec_podologicos',
+        'antec_quirurgicos',
+        'patologias' => $patologias_string,
+        'antecedentes',
+        'alergias',
+        'farmacologia',
+        'desarrolloPSi',
+        'observaciones',
+        'dx',
+        'tratamiento',
+        'receta',
+        'fecha',
+        'seguimiento'
+    ];
+
+    $chekbox = [
+        'onicopatias' => $onicopatias,
+        'queratopatias' => $queratopatias,
+        'dermatopatias' => $dermatopatias,
+        'prominenciasOseas' => $prominenciasOseas,
+        'altDigitales' => $altDigitales
+    ];
+
+    $camposFinales = [];
+    $tipos = '';
+    $valores = [];
+
+    foreach ($campos as $campo => $valor) {
+        $nombreCampo = is_string($campo) ? $campo : $valor;
+        $valorCampo = is_string($campo) ? $valor : ($_POST[$valor] ?? null);
+        if (!is_null($valorCampo) && $valorCampo !== '') {
+            $camposFinales[] = "$nombreCampo = ?";
+            $tipos .= 's';
+            $valores[] = $valorCampo;
         }
     }
-    $nombreArchivo = $_FILES['archivo']['name'];
-    $tamanoArchivo = $_FILES['archivo']['size'];
-    $tipoArchivo = $_FILES['archivo']['type'];
-    $rutaTemporal = $_FILES['archivo']['tmp_name'];
-    $directorioRelativo = '/Codigo/validaciones/historialClinico/historiales/';
-    $rutaDestino = $directorioDestino . basename($nombreArchivo);
 
-    // Validar el tamaño del archivo 
-    $tamanoMaximo = 2 * 1024 * 1024; // 2MB
-    if ($archivo['size'] > $tamanoMaximo) {
-        echo "El archivo es demasiado grande. El tamaño máximo permitido es de 2MB.";
-        exit;
+    // checkboxes: se actualizan siempre
+    foreach ($chekbox as $campo => $valor) {
+        $camposFinales[] = "$campo = ?";
+        $tipos .= 'i';
+        $valores[] = $valor;
     }
 
-    // Guardar el archivo en el servidor 
-    if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
-        echo "Error al mover el archivo.";
-        exit;
+    // archivo si se subió
+    if ($archivoRuta) {
+        $camposFinales[] = "archivo = ?";
+        $tipos .= 's';
+        $valores[] = $archivoRuta;
     }
 
-    //para validar la imagen-------------------------
+    // añadir WHERE y bind idHistorial
+    $camposSQL = implode(', ', $camposFinales);
+    $tipos .= 'i';
+    $valores[] = $idHistorial;
 
+    $sql = "UPDATE Historial SET $camposSQL WHERE idHistorial = ?";
+    $stmt = $conexion->prepare($sql);
 
+    if (!$stmt) {
+        die("Error al preparar: " . $conexion->error);
+    }
 
+    $stmt->bind_param($tipos, ...$valores);
+
+    if ($stmt->execute()) {
+        echo "<script>
+                alert('Historial actualizado correctamente.');
+                window.location.href = '/Codigo/admin.php#ver';
+            </script>";
+        exit;
+    } else {
+        echo "Error al actualizar historial: " . $stmt->error;
+    }
 }

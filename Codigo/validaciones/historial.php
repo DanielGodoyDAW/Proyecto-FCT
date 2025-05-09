@@ -10,8 +10,7 @@ if (isset($_SESSION["idAdmin"])) {
     //consulta para ver todas las citas del mes (pasadas o futuras) de cada paciente
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2, Pacientes.telefono 
               FROM Citas 
-              JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 
-              WHERE Citas.fecha >= CURDATE() 
+              JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes  
               ORDER BY Citas.fecha ASC";
     $stmt = $conexion->prepare($query);
     $stmt->execute();
@@ -58,7 +57,7 @@ if (isset($_SESSION["idAdmin"])) {
 
         $extension = $matches[1] ?? '+34'; //por defecto si no se encuentra la extension
         $telefono = $matches[2] ?? ''; //numero sin la extension
-        $wasap = "https://wa.me/" . $extension . $telefono; //extension de waasap concatenado con el numero sin espacios
+        $wasap = "https://wa.me/" . $extension . $telefono; //extension de wasap concatenado con el numero sin espacios
         echo '<tr>
             <td>' . $fechaFormateada  . '</td>
             <td>' . $cita['hora'] . '</td>

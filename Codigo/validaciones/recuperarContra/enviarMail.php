@@ -8,17 +8,21 @@ use PHPMailer\PHPMailer\Exception;
 
 function enviarCorreoRecuperacion($email, $token)
 {
+    // Inicia la sesión si no está iniciada
     global $conexion;
 
+    // Verifica si el email es válido
     $sql = "SELECT nombre, apellido1, apellido2, sexo FROM pacientes WHERE email = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
+    //si es mayor a 0, significa que existe el email en la base de datos
     if ($result->num_rows > 0) {
         $paciente = $result->fetch_assoc();
 
+        // Prepara el saludo según el sexo del paciente
         $saludo = "D.";
         if ($paciente['sexo'] === 'F') {
             $saludo = "Dña.";
@@ -26,6 +30,7 @@ function enviarCorreoRecuperacion($email, $token)
             $saludo = "Estimad@";
         }
 
+        // Prepara el nombre completo del paciente
         $nombreCompleto = "$saludo {$paciente['nombre']} {$paciente['apellido1']} {$paciente['apellido2']}";
 
         $mail = new PHPMailer(true);

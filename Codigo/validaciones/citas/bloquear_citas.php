@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
 
+//declaramos los tramos de horarios
 $horariosManana = [
     "09:00:00", "09:30:00", "10:00:00", "10:30:00",
     "11:00:00", "11:30:00", "12:00:00", "12:30:00"
@@ -14,15 +15,15 @@ $horariosTarde = [
 $fechaSeleccionada = $_POST['fecha'] ?? null;
 $diaSemana = date('N', strtotime($fechaSeleccionada));
 
-if (isset($_POST['bloquear']) && isset($_POST['bloquear_citas'])) {
-    foreach ($_POST['bloquear_citas'] as $hora) {
-        $check = $conexion->prepare("SELECT idCita FROM Citas WHERE fecha = ? AND hora = ? AND bloqueada = 1");
+if (isset($_POST['bloquear']) && isset($_POST['bloquear_citas'])) { 
+    foreach ($_POST['bloquear_citas'] as $hora) { //para cada hora seleccionada
+        $check = $conexion->prepare("SELECT idCita FROM Citas WHERE fecha = ? AND hora = ? AND bloqueada = 1"); //consulta para ver si ya existe una cita bloqueada
         $check->bind_param("ss", $fechaSeleccionada, $hora);
         $check->execute();
         $result = $check->get_result();
 
-        if ($result->num_rows == 0) {
-            $stmt = $conexion->prepare("INSERT INTO Citas (fecha, hora, estado, bloqueada, idAdmin) VALUES (?, ?, 'Bloqueada', 1, ?)");
+        if ($result->num_rows == 0) { //si no existe la cita bloqueada
+            $stmt = $conexion->prepare("INSERT INTO Citas (fecha, hora, estado, bloqueada, idAdmin) VALUES (?, ?, 'Bloqueada', 1, ?)"); //insertamos la cita bloqueada
             $stmt->bind_param("ssi", $fechaSeleccionada, $hora, $_SESSION['idAdmin']);
             $stmt->execute();
         }
@@ -45,12 +46,12 @@ while ($row = $result->fetch_assoc()) {
 ?>
 
 <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
-<h3>Bloquear nuevas citas</h3>
+<h3>Bloquear Agenda</h3>
 <div class="bloquear-container">
     <form method="POST">
         <input type="hidden" name="fecha" value="<?php echo htmlspecialchars($fechaSeleccionada); ?>">
 
-        <?php if ($diaSemana >= 1 && $diaSemana <= 4) { ?>
+        <?php if ($diaSemana >= 1 && $diaSemana <= 4) { ?> <!-- Lunes a Jueves -->
             <h4>Mañana</h4>
             <?php foreach ($horariosManana as $hora) { ?>
                 <?php if (!in_array($hora, $bloqueadas)) { ?>
@@ -61,10 +62,10 @@ while ($row = $result->fetch_assoc()) {
                 <?php } ?>
             <?php } ?>
 
-            <h4>Tarde</h4>
-            <?php foreach ($horariosTarde as $hora) { ?>
-                <?php if ($hora === "19:00:00") continue; ?>
-                <?php if (!in_array($hora, $bloqueadas)) { ?>
+            <h4>Tarde</h4> 
+            <?php foreach ($horariosTarde as $hora) { ?> 
+                <?php if ($hora === "19:00:00") continue; ?> <!-- Excluir 19:00:00 -->
+                <?php if (!in_array($hora, $bloqueadas)) { ?> <!-- Si la hora no está bloqueada -->
                     <label>
                         <input type="checkbox" name="bloquear_citas[]" value="<?php echo $hora; ?>">
                         <?php
@@ -77,7 +78,7 @@ while ($row = $result->fetch_assoc()) {
                     </label><br>
                 <?php } ?>
             <?php } ?>
-        <?php } elseif ($diaSemana == 5) { ?>
+        <?php } elseif ($diaSemana == 5) { ?> <!-- Viernes -->
             <h4>Mañana</h4>
             <?php foreach ($horariosManana as $hora) { ?>
                 <?php if (!in_array($hora, $bloqueadas)) { ?>
