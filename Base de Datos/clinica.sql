@@ -98,7 +98,7 @@ CREATE TABLE Citas_Promociones (
 CREATE TABLE Informe (
     idInforme INT PRIMARY KEY AUTO_INCREMENT,
     idHistorial INT NOT NULL,
-    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha DATE NOT NULL,
     motivo TEXT,
     descripcion TEXT,
     observaciones TEXT,
