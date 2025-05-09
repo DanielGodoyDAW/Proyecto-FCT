@@ -13,7 +13,7 @@ $receta = $_POST['receta'] ?? '';
 $archivoRuta = null;
 
 if (!$idInforme || !$fecha) {
-    die("Faltan datos obligatorios.");
+    echo "<script>alert('Faltan datos obligatorios.');</script>";
 }
 
 

@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
+
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
 
@@ -8,40 +9,53 @@ if (!$idPaciente) {
     echo "<p>No hay paciente cargado.</p>";
     return;
 }
-//Buscamos al paciente
+
+// Obtener idHistorial
 $stmt = $conexion->prepare("SELECT idHistorial FROM Pacientes WHERE idPacientes = ?");
 $stmt->bind_param("i", $idPaciente);
 $stmt->execute();
 $result = $stmt->get_result();
-$idHistorial = $result->fetch_assoc()['idHistorial'];
+$idHistorial = $result->fetch_assoc()['idHistorial'] ?? null;
 
+if (!$idHistorial) {
+    echo "<p>No se encontró historial clínico.</p>";
+    return;
+}
 
-while ($fila = $result->fetch_assoc()) {
+// Si hay un informe específico por GET, lo buscamos
+if (isset($_GET['idInforme']) && is_numeric($_GET['idInforme'])) {
+    $stmt = $conexion->prepare("SELECT * FROM Informe WHERE idInforme = ? AND idHistorial = ?");
+    $stmt->bind_param("ii", $_GET['idInforme'], $idHistorial);
+} else {
+    // Mostrar el último informe si no se seleccionó ninguno
+    $stmt = $conexion->prepare("SELECT * FROM Informe WHERE idHistorial = ? ORDER BY fecha DESC LIMIT 1");
+    $stmt->bind_param("i", $idHistorial);
+}
 
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($fila = $result->fetch_assoc()) {
     $formatter = new \IntlDateFormatter(
-        'es_ES', // Localización para español de España
+        'es_ES',
         \IntlDateFormatter::LONG,
         \IntlDateFormatter::NONE,
-        'Europe/Madrid', // Zona horaria
+        'Europe/Madrid',
         \IntlDateFormatter::GREGORIAN,
-        "d 'de' MMMM 'de' yyyy" // Formato personalizado
+        "d 'de' MMMM 'de' yyyy"
     );
 
     $fecha = new DateTime($fila['fecha']);
-    $fechaFormateada2 = $formatter->format($fecha);
-
-    // Textareas aplicados clase y nl2br para saltos de línea
+    $fechaFormateada = $formatter->format($fecha);
 
     echo '<div class="columna">';
-    echo '<h3>Consulta del ' . htmlspecialchars($fechaFormateada2) . '</h3>';
+    echo '<h3>Informe del ' . htmlspecialchars($fechaFormateada) . '</h3>';
     echo '<table class="citas">';
-    echo '<tr><th>Numero de Informe</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['idInforme'])) . '</td></tr>';
-    echo '<tr><th>Correspondiente al Historial</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['idHistorial'])) . '</td></tr>';
-    echo '<tr><th>A Fecha de</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['fecha'])) . '</td></tr>';
-    echo '<tr><th>Motivo</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['motivo'])) . '</td></tr>';
-    echo '<tr><th>Descripcion:</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['descripcion'])) . '</td></tr>';
-    echo '<tr><th>Patologías</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['patologias'])) . '</td></tr>';
+    echo '<tr><th>ID Informe</th><td>' . htmlspecialchars($fila['idInforme']) . '</td></tr>';
+    echo '<tr><th>Motivo</th><td>' . nl2br(htmlspecialchars($fila['motivo'])) . '</td></tr>';
+    echo '<tr><th>Descripción</th><td>' . nl2br(htmlspecialchars($fila['descripcion'])) . '</td></tr>';
     echo '<tr><th>Observaciones</th><td>' . nl2br(htmlspecialchars($fila['observaciones'])) . '</td></tr>';
+
     echo '<tr><th>Patologías detectadas</th><td><ul style="margin:0;padding-left:18px;">';
     if ($fila['onicopatias']) echo '<li>Onicopatías</li>';
     if ($fila['queratopatias']) echo '<li>Queratopatías</li>';
@@ -49,10 +63,11 @@ while ($fila = $result->fetch_assoc()) {
     if ($fila['prominenciasOseas']) echo '<li>Prominencias óseas</li>';
     if ($fila['altDigitales']) echo '<li>Alteraciones digitales</li>';
     echo '</ul></td></tr>';
-    echo '<tr><th>Diagnóstico detallado</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['dx'])) . '</td></tr>';
-    echo '<tr><th>Tratamiento</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['tratamiento'])) . '</td></tr>';
-    echo '<tr><th>Receta</th><td class="texto-limitado">' . nl2br(htmlspecialchars($fila['receta'])) . '</td></tr>';
-    // Archivo adjunto
+
+    echo '<tr><th>Diagnóstico</th><td>' . nl2br(htmlspecialchars($fila['dx'])) . '</td></tr>';
+    echo '<tr><th>Tratamiento</th><td>' . nl2br(htmlspecialchars($fila['tratamiento'])) . '</td></tr>';
+    echo '<tr><th>Receta</th><td>' . nl2br(htmlspecialchars($fila['receta'])) . '</td></tr>';
+
     if (!empty($fila['archivo'])) {
         echo '<tr><th>Archivo adjunto</th><td>';
         $ext = pathinfo($fila['archivo'], PATHINFO_EXTENSION);
@@ -65,9 +80,12 @@ while ($fila = $result->fetch_assoc()) {
     }
 
     echo '</table>';
-    echo '<div style="text-align:right; margin-top:10px;">';
-    echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial</button>';
-    echo "<button class='btnH' onclick=\"location.href='/Codigo/admin.php'\">⬅ Volver</button>";
+    // echo '<div style="text-align:right; margin-top:10px;">';
+    // echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial o Informe</button>';
+    // echo "<button class='btnH' onclick=\"location.href='/Codigo/admin.php'\">⬅ Volver</button>";
+    // echo '</div>';
     echo '</div>';
-    echo '</div>';
+} else {
+    echo "<p>No se encontró el informe seleccionado.</p>";
 }
+?>

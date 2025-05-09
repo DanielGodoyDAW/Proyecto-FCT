@@ -38,7 +38,7 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
 <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
 <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/agregarPatologia.js"></script>
 <link rel="stylesheet" href="/Codigo/estilos/style.css">
-<form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_historial_clinico.php" method="post" enctype="multipart/form-data">
+<form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_historial.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
 
     <table id="tabla_historial_clinico">
