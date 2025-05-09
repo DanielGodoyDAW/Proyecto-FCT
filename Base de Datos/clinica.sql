@@ -129,3 +129,5 @@ VALUES ('Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com','+34 62873852
 ALTER TABLE Citas ADD COLUMN payment_intent_id VARCHAR(255) NULL;
 
 ALTER TABLE Pacientes ADD COLUMN es_temporal TINYINT(1) DEFAULT 0;
+
+ALTER TABLE Pacientes ADD COLUMN dni_original VARCHAR(20) DEFAULT NULL;
