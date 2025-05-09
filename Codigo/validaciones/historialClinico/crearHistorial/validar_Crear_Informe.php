@@ -14,7 +14,7 @@ $archivoRuta = null;
 
 // Validación minima de datos
 if (!$idHistorial || !$fecha) {
-    die("Faltan datos obligatorios.");
+    echo "<script>alert('Faltan datos obligatorios.');</script>";
 }
 
 // Procesar archivo (si se sube uno)
@@ -43,6 +43,21 @@ $dermatopatias = isset($_POST['dermatopatias']) ? 1 : 0;
 $prominenciasOseas = isset($_POST['prominenciasOseas']) ? 1 : 0;
 $altDigitales = isset($_POST['altDigitales']) ? 1 : 0;
 
+// Comprobar si ya existe un informe ese mismo día para el historial
+$stmt = $conexion->prepare("SELECT COUNT(*) as total FROM Informe WHERE idHistorial = ? AND fecha = ?");
+$stmt->bind_param("is", $idHistorial, $fecha);
+$stmt->execute();
+$res = $stmt->get_result();
+$existe = $res->fetch_assoc()['total'] ?? 0;
+
+if ($existe > 0) {
+    echo "<script>
+        alert('Ya existe un informe para esa fecha.');
+        window.history.back();
+    </script>";
+    exit;
+}
+
 // Insertar en la base de datos
 $stmt = $conexion->prepare("INSERT INTO Informe (
     idHistorial, fecha, motivo, descripcion, observaciones,
@@ -65,7 +80,7 @@ $stmt->bind_param(
     $dx,
     $tratamiento,
     $receta,
-    $archivoPath
+    $archivoRuta
 );
 
 if ($stmt->execute()) {

@@ -27,11 +27,31 @@ if ($idHistorial) {
 
 <div>
     <h2>Historial</h2>
-    <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php'; ?>
+    <?php require_once __DIR__ . '/verHistorial.php'; ?>
 </div>
 <div>
     <h2>Informe</h2>
-    <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/verInforme.php'; ?>
+    <form method="GET" action="/Codigo/admin.php#ver">
+        <input type="hidden" name="seccion" value="historial">
+        <input type="hidden" name="sub" value="ver">
+        <label for="idInforme">Selecciona un informe:</label>
+        <select name="idInforme" id="idInforme" onchange="this.form.submit()">
+            <option value="">Ver último informe</option>
+            <?php
+            $stmt = $conexion->prepare("SELECT idInforme, fecha FROM Informe WHERE idHistorial = ? ORDER BY fecha DESC");
+            $stmt->bind_param("i", $idHistorial);
+            $stmt->execute();
+            $res = $stmt->get_result();
+
+            while ($row = $res->fetch_assoc()) {
+                $fecha = (new DateTime($row['fecha']))->format('d/m/Y');
+                $selected = isset($_GET['idInforme']) && $_GET['idInforme'] == $row['idInforme'] ? 'selected' : '';
+                echo "<option value='{$row['idInforme']}' $selected>Informe del $fecha</option>";
+            }
+            ?>
+        </select>
+    </form>
+    <?php require_once __DIR__ . '/verInforme.php'; ?>
 </div>
 <?php
     echo '<div style="text-align:right; margin-top:10px;">';

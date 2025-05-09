@@ -15,11 +15,18 @@ if ($ultimoInforme) {
     <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_Editar_Informe.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
         <input type="hidden" name="idInforme" value="<?= $ultimoInforme['idInforme'] ?>">
-
+        <h3>Editar Informe</h3>
         <table class="tabla_historial_clinico">
             <tr>
                 <td><label for="fecha">Fecha:</label></td>
-                <td><input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($ultimoInforme['fecha']) ?>"></td>
+                <td><?php
+                    $fechaInput = '';
+                    if (!empty($ultimoInforme['fecha'])) {
+                        $fechaInput = (new DateTime($ultimoInforme['fecha']))->format('Y-m-d');
+                    }
+                    ?>
+                    <input type="date" name="fecha" value="<?= $fechaInput ?>">
+                </td>
             </tr>
             <tr>
                 <td><label for="motivo">Motivo de la consulta:</label></td>
@@ -81,6 +88,8 @@ if ($ultimoInforme) {
         <button class="btnH" type="submit">Guardar Cambios</button>
     </form>
 <?php
+    echo "<h3>Agregar nuevo informe</h3>";
+    include '../Codigo/validaciones/historialClinico/crearHistorial/crearInforme.php';
 } else {
     echo "<p>No se encontró ningún informe. Agregar nuevo</p>";
     include '../Codigo/validaciones/historialClinico/crearHistorial/crearInforme.php';
