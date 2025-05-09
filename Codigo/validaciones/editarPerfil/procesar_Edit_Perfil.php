@@ -30,8 +30,8 @@ $dniOriginalBD = $paciente['dni_original'] ?? null;
 $email = $_POST['email'] ?? null;
 $telefono = $_POST['telefono'] ?? '';
 $extension = $_POST['extension'] ?? '';
-$telefonoCompleto = $extension . ' ' . $telefono;
-$sexo = $_POST['sexo'] ?? 'O';
+$telefonoCompleto = trim($extension . ' ' . $telefono);
+$sexo = null;
 $fechaNacim = $_POST['fechaNacim'] ?? null;
 $fromPopup = isset($_POST['fromPopup']);
 $passwordActual = $_POST['passwordActual'] ?? null;
@@ -39,6 +39,10 @@ $nuevaContrasena = $_POST['nuevaContrasena'] ?? null;
 $confirmarContrasena = $_POST['confirmarContrasena'] ?? null;
 $dni = strtoupper(trim($_POST['dni'] ?? ''));
 $nuevoDNI = strtoupper(trim($_POST['nuevoDNI'] ?? ''));
+
+if (!empty($_POST['sexo']) && in_array($_POST['sexo'], ['H', 'M', 'O'])) {
+    $sexo = $_POST['sexo'];
+}
 
 // Contraseña desde popup
 if ($fromPopup) {
@@ -95,36 +99,59 @@ if ($esTemporal && empty($nuevoDNI)) {
     exit;
 }
 
-// Actualización de datos
-if ($esTemporal && !empty($nuevoDNI)) {
-    if (!$dniOriginalBD) {
-        $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ?, dni = ?, dni_original = ?, es_temporal = 0 WHERE idPacientes = ?";
-        $stmt = $conexion->prepare($query);
-        $stmt->bind_param("ssssssi", $email, $telefonoCompleto, $sexo, $fechaNacim, $dniEditable, $dniEditable, $idUsuario);
-    } else {
-        $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ?, dni = ?, es_temporal = 0 WHERE idPacientes = ?";
-        $stmt = $conexion->prepare($query);
-        $stmt->bind_param("sssssi", $email, $telefonoCompleto, $sexo, $fechaNacim, $dniEditable, $idUsuario);
-    }
-} else {
-    $query = "UPDATE Pacientes SET email = ?, telefono = ?, sexo = ?, fechaNacim = ?, dni = ? WHERE idPacientes = ?";
-    $stmt = $conexion->prepare($query);
-    $stmt->bind_param("sssssi", $email, $telefonoCompleto, $sexo, $fechaNacim, $dniEditable, $idUsuario);
+// Construir UPDATE dinámico
+$campos = [];
+$tipos = '';
+$valores = [];
+
+if ($email) {
+    $campos[] = 'email = ?';
+    $tipos .= 's';
+    $valores[] = $email;
 }
+if (!empty($telefonoCompleto) && trim($telefonoCompleto) !== '+') {
+    $campos[] = 'telefono = ?';
+    $tipos .= 's';
+    $valores[] = $telefonoCompleto;
+}
+if (!is_null($sexo)) {
+    $campos[] = 'sexo = ?';
+    $tipos .= 's';
+    $valores[] = $sexo;
+}
+if ($fechaNacim) {
+    $campos[] = 'fechaNacim = ?';
+    $tipos .= 's';
+    $valores[] = $fechaNacim;
+}
+$campos[] = 'dni = ?';
+$tipos .= 's';
+$valores[] = $dniEditable;
+
+if ($esTemporal) {
+    $campos[] = 'es_temporal = 0';
+    if (!$dniOriginalBD) {
+        $campos[] = 'dni_original = ?';
+        $tipos .= 's';
+        $valores[] = $dniEditable;
+    }
+}
+
+$tipos .= 'i';
+$valores[] = $idUsuario;
+
+$sql = "UPDATE Pacientes SET " . implode(', ', $campos) . " WHERE idPacientes = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param($tipos, ...$valores);
 
 // Ejecutar
 if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo;
-    
-    $mensaje = 'Perfil actualizado correctamente.';
-
-    if ($esAdmin) {
-        echo "<script>alert('$mensaje'); window.location.href = '/Codigo/admin.php?seccion=historial&sub=editar';</script>";
-    } else {
-        echo "<script>alert('$mensaje'); window.location.href = '/Codigo/editar_perfil.php';</script>";
-    }
+    $redirect = $esAdmin ? '/Codigo/admin.php?seccion=historial&sub=editar' : '/Codigo/editar_perfil.php';
+    echo "<script>alert('Perfil actualizado correctamente.'); window.location.href = '$redirect';</script>";
     exit;
 } else {
     echo '<script>alert("Error: No se pudo actualizar el perfil."); window.location.href = "/Codigo/editar_perfil.php";</script>';
     exit;
 }
+?>
