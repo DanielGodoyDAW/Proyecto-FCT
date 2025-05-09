@@ -40,5 +40,5 @@ if ($idHistorial) {
 </div>
 <div class="acciones-historial">
     <button class="btnH" onclick="location.href='/Codigo/admin.php'">⬅ Volver</button>
-    <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial</button>
+    <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial e Informe</button>
 </div>
