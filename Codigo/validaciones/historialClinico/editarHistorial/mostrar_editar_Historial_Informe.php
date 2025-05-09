@@ -7,6 +7,13 @@ if (!$idPaciente) {
     return;
 }
 
+// Obtener datos del paciente
+$stmt = $conexion->prepare("SELECT * FROM Pacientes WHERE idPacientes = ?");
+$stmt->bind_param("i", $idPaciente);
+$stmt->execute();
+$result = $stmt->get_result();
+$paciente = $result->fetch_assoc();
+
 // Obtener idHistorial
 $stmt = $conexion->prepare("SELECT idHistorial FROM Pacientes WHERE idPacientes = ?");
 $stmt->bind_param("i", $idPaciente);
@@ -31,6 +38,15 @@ if ($idHistorial) {
 ?>
 
 <div>
+    <h2>Edicion de dni</h2>
+    <?php if (isset($_SESSION['idAdmin'])) { ?>
+        <table>
+            <tr>
+                <td><label for="dni">DNI del paciente:</label></td>
+                <td><input type="text" name="dni" value="<?= htmlspecialchars($paciente['dni']) ?>" pattern="[0-9]{8}[A-Z]" maxlength="9" required></td>
+            </tr>
+        </table>
+    <?php } ?>
     <h2>Historial</h2>
     <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
 </div>

@@ -17,7 +17,8 @@ if (isset($_POST['paciente'])) {
                                         telefono AS 'Teléfono',
                                         fechaNacim AS 'Fecha de nacimiento',
                                         sexo AS 'Sexo',
-                                        dni AS 'DNI'
+                                        dni AS 'DNI',
+                                        dni_original AS 'DNI original'
                                         FROM Pacientes
                                         WHERE idPacientes = ?");
     $stmt->bind_param("i", $idPaciente);

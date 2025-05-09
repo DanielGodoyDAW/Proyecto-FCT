@@ -13,7 +13,7 @@ if (isset($_SESSION['idPacientes'])) {
 }
 
 // Consulta para obtener los datos del usuario
-$query = "SELECT email, telefono, sexo, fechaNacim, es_temporal FROM Pacientes WHERE idPacientes = ?";
+$query = "SELECT email, telefono, sexo, fechaNacim, dni, es_temporal FROM Pacientes WHERE idPacientes = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param("i", $idPaciente);
 $stmt->execute();
@@ -133,6 +133,13 @@ $extensiones = [
                 <?php } else { ?>
                     <td><input type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
                 <?php } ?>
+            </tr>
+            <tr>
+                <td><label for="dni">DNI:</label></td>
+                <td>
+                    <input type="text" name="dni" value="<?= htmlspecialchars($pacientes['dni']) ?>" readonly>
+                    <small style="color:#666">Para cambiar este dato, contacta con la clínica.</small>
+                </td>
             </tr>
             <?php if ($esTemporal) { ?>
                 <tr>
