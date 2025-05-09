@@ -34,10 +34,10 @@
                     <?php  ?>
                 </nav>
                 <div id="editar" class="subcontenido">
-                    <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
+                    <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/mostrar_editar_Historial_Informe.php'; ?>
                 </div>
                 <div id="ver" class="subcontenido activo">
-                    <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php'; ?>
+                    <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/listarHistorial.php'; ?>
                 </div>
             </div>
         </div>
