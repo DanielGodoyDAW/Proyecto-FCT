@@ -48,8 +48,8 @@ if (isset($_POST['paciente'])) {
         echo '<div class="acciones-historial">';
         // echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php?idPaciente='.$idPaciente.'">✏️ Editar Historial</a>';
         // echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php?idPaciente='.$idPaciente.'">👁 Ver Historial</a>';
-        echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial</button>';
-        echo '<button class="btnH" onclick="mostrarHistorial(\'ver\')">👁 Ver Historial</button>';
+        echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial e Informe</button>';
+        echo '<button class="btnH" onclick="mostrarHistorial(\'ver\')">👁 Ver Historial e Informe</button>';
         echo '</div>';
     } else {
         echo "<p>No se encontró el paciente.</p>";
