@@ -8,7 +8,21 @@ $patologiasMarcadas = isset($informe['patologias']) ? array_map('trim', explode(
 $patologiasPredefinidas = ["Diabetes", "Colesterol", "HTA", "Alt. Coagulacion", "Artrosis", "Embarazo/Lactancia"];
 //patologias personalizadas si es diferente a las predefinidas y no esta vacia
 $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefinidas);
+
 if ($ultimoInforme) {
+
+    $formatter = new \IntlDateFormatter(
+        'es_ES',
+        \IntlDateFormatter::LONG,
+        \IntlDateFormatter::NONE,
+        'Europe/Madrid',
+        \IntlDateFormatter::GREGORIAN,
+        "d 'de' MMMM 'de' yyyy"
+    );
+
+    $fecha = new DateTime($ultimoInforme['fecha']);
+    $fechaFormateada = $formatter->format($fecha);
+
 ?>
     <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
@@ -17,16 +31,11 @@ if ($ultimoInforme) {
         <input type="hidden" name="idInforme" value="<?= $ultimoInforme['idInforme'] ?>">
         <h3>Editar Informe</h3>
         <table class="tabla_historial_clinico">
+                <input type="hidden" name="idInforme" value="<?= $ultimoInforme['idInforme'] ?>">
+                <p>🆔 Editando el Informe con id= <?= $ultimoInforme['idInforme'] ?> del <?= $fechaFormateada ?></p>
             <tr>
                 <td><label for="fecha">Fecha:</label></td>
-                <td><?php
-                    $fechaInput = '';
-                    if (!empty($ultimoInforme['fecha'])) {
-                        $fechaInput = (new DateTime($ultimoInforme['fecha']))->format('Y-m-d');
-                    }
-                    ?>
-                    <input type="date" name="fecha" value="<?= $fechaInput ?>">
-                </td>
+                <td><input type="date" name="fecha" value="<?= htmlspecialchars($ultimoInforme['fecha'] ?? '') ?>"></td>
             </tr>
             <tr>
                 <td><label for="motivo">Motivo de la consulta:</label></td>

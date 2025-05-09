@@ -54,8 +54,11 @@ if ($idHistorial) {
     <?php require_once __DIR__ . '/verInforme.php'; ?>
 </div>
 <?php
-    echo '<div style="text-align:right; margin-top:10px;">';
-    echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial o Informe</button>';
-    echo "<button class='btnH' onclick=\"location.href='/Codigo/admin.php'\">⬅ Volver</button>";
-    echo '</div>';
-?>
+echo '<div style="text-align:right; margin-top:10px;">';
+if (isset($_GET['idInforme'])) { ?>
+    <button class="btnH" onclick="window.location.href='admin.php?seccion=historial&sub=editar&idInforme=<?= $_GET['idInforme'] ?>#editar'">✏️ Editar Historial o Informe</button>;
+<?php } else { ?>
+    <button class="btnH" onclick="mostrarHistorial('editar')">✏️ Editar Historial o Informe</button>
+<?php }
+echo "<button class='btnH' onclick=\"location.href='/Codigo/admin.php'\">⬅ Volver</button>";
+echo '</div>';

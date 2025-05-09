@@ -14,11 +14,16 @@ $stmt->execute();
 $result = $stmt->get_result();
 $idHistorial = $result->fetch_assoc()['idHistorial'] ?? null;
 
-// Comprobar si hay informes
+// Obtener informe actual (por ID o último)
 $ultimoInforme = null;
 if ($idHistorial) {
-    $stmt = $conexion->prepare("SELECT * FROM Informe WHERE idHistorial = ? ORDER BY fecha DESC LIMIT 1");
-    $stmt->bind_param("i", $idHistorial);
+    if (isset($_GET['idInforme'])) {
+        $stmt = $conexion->prepare("SELECT * FROM Informe WHERE idInforme = ?");
+        $stmt->bind_param("i", $_GET['idInforme']);
+    } else {
+        $stmt = $conexion->prepare("SELECT * FROM Informe WHERE idHistorial = ? ORDER BY fecha DESC LIMIT 1");
+        $stmt->bind_param("i", $idHistorial);
+    }
     $stmt->execute();
     $result = $stmt->get_result();
     $ultimoInforme = $result->fetch_assoc();
