@@ -38,17 +38,13 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
 <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
 <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/agregarPatologia.js"></script>
 <link rel="stylesheet" href="/Codigo/estilos/style.css">
-<form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_historial_clinico.php" method="post" enctype="multipart/form-data">
+<form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_historial.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
 
     <table id="tabla_historial_clinico">
         <tr>
-            <td><label for="descripcion">Descripcion</label></td>
-            <td><textarea name="descripcion" id="descripcion"><?= htmlspecialchars($historial['descripcion']) ?></textarea></td>
-        </tr>
-        <tr>
-            <td><label for="motivo">Motivo de la consulta:</label></td>
-            <td><textarea name="motivo" id="motivo"><?= htmlspecialchars($historial['motivo']) ?></textarea></td>
+            <td><label for="fichaComentarioInicial">Descripcion</label></td>
+            <td><textarea name="fichaComentarioInicial" id="fichaComentarioInicial"><?= htmlspecialchars($historial['fichaComentarioInicial']) ?></textarea></td>
         </tr>
         <tr>
             <td><label for="antec_podologicos">Antec. podológicos:</label></td>
@@ -104,72 +100,12 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
             <td><label for="desarrolloPSi">Desarrollo psicomotriz:</label></td>
             <td><input type="text" name="desarrolloPSi" id="desarrolloPSi" value="<?= htmlspecialchars($historial['desarrolloPSi']) ?>"></td>
         </tr>
-        <tr>
-            <td><label for="observaciones">Observaciones:</label></td>
-            <td><textarea name="observaciones" id="observaciones"><?= htmlspecialchars($historial['observaciones']) ?></textarea></td>
-        </tr>
     </table>
-
-    <table id="inspeccion">
-        <tr>
-            <td><label for="archivo">Adjuntar Archivo:</label></td>
-            <td><input type="file" name="archivo" id="archivo"></td>
-        </tr>
-        <tr>
-            <td>Visualización imagen:</td>
-            <td>
-                <?php
-                if (!empty($historial['archivo'])) {
-                    $ruta = $_SERVER['DOCUMENT_ROOT'] . $historial['archivo'];
-                    if (file_exists($ruta)) {
-                        echo '<img src="' . htmlspecialchars($historial['archivo']) . '" style="max-width:300px;">';
-                    } else {
-                        echo '<p>El archivo no existe físicamente.</p>';
-                    }
-                } else {
-                    echo '<p>No hay archivo disponible.</p>';
-                }
-                ?>
-            </td>
-        </tr>
-        <?php
-        $checkboxes = ['onicopatias', 'queratopatias', 'dermatopatias', 'prominenciasOseas', 'altDigitales'];
-        foreach ($checkboxes as $check) {
-            echo '<tr><td></td><td><input type="checkbox" name="' . $check . '" value="' . $check . '" ' . ($historial[$check] ? 'checked' : '') . '> ' . ucfirst($check) . '</td></tr>';
-        }
-        ?>
-        <tr>
-            <td><label for="dx">Diagnostico:</label></td>
-            <td><textarea name="dx" id="dx"><?= htmlspecialchars($historial['dx']) ?></textarea></td>
-        </tr>
-    </table>
-
-    <table id="table-tratamiento">
-        <tr>
-            <td><label for="tratamiento">Tratamiento:</label></td>
-            <td><textarea name="tratamiento" id="tratamiento"><?= htmlspecialchars($historial['tratamiento']) ?></textarea></td>
-        </tr>
-        <tr>
-            <td><label for="receta">Receta:(Posologia/Duracion tto)</label></td>
-            <td><textarea name="receta" id="receta"><?= htmlspecialchars($historial['receta']) ?></textarea></td>
-        </tr>
-    </table>
-
     <table id="seguimiento">
         <tr>
             <td><label for="fecha">Fecha:</label></td>
             <td><input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($historial['fecha']) ?>"></td>
         </tr>
-        <tr>
-            <td><label for="seguimiento">Seguimiento:</label></td>
-            <td><textarea name="seguimiento" id="seguimiento"><?= htmlspecialchars($historial['seguimiento']) ?></textarea></td>
-        </tr>
     </table>
-
     <button class="btnH" type="submit">Guardar Cambios</button>
 </form>
-
-<div class="acciones-historial">
-    <button class="btnH" onclick="location.href='/Codigo/admin.php'">⬅ Volver</button>
-    <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial</button>
-</div>
