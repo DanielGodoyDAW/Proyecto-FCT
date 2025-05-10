@@ -134,14 +134,14 @@ $errores = $_SESSION['errores'] ?? [];
                 <tr>
                     <td><label for="c9">Contraseña: <span class="obligatorio">*</span></label></td>
                     <td>
-                        <input type="password" id="c9" name="pass" placeholder="Contraseña" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
+                        <input type="password" id="c9" name="pass" placeholder="Contraseña" required pattern=".{8,}" title="Al menos 8 caracteres, una letra mayuscula, un numero y un caracter especial.">
                         <button type="button" id="mostrar_contrasena" onclick="alternarContrasena('c9')">Mostrar</button>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="c10">Confirmar Contraseña: <span class="obligatorio">*</span></label></td>
                     <td>
-                        <input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
+                        <input type="password" id="c10" name="confirmar_pass" placeholder="Confirmar Contraseña" required pattern=".{8,}" title="Al menos 8 caracteres, una letra mayuscula, un numero y un caracter especial.">
                         <button type="button" id="mostrar_confirmar_contrasena" onclick="alternarContrasena('c10')">Mostrar</button>
                     </td>
                 </tr>

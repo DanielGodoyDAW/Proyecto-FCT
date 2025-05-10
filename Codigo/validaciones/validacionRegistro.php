@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validar contraseña
     if (empty($_POST['pass']) || strlen($_POST['pass']) < 8) {
-        $errores[] = "La contraseña debe tener al menos 8 caracteres.";
+        $errores[] = "Al menos 8 caracteres, una letra mayuscula, un numero y un caracter especial.";
     } elseif ($_POST['pass'] !== $_POST['confirmar_pass']) {
         $errores[] = "Las contraseñas no coinciden.";
     }
