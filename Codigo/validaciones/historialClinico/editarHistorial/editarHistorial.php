@@ -107,5 +107,5 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
             <td><input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($historial['fecha']) ?>"></td>
         </tr>
     </table>
-    <button class="btnH" type="submit">Guardar Cambios</button>
+    <button class="btnH" type="submit">Actualizar Historial</button>
 </form>

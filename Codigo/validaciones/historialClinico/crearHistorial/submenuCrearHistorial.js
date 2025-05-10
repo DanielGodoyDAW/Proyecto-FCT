@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".submenu-link");
-    const sections = document.querySelectorAll(".seccion");
+    const links = document.querySelectorAll(".submenu-link"); // Selecciona todos los enlaces del submenú
+    const sections = document.querySelectorAll(".seccion"); // Selecciona todas las secciones
 
-    links.forEach(link => {
+    links.forEach(link => { // Recorre cada enlace
         link.addEventListener("click", function (e) {
             e.preventDefault();
 
             // Quitar la clase activa de todos los enlaces
-            links.forEach(l => l.classList.remove("active"));
+            links.forEach(l => l.classList.remove("active")); 
 
             // Ocultar todas las secciones
             sections.forEach(section => section.style.display = "none");

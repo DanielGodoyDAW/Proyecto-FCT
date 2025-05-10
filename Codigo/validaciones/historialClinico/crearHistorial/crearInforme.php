@@ -42,10 +42,6 @@
             <td><label for="receta">Receta:</label></td>
             <td><textarea name="receta" id="receta"></textarea></td>
         </tr>
-        <tr>
-            <td colspan="2" style="text-align:right;">
-                <button class="btnH" type="submit">Guardar nuevo informe</button>
-            </td>
-        </tr>
     </table>
+    <button class="btnH" type="submit">Crear nuevo informe</button>
 </form>

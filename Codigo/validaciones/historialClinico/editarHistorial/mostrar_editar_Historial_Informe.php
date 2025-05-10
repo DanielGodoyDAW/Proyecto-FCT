@@ -36,28 +36,29 @@ if ($idHistorial) {
     $ultimoInforme = $result->fetch_assoc();
 }
 ?>
-
-<div>
-    <h2>Edicion de dni</h2>
-    <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
-        <input type="hidden" name="desde_admin" value="1">
-        <input type="hidden" name="idPaciente" value="<?= $idPaciente ?>">
-        <table>
-            <tr>
-                <td><label for="dni">DNI del paciente:</label></td>
-                <td><input type="text" name="dni" value="<?= htmlspecialchars($paciente['dni']) ?>" pattern="[0-9]{8}[A-Z]" maxlength="9" required></td>
-                <td><button type="submit">Guardar DNI</button></td>
-            </tr>
-        </table>
-    </form>
-    <h2>Historial</h2>
-    <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
-</div>
-<div>
-    <h2>Informe</h2>
-    <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarInforme.php'; ?>
-</div>
-<div class="acciones-historial">
-    <button class="btnH" onclick="location.href='/Codigo/admin.php'">⬅ Volver</button>
-    <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial e Informe</button>
+<div class="container-edicion">
+    <div class="div-edicion historial">
+        <h2>Edicion de dni</h2>
+        <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+            <input type="hidden" name="desde_admin" value="1">
+            <input type="hidden" name="idPaciente" value="<?= $idPaciente ?>">
+            <table>
+                <tr>
+                    <td><label for="dni">DNI del paciente:</label></td>
+                    <td><input type="text" name="dni" value="<?= htmlspecialchars($paciente['dni']) ?>" pattern="[0-9]{8}[A-Z]" maxlength="9" required></td>
+                    <td><button type="submit">Guardar DNI</button></td>
+                </tr>
+            </table>
+        </form>
+        <h2>Historial</h2>
+        <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
+    </div>
+    <div class="div-edicion informe">
+        <h2>Informe</h2>
+        <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarInforme.php'; ?>
+    </div>
+    <div class="acciones-historial">
+        <button class="btnH" onclick="location.href='/Codigo/admin.php'">⬅ Volver</button>
+        <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial e Informe</button>
+    </div>
 </div>

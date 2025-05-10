@@ -94,7 +94,7 @@ if ($ultimoInforme) {
                 <td><textarea name="receta" id="receta"><?= htmlspecialchars($ultimoInforme['receta']) ?></textarea></td>
             </tr>
         </table>
-        <button class="btnH" type="submit">Guardar Cambios</button>
+        <button class="btnH" type="submit">Actualizas Informe</button>
     </form>
 <?php
     echo "<h3>Agregar nuevo informe</h3>";
