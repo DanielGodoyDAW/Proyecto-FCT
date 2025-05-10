@@ -134,6 +134,7 @@ $extensiones = [
                     <td><input type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
                 <?php } ?>
             </tr>
+            <?php if (!$esTemporal) { ?>
             <tr>
                 <td><label for="dni">DNI:</label></td>
                 <td>
@@ -141,6 +142,7 @@ $extensiones = [
                     <small style="color:#666">Para cambiar este dato, contacta con la clínica.</small>
                 </td>
             </tr>
+            <?php } ?>
             <?php if ($esTemporal) { ?>
                 <tr>
                     <td><label for="nuevoDNI">Nuevo DNI: <span class="obligatorio">*</span></label></td>
