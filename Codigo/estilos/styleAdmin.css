@@ -64,7 +64,7 @@ button:hover {
     min-height: 150px; 
 }
 /*Estilo para el cuadro de busqueda*/
-.seccion.busqueda, #crear, #editar, #ver {
+.seccion.busqueda, #crear, #ver {
     background-color: var(--colorFondoDivs);
 }
 /* Estilo para tabla de historial */
@@ -101,6 +101,21 @@ table.citas th {
     height: 18px;
 }
 
+/*Estilos para historial e Informe*/
+.container-edicion{
+    padding: 30px;
+    border-radius: 10px;
+    margin: 10px auto 40px auto !important;
+    max-width: 900px;
+    width: 90%;
+}
+.div-edicion{
+    background-color: var(--colorFondoDivs);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
 /*Reponsive */
 
 @media (max-width: 768px) {
@@ -171,13 +186,10 @@ table.citas th {
 
 .subcontenido {
     display: none;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
     margin: 20px auto;
     max-width: 900px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .contenido-admin.activo .subcontenido.activo {

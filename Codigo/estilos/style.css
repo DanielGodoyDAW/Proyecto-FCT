@@ -214,6 +214,15 @@ input[type="password"] {
     box-sizing: border-box;
 }
 
+/*Para evitar que el fondo del campo tome el color de fondo del div*/
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: var(--colorTexto) !important;
+}
+
 .btnIS {
     /* Boton inicio sesion*/
     background-color: var(--colorBoton);
