@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/Codigo/estilos/style.css">
-
+<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
 <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_Crear_Informe.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idHistorial" value="<?= htmlspecialchars($idHistorial) ?>">
 
@@ -28,7 +28,12 @@
         ?>
         <tr>
             <td><label for="archivo">Adjuntar archivo:</label></td>
-            <td><input type="file" name="archivo" id="archivo"></td>
+            <td>
+                <div class="subida-Archivo">
+                    <label for="archivo">Seleccionar archivo</label>
+                    <input type="file" name="archivo" id="archivo">
+                </div>
+            </td>
         </tr>
         <tr>
             <td><label for="dx">Diagnóstico:</label></td>
