@@ -5,10 +5,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idPaciente = $_POST['idPaciente'] ?? null;
     if (!$idPaciente) {
-        die("ID de paciente no proporcionado.");
+        echo "<script>alert('ID de paciente no proporcionado.'); window.history.back();</script>";
+        exit;
     }
 
-    // Obtener idHistorial desde la tabla Pacientes
     $stmt = $conexion->prepare("SELECT idHistorial FROM Pacientes WHERE idPacientes = ?");
     $stmt->bind_param("i", $idPaciente);
     $stmt->execute();
@@ -16,21 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fila = $resultado->fetch_assoc();
 
     if (!$fila) {
-        die("Paciente no encontrado.");
+        echo "<script>alert('Paciente no encontrado.'); window.history.back();</script>";
+        exit;
     }
 
     $idHistorial = $fila['idHistorial'];
 
-    // Patologías: convertir array en string separado por comas
-    $patologias = $_POST['patologias'] ?? [];
-    $patologias_string = implode(', ', $patologias);
-
-    // Campos a actualizar (solo los que vienen del formulario)
-    $campos = [
+    $nombresCampos = [
         'fichaComentarioInicial',
         'antec_podologicos',
         'antec_quirurgicos',
-        'patologias' => $patologias_string,
         'antecedentes',
         'alergias',
         'farmacologia',
@@ -42,9 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipos = '';
     $valores = [];
 
-    foreach ($campos as $campo => $valor) {
-        $nombreCampo = is_string($campo) ? $campo : $valor;
-        $valorCampo = is_string($campo) ? $valor : ($_POST[$valor] ?? null);
+    foreach ($nombresCampos as $nombreCampo) {
+        $valorCampo = $_POST[$nombreCampo] ?? null;
         if (!is_null($valorCampo) && $valorCampo !== '') {
             $camposFinales[] = "$nombreCampo = ?";
             $tipos .= 's';
@@ -52,31 +46,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Construir la consulta
+    $patologias = $_POST['patologias'] ?? [];
+    $patologias = array_filter(array_map('trim', $patologias));
+    if (!empty($patologias)) {
+        $patologias_string = implode(', ', $patologias);
+    } else {
+        $patologias_string = '';
+    }
+    $camposFinales[] = "patologias = ?";
+    $tipos .= 's';
+    $valores[] = $patologias_string;
+
     if (empty($camposFinales)) {
-        die("No se recibió ningún campo para actualizar.");
+        echo "<script>alert('No se recibió ningún campo para actualizar.'); window.history.back();</script>";
+        exit;
     }
 
     $camposSQL = implode(', ', $camposFinales);
-    $tipos .= 'i'; // para el idHistorial
+    $tipos .= 'i';
     $valores[] = $idHistorial;
 
     $sql = "UPDATE Historial SET $camposSQL WHERE idHistorial = ?";
     $stmt = $conexion->prepare($sql);
 
     if (!$stmt) {
-        die("Error al preparar la consulta: " . $conexion->error);
+        echo "<script>alert('Error al preparar la consulta: " . addslashes($conexion->error) . "'); window.history.back();</script>";
+        exit;
     }
 
     $stmt->bind_param($tipos, ...$valores);
 
     if ($stmt->execute()) {
         echo "<script>
-                alert('Historial actualizado correctamente.');
-                window.location.href = '/Codigo/admin.php?pagina=verHistorial&idPaciente=$idPaciente';
-            </script>";
+            alert('Historial actualizado correctamente.');
+            window.location.href = '/Codigo/admin.php?pagina=verHistorial&idPaciente=$idPaciente';
+        </script>";
         exit;
     } else {
-        echo "Error al actualizar historial: " . $stmt->error;
+        echo "<script>alert('Error al actualizar historial: " . addslashes($stmt->error) . "'); window.history.back();</script>";
+        exit;
     }
 }

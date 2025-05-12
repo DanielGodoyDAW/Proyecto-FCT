@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const agregarPatologiaBtn = document.getElementById("agregarPatologia"); // Botón para agregar patología
-    const tabla = document.getElementById("tabla_historial_clinico"); // Tabla donde se agregarán las patologías
+    const agregarPatologiaBtn = document.getElementById("agregarPatologia");
+    const tabla = document.getElementById("tabla_historial_clinico");
 
-    if (!agregarPatologiaBtn || !tabla) { // Verifica si el botón y la tabla existen
+    if (!agregarPatologiaBtn || !tabla) {
         console.warn("No se encontró el botón o la tabla");
         return;
     }
@@ -10,54 +10,47 @@ document.addEventListener("DOMContentLoaded", function () {
     agregarPatologiaBtn.addEventListener("click", function (e) {
         e.preventDefault();
 
-        const nuevaFila = document.createElement("tr"); // Crea una nueva fila para la tabla
+        const nuevaFila = document.createElement("tr");
 
-        const celdaVacia = document.createElement("td"); // Crea una celda vacía
+        const celdaVacia = document.createElement("td");
         nuevaFila.appendChild(celdaVacia);
 
-        const celdaInput = document.createElement("td"); // Crea una celda para el input
-        celdaInput.colSpan = 3; // Colspan para que ocupe varias columnas
+        const celdaInput = document.createElement("td");
+        celdaInput.colSpan = 3;
 
-        const nuevoInput = document.createElement("input"); // Crea un nuevo input
-        nuevoInput.type = "text"; // Tipo de input
-        nuevoInput.name = "patologias[]"; // Nombre del input
-        nuevoInput.placeholder = "Escriba nueva patología"; // Placeholder para el input
-        nuevoInput.style.width = "50%"; // Ancho del input
+        const contenedor = document.createElement("div");
+        contenedor.classList.add("patologia-input");
 
-        celdaInput.appendChild(nuevoInput); // Agrega el input a la celda
-        nuevaFila.appendChild(celdaInput); // Agrega la celda con el input a la fila
-        // Buscar última fila que contenga checkbox de patologías
-        const filas = tabla.querySelectorAll("tr");
-        let ultimaFilaPatologias = null;
+        const nuevoInput = document.createElement("input");
+        nuevoInput.type = "text";
+        nuevoInput.name = "patologias[]";
+        nuevoInput.placeholder = "Escriba nueva patología";
+        nuevoInput.style.width = "50%";
 
-        filas.forEach((fila) => {
-            if (fila.innerHTML.includes('name="patologias[]"')) { // Verifica si la fila contiene un checkbox de patologías
-                ultimaFilaPatologias = fila; // Actualiza la última fila encontrada
-            }
-        });
+        const botonEliminar = document.createElement("button");
+        botonEliminar.type = "button";
+        botonEliminar.classList.add("eliminar-patologia");
+        botonEliminar.textContent = "❌";
+        botonEliminar.title = "Eliminar";
 
-        if (ultimaFilaPatologias) {  // Si se encontró una fila con checkbox
-            // Insertar después de la última fila con checkbox
-            if (ultimaFilaPatologias.nextSibling) { // Si hay una fila siguiente
-                ultimaFilaPatologias.parentNode.insertBefore(nuevaFila, ultimaFilaPatologias.nextSibling); // Inserta la nueva fila antes de la siguiente
-            } else { // Si no hay fila siguiente
-                ultimaFilaPatologias.parentNode.appendChild(nuevaFila); // Agrega la nueva fila al final
-            }
-        } else { // Si no se encontró ninguna fila con checkbox
-            tabla.appendChild(nuevaFila); // Agrega la nueva fila al final de la tabla
+        contenedor.appendChild(nuevoInput);
+        contenedor.appendChild(botonEliminar);
+        celdaInput.appendChild(contenedor);
+        nuevaFila.appendChild(celdaInput);
+
+        const filaAgregar = document.getElementById("fila-agregar-patologia");
+        if (filaAgregar) {
+            filaAgregar.parentNode.insertBefore(nuevaFila, filaAgregar);
+        } else {
+            tabla.appendChild(nuevaFila);
         }
     });
 });
 
-//funcion para eliminar la patologia
 document.addEventListener("click", function (e) {
-    if (e.target.classList.contains("eliminar-patologia")) { // Verifica si el clic fue en un botón de eliminar patología
+    if (e.target.classList.contains("eliminar-patologia")) {
         e.preventDefault();
-
-        const container = e.target.closest("tr"); // Busca el contenedor más cercano (la fila de la tabla)
-        if (container) { // Si se encontró el contenedor
-            container.remove(); // Elimina la fila de la tabla
-        }
+        const fila = e.target.closest("tr");
+        if (fila) fila.remove();
     }
 });
-
