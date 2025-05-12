@@ -62,7 +62,7 @@ echo '<label>Apellido 1:</label><br><input type="text" name="apellido1" required
 title="Debe comenzar en mayúscula y tener entre 3 y 30 letras" placeholder="Apellido con Mayusculas"><br>';
 echo '<label>Apellido 2:</label><br><input type="text" name="apellido2" pattern="[A-ZÁÉÍÓÚÑa-záéíóúñ]{2,30}" 
 title="Debe tener entre 2 y 30 letras (opcional)" placeholder="Apellido con Mayusculas""><br>';
-echo '<label>Teléfono:</label><br><input type="text" name="telefono" required pattern="[0-9]{9}" 
+echo '<label>Teléfono:</label><br><input type="text" name="telefono" required pattern="^(\d{9}|\d{3} \d{3} \d{3})$"  
 title="Debe contener exactamente 9 dígitos" placeholder="Formato 666 666 666"><br>';
 echo '<label>Email:</label><br><input type="email" name="email" title="Debe tener formato usuario@dominio.com" placeholder="usuario@dominio.com"><br>';
 echo '<label><input type="checkbox" name="temporal" checked> Usuario temporal</label><br><br>';
