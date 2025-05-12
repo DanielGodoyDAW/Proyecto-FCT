@@ -80,10 +80,6 @@ if ($fila = $result->fetch_assoc()) {
     }
 
     echo '</table>';
-    // echo '<div style="text-align:right; margin-top:10px;">';
-    // echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial o Informe</button>';
-    // echo "<button class='btnH' onclick=\"location.href='/Codigo/admin.php'\">⬅ Volver</button>";
-    // echo '</div>';
     echo '</div>';
 } else {
     echo "<p>No se encontró el informe seleccionado.</p>";

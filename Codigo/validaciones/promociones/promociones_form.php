@@ -18,7 +18,7 @@
         <tr>
             <td><label for="imagen">Imagen:</label></td>
             <td>
-                <div class="custom-file-upload">
+                <div class="subida-Archivo">
                     <label for="imagen">Seleccionar archivo</label>
                     <input type="file" id="imagen" name="imagen" accept="image/*" required>
                 </div>
