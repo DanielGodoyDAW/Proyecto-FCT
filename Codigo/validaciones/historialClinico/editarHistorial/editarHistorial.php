@@ -44,45 +44,48 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
     <table id="tabla_historial_clinico">
         <tr>
             <td><label for="fichaComentarioInicial">Descripcion</label></td>
-            <td><textarea name="fichaComentarioInicial" id="fichaComentarioInicial"><?= htmlspecialchars($historial['fichaComentarioInicial']) ?></textarea></td>
+            <td><textarea class="auto-ajustable" name="fichaComentarioInicial" id="fichaComentarioInicial"><?= htmlspecialchars($historial['fichaComentarioInicial']) ?></textarea></td>
         </tr>
         <tr>
             <td><label for="antec_podologicos">Antec. podológicos:</label></td>
-            <td><textarea name="antec_podologicos" id="antec_podologicos"><?= htmlspecialchars($historial['antec_podologicos']) ?></textarea></td>
+            <td><textarea class="auto-ajustable" name="antec_podologicos" id="antec_podologicos"><?= htmlspecialchars($historial['antec_podologicos']) ?></textarea></td>
         </tr>
         <tr>
             <td><label for="antec_quirurgicos">Antec. quirúrgicos:</label></td>
-            <td><textarea name="antec_quirurgicos" id="antec_quirurgicos"><?= htmlspecialchars($historial['antec_quirurgicos']) ?></textarea></td>
+            <td><textarea class="auto-ajustable" name="antec_quirurgicos" id="antec_quirurgicos"><?= htmlspecialchars($historial['antec_quirurgicos']) ?></textarea></td>
         </tr>
         <tr>
             <td><label for="patologias">Patologías:</label></td>
+            <td colspan="3">
+                <div class="checkbox-grid">
+                    <?php
+                    foreach ($patologiasPredefinidas as $p) {
+                        echo '<label>';
+                        echo '<input type="checkbox" name="patologias[]" value="' . htmlspecialchars($p) . '"';
+                        if (in_array($p, $patologiasMarcadas)) echo ' checked';
+                        echo '> ' . htmlspecialchars($p);
+                        echo '</label>';
+                    }
+                    ?>
+                </div>
+            </td>
         </tr>
-        <tr>
-            <td></td>
-            <td><input type="checkbox" name="patologias[]" value="Diabetes" <?= in_array("Diabetes", $patologiasMarcadas) ? 'checked' : '' ?>>Diabetes</td>
-            <td><input type="checkbox" name="patologias[]" value="Colesterol" <?= in_array("Colesterol", $patologiasMarcadas) ? 'checked' : '' ?>>Colesterol</td>
-            <td><input type="checkbox" name="patologias[]" value="HTA" <?= in_array("HTA", $patologiasMarcadas) ? 'checked' : '' ?>>HTA</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="checkbox" name="patologias[]" value="Alt. Coagulacion" <?= in_array("Alt. Coagulacion", $patologiasMarcadas) ? 'checked' : '' ?>>Alt. Coagulación</td>
-            <td><input type="checkbox" name="patologias[]" value="Artrosis" <?= in_array("Artrosis", $patologiasMarcadas) ? 'checked' : '' ?>>Artrosis</td>
-            <td><input type="checkbox" name="patologias[]" value="Embarazo/Lactancia" <?= in_array("Embarazo/Lactancia", $patologiasMarcadas) ? 'checked' : '' ?>>Embarazo/Lactancia</td>
-        </tr>
-        <?php foreach ($patologiasPersonalizadas as $personalizada) { ?>
+        <?php foreach ($patologiasPersonalizadas as $personalizada){ ?>
             <tr>
                 <td></td>
                 <td colspan="3">
                     <div class="patologia-input">
-                        <input type="text" name="patologias[]" value="<?= htmlspecialchars($personalizada) ?>" style="width: 50%;">
+                        <input type="text" name="patologias[]" value="<?= htmlspecialchars($personalizada) ?>" placeholder="Escriba nueva patología">
                         <button type="button" class="eliminar-patologia" title="Eliminar">❌</button>
                     </div>
                 </td>
             </tr>
-        <?php }; ?>
-        <tr>
-            <td>Agregar patologia</td>
-            <td colspan="3"><button id="agregarPatologia">Añadir</button></td>
+        <?php } ?>
+        <tr id="fila-agregar-patologia">
+            <td>Agregar patología</td>
+            <td colspan="3">
+                <button type="button" id="agregarPatologia">Añadir</button>
+            </td>
         </tr>
         <tr>
             <td><label for="antecedentes">Antec. familiares:</label></td>
@@ -107,5 +110,5 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
             <td><input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($historial['fecha']) ?>"></td>
         </tr>
     </table>
-    <button class="btnH" type="submit">Guardar Cambios</button>
+    <button class="btnH" type="submit">Actualizar Historial</button>
 </form>

@@ -56,7 +56,7 @@ if ($idHistorial) {
 <?php
 echo '<div style="text-align:right; margin-top:10px;">';
 if (isset($_GET['idInforme'])) { ?>
-    <button class="btnH" onclick="window.location.href='admin.php?seccion=historial&sub=editar&idInforme=<?= $_GET['idInforme'] ?>#editar'">✏️ Editar Historial o Informe</button>;
+    <button class="btnH" onclick="window.location.href='admin.php?seccion=historial&sub=editar&idInforme=<?= $_GET['idInforme'] ?>#editar'">✏️ Editar Historial o Informe</button>
 <?php } else { ?>
     <button class="btnH" onclick="mostrarHistorial('editar')">✏️ Editar Historial o Informe</button>
 <?php }

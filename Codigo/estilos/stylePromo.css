@@ -21,11 +21,11 @@
     border-radius: 8px;
 }
 
-.custom-file-upload input[type="file"] {
+.subida-Archivo input[type="file"] {
     display: none;
 }
 
-.custom-file-upload label {
+.subida-Archivo label {
     background-color: var(--colorBoton);
     color: white;
     display: inline-block;
@@ -36,7 +36,7 @@
     text-align: center;
 }
 
-.custom-file-upload label:hover {
+.subida-Archivo label:hover {
     background-color: var(--colorBotonHover);
     color: white;
 }
