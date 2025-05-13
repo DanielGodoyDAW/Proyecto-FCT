@@ -25,6 +25,7 @@ if ($ultimoInforme) {
 
 ?>
     <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
+    <script defer src="/Codigo/validaciones/historialClinico/ajusteTextarea.js"></script>
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
     <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_Editar_Informe.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
@@ -39,15 +40,15 @@ if ($ultimoInforme) {
             </tr>
             <tr>
                 <td><label for="motivo">Motivo de la consulta:</label></td>
-                <td><textarea name="motivo" id="motivo"><?= htmlspecialchars($ultimoInforme['motivo']) ?></textarea></td>
+                <td><textarea class="auto-ajustable" name="motivo" id="motivo"><?= htmlspecialchars($ultimoInforme['motivo']) ?></textarea></td>
             </tr>
             <tr>
                 <td><label for="descripcion">Descripcion</label></td>
-                <td><textarea name="descripcion" id="descripcion"><?= htmlspecialchars($ultimoInforme['descripcion']) ?></textarea></td>
+                <td><textarea class="auto-ajustable" name="descripcion" id="descripcion"><?= htmlspecialchars($ultimoInforme['descripcion']) ?></textarea></td>
             </tr>
             <tr>
                 <td><label for="observaciones">Observaciones:</label></td>
-                <td><textarea name="observaciones" id="observaciones"><?= htmlspecialchars($ultimoInforme['observaciones']) ?></textarea></td>
+                <td><textarea class="auto-ajustable" name="observaciones" id="observaciones"><?= htmlspecialchars($ultimoInforme['observaciones']) ?></textarea></td>
             </tr>
             </tr>
             <?php
@@ -88,15 +89,15 @@ if ($ultimoInforme) {
         <table class="tabla_historial_clinico" id="patologias">
             <tr>
                 <td><label for="dx">Diagnostico:</label></td>
-                <td><textarea name="dx" id="dx"><?= htmlspecialchars($ultimoInforme['dx']) ?></textarea></td>
+                <td><textarea class="auto-ajustable" name="dx" id="dx"><?= htmlspecialchars($ultimoInforme['dx']) ?></textarea></td>
             </tr>
             <tr>
                 <td><label for="tratamiento">Tratamiento:</label></td>
-                <td><textarea name="tratamiento" id="tratamiento"><?= htmlspecialchars($ultimoInforme['tratamiento']) ?></textarea></td>
+                <td><textarea class="auto-ajustable" name="tratamiento" id="tratamiento"><?= htmlspecialchars($ultimoInforme['tratamiento']) ?></textarea></td>
             </tr>
             <tr>
                 <td><label for="receta">Receta:(Posologia/Duracion tto)</label></td>
-                <td><textarea name="receta" id="receta"><?= htmlspecialchars($ultimoInforme['receta']) ?></textarea></td>
+                <td><textarea class="auto-ajustable" name="receta" id="receta"><?= htmlspecialchars($ultimoInforme['receta']) ?></textarea></td>
             </tr>
         </table>
         <button class="btnH" type="submit">Actualizas Informe</button>
