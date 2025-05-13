@@ -44,15 +44,15 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
     <table id="tabla_historial_clinico">
         <tr>
             <td><label for="fichaComentarioInicial">Descripcion</label></td>
-            <td><textarea name="fichaComentarioInicial" id="fichaComentarioInicial"><?= htmlspecialchars($historial['fichaComentarioInicial']) ?></textarea></td>
+            <td><textarea class="auto-ajustable" name="fichaComentarioInicial" id="fichaComentarioInicial"><?= htmlspecialchars($historial['fichaComentarioInicial']) ?></textarea></td>
         </tr>
         <tr>
             <td><label for="antec_podologicos">Antec. podológicos:</label></td>
-            <td><textarea name="antec_podologicos" id="antec_podologicos"><?= htmlspecialchars($historial['antec_podologicos']) ?></textarea></td>
+            <td><textarea class="auto-ajustable" name="antec_podologicos" id="antec_podologicos"><?= htmlspecialchars($historial['antec_podologicos']) ?></textarea></td>
         </tr>
         <tr>
             <td><label for="antec_quirurgicos">Antec. quirúrgicos:</label></td>
-            <td><textarea name="antec_quirurgicos" id="antec_quirurgicos"><?= htmlspecialchars($historial['antec_quirurgicos']) ?></textarea></td>
+            <td><textarea class="auto-ajustable" name="antec_quirurgicos" id="antec_quirurgicos"><?= htmlspecialchars($historial['antec_quirurgicos']) ?></textarea></td>
         </tr>
         <tr>
             <td><label for="patologias">Patologías:</label></td>
