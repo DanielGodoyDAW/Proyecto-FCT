@@ -553,7 +553,14 @@ footer {
     line-height: 1;
     padding: 2px 6px;
 }
-
+/* Ocultar los iconos por defecto */
+nav ul li a img {
+    display: none;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
 
 /* Responsive para moviles*/
 
@@ -668,6 +675,26 @@ footer {
         text-align: center;
     }
 
+    .tabla-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tabla-responsive table {
+    width: 100%;
+    min-width: 600px; /* fuerza el scroll horizontal si el contenido es ancho */
+    border-collapse: collapse;
+}
+
+.tabla-responsive th,
+.tabla-responsive td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+}
+
     nav ul {
         flex-direction: column;
         gap: 15px;
@@ -679,8 +706,18 @@ footer {
     }
 
     nav ul li a {
-        display: block;
-        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         font-size: 16px;
+    }
+
+    nav ul li a img {
+        display: inline;
+    }
+
+    nav ul li a span {
+        display: none;
     }
 }
