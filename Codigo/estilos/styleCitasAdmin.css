@@ -47,19 +47,21 @@
     width: 80%;
     margin: 0 auto;
 }
-.columnaAdmin{
+
+.columnaAdmin {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: var(--colorFondoDivs) !important; 
+    background-color: var(--colorFondoDivs) !important;
     margin: 50px;
 }
 
-.izquierda-arriba{
+.izquierda-arriba {
     display: flex;
 }
-.derecha-arriba{
+
+.derecha-arriba {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,7 +69,7 @@
 }
 
 .columnaAdmin-calendario {
-    flex: 0.8; 
+    flex: 0.8;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -81,7 +83,8 @@
 
 .columnaAdmin {
     flex: 1;
-    min-width: 300px; /* Tamaño mínimo para no colapsar */
+    min-width: 300px;
+    /* Tamaño mínimo para no colapsar */
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -95,8 +98,10 @@
 
 .columnaAdmin-full {
     width: 100%;
-    max-width: 600px; /* Limita el ancho máximo, ajustable */
-    margin: 20px auto; /* CENTRADO */
+    max-width: 600px;
+    /* Limita el ancho máximo, ajustable */
+    margin: 20px auto;
+    /* CENTRADO */
     padding: 20px;
     background-color: var(--colorFondoDivs);
     border: 1px solid #ccc;
@@ -108,7 +113,7 @@
 
 .boton-horario {
     display: inline-block;
-    width: 120px; 
+    width: 120px;
     padding: 8px 12px;
     margin: 5px;
     background-color: var(--colorBoton);
@@ -142,13 +147,15 @@
     margin-bottom: 20px;
     font-size: 1.8rem;
 }
+
 table.pacientes-temporales {
     width: 100%;
     border-collapse: collapse;
-    background-color: white; 
+    background-color: white;
 }
 
-table.pacientes-temporales th, table.pacientes-temporales td {
+table.pacientes-temporales th,
+table.pacientes-temporales td {
     border: 1px solid #ccc;
     padding: 12px;
     text-align: center;
@@ -161,12 +168,12 @@ table.pacientes-temporales th {
 
 /*Proximas citas e historial de citas*/
 
-.columnaAdmin-citas{
+.columnaAdmin-citas {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: var(--colorFondoDivs) !important; 
+    background-color: var(--colorFondoDivs) !important;
     margin: 50px;
     display: flex;
     flex-direction: column;
@@ -178,33 +185,77 @@ table.pacientes-temporales th {
 
 @media (max-width: 768px) {
     .filaAdmin {
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      padding: 0 10px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 10px;
     }
-  
+
     .columnaAdmin,
     .columnaAdmin-citas,
     .columnaAdmin-full {
-      width: 95% !important;
-      margin: 10px 0 !important;
-      padding: 15px;
+        width: 95% !important;
+        margin: 10px 0 !important;
+        padding: 15px;
     }
-  
+
     .menu-citas ul {
-      flex-direction: column;
-      align-items: center;
+        flex-direction: column;
+        align-items: center;
     }
-  
+
     .menu-citas li {
-      width: 100%;
-      text-align: center;
+        width: 100%;
+        text-align: center;
     }
-  
+
     .menu-citas li a {
-      display: block;
-      width: 100%;
-      padding: 10px;
+        display: block;
+        width: 100%;
+        padding: 10px;
     }
-  }
+
+    /* solo para paciente temporales */
+    .contenedorPacientesTemporales {
+        overflow-x: hidden;
+    }
+
+    table.pacientes-temporales {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+    table.pacientes-temporales thead {
+        display: none;
+    }
+
+    table.pacientes-temporales tr {
+        display: block;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+
+    table.pacientes-temporales td {
+        display: block;
+        text-align: left;
+        border: none;
+        padding: 8px 0;
+        border-bottom: 1px solid #ccc;
+        word-wrap: break-word;
+    }
+    /*No aplica al ultimo*/
+    table.pacientes-temporales td:last-child {
+        border-bottom: none;
+    }
+
+    table.pacientes-temporales td strong {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: var(--colorTexto);
+    }
+}
