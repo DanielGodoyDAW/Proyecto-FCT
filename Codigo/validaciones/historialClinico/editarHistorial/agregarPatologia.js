@@ -18,47 +18,39 @@ document.addEventListener("DOMContentLoaded", function () {
         const celdaInput = document.createElement("td");
         celdaInput.colSpan = 3;
 
+        const contenedor = document.createElement("div");
+        contenedor.classList.add("patologia-input");
+
         const nuevoInput = document.createElement("input");
         nuevoInput.type = "text";
         nuevoInput.name = "patologias[]";
         nuevoInput.placeholder = "Escriba nueva patología";
         nuevoInput.style.width = "50%";
 
-        celdaInput.appendChild(nuevoInput);
+        const botonEliminar = document.createElement("button");
+        botonEliminar.type = "button";
+        botonEliminar.classList.add("eliminar-patologia");
+        botonEliminar.textContent = "❌";
+        botonEliminar.title = "Eliminar";
+
+        contenedor.appendChild(nuevoInput);
+        contenedor.appendChild(botonEliminar);
+        celdaInput.appendChild(contenedor);
         nuevaFila.appendChild(celdaInput);
 
-        // Buscar última fila que contenga checkbox de patologías
-        const filas = tabla.querySelectorAll("tr");
-        let ultimaFilaPatologias = null;
-
-        filas.forEach((fila) => {
-            if (fila.innerHTML.includes('name="patologias[]"')) {
-                ultimaFilaPatologias = fila;
-            }
-        });
-
-        if (ultimaFilaPatologias) {
-            // Insertar después de la última fila con checkbox
-            if (ultimaFilaPatologias.nextSibling) {
-                ultimaFilaPatologias.parentNode.insertBefore(nuevaFila, ultimaFilaPatologias.nextSibling);
-            } else {
-                ultimaFilaPatologias.parentNode.appendChild(nuevaFila);
-            }
+        const filaAgregar = document.getElementById("fila-agregar-patologia");
+        if (filaAgregar) {
+            filaAgregar.parentNode.insertBefore(nuevaFila, filaAgregar);
         } else {
             tabla.appendChild(nuevaFila);
         }
     });
 });
 
-//funcion para eliminar la patologia
 document.addEventListener("click", function (e) {
     if (e.target.classList.contains("eliminar-patologia")) {
         e.preventDefault();
-
-        const container = e.target.closest("tr");
-        if (container) {
-            container.remove();
-        }
+        const fila = e.target.closest("tr");
+        if (fila) fila.remove();
     }
 });
-

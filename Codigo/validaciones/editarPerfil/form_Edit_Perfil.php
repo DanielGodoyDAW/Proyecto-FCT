@@ -13,7 +13,7 @@ if (isset($_SESSION['idPacientes'])) {
 }
 
 // Consulta para obtener los datos del usuario
-$query = "SELECT email, telefono, sexo, fechaNacim, es_temporal FROM Pacientes WHERE idPacientes = ?";
+$query = "SELECT email, telefono, sexo, fechaNacim, dni, es_temporal FROM Pacientes WHERE idPacientes = ?";
 $stmt = $conexion->prepare($query);
 $stmt->bind_param("i", $idPaciente);
 $stmt->execute();
@@ -97,12 +97,12 @@ $extensiones = [
         <table>
             <tr>
                 <td><label for="c1">Email:</label></td>
-                <td><input type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>"></td>
+                <td><input class="form-control type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>"></td>
             </tr>
             <tr>
                 <td><label for="extension">Prefijo:</label></td>
                 <td>
-                    <select id="extension" name="extension">
+                    <select class="form-control id="extension" name="extension">
                         <?php foreach ($extensiones as $codigo => $pais) { ?>
                             <option value="<?php echo $codigo; ?>" <?php echo $extension === $codigo ? 'selected' : ''; ?>>
                                 <?php echo $codigo . " (" . $pais . ")"; ?>
@@ -113,12 +113,12 @@ $extensiones = [
             </tr>
             <tr>
                 <td><label for="c2">Teléfono:</label></td>
-                <td><input type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>"></td>
+                <td><input class="form-control type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>"></td>
             </tr>
             <tr>
                 <td><label for="c3">Sexo:</label></td>
                 <td>
-                    <select id="c3" name="sexo">
+                    <select class="form-control id="c3" name="sexo">
                         <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>Selecciona una opción</option>
                         <option value="H" <?php echo $pacientes['sexo'] === 'H' ? 'selected' : ''; ?>>Hombre</option>
                         <option value="M" <?php echo $pacientes['sexo'] === 'M' ? 'selected' : ''; ?>>Mujer</option>
@@ -129,15 +129,24 @@ $extensiones = [
             <tr>
                 <td><label for="fechaNacim">Fecha de nacimiento:</label></td>
                 <?php if (!isset($pacientes['fechaNacim'])) { ?>
-                    <td><input type="date" name="fechaNacim" id="fechaNacim"></td>
+                    <td><input class="form-control type="date" name="fechaNacim" id="fechaNacim"></td>
                 <?php } else { ?>
-                    <td><input type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
+                    <td><input class="form-control type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
                 <?php } ?>
             </tr>
+            <?php if (!$esTemporal) { ?>
+            <tr>
+                <td><label for="dni">DNI:</label></td>
+                <td>
+                    <input class="form-control type="text" name="dni" value="<?= htmlspecialchars($pacientes['dni']) ?>" readonly>
+                    <small style="color:#666">Para cambiar este dato, contacta con la clínica.</small>
+                </td>
+            </tr>
+            <?php } ?>
             <?php if ($esTemporal) { ?>
                 <tr>
                     <td><label for="nuevoDNI">Nuevo DNI: <span class="obligatorio">*</span></label></td>
-                    <td><input type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI" required></td>
+                    <td><input class="form-control type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI" required></td>
                 </tr>
             <?php } ?>
             <tr>

@@ -17,7 +17,8 @@ if (isset($_POST['paciente'])) {
                                         telefono AS 'Teléfono',
                                         fechaNacim AS 'Fecha de nacimiento',
                                         sexo AS 'Sexo',
-                                        dni AS 'DNI'
+                                        dni AS 'DNI',
+                                        dni_original AS 'DNI original'
                                         FROM Pacientes
                                         WHERE idPacientes = ?");
     $stmt->bind_param("i", $idPaciente);
@@ -27,6 +28,10 @@ if (isset($_POST['paciente'])) {
     if ($row = $result->fetch_assoc()) {
         echo "<h3>Ficha del Paciente</h3><ul>";
         foreach ($row as $campo => $valor) {
+
+            if(empty($valor)){ //si el valor es vacio no lo mostramos
+                continue;
+            }
             if ($campo === 'Fecha de nacimiento' && !empty($valor)) {
                 $formatter = new \IntlDateFormatter(
                     'es_ES',
@@ -46,10 +51,8 @@ if (isset($_POST['paciente'])) {
         }
         echo "</ul>";
         echo '<div class="acciones-historial">';
-        // echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php?idPaciente='.$idPaciente.'">✏️ Editar Historial</a>';
-        // echo '<a class="btnH" href="/Codigo/validaciones/historialClinico/listarHistorial/verHistorial.php?idPaciente='.$idPaciente.'">👁 Ver Historial</a>';
-        echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial</button>';
-        echo '<button class="btnH" onclick="mostrarHistorial(\'ver\')">👁 Ver Historial</button>';
+        echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial e Informe</button>';
+        echo '<button class="btnH" onclick="mostrarHistorial(\'ver\')">👁 Ver Historial e Informe</button>';
         echo '</div>';
     } else {
         echo "<p>No se encontró el paciente.</p>";

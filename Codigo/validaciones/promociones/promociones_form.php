@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <td><label for="descripcion">Descripción:</label></td>
-            <td><textarea id="descripcion" name="descripcion" ></textarea></td>
+            <td><textarea id="descripcion" name="descripcion"></textarea></td>
         </tr>
         <tr>
             <td><label for="duracion">Duracion:</label></td>
@@ -18,8 +18,14 @@
         <tr>
             <td><label for="imagen">Imagen:</label></td>
             <td>
-                <div class="custom-file-upload">
+                <!-- Solo visible en escritorio -->
+                <div class="subida-Archivo solo-escritorio">
                     <label for="imagen">Seleccionar archivo</label>
+                    <input type="file" id="imagen" name="imagen" accept="image/*" required>
+                </div>
+
+                <!-- Solo visible en móvil -->
+                <div class="input-archivo-movil">
                     <input type="file" id="imagen" name="imagen" accept="image/*" required>
                 </div>
             </td>

@@ -23,11 +23,12 @@ body {
     background-attachment: fixed;
     font-family: Amazing Grotesk, sans-serif;
 }
+
 /*Agregacion de fuente externa para el texto de la web*/
 @font-face {
     font-family: 'Amazing Grotesk';
     src: url('/Codigo/fuenteTexto/amazing_grotesk/Amazing\ Grotesk\ Book.otf') format('woff2'),
-         url('/Codigo/fuenteTexto/amazing_grotesk/Amazing\ Grotesk\ Ultra.otf') format('woff');
+        url('/Codigo/fuenteTexto/amazing_grotesk/Amazing\ Grotesk\ Ultra.otf') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -48,7 +49,6 @@ header a {
     --colorTexto: #333;
     --colorBoton: #08A3A9;
     --colorBotonHover: #0f2788;
-    --colorFondo: #DFF5F6;
     --colorFondoDivs: #E8F0F1;
     --colorActive: #008aca;
 }
@@ -104,7 +104,8 @@ nav ul li a {
     margin-left: 2px;
 }
 
-.btnA, .btnB {
+.btnA,
+.btnB {
     /* Boton del header*/
     background-color: var(--colorBoton);
     color: white;
@@ -119,7 +120,7 @@ nav ul li a {
 
 
 /* formulario recuperacion de contraseña oculto*/
-.btnPss{
+.btnPss {
     background-color: var(--colorBoton);
     color: white;
     border: none;
@@ -131,9 +132,18 @@ nav ul li a {
     border-radius: 4px;
 }
 
-#recuperar{
+/* reajuste de los campos de editar y crear informe*/
+textarea.auto-ajustable {
+    overflow: hidden;
+    resize: none;
+    min-height: 50px;
+    line-height: 1.4;
+    width: 80%;
+}
+
+#recuperar {
     display: none;
-} 
+}
 
 input[type="email"] {
     width: 100%;
@@ -143,7 +153,8 @@ input[type="email"] {
     border-radius: 5px;
     box-sizing: border-box;
 }
-.btnPss{
+
+.btnPss {
     /* Boton inicio sesion*/
     background-color: var(--colorBoton);
     color: white;
@@ -157,17 +168,20 @@ input[type="email"] {
     margin: 0;
     width: 100%;
 }
-.btnPss:hover{
+
+.btnPss:hover {
     background-color: var(--colorBotonHover);
     color: white;
 }
+
 /* fin formulario*/
 
 .btnA:hover {
     background-color: var(--colorBotonHover);
     color: white;
 }
-.bienvenida{
+
+.bienvenida {
     margin-bottom: 20px;
 }
 
@@ -212,6 +226,15 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+}
+
+/*Para evitar que el fondo del campo tome el color de fondo del div*/
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: var(--colorTexto) !important;
 }
 
 .btnIS {
@@ -263,27 +286,35 @@ footer {
     /* justify-content: center; */
 
 }
-.footerIzquierda, .footerCentro, .footerDerecha{
+
+.footerIzquierda,
+.footerCentro,
+.footerDerecha {
     width: 33%;
     display: inline-block;
 }
-.footerIzquierda{
+
+.footerIzquierda {
     text-align: center;
 }
-.liFoo{
+
+.liFoo {
     list-style-type: none;
     text-align: center;
     margin: 0;
     padding: 0;
-    a{
+
+    a {
         text-decoration: none;
     }
 }
-.redes{
+
+.redes {
     justify-content: center;
     width: 25px;
     height: 25px;
 }
+
 .btn-eliminar {
     background-color: transparent;
     border: none;
@@ -310,22 +341,24 @@ footer {
 .btn-estado:hover {
     background-color: var(--colorBotonHover);
 }
+
 /* estilos de citas seleccion de horario */
 .horarios-container {
     display: flex;
     justify-content: space-between;
-    gap: 10px; 
-    margin: 20px auto; 
-    max-width: 800px; 
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 800px;
 }
 
 .horarios-columna {
     flex: 1;
-    /* border: 1px solid #ccc; */ /* para ver el borde*/
+    /* border: 1px solid #ccc; */
+    /* para ver el borde*/
     padding: 10px;
     border-radius: 5px;
-    max-width: 45%; 
-    box-sizing: border-box; 
+    max-width: 45%;
+    box-sizing: border-box;
 }
 
 .horarios-columna h4 {
@@ -346,7 +379,8 @@ footer {
 .btn-horario:hover {
     background-color: var(--colorBotonActivoHover);
 }
-.btn-horario-ocupado{
+
+.btn-horario-ocupado {
     background-color: darkred;
     color: white;
     border: none;
@@ -355,6 +389,7 @@ footer {
     border-radius: 5px;
     text-align: center;
 }
+
 .btn-horario-ocupado:hover {
     background-color: red;
 }
@@ -365,19 +400,22 @@ footer {
     color: var(--colorFondo);
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 102, 255, 0.4), 0 0 10px rgba(0, 153, 255, 0.6);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .navegacion.active:hover {
-    background-color: var(--colorBotonHover); 
-    box-shadow: 0 6px 12px rgba(0, 102, 255, 0.6); 
+    background-color: var(--colorBotonHover);
+    box-shadow: 0 6px 12px rgba(0, 102, 255, 0.6);
 }
-.decoracion{
+
+.decoracion {
     text-decoration: none;
     font-weight: bold;
     color: var(--colorActive);
     padding: 5px 10px;
     border-radius: 5px;
 }
+
 /*para borrar patologias*/
 
 .patologia-input {
@@ -398,9 +436,20 @@ footer {
     cursor: pointer;
 }
 
+/*Separar con div crear informe, de editar*/
+
+.crear-informe {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--colorFondo);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 /*botones editar y ver historial*/
 .btnH {
-    
+
     background-color: var(--colorBoton);
     color: white;
     border: none;
@@ -415,78 +464,160 @@ footer {
 
 /*div de editar historial, de botones volver y ver historial*/
 
-.acciones-historial{
+.acciones-historial {
     margin-top: 10px;
 }
 
 /*Estilos para la tabla de editar historial clinico*/
 
-#tabla_historial_clinico, #inspeccion, #table-tratamiento, #seguimiento{
+#tabla_historial_clinico,
+#inspeccion,
+#table-tratamiento,
+#seguimiento {
     border-collapse: collapse;
     width: 100%;
     table-layout: auto;
 }
 
- #tabla_historial_clinico td,  #inspeccion td,  #table-tratamiento td, #seguimiento td {
+#tabla_historial_clinico td,
+#inspeccion td,
+#table-tratamiento td,
+#seguimiento td {
     padding: 8px;
     text-align: left;
     vertical-align: top;
     word-break: break-word;
 }
-#tabla_historial_clinico th, #inspeccion th, #table-tratamiento th, #seguimiento th {
+
+#tabla_historial_clinico th,
+#inspeccion th,
+#table-tratamiento th,
+#seguimiento th {
     background-color: #f4f4f4;
     font-weight: bold;
+}
+
+/*checkbox-grid*/
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px 20px;
+    margin: 10px 0;
+}
+
+.checkbox-grid label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Estilo para el boton de subir archivo*/
+
+.subida-Archivo input[type="file"] {
+    display: none;
+}
+
+.subida-Archivo label {
+    background-color: var(--colorBoton);
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+}
+
+.subida-Archivo label:hover {
+    background-color: var(--colorBotonHover);
+    color: white;
+}
+
+/* Estilo para inputs personalizados de patologías */
+.patologia-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.patologia-input input[type="text"] {
+    width: 50%;
+}
+
+.patologia-input button.eliminar-patologia {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1;
+    padding: 2px 6px;
+}
+/* Ocultar los iconos por defecto */
+nav ul li a img {
+    display: none;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-left: 8px;
 }
 
 /* Responsive para moviles*/
 
 @media (max-width: 768px) {
-    body, html {
-        font-size: 14px; 
+
+    body,
+    html {
+        font-size: 14px;
     }
 
     .contenedorLogin {
         width: 90%;
-        padding: 15px; 
+        padding: 15px;
     }
 
     .tablaLogin th {
-        font-size: 18px; 
+        font-size: 18px;
     }
 
     input[type="text"],
     input[type="password"] {
-        font-size: 14px; 
-        padding: 8px; 
+        font-size: 14px;
+        padding: 8px;
     }
 
     .btnIS {
-        font-size: 14px; 
-        padding: 8px 15px; 
+        font-size: 14px;
+        padding: 8px 15px;
     }
 
     footer {
-        font-size: 12px; 
-        padding: 5px 0; 
+        font-size: 12px;
+        padding: 5px 0;
     }
 
-    .footerIzquierda, .footerCentro, .footerDerecha {
-        width: 100%; /* Apila las secciones del footer */
+    .footerIzquierda,
+    .footerCentro,
+    .footerDerecha {
+        width: 100%;
+        /* Apila las secciones del footer */
         display: block;
         text-align: center;
     }
 
     .horarios-container {
-        flex-direction: column; 
-        gap: 20px; /* Añade espacio entre las columnas */
+        flex-direction: column;
+        gap: 20px;
+        /* Añade espacio entre las columnas */
         width: 100%;
         overflow-x: hidden;
     }
 
     .horarios-columna {
-        max-width: 100%; 
+        max-width: 100%;
         box-sizing: border-box;
     }
+
     .contenedorAdmin {
         display: flex;
         flex-direction: column;
@@ -495,7 +626,9 @@ footer {
         box-sizing: border-box;
     }
 
-    .citas-container, .historial-container, .administrar-container {
+    .citas-container,
+    .historial-container,
+    .administrar-container {
         width: 100%;
         overflow-x: auto;
         padding: 10px;
@@ -520,21 +653,47 @@ footer {
         box-sizing: border-box;
     }
 
-    .tablaLogin, .tablaHistorial, .tablaAdmin {
+    .tablaLogin,
+    .tablaHistorial,
+    .tablaAdmin {
         width: 100%;
         overflow-x: auto;
         display: block;
     }
 
-    .tablaLogin th, .tablaHistorial th, .tablaAdmin th {
+    .tablaLogin th,
+    .tablaHistorial th,
+    .tablaAdmin th {
         font-size: 14px;
         text-align: center;
     }
 
-    .tablaLogin td, .tablaHistorial td, .tablaAdmin td {
+    .tablaLogin td,
+    .tablaHistorial td,
+    .tablaAdmin td {
         font-size: 12px;
         text-align: center;
     }
+
+    .tabla-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tabla-responsive table {
+    width: 100%;
+    min-width: 600px; /* fuerza el scroll horizontal si el contenido es ancho */
+    border-collapse: collapse;
+}
+
+.tabla-responsive th,
+.tabla-responsive td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+}
 
     nav ul {
         flex-direction: column;
@@ -547,8 +706,18 @@ footer {
     }
 
     nav ul li a {
-        display: block;
-        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         font-size: 16px;
+    }
+
+    nav ul li a img {
+        display: inline;
+    }
+
+    nav ul li a span {
+        display: none;
     }
 }

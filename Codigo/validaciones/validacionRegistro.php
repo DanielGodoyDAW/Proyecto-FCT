@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validar contraseña
     if (empty($_POST['pass']) || strlen($_POST['pass']) < 8) {
-        $errores[] = "La contraseña debe tener al menos 8 caracteres.";
+        $errores[] = "Al menos 8 caracteres, una letra mayuscula, un numero y un caracter especial.";
     } elseif ($_POST['pass'] !== $_POST['confirmar_pass']) {
         $errores[] = "Las contraseñas no coinciden.";
     }
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           apellido1 = ?";
 
         $parametros = [$_POST['nombre'], $_POST['apellido1']];
-        $tipos = "ss"; 
+        $tipos = "ss";
 
         // Agregar campos opcionales dinámicamente
         if (!empty($_POST['apellido2'])) {
@@ -141,13 +141,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $parametros[] = $_POST['fecha_nacimiento'];
             $tipos .= "s";
         }
-            $sql .= ", sexo = ?";
-            $parametros[] = $sexo;
-            $tipos .= "s";
-        
+        $sql .= ", sexo = ?";
+        $parametros[] = $sexo;
+        $tipos .= "s";
+
         if (!empty($_POST['dni'])) {
             $sql .= ", dni = ?";
             $parametros[] = $_POST['dni'];
+            $tipos .= "s";
+            //guardamos el dni original
+            $sql .= ", dni_original = ?";
+            $parametros[] = $_POST['dni'];  // mismo valor que el actual
             $tipos .= "s";
         }
         if (!empty($password_encriptada)) {

@@ -62,9 +62,9 @@ if ($result->num_rows > 0) {
         echo '<p><strong>Descripción:</strong> ' . htmlspecialchars($row['descripcion']) . '</p>';
         echo '<p><strong>Duración:</strong> ' . htmlspecialchars($row['duracion']) . ' min</p>';
         if ($mostrarEditar) {
-            echo '<div class="acciones">';
+            echo '<div class="acciones-botones">';
             echo '<button class="btnE" id="btn-color-V" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
-            echo '<form action="/Codigo/validaciones/promociones/eliminar_promocion.php" method="POST" style="display:inline;">';
+            echo '<form action="/Codigo/validaciones/promociones/eliminar_promocion.php" method="POST">';
             echo '<input type="hidden" name="idPromocion" value="' . $row['idPromocion'] . '">';
             echo '<button type="submit" class="btnE" id="btn-color-R" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este servicio?\');">Eliminar</button>';
             echo '</form>';

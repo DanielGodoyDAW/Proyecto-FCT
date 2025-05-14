@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-05-2025 a las 09:48:23
+-- Tiempo de generación: 14-05-2025 a las 11:27:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,7 +42,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`idAdmin`, `nombre`, `apellido1`, `apellido2`, `email`, `telefono`, `pass`) VALUES
-(1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '643645579', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe');
+(1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '+34 643645579', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe');
 
 -- --------------------------------------------------------
 
@@ -64,6 +64,20 @@ CREATE TABLE `citas` (
   `payment_intent_id` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`idCita`, `fecha`, `hora`, `estado`, `anotaciones`, `bloqueada`, `confirmada`, `google_event_id`, `idPacientes`, `idAdmin`, `payment_intent_id`) VALUES
+(1, '2025-05-15', '09:00:00', 'pendiente', NULL, 0, 1, 'bmf4eg35p23r2ulj77fpl321vk', 4, 1, NULL),
+(4, '2025-05-14', '12:30:00', 'Pendiente', NULL, 0, 0, '1ks4v06mvb8kbe4oj661q3ssvg', 2, NULL, NULL),
+(5, '2025-05-15', '16:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(6, '2025-05-15', '16:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(7, '2025-05-15', '17:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(8, '2025-05-15', '17:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(9, '2025-05-15', '18:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(10, '2025-05-15', '18:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -83,33 +97,58 @@ CREATE TABLE `citas_promociones` (
 
 CREATE TABLE `historial` (
   `idHistorial` int(11) NOT NULL,
-  `fecha` date DEFAULT NULL,
-  `descripcion` text DEFAULT NULL,
-  `motivo` text DEFAULT NULL,
+  `fichaComentarioInicial` text DEFAULT NULL,
   `antec_podologicos` text DEFAULT NULL,
   `antec_quirurgicos` text DEFAULT NULL,
+  `patologias` text DEFAULT NULL,
   `antecedentes` varchar(255) DEFAULT NULL,
   `alergias` varchar(255) DEFAULT NULL,
   `farmacologia` varchar(255) DEFAULT NULL,
   `desarrolloPSi` varchar(255) DEFAULT NULL,
-  `observaciones` text DEFAULT NULL,
-  `archivo` varchar(255) DEFAULT NULL,
-  `onicopatias` tinyint(1) DEFAULT 0,
-  `queratopatias` tinyint(1) DEFAULT 0,
-  `dermatopatias` tinyint(1) DEFAULT 0,
-  `prominenciasOseas` tinyint(1) DEFAULT 0,
-  `altDigitales` tinyint(1) DEFAULT 0,
-  `receta` text DEFAULT NULL,
-  `seguimiento` text DEFAULT NULL
+  `fecha` date NOT NULL DEFAULT curdate()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `historial`
 --
 
-INSERT INTO `historial` (`idHistorial`, `fecha`, `descripcion`, `motivo`, `antec_podologicos`, `antec_quirurgicos`, `antecedentes`, `alergias`, `farmacologia`, `desarrolloPSi`, `observaciones`, `archivo`, `onicopatias`, `queratopatias`, `dermatopatias`, `prominenciasOseas`, `altDigitales`, `receta`, `seguimiento`) VALUES
-(1, '2025-05-06', 'Historial inicial', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, NULL, NULL),
-(2, '2025-05-06', 'Historial inicial', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, NULL, NULL);
+INSERT INTO `historial` (`idHistorial`, `fichaComentarioInicial`, `antec_podologicos`, `antec_quirurgicos`, `patologias`, `antecedentes`, `alergias`, `farmacologia`, `desarrolloPSi`, `fecha`) VALUES
+(1, 'Historial inicial', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-12'),
+(2, 'Historial inicial', NULL, NULL, '', NULL, NULL, NULL, NULL, '2025-05-12'),
+(3, 'Historial inicial', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-12'),
+(4, 'Historial inicial', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-12');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `informe`
+--
+
+CREATE TABLE `informe` (
+  `idInforme` int(11) NOT NULL,
+  `idHistorial` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `motivo` text DEFAULT NULL,
+  `descripcion` text DEFAULT NULL,
+  `observaciones` text DEFAULT NULL,
+  `onicopatias` tinyint(1) DEFAULT 0,
+  `queratopatias` tinyint(1) DEFAULT 0,
+  `dermatopatias` tinyint(1) DEFAULT 0,
+  `prominenciasOseas` tinyint(1) DEFAULT 0,
+  `altDigitales` tinyint(1) DEFAULT 0,
+  `dx` text DEFAULT NULL,
+  `tratamiento` text DEFAULT NULL,
+  `receta` text DEFAULT NULL,
+  `archivo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `informe`
+--
+
+INSERT INTO `informe` (`idInforme`, `idHistorial`, `fecha`, `motivo`, `descripcion`, `observaciones`, `onicopatias`, `queratopatias`, `dermatopatias`, `prominenciasOseas`, `altDigitales`, `dx`, `tratamiento`, `receta`, `archivo`) VALUES
+(1, 2, '2025-05-12', 'prueba', '', '', 0, 0, 0, 0, 0, '0', '0', '', '/Codigo/validaciones/historialClinico/archivos/servicio 3.jpg'),
+(2, 2, '2025-05-13', 'uña del pie', '', '', 0, 0, 0, 0, 0, '0', '0', '', '/Codigo/validaciones/historialClinico/archivos/ervicio1.jpg');
 
 -- --------------------------------------------------------
 
@@ -131,16 +170,19 @@ CREATE TABLE `pacientes` (
   `token_recuperacion` varchar(64) DEFAULT NULL,
   `token_expira` datetime DEFAULT NULL,
   `idHistorial` int(11) NOT NULL,
-  `es_temporal` tinyint(1) DEFAULT 0
+  `es_temporal` tinyint(1) DEFAULT 0,
+  `dni_original` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pacientes`
 --
 
-INSERT INTO `pacientes` (`idPacientes`, `nombre`, `apellido1`, `apellido2`, `email`, `telefono`, `fechaNacim`, `sexo`, `dni`, `pass`, `token_recuperacion`, `token_expira`, `idHistorial`, `es_temporal`) VALUES
-(1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '643645579', '1999-04-06', 'M', '00000000A', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe', NULL, NULL, 1, 0),
-(2, 'Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com', '628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu', NULL, NULL, 2, 0);
+INSERT INTO `pacientes` (`idPacientes`, `nombre`, `apellido1`, `apellido2`, `email`, `telefono`, `fechaNacim`, `sexo`, `dni`, `pass`, `token_recuperacion`, `token_expira`, `idHistorial`, `es_temporal`, `dni_original`) VALUES
+(1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '+34 643645579', '1999-04-06', 'M', '53896466Z', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe', NULL, NULL, 1, 0, '53896466Z'),
+(2, 'Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com', '+34 628738526', '1989-07-22', 'H', '53368486E', '$2y$10$Ytv6cH.5Hp4PfdeXxgvFfucJ3s3BwPtmkt1EFSWFnB3evsreg6sQu', NULL, NULL, 2, 0, '53368486E'),
+(3, 'Carlos', 'Castillo', NULL, 'carlos@calos.com', '+34 654676656', NULL, 'O', '23145634J', '$2y$10$GaUrWfmP.8zP/8/tuAu.suSUPAvFbckNaVT5b0yLnP5MWfM3hY5Oq', NULL, NULL, 3, 0, '23145634J'),
+(4, 'Alberto', 'Castro', '', 'temporal_6822092e34d66@carmen.godoy', '+34 678546678', '1900-01-01', 'O', 'TEMP4b254176', '$2y$10$qbA/kOH7VWZhFCYcaO.w1ulQxdkftuHdI/4SRJzzoO5l88ZaxnjMG', NULL, NULL, 4, 1, NULL);
 
 --
 -- Disparadores `pacientes`
@@ -148,7 +190,7 @@ INSERT INTO `pacientes` (`idPacientes`, `nombre`, `apellido1`, `apellido2`, `ema
 DELIMITER $$
 CREATE TRIGGER `asignar_historial` BEFORE INSERT ON `pacientes` FOR EACH ROW BEGIN
     DECLARE nuevoId INT;
-    INSERT INTO Historial (fecha, descripcion)
+    INSERT INTO Historial (fecha, fichaComentarioInicial)
     VALUES (NOW(), 'Historial inicial');
     SET nuevoId = LAST_INSERT_ID();
     SET NEW.idHistorial = nuevoId;
@@ -170,6 +212,13 @@ CREATE TABLE `promociones` (
   `imagen` varchar(255) DEFAULT NULL,
   `idAdmin` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `promociones`
+--
+
+INSERT INTO `promociones` (`idPromocion`, `titulo`, `descripcion`, `duracion`, `imagen`, `idAdmin`) VALUES
+(1, 'Papiloma', '', 30, '/imagenes/promociones/servicio 3.jpg', 1);
 
 --
 -- Índices para tablas volcadas
@@ -203,6 +252,13 @@ ALTER TABLE `historial`
   ADD PRIMARY KEY (`idHistorial`);
 
 --
+-- Indices de la tabla `informe`
+--
+ALTER TABLE `informe`
+  ADD PRIMARY KEY (`idInforme`),
+  ADD KEY `idHistorial` (`idHistorial`);
+
+--
 -- Indices de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
@@ -225,25 +281,31 @@ ALTER TABLE `promociones`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `idHistorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idHistorial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `informe`
+--
+ALTER TABLE `informe`
+  MODIFY `idInforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `idPacientes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idPacientes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `promociones`
 --
 ALTER TABLE `promociones`
-  MODIFY `idPromocion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPromocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -262,6 +324,12 @@ ALTER TABLE `citas`
 ALTER TABLE `citas_promociones`
   ADD CONSTRAINT `citas_promociones_ibfk_1` FOREIGN KEY (`idCita`) REFERENCES `citas` (`idCita`),
   ADD CONSTRAINT `citas_promociones_ibfk_2` FOREIGN KEY (`idPromocion`) REFERENCES `promociones` (`idPromocion`);
+
+--
+-- Filtros para la tabla `informe`
+--
+ALTER TABLE `informe`
+  ADD CONSTRAINT `informe_ibfk_1` FOREIGN KEY (`idHistorial`) REFERENCES `historial` (`idHistorial`);
 
 --
 -- Filtros para la tabla `pacientes`
