@@ -195,8 +195,11 @@ table.pacientes-temporales th {
     .columnaAdmin-citas,
     .columnaAdmin-full {
         width: 95% !important;
-        margin: 10px 0 !important;
+        max-width: 600px;
+        margin: 20px auto !important;
+        /* Centrado horizontal y separación */
         padding: 15px;
+        box-sizing: border-box;
     }
 
     .menu-citas ul {
@@ -247,6 +250,7 @@ table.pacientes-temporales th {
         border-bottom: 1px solid #ccc;
         word-wrap: break-word;
     }
+
     /*No aplica al ultimo*/
     table.pacientes-temporales td:last-child {
         border-bottom: none;
