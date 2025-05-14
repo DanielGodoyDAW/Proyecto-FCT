@@ -69,7 +69,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
             } ?>
             <!-- si es paciente o admin -->
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/promociones.php'>Servicios<img src='/Codigo/iconos/servicios.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/servicios.php'>Servicios<img src='/Codigo/iconos/servicios.svg'></a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
                 echo "<li><a class='btnA navegacion' href='/Codigo/editar_perfil.php'>Editar Perfil<img src='/Codigo/iconos/perfil.svg'></a></li>";

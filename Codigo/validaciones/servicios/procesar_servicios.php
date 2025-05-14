@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Manejar la imagen opcionalmente
     $rutaImagen = null;
     if (isset($_FILES['imagen']['name']) && !empty($_FILES['imagen']['name'])) {
-        $directorio = dirname(__DIR__, 2) . '/imagenes/promociones'; // Ruta absoluta a la carpeta de imágenes
-        $rutaImagen = '/imagenes/promociones/' . basename($_FILES['imagen']['name']); // Ruta relativa para guardar en la base de datos
+        $directorio = dirname(__DIR__, 2) . '/imagenes/servicios'; // Ruta absoluta a la carpeta de imágenes
+        $rutaImagen = '/imagenes/servicios/' . basename($_FILES['imagen']['name']); // Ruta relativa para guardar en la base de datos
         $rutaImagenCompleta = $directorio . '/' . basename($_FILES['imagen']['name']); // Ruta completa para mover el archivo
 
         // Crear la carpeta si no existe

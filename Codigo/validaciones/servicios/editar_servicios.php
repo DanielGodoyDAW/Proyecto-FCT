@@ -34,7 +34,7 @@ $promocion = $result->fetch_assoc();
 <body>
     <h2>Editar Servicio</h2>
     <div class="form-container">
-        <form action="procesar_editar_promocion.php" method="POST">
+        <form action="procesar_editar_servicios.php" method="POST">
             <table>
                 <tr>
                     <td><input type="hidden" name="idPromocion" value="<?php echo htmlspecialchars($idPromocion); ?>"></td>
