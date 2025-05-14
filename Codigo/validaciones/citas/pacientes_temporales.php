@@ -19,16 +19,16 @@ if ($resultado->num_rows > 0) {
 
     while ($row = $resultado->fetch_assoc()) {
         echo '<tr>';
-        echo '<td>' . htmlspecialchars($row['nombre'] . ' ' . $row['apellido1'] . ' ' . $row['apellido2']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['telefono']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['email']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['dni']) . '</td>';
-        echo '<td>
-            <form method="POST" action="/Codigo/validaciones/citas/eliminar_paciente_temporal.php" onsubmit="return confirm(\'¿Estás seguro de eliminar este paciente temporal?\');" style="display:inline;">
-                <input type="hidden" name="idPacientes" value="' . $row['idPacientes'] . '">
-                <button type="submit" class="btnCancelar">Eliminar</button>
-            </form>
-        </td>';
+        echo '<td><strong>Nombre:</strong><br>' . htmlspecialchars($row['nombre'] . ' ' . $row['apellido1'] . ' ' . $row['apellido2']) . '</td>';
+        echo '<td><strong>Teléfono:</strong><br>' . htmlspecialchars($row['telefono']) . '</td>';
+        echo '<td><strong>Email:</strong><br>' . htmlspecialchars($row['email']) . '</td>';
+        echo '<td><strong>DNI:</strong><br>' . htmlspecialchars($row['dni']) . '</td>';
+        echo '<td><strong>Acción:</strong><br>
+    <form method="POST" action="/Codigo/validaciones/citas/eliminar_paciente_temporal.php" onsubmit="return confirm(\'¿Estás seguro de eliminar este paciente temporal?\');" style="display:inline;">
+        <input type="hidden" name="idPacientes" value="' . $row['idPacientes'] . '">
+        <button type="submit" class="btnCancelar">Eliminar</button>
+    </form>
+</td>';
         echo '</tr>';
     }
 
@@ -37,4 +37,3 @@ if ($resultado->num_rows > 0) {
 } else {
     echo '<p>No hay pacientes temporales registrados.</p>';
 }
-?>
