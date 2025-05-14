@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tipoImagen = $_FILES['imagen']['type'];
         $tamanoImagen = $_FILES['imagen']['size'];
         $rutaTemporal = $_FILES['imagen']['tmp_name'];
-        $directorioRelativo = '/imagenes/promociones/';
-        $directorioAbsoluto = __DIR__ . '/../../imagenes/promociones/';
+        $directorioRelativo = '/imagenes/servicios/';
+        $directorioAbsoluto = __DIR__ . '/../../imagenes/servicios/';
         $rutaImagen = $directorioRelativo . $nombreImagen;
 
         // Verifica si el directorio existe, si no, lo crea

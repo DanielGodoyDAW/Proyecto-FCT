@@ -40,7 +40,7 @@ if (isset($_SESSION['idPacientes'])) {
             <?php
             $mostrarEditar = false;
             $mostrarImagen = true;
-            require_once '../Codigo/validaciones/promociones/promociones_lista.php';
+            require_once '../Codigo/validaciones/servicios/servicios_lista.php';
             ?>
         </div>
 
