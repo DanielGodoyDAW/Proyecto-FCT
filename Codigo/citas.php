@@ -38,7 +38,7 @@ if (isset($_SESSION['idPacientes'])) {
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
-    <!-- Si el usuario logueado es admin, vera una cossa u otra -->
+    <!-- Si el usuario logueado es admin, vera una cosa u otra -->
     <?php if (isset($_SESSION["idAdmin"])) { ?>
         <div id="admin-panel">
             <nav class="menu-citas">

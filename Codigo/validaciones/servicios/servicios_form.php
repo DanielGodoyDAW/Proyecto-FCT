@@ -18,14 +18,8 @@
         <tr>
             <td><label for="imagen">Imagen:</label></td>
             <td>
-                <!-- Solo visible en escritorio -->
-                <div class="subida-Archivo solo-escritorio">
+                <div class="input-archivo">
                     <label for="imagen">Seleccionar archivo</label>
-                    <input type="file" id="imagen" name="imagen" accept="image/*" required>
-                </div>
-
-                <!-- Solo visible en móvil -->
-                <div class="input-archivo-movil">
                     <input type="file" id="imagen" name="imagen" accept="image/*" required>
                 </div>
             </td>

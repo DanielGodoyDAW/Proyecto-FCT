@@ -23,21 +23,6 @@
     border-radius: 8px;
 }
 
-.subida-Archivo input[type="file"] {
-    display: none;
-}
-
-.subida-Archivo label {
-    background-color: var(--colorBoton);
-    color: white;
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    text-align: center;
-}
-
 .subida-Archivo label:hover {
     background-color: var(--colorBotonHover);
     color: white;
@@ -179,13 +164,6 @@ h2 {
     width: 100px;
 }
 
-.input-archivo-movil {
-    display: none;
-}
-
-.input-archivo-escritorio {
-    display: block;
-}
 
 /* responsive para moviles*/
 .fichas-movil {
@@ -193,13 +171,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    .input-archivo-movil {
-        display: block;
-    }
-
-    .input-archivo-escritorio {
-        display: none;
-    }
 
     .solo-escritorio {
         display: none;
@@ -287,16 +258,6 @@ h2 {
         box-sizing: border-box;
     }
 
-    .subida-Archivo {
-        width: 100%;
-    }
-
-    .subida-Archivo label {
-        width: 100%;
-        display: inline-block;
-        text-align: center;
-    }
-
     /* Aumentar ancho del contenedor del formulario */
     .seccion.promociones,
     .seccion.promociones-lista {
@@ -351,4 +312,34 @@ h2 {
     #btn-color-R:hover {
         background-color: var(--colorBotonActivoHover);
     }
+}
+
+.input-archivo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* ocula el input original  */
+.input-archivo input[type="file"] {
+    display: none;
+}
+
+/* boton personalizado */
+.input-archivo label {
+    background-color: var(--colorBoton);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.input-archivo label:hover {
+    background-color: var(--colorBotonHover);
 }

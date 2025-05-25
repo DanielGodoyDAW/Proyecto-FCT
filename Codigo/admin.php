@@ -19,7 +19,7 @@
         <ul>
             <li><a href="#" data-seccion="busqueda" class="activo">Búsqueda de Paciente</a></li>
             <li><a href="#" data-seccion="historial">Historial Clínico</a></li>
-            <li><a href="#" data-seccion="promociones">Agregar Servicio</a></li>
+            <li><a href="#" data-seccion="servicios">Agregar Servicio</a></li>
         </ul>
     </nav>
 
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div id="promociones" class="contenido-admin">
+        <div id="servicios" class="contenido-admin">
             <?php require_once '../Codigo/validaciones/subseccionesAdmin/agregarServicio.php'; ?>
         </div>
     </main>
