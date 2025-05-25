@@ -56,13 +56,13 @@ echo '<hr>';
 
 // Formulario paciente
 echo '<h4>Datos del paciente:</h4>';
-echo '<label>Nombre:</label><br><input type="text" name="nombre" required pattern="[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,29}" 
+echo '<label>Nombre:<span class="obligatorio">*</span></label><br><input type="text" name="nombre" required pattern="[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,29}" 
 title="Debe comenzar en mayúscula y tener entre 3 y 30 letras" placeholder="Nombre con Mayusculas"><br>';
-echo '<label>Apellido 1:</label><br><input type="text" name="apellido1" required pattern="[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,29}" 
+echo '<label>Apellido 1:<span class="obligatorio">*</span></label><br><input type="text" name="apellido1" required pattern="[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,29}" 
 title="Debe comenzar en mayúscula y tener entre 3 y 30 letras" placeholder="Apellido con Mayusculas"><br>';
 echo '<label>Apellido 2:</label><br><input type="text" name="apellido2" pattern="[A-ZÁÉÍÓÚÑa-záéíóúñ]{2,30}" 
 title="Debe tener entre 2 y 30 letras (opcional)" placeholder="Apellido con Mayusculas""><br>';
-echo '<label>Teléfono:</label><br><input type="text" name="telefono" required pattern="^(\d{9}|\d{3} \d{3} \d{3})$"  
+echo '<label>Teléfono:<span class="obligatorio">*</span></label><br><input type="text" name="telefono" required pattern="^(\d{9}|\d{3} \d{3} \d{3})$"  
 title="Debe contener exactamente 9 dígitos" placeholder="Formato 666 666 666"><br>';
 echo '<label>Email:</label><br><input type="email" name="email" title="Debe tener formato usuario@dominio.com" placeholder="usuario@dominio.com"><br>';
 echo '<label><input type="checkbox" name="temporal" checked> Usuario temporal</label><br><br>';
