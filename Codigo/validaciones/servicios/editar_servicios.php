@@ -26,7 +26,7 @@ $promocion = $result->fetch_assoc();
 
 <head>
     <meta charset="UTF-8">
-    <title>Editar Promoción</title>
+    <title>Editar Servicios</title>
     <link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">
     <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
 </head>
