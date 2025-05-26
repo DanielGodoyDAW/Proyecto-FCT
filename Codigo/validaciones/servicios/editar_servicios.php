@@ -4,7 +4,8 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 $idPromocion = $_GET['idPromocion'] ?? null; //usamos el get, para recogerlos del formulario de js
 
 if (!$idPromocion) {
-    die('Error: ID de promoción no proporcionado.');
+    echo "<script>alert('Error: ID de promoción no proporcionado.'); window.history.back();</script>";
+    exit;
 }
 
 // Obtener los datos de la promoción (Servicio)
@@ -15,7 +16,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 0) {
-    die('Error: Servicio no encontrado.');
+    echo '<script>alert("Error: Servicio no encontrado");</script>';
 }
 
 $promocion = $result->fetch_assoc();

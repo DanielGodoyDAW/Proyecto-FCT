@@ -25,7 +25,8 @@ $stmtPaciente = $conexion->prepare("
 $stmtPaciente->bind_param("sssssssssi", $nombre, $apellido1, $apellido2, $email, $telefono, $fechaNacim, $sexo, $dni, $pass, $temporal);
 
 if (!$stmtPaciente->execute()) {
-    die("Error al crear paciente temporal: " . $stmtPaciente->error);
+    echo "<script>alert('Error al crear paciente temporal: " . addslashes($stmtPaciente->error) . "'); window.history.back();</script>";
+    exit;
 }
 $idPaciente = $stmtPaciente->insert_id;
 
@@ -38,7 +39,8 @@ $idAdmin = $_SESSION['idAdmin'];
 $stmtCita->bind_param("ssii", $fecha, $hora, $idPaciente, $idAdmin);
 
 if (!$stmtCita->execute()) {
-    die("Error al crear cita: " . $stmtCita->error);
+    echo "<script>alert('Error al crear cita: " . addslashes($stmtCita->error) . "'); window.history.back();</script>";
+    exit;
 }
 $idCita = $stmtCita->insert_id;
 
@@ -48,7 +50,6 @@ try {
     $anotaciones = "Cita reservada manualmente por el admin.";
     $bloqueada = 0; // No es bloqueada en este caso
     $google_event_id = crearEvento($fecha, $hora, $horaFin, $anotaciones, $idPaciente, $bloqueada);
-
     // Guardar ID del evento en la BD
     $update = $conexion->prepare("UPDATE Citas SET google_event_id = ? WHERE idCita = ?");
     $update->bind_param("si", $google_event_id, $idCita);
@@ -58,6 +59,6 @@ try {
 }
 
 // Redirigir con mensaje
-echo "<script>alert('Cita creada con éxito.');</script>";
-header("Location: /Codigo/citas.php");
+echo "<script>alert('Cita creada con éxito.'); window.location.href = '/Codigo/citas.php';</script>";
 exit;
+?>
