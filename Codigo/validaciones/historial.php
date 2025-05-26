@@ -76,6 +76,9 @@ if (isset($_SESSION["idAdmin"])) {
     //si eres paciente
     $idPaciente = $_SESSION["idPacientes"];
 
+    //consulta para ver todas las citas del mes (pasadas o futuras) de un paciente
+    // Se utiliza DATE_FORMAT para obtener el primer día del mes actual y LAST_DAY para obtener el último día del mes actual
+    // Se utiliza el id del paciente para filtrar las citas
     $query = "SELECT Citas.idCita, Citas.fecha, Citas.hora, Pacientes.nombre, Pacientes.apellido1, Pacientes.apellido2 
           FROM Citas 
           JOIN Pacientes ON Citas.idPacientes = Pacientes.idPacientes 

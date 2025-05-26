@@ -44,7 +44,7 @@ if (!empty($_POST['sexo']) && in_array($_POST['sexo'], ['H', 'M', 'O'])) {
     $sexo = $_POST['sexo'];
 }
 
-// Contraseña desde popup
+// Contraseña desde div oculto
 if ($fromPopup) {
     if (!empty($passwordActual) && !empty($nuevaContrasena) && !empty($confirmarContrasena)) {
         if ($nuevaContrasena !== $confirmarContrasena) {
