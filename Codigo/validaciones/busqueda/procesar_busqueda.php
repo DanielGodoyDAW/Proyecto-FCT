@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 if (isset($_POST['paciente'])) {
     $idPaciente = intval($_POST['paciente']);
     $_SESSION['idPaciente'] = $idPaciente;
-
+    //de la tabla apcientes cogemos cada dato y los mostramos como->
     $stmt = $conexion->prepare("SELECT idPacientes AS 'ID', 
                                         nombre AS 'Nombre', 
                                         apellido1 AS 'Primer apellido',
@@ -32,6 +32,7 @@ if (isset($_POST['paciente'])) {
             if(empty($valor)){ //si el valor es vacio no lo mostramos
                 continue;
             }
+            //para formatear el campo de fecha a español
             if ($campo === 'Fecha de nacimiento' && !empty($valor)) {
                 $formatter = new \IntlDateFormatter(
                     'es_ES',
