@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if (!$idPromocion) {
-        die('Error: ID de promoción no proporcionado.');
+        echo '<script>alert("Error: ID de promoción no proporcionado."); window.history.back();</script>';
+        exit;
     }
 
     $rutaImagen = null; // Inicializamos la variable para la ruta de la imagen
@@ -38,18 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Verifica si el archivo es una imagen válida
         if ($tipoImagen !== 'image/jpeg' && $tipoImagen !== 'image/png') {
-            die('<script>alert("Error: Solo se permiten imágenes JPEG y PNG."); window.history.back();</script>');
+            echo '<script>alert("Error: Solo se permiten imágenes JPEG y PNG."); window.history.back();</script>';
         }
 
         // Verifica el tamaño de la imagen (2MB máximo)
         $tamano = 2 * 1024 * 1024; // 2MB
         if ($tamanoImagen > $tamano) {
-            die('<script>alert("Error: La imagen es demasiado grande. El tamaño máximo permitido es 2MB."); window.history.back();</script>');
+            echo '<script>alert("Error: La imagen es demasiado grande. El tamaño máximo permitido es 2MB."); window.history.back();</script>';
         }
 
         // Verifica si el archivo ya existe
         if (!move_uploaded_file($rutaTemporal, $directorioAbsoluto . $nombreImagen)) {
-            die('<script>alert("Error: No se pudo mover la imagen a la carpeta de destino."); window.history.back();</script>');
+            echo '<script>alert("Error: No se pudo mover la imagen a la carpeta de destino."); window.history.back();</script>';
         }
 
         // Si se subió una nueva imagen, eliminamos la anterior

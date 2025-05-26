@@ -21,7 +21,8 @@ $result = $stmt->get_result();
 
 // Verifica si se encontraron datos
 if ($result->num_rows === 0) {
-    die('Error: No se encontraron datos del usuario.');
+    echo "<script>alert('Error: No se encontraron datos del usuario.'); window.history.back();</script>";
+    exit;
 }
 
 // Almacenamos los datos del usuario en un array
