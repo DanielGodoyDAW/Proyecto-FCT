@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">
 <link rel="stylesheet" href="/Codigo/estilos/style.css">
-<script src="/Codigo/validaciones/promociones/editarPromocion.js"></script>
-<form action="/Codigo/validaciones/promociones/procesar_promociones.php" method="POST" enctype="multipart/form-data">
+<script src="/Codigo/validaciones/servicios/editarServicio.js"></script>
+<form action="/Codigo/validaciones/servicios/procesar_servicios.php" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
             <td><label for="titulo">Título:</label></td>
@@ -18,14 +18,8 @@
         <tr>
             <td><label for="imagen">Imagen:</label></td>
             <td>
-                <!-- Solo visible en escritorio -->
-                <div class="subida-Archivo solo-escritorio">
+                <div class="input-archivo">
                     <label for="imagen">Seleccionar archivo</label>
-                    <input type="file" id="imagen" name="imagen" accept="image/*" required>
-                </div>
-
-                <!-- Solo visible en móvil -->
-                <div class="input-archivo-movil">
                     <input type="file" id="imagen" name="imagen" accept="image/*" required>
                 </div>
             </td>

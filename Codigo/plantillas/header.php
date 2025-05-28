@@ -7,10 +7,11 @@ require_once __DIR__ . '/../conexion/conexion.php';
 
 <header>
     <a href="/Codigo/index.php">
-        <img class="logo" src="/Codigo/imagenes/logo.png" alt="icono">
+        <img class="logo" src="/Codigo/imagenes/logo_sin_fondo.png" alt="icono">
     </a>
     <h1>Clínica de Podología Carmen Godoy</h1>
-    <link rel="stylesheet" href="/Codigo/estilos/style.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/style.css">
     <script src="/Codigo/js/menuNavegacion.js"></script>
 
     <?php
@@ -69,7 +70,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
             } ?>
             <!-- si es paciente o admin -->
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/promociones.php'>Servicios<img src='/Codigo/iconos/servicios.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='/Codigo/servicios.php'>Servicios<img src='/Codigo/iconos/servicios.svg'></a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
                 echo "<li><a class='btnA navegacion' href='/Codigo/editar_perfil.php'>Editar Perfil<img src='/Codigo/iconos/perfil.svg'></a></li>";

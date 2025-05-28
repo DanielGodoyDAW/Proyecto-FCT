@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
 
+//verificacion extra si no eres admin
 if (!isset($_SESSION['idAdmin'])) {
     header("Location: /Codigo/index.php");
     exit;

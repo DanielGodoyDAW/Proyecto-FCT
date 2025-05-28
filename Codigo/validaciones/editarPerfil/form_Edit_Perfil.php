@@ -21,7 +21,8 @@ $result = $stmt->get_result();
 
 // Verifica si se encontraron datos
 if ($result->num_rows === 0) {
-    die('Error: No se encontraron datos del usuario.');
+    echo "<script>alert('Error: No se encontraron datos del usuario.'); window.history.back();</script>";
+    exit;
 }
 
 // Almacenamos los datos del usuario en un array
@@ -85,8 +86,8 @@ $extensiones = [
 
 ?>
 
-<link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
 <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
+<link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
 <script src="/Codigo/validaciones/editarPerfil/popupContrasena.js"></script>
 <div id="perfil">
     <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
@@ -97,12 +98,12 @@ $extensiones = [
         <table>
             <tr>
                 <td><label for="c1">Email:</label></td>
-                <td><input class="form-control type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>"></td>
+                <td><input class="form-control" type="email" id="c1" name="email" value="<?php echo htmlspecialchars($pacientes['email']); ?>"></td>
             </tr>
             <tr>
                 <td><label for="extension">Prefijo:</label></td>
                 <td>
-                    <select class="form-control id="extension" name="extension">
+                    <select class="form-control" id="extension" name="extension">
                         <?php foreach ($extensiones as $codigo => $pais) { ?>
                             <option value="<?php echo $codigo; ?>" <?php echo $extension === $codigo ? 'selected' : ''; ?>>
                                 <?php echo $codigo . " (" . $pais . ")"; ?>
@@ -113,12 +114,13 @@ $extensiones = [
             </tr>
             <tr>
                 <td><label for="c2">Teléfono:</label></td>
-                <td><input class="form-control type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>"></td>
+                <td><input class="form-control" type="tel" id="c2" name="telefono" value="<?php echo htmlspecialchars($telefono); ?>"></td>
             </tr>
             <tr>
                 <td><label for="c3">Sexo:</label></td>
                 <td>
-                    <select class="form-control id="c3" name="sexo">
+                    <select class="form-control" id="c3" name="sexo">
+                        <!-- Tanto opcion vacia, como No binario o sin especificar comparten mismo value, por lo que tienen mismo saludo -->
                         <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>Selecciona una opción</option>
                         <option value="H" <?php echo $pacientes['sexo'] === 'H' ? 'selected' : ''; ?>>Hombre</option>
                         <option value="M" <?php echo $pacientes['sexo'] === 'M' ? 'selected' : ''; ?>>Mujer</option>
@@ -129,16 +131,16 @@ $extensiones = [
             <tr>
                 <td><label for="fechaNacim">Fecha de nacimiento:</label></td>
                 <?php if (!isset($pacientes['fechaNacim'])) { ?>
-                    <td><input class="form-control type="date" name="fechaNacim" id="fechaNacim"></td>
+                    <td><input class="form-control" type="date" name="fechaNacim" id="fechaNacim"></td>
                 <?php } else { ?>
-                    <td><input class="form-control type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
+                    <td><input class="form-control" type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
                 <?php } ?>
             </tr>
             <?php if (!$esTemporal) { ?>
             <tr>
                 <td><label for="dni">DNI:</label></td>
                 <td>
-                    <input class="form-control type="text" name="dni" value="<?= htmlspecialchars($pacientes['dni']) ?>" readonly>
+                    <input class="form-control" type="text" name="dni" value="<?= htmlspecialchars($pacientes['dni']) ?>" readonly>
                     <small style="color:#666">Para cambiar este dato, contacta con la clínica.</small>
                 </td>
             </tr>
@@ -146,7 +148,7 @@ $extensiones = [
             <?php if ($esTemporal) { ?>
                 <tr>
                     <td><label for="nuevoDNI">Nuevo DNI: <span class="obligatorio">*</span></label></td>
-                    <td><input class="form-control type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI" required></td>
+                    <td><input class="form-control" type="text" id="nuevoDNI" name="nuevoDNI" placeholder="Introduce tu DNI" required></td>
                 </tr>
             <?php } ?>
             <tr>

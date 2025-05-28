@@ -9,18 +9,20 @@ $errores = $_SESSION['errores'] ?? [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/Codigo/js/registro.js"></script>
-    <link rel="stylesheet" href="/Codigo/estilos/stylesRegistro.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/stylesRegistro.css">
+    <link rel="stylesheet" href="estilos/styleCalendario.css">
     <title>Registrarse</title>
 </head>
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
+    <!-- Formulario de registro con cada apartado y sus patrones -->
     <form action="/Codigo/validaciones/validacionRegistro.php" method="post" id="validacionRegistro">
         <div class="contenedorRegistro">
             <?php if (!empty($errores)) { ?>
                 <div id="error">
+                    <!-- si ocurre algun error, se imprimiran -->
                     <?php foreach ($errores as $error) { ?>
                         <p><?php echo htmlspecialchars($error); ?></p>
                     <?php } ?>
@@ -135,7 +137,7 @@ $errores = $_SESSION['errores'] ?? [];
                     <td><label for="c9">Contraseña: <span class="obligatorio">*</span></label></td>
                     <td>
                         <input type="password" id="c9" name="pass" placeholder="Contraseña" required pattern=".{8,}" title="Al menos 8 caracteres, una letra mayuscula, un numero y un caracter especial.">
-                        <button type="button" id="mostrar_contrasena" onclick="alternarContrasena('c9')">Mostrar</button>
+                        <button type="button" id="mostrar_contrasena" onclick="alternarContrasena('c9')">Mostrar</button><!-- pequeño script js para mostrar los datos de la contraseña -->
                     </td>
                 </tr>
                 <tr>

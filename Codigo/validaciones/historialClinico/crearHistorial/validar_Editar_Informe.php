@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
-if (session_status() === PHP_SESSION_NONE) session_start();
+if (session_status() === PHP_SESSION_NONE) session_start(); // Iniciar sesión si no está iniciada
 
+// Obtener datos del formulario
 $idInforme = $_POST['idInforme'] ?? null;
 $fecha = $_POST['fecha'] ?? date('Y-m-d');
 $motivo = $_POST['motivo'] ?? '';
@@ -12,11 +13,13 @@ $tratamiento = $_POST['tratamiento'] ?? '';
 $receta = $_POST['receta'] ?? '';
 $archivoRuta = null;
 
+// Validación mínima de datos
+//si no se envía el idInforme o la fecha, muestra un mensaje de alerta
 if (!$idInforme || !$fecha) {
     echo "<script>alert('Faltan datos obligatorios.');</script>";
 }
 
-
+// Procesar archivo (si se sube uno)
 if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) {
     $nombreArchivo = basename($_FILES['archivo']['name']);
 
@@ -45,6 +48,7 @@ $query = "UPDATE Informe SET
     onicopatias = ?, queratopatias = ?, dermatopatias = ?, prominenciasOseas = ?, altDigitales = ?,
     dx = ?, tratamiento = ?, receta = ?";
 
+// Si se ha subido un archivo, añadirlo a la consulta
 if ($archivoRuta) {
     $query .= ", archivo = ?";
 }
@@ -53,6 +57,7 @@ $query .= " WHERE idInforme = ?";
 
 $stmt = $conexion->prepare($query);
 
+// Verificar si se ha subido un archivo y ajustar los parámetros de bind_param
 if ($archivoRuta) {
     $stmt->bind_param(
         'ssssiiiiissssi',
@@ -71,6 +76,7 @@ if ($archivoRuta) {
         $archivoRuta,
         $idInforme
     );
+    // Si no se ha subido un archivo, no incluirlo en los parámetros
 } else {
     $stmt->bind_param(
         'ssssiiiiisssi',

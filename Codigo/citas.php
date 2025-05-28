@@ -26,11 +26,11 @@ if (isset($_SESSION['idPacientes'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
     <?php if (isset($_SESSION["idAdmin"])) { ?>
-        <link rel="stylesheet" href="/Codigo/estilos/styleCitasAdmin.css">
+        <link rel="stylesheet" href="estilos/styleCitasAdmin.css">
     <?php } else { ?>
-        <link rel="stylesheet" href="/Codigo/estilos/styleCitasPaciente.css">
+        <link rel="stylesheet" href="estilos/styleCitasPaciente.css">
     <?php } ?>
     <script defer src="/Codigo/validaciones/citas/subsecciones_admin_citas.js"></script>
     <title>Reserva tu Cita</title>
@@ -38,7 +38,7 @@ if (isset($_SESSION['idPacientes'])) {
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
-    <!-- Si el usuario logueado es admin, vera una cossa u otra -->
+    <!-- Si el usuario logueado es admin, vera una cosa u otra -->
     <?php if (isset($_SESSION["idAdmin"])) { ?>
         <div id="admin-panel">
             <nav class="menu-citas">

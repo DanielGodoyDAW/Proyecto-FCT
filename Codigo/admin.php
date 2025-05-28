@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/styleAdmin.css">
     <script defer src="/Codigo/validaciones/subseccionesAdmin/subseccion.js"></script>
     <script defer src="/Codigo/validaciones/subseccionesAdmin/subMenuHistorial.js"></script>
     <title>Administración</title>
@@ -19,7 +19,7 @@
         <ul>
             <li><a href="#" data-seccion="busqueda" class="activo">Búsqueda de Paciente</a></li>
             <li><a href="#" data-seccion="historial">Historial Clínico</a></li>
-            <li><a href="#" data-seccion="promociones">Agregar Servicio</a></li>
+            <li><a href="#" data-seccion="servicios">Agregar Servicio</a></li>
         </ul>
     </nav>
 
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div id="promociones" class="contenido-admin">
+        <div id="servicios" class="contenido-admin">
             <?php require_once '../Codigo/validaciones/subseccionesAdmin/agregarServicio.php'; ?>
         </div>
     </main>

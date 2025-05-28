@@ -5,13 +5,13 @@ function editarPromocion(idPromocion) {
     let top = (window.screen.height / 2) - (height / 2);
 
     window.open(
-        `/Codigo/validaciones/promociones/editar_promocion.php?idPromocion=${idPromocion}`,
-        "Editar Promoción",
+        `/Codigo/validaciones/servicios/editar_servicios.php?idPromocion=${idPromocion}`,
+        "Editar Servicio",
         `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes`
     );
 }
 function eliminarPromocion(idPromocion) {
-    if (confirm("¿Estás seguro de que deseas eliminar esta promoción?")) {
-        window.location.href = `/Codigo/validaciones/promociones/eliminar_promocion.php?idPromocion=${idPromocion}`;
+    if (confirm("¿Estás seguro de que deseas eliminar este servicio?")) {
+        window.location.href = `/Codigo/validaciones/servicios/eliminar_servicios.php?idPromocion=${idPromocion}`;
     }
 }

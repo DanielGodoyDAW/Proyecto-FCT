@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const agregarPatologiaBtn = document.getElementById("agregarPatologia");
+    const agregarPatologiaBtn = document.getElementById("agregarPatologia"); 
     const tabla = document.getElementById("tabla_historial_clinico");
 
-    if (!agregarPatologiaBtn || !tabla) {
+    if (!agregarPatologiaBtn || !tabla) { // Verifica si los elementos existen
         console.warn("No se encontró el botón o la tabla");
         return;
     }
@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     agregarPatologiaBtn.addEventListener("click", function (e) {
         e.preventDefault();
 
-        const nuevaFila = document.createElement("tr");
+        //declaración de variables
+        const nuevaFila = document.createElement("tr"); 
 
         const celdaVacia = document.createElement("td");
         nuevaFila.appendChild(celdaVacia);

@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $idHistorial = $fila['idHistorial'];
 
+    // Validación mínima de datos
     $nombresCampos = [
         'fichaComentarioInicial',
         'antec_podologicos',
@@ -37,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipos = '';
     $valores = [];
 
+    // para cada campo, si existe en $_POST y no está vacío, lo añadimos a la consulta
     foreach ($nombresCampos as $nombreCampo) {
         $valorCampo = $_POST[$nombreCampo] ?? null;
         if (!is_null($valorCampo) && $valorCampo !== '') {
@@ -46,11 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $patologias = $_POST['patologias'] ?? [];
-    $patologias = array_filter(array_map('trim', $patologias));
+    
+    $patologias = $_POST['patologias'] ?? []; // Asegurarse de que es un array
+    $patologias = array_filter(array_map('trim', $patologias)); // Eliminar espacios en blanco y valores vacíos
+    //si hay patologías, las unimos en una cadena separada por comas
     if (!empty($patologias)) {
         $patologias_string = implode(', ', $patologias);
-    } else {
+    } else { // si no hay patologías, dejamos la cadena vacía
         $patologias_string = '';
     }
     $camposFinales[] = "patologias = ?";

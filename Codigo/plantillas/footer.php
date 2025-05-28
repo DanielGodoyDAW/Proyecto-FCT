@@ -1,5 +1,6 @@
 <footer>
-    <link rel="stylesheet" href="/Codigo/estilos/style.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/style.css">
     <div class="footerIzquierda">
         <ul>
             <li class="liFoo"><img class="redes" src="/Codigo/imagenes/facebook.png" alt="logo facebook"> <a href="https://www.facebook.com/">Facebook</a></li>

@@ -26,6 +26,7 @@ if ($ultimoInforme) {
 ?>
     <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
     <script defer src="/Codigo/validaciones/historialClinico/ajusteTextarea.js"></script>
+    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
     <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_Editar_Informe.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
