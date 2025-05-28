@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/styleAdmin.css">
     <script defer src="/Codigo/validaciones/subseccionesAdmin/subseccion.js"></script>
     <script defer src="/Codigo/validaciones/subseccionesAdmin/subMenuHistorial.js"></script>
     <title>Administración</title>

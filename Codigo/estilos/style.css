@@ -17,7 +17,7 @@ body {
     min-height: 100vh;
     margin: 0;
     /* background-color: var(--colorFondo); */
-    background-image: url('/Codigo/imagenes/redimension3_fondo.png');
+    background-image: url('../imagenes/redimension3_fondo.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

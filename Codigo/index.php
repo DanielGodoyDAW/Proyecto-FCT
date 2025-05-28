@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica de Podologia</title>
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-    <link rel="stylesheet" href="/Codigo/estilos/style.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/style.css">
     <script src="/Codigo/validaciones/recuperarContra/recuperar_contrasena.js"></script>
 </head>
 
