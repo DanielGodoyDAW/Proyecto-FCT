@@ -8,7 +8,7 @@
     <title>Clinica de Podologia</title>
     <link rel="stylesheet" href="estilos/styleColores.css">
     <link rel="stylesheet" href="estilos/style.css">
-    <script src="/Codigo/validaciones/recuperarContra/recuperar_contrasena.js"></script>
+    <script src="./validaciones/recuperarContra/recuperar_contrasena.js"></script>
 </head>
 
 <body>

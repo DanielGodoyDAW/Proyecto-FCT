@@ -86,9 +86,9 @@ $extensiones = [
 
 ?>
 
-<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-<link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
-<script src="/Codigo/validaciones/editarPerfil/popupContrasena.js"></script>
+<link rel="stylesheet" href="./estilos/styleColores.css">
+<link rel="stylesheet" href="./estilos/styleEditPerfil.css">
+<script src="./validaciones/editarPerfil/popupContrasena.js"></script>
 <div id="perfil">
     <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
 
@@ -168,8 +168,8 @@ $extensiones = [
     <html>
 
     <head>
-        <link rel="stylesheet" href="/Codigo/estilos/styleEditPerfil.css">
-        <script src="/Codigo/validaciones/editarPerfil/popupContrasena.js"></script>
+        <link rel="stylesheet" href="./estilos/styleEditPerfil.css">
+        <script src="./validaciones/editarPerfil/popupContrasena.js"></script>
         <title>Cambiar Contraseña</title>
         <style>
             body {

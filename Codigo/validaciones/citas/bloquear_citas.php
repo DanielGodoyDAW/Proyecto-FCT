@@ -45,8 +45,8 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
 
-<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-<link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
+<link rel="stylesheet" href="./estilos/styleColores.css">
+<link rel="stylesheet" href="./estilos/styleAdmin.css">
 <h3>Bloquear Agenda</h3>
 <div class="bloquear-container">
     <form method="POST">

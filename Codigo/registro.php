@@ -8,7 +8,7 @@ $errores = $_SESSION['errores'] ?? [];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/Codigo/js/registro.js"></script>
+    <script src="./js/registro.js"></script>
     <link rel="stylesheet" href="estilos/styleColores.css">
     <link rel="stylesheet" href="estilos/stylesRegistro.css">
     <link rel="stylesheet" href="estilos/styleCalendario.css">

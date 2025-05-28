@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="/Codigo/estilos/stylePromo.css">
-<link rel="stylesheet" href="/Codigo/estilos/style.css">
-<script src="/Codigo/validaciones/servicios/editarServicio.js"></script>
+<link rel="stylesheet" href="./estilos/stylePromo.css">
+<link rel="stylesheet" href="./estilos/style.css">
+<script src="./validaciones/servicios/editarServicio.js"></script>
 <form action="/Codigo/validaciones/servicios/procesar_servicios.php" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
@@ -18,10 +18,10 @@
         <tr>
             <td><label for="imagen">Imagen:</label></td>
             <td>
-                <div class="input-archivo">
+                < class="input-archivo">
                     <label for="imagen">Seleccionar archivo</label>
                     <input type="file" id="imagen" name="imagen" accept="image/*" required>
-                </div>
+            .
             </td>
         </tr>
     </table>

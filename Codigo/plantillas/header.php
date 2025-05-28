@@ -6,13 +6,13 @@ require_once __DIR__ . '/../conexion/conexion.php';
 ?>
 
 <header>
-    <a href="/Codigo/index.php">
-        <img class="logo" src="/Codigo/imagenes/logo_sin_fondo.png" alt="icono">
+    <a href="./index.php">
+        <img class="logo" src="./imagenes/logo_sin_fondo.png" alt="icono">
     </a>
     <h1>Clínica de Podología Carmen Godoy</h1>
     <link rel="stylesheet" href="estilos/styleColores.css">
     <link rel="stylesheet" href="estilos/style.css">
-    <script src="/Codigo/js/menuNavegacion.js"></script>
+    <script src="./js/menuNavegacion.js"></script>
 
     <?php
     // Verificar si el usuario ha iniciado sesión

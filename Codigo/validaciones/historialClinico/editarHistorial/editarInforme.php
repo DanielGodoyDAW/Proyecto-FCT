@@ -24,10 +24,10 @@ if ($ultimoInforme) {
     $fechaFormateada = $formatter->format($fecha);
 
 ?>
-    <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
-    <script defer src="/Codigo/validaciones/historialClinico/ajusteTextarea.js"></script>
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-    <link rel="stylesheet" href="/Codigo/estilos/style.css">
+    <script defer src="./validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
+    <script defer src="./validaciones/historialClinico/ajusteTextarea.js"></script>
+    <link rel="stylesheet" href="./estilos/styleColores.css">
+    <link rel="stylesheet" href="./estilos/style.css">
     <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_Editar_Informe.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
         <input type="hidden" name="idInforme" value="<?= $ultimoInforme['idInforme'] ?>">

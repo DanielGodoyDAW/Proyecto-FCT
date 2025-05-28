@@ -32,7 +32,7 @@ if (isset($_SESSION['idPacientes'])) {
     <?php } else { ?>
         <link rel="stylesheet" href="estilos/styleCitasPaciente.css">
     <?php } ?>
-    <script defer src="/Codigo/validaciones/citas/subsecciones_admin_citas.js"></script>
+    <script defer src="./validaciones/citas/subsecciones_admin_citas.js"></script>
     <title>Reserva tu Cita</title>
 </head>
 

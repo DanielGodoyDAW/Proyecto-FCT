@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-<link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">
+<link rel="stylesheet" href="./estilos/styleColores.css">
+<link rel="stylesheet" href="./estilos/styleCitas.css">
 <?php
 // Este archivo se encarga de mostrar las próximas citas y el historial de citas del paciente o administrador
 
@@ -118,7 +118,7 @@ if (isset($_SESSION["idPacientes"])) {
             <td>' . $cita['telefono'] . '</td>
             <td>
                 <a href="' . $wasap . '" target="_blank">
-                    <img class="redes" src="/Codigo/imagenes/whatsapp.png" alt="WhatsApp">
+                    <img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp">
                 </a>
             </td>
         </tr>';

@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-<link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
+<link rel="stylesheet" href="./estilos/styleColores.css">
+<link rel="stylesheet" href="./estilos/styleAdmin.css">
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
 
@@ -64,7 +64,7 @@ while ($fila = $result->fetch_assoc()) {
     echo '<tr><th>Paciente</th><td>' . htmlspecialchars($nombreCompleto) . '</td></tr>';
     echo '<tr><th>Teléfono</th><td>' . htmlspecialchars($fila['telefono']) .
         '<a href="' . $wasap . '" target="_blank" title="Abrir chat en WhatsApp">' .
-        '<img class="whatsapp-icon" src="/Codigo/imagenes/whatsapp.png" alt="WhatsApp">' .
+        '<img class="whatsapp-icon" src="./imagenes/whatsapp.png" alt="WhatsApp">' .
         '</a></td></tr>';
     echo '<tr><th>DNI</th><td>' . htmlspecialchars($fila['dni']) . '</td></tr>';
     echo '<tr><th>Fecha de nacimiento</th><td>' . htmlspecialchars($fechaFormateada) . '</td></tr>';
