@@ -27,30 +27,10 @@ body {
 /*Agregacion de fuente externa para el texto de la web*/
 @font-face {
     font-family: 'Amazing Grotesk';
-    src: url('/Codigo/fuenteTexto/amazing_grotesk/Amazing\ Grotesk\ Book.otf') format('woff2'),
-        url('/Codigo/fuenteTexto/amazing_grotesk/Amazing\ Grotesk\ Ultra.otf') format('woff');
+    src: url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf") format("woff2"),
+         url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf") format("woff");
     font-weight: normal;
     font-style: normal;
-}
-
-/* Cursor de pie y herida, pero no cambian en todos los botones */
-/* body {
-    cursor: url('/Codigo/imagenes/cursores/pie.cur'), auto;
-}
-button, a {
-    cursor: url('/Codigo/imagenes/cursores/herida.cur'), pointer;
-}
-header a {
-    cursor: url('/Codigo/imagenes/cursores/herida.cur'), pointer;
-} */
-
-:root {
-    --colorFondo: #f0f0f0;
-    --colorTexto: #333;
-    --colorBoton: #08A3A9;
-    --colorBotonHover: #0f2788;
-    --colorFondoDivs: #E8F0F1;
-    --colorActive: #008aca;
 }
 
 /* Header */

@@ -40,12 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo "<script>
-            alert('Promoción agregada correctamente.');
+            alert('Servicio agregada correctamente.');
             window.location.href = '../../admin.php';
         </script>";
     } else {
         echo "<script>
-            alert('Error al agregar la promoción: " . $stmt->error . "');
+            alert('Error al agregar el servicio: " . $stmt->error . "');
             window.history.back();
         </script>";
     }

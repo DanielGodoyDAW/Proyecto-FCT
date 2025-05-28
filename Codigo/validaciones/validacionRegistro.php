@@ -108,10 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Encriptar la contraseña
         $password_encriptada = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
-        // Insertar en la base de datos
-        // $sql = "INSERT INTO pacientes (nombre, apellido1, apellido2, email, telefono, fechaNacim, sexo, dni, pass) 
-        //         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
         // Construir la consulta SQL dinámicamente con SET
         $sql = "INSERT INTO pacientes SET 
           nombre = ?, 

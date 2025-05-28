@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
         echo '<td>' . htmlspecialchars($row['duracion']) . ' min</td>';
         if ($mostrarImagen) {
             if (!empty($row['imagen'])) {
-                echo '<td><img src="/Codigo' . htmlspecialchars($row['imagen']) . '" alt="Imagen de la promoción" style="max-width: 100px; max-height: 100px;"></td>';
+                echo '<td><img src="/Codigo' . htmlspecialchars($row['imagen']) . '" alt="Imagen del servicio" style="max-width: 100px; max-height: 100px;"></td>';
             } else {
                 echo '<td>Sin imagen</td>';
             }
