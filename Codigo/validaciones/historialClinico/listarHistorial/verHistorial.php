@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
 <link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';

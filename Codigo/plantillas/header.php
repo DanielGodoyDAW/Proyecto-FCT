@@ -10,6 +10,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
         <img class="logo" src="/Codigo/imagenes/logo.png" alt="icono">
     </a>
     <h1>Clínica de Podología Carmen Godoy</h1>
+    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
     <script src="/Codigo/js/menuNavegacion.js"></script>
 
