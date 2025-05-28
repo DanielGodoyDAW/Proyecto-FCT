@@ -9,9 +9,9 @@ $errores = $_SESSION['errores'] ?? [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/Codigo/js/registro.js"></script>
+    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
     <link rel="stylesheet" href="/Codigo/estilos/stylesRegistro.css">
     <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
     <title>Registrarse</title>
 </head>
 

@@ -1,4 +1,5 @@
 <footer>
+    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
     <link rel="stylesheet" href="/Codigo/estilos/style.css">
     <div class="footerIzquierda">
         <ul>

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
 <link rel="stylesheet" href="/Codigo/estilos/styleCitas.css">
 <?php
 // Este archivo se encarga de mostrar las próximas citas y el historial de citas del paciente o administrador
