@@ -12,4 +12,17 @@
     --fueraServicio: #6c757d;
     --colorCamposInvalidosFondo: #ffe6e6;
     --colorCamposValidosFondo: #e6ffe6;
+    --colorActive: #008aca;
+}
+
+@font-face {
+    font-family: 'Amazing Grotesk';
+    src: url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf") format("woff2"),
+         url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Amazing Grotesk', sans-serif;
 }

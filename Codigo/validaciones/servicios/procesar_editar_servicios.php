@@ -80,11 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo '<script>
-            alert("Promoción actualizada correctamente.");
+            alert("Servicio actualizado correctamente.");
             window.close();
             window.opener.location.reload();
         </script>';
     } else {
-        echo '<script>alert("Error al actualizar la promoción.");</script>';
+        echo '<script>alert("Error al actualizar el servicio.");</script>';
     }
 }
