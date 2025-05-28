@@ -130,9 +130,9 @@ $extensiones = [
             <tr>
                 <td><label for="fechaNacim">Fecha de nacimiento:</label></td>
                 <?php if (!isset($pacientes['fechaNacim'])) { ?>
-                    <td><input class="form-control type="date" name="fechaNacim" id="fechaNacim"></td>
+                    <td><input class="form-control" type="date" name="fechaNacim" id="fechaNacim"></td>
                 <?php } else { ?>
-                    <td><input class="form-control type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
+                    <td><input class="form-control" type="date" name="fechaNacim" id="fechaNacim" value="<?php echo htmlspecialchars($pacientes['fechaNacim']); ?>"></td>
                 <?php } ?>
             </tr>
             <?php if (!$esTemporal) { ?>
