@@ -120,6 +120,7 @@ $extensiones = [
                 <td><label for="c3">Sexo:</label></td>
                 <td>
                     <select class="form-control" id="c3" name="sexo">
+                        <!-- Tanto opcion vacia, como No binario o sin especificar comparten mismo value, por lo que tienen mismo saludo -->
                         <option value="O" <?php echo $pacientes['sexo'] === 'O' ? 'selected' : ''; ?>>Selecciona una opción</option>
                         <option value="H" <?php echo $pacientes['sexo'] === 'H' ? 'selected' : ''; ?>>Hombre</option>
                         <option value="M" <?php echo $pacientes['sexo'] === 'M' ? 'selected' : ''; ?>>Mujer</option>
