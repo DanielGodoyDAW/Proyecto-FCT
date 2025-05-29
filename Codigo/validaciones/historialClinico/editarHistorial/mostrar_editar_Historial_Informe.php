@@ -39,7 +39,7 @@ if ($idHistorial) {
 <div class="container-edicion">
     <div class="div-edicion historial">
         <h2>Edicion de dni</h2>
-        <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+        <form action="../../editarPerfil/procesar_Edit_Perfil.php" method="POST">
             <input type="hidden" name="desde_admin" value="1">
             <input type="hidden" name="idPaciente" value="<?= $idPaciente ?>">
             <table>
@@ -51,14 +51,14 @@ if ($idHistorial) {
             </table>
         </form>
         <h2>Historial</h2>
-        <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
+        <?php require_once './editarHistorial.php'; ?>
     </div>
     <div class="div-edicion informe">
         <h2>Informe</h2>
-        <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarInforme.php'; ?>
+        <?php require_once './editarInforme.php'; ?>
     </div>
     <div class="acciones-historial">
-        <button class="btnH" onclick="location.href='/Codigo/admin.php'">⬅ Volver</button>
+        <button class="btnH" onclick="location.href='./admin.php'">⬅ Volver</button>
         <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial e Informe</button>
     </div>
 </div>

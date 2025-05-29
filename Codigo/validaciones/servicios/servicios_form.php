@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./estilos/stylePromo.css">
 <link rel="stylesheet" href="./estilos/style.css">
 <script src="./validaciones/servicios/editarServicio.js"></script>
-<form action="/Codigo/validaciones/servicios/procesar_servicios.php" method="POST" enctype="multipart/form-data">
+<form action="./procesar_servicios.php" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
             <td><label for="titulo">Título:</label></td>

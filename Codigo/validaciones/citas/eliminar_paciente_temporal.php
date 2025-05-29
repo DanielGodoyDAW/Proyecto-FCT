@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 
 //verificacion extra si no eres admin
 if (!isset($_SESSION['idAdmin'])) {
-    header("Location: /Codigo/citas.php");
+    header("Location: ./citas.php");
     exit;
 }
 
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
     $stmtCheck->close();
 
     if (!$pacienteData || $pacienteData['es_temporal'] != 1) {
-        echo '<script>alert("No puedes eliminar pacientes normales desde aquí."); window.location.href = "/Codigo/citas.php";</script>';
+        echo '<script>alert("No puedes eliminar pacientes normales desde aquí."); window.location.href = "./citas.php";</script>';
         exit;
     }
 
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
         error_log("Error al enviar correo de eliminación: " . $mail->ErrorInfo);
     }
 
-    header("Location: /Codigo/citas.php?mensaje=Paciente+temporal+eliminado");
+    header("Location: ./citas.php?mensaje=Paciente+temporal+eliminado");
     exit;
 } else {
     echo "Acceso denegado.";

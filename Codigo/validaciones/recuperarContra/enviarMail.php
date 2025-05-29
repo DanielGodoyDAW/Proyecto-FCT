@@ -53,13 +53,16 @@ function enviarCorreoRecuperacion($email, $token)
             // Usa URL encode para que el token llegue correctamente con caracteres unicode
             $tokenEncoded = urlencode($token);
 
+            //dirrección al enlace de restablecimiento de contraseña
+            $url = "http://localhost/Proyecto-FCT/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded";
+
             $mail->Body = "
                  <html>
                  <body>
                     <p>Estimado/a $nombreCompleto,</p>
                     <p>Has solicitado la recuperación de tu contraseña.</p>
                     <p>Haz clic en el siguiente enlace para restablecerla:</p>
-                    <p><a href='http://localhost/Proyecto-FCT/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>
+                    <p><a href='$url'>
                         Restablecer contraseña
                     </a></p>
                     <p>Si no solicitaste este cambio, puedes ignorar este mensaje.</p>

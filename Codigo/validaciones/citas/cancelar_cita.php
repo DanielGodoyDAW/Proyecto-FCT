@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
     $eventData = $result->fetch_assoc();
 
     if (!$eventData) {
-        echo '<script>alert("Cita no encontrada."); window.location.href = "/Codigo/citas.php";</script>';
+        echo '<script>alert("Cita no encontrada."); window.location.href = "../citas.php";</script>';
         exit;
     }
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
     if ($fechaHoraActual > $fechaHoraCita) {
         echo '<script>
             alert("No puedes cancelar una cita que ya ha pasado.");
-            window.location.href = "/Codigo/citas.php";
+            window.location.href = "../citas.php";
         </script>';
         exit;
     }
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
     if ($diferenciaHoras < 24) {
         echo '<script>
             alert("No puedes cancelar una cita con menos de 24 horas de antelación. No se realizará reembolso.");
-            window.location.href = "/Codigo/citas.php";
+            window.location.href = "../citas.php";
         </script>';
         exit;
     }
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
 
     // Limpiar cualquier salida y redirigir
     ob_clean();
-    header("Location: /Codigo/citas.php");
+    header("Location: ../citas.php");
     exit();
 }
 ?>

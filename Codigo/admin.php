@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php require_once '../Codigo/plantillas/header.php'; ?>
+    <?php require_once './plantillas/header.php'; ?>
 
     <!-- Menú de navegación -->
     <nav class="menu-admin">
@@ -27,26 +27,26 @@
         <!-- Secciones de contenido -->
         <div class="busqueda-historial">
             <div id="busqueda" class="contenido-admin activo">
-                <?php require_once '../Codigo/validaciones/subseccionesAdmin/busquedaP.php'; ?>
+                <?php require_once './validaciones/subseccionesAdmin/busquedaP.php'; ?>
             </div>
             <div id="historial" class="contenido-admin">
                 <nav class="submenu-historial">
                     <?php  ?>
                 </nav>
                 <div id="editar" class="subcontenido">
-                    <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/mostrar_editar_Historial_Informe.php'; ?>
+                    <?php require_once './validaciones/historialClinico/editarHistorial/mostrar_editar_Historial_Informe.php'; ?>
                 </div>
                 <div id="ver" class="subcontenido activo">
-                    <?php require_once '../Codigo/validaciones/historialClinico/listarHistorial/listarHistorial.php'; ?>
+                    <?php require_once './validaciones/historialClinico/listarHistorial/listarHistorial.php'; ?>
                 </div>
             </div>
         </div>
         <div id="servicios" class="contenido-admin">
-            <?php require_once '../Codigo/validaciones/subseccionesAdmin/agregarServicio.php'; ?>
+            <?php require_once './validaciones/subseccionesAdmin/agregarServicio.php'; ?>
         </div>
     </main>
 
-    <?php require_once '../Codigo/plantillas/footer.php'; ?>
+    <?php require_once './plantillas/footer.php'; ?>
 </body>
 
 </html>

@@ -31,7 +31,7 @@ if ($idHistorial) {
 </div>
 <div>
     <h2>Informe</h2>
-    <form method="GET" action="/Codigo/admin.php#ver">
+    <form method="GET" action="./admin.php#ver">
         <input type="hidden" name="seccion" value="historial">
         <input type="hidden" name="sub" value="ver">
         <label for="idInforme">Selecciona un informe:</label>
@@ -60,5 +60,5 @@ if (isset($_GET['idInforme'])) { ?>
 <?php } else { ?>
     <button class="btnH" onclick="mostrarHistorial('editar')">✏️ Editar Historial o Informe</button>
 <?php }
-echo "<button class='btnH' onclick=\"location.href='/Codigo/admin.php'\">⬅ Volver</button>";
+echo "<button class='btnH' onclick=\"location.href='./admin.php'\">⬅ Volver</button>";
 echo '</div>';

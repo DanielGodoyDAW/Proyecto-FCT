@@ -8,7 +8,7 @@ function validacionUsuario(event) {
     event.preventDefault();
     if (validarUsuario() && validarContrasena()) {
         alert("Formulario enviado correctamente");
-        window.location.href = "/Codigo/citas.php";
+        window.location.href = "./citas.php";
         return true;
     } else {
         alert("Error en el formulario, por favor corrige los campos marcados.");

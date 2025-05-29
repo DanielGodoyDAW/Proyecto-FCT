@@ -40,7 +40,7 @@
         <!-- div oculto para el apartado de recuperar contraseña -->
         <div class="contenedorLogin" id="recuperar">
             <h2>Recuperar Contraseña</h2>
-            <form action="/Codigo/validaciones/recuperarContra/procesar_recuperacion.php" method="post">
+            <form action="./validaciones/recuperarContra/procesar_recuperacion.php" method="post">
                 <table class="tablaLogin">
                     <tr>
                         <td><label for="email">Introduce tu correo electrónico:</label></td>

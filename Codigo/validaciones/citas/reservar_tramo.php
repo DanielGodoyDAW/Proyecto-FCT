@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result['total'] > 0) {
         echo '<script>alert("El tramo horario no está disponible.");</script>';
-        echo '<script>window.location.href = "/Codigo/citas.php";</script>';
+        echo '<script>window.location.href = "../../citas.php";</script>';
         exit();
     }
 
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         echo '<script>alert("Cita reservada exitosamente.");</script>';
-        echo '<script>window.location.href = "/Codigo/citas.php";</script>'; // Redirigir a la página de citas
+        echo '<script>window.location.href = "../../citas.php";</script>'; // Redirigir a la página de citas
     } else {
         echo 'Error: No se pudo guardar la cita en la base de datos.';
     }
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
         if ($paymentIntent->status !== 'succeeded') {
             echo '<script>alert("El pago no se completó correctamente.");</script>';
-            echo '<script>window.location.href = "/Codigo/citas.php";</script>';
+            echo '<script>window.location.href = "./citas.php";</script>';
             exit();
         }
     } catch (\Stripe\Exception\ApiErrorException $e) {
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($result['total'] > 0) {
         echo '<script>alert("El tramo horario no está disponible.");</script>';
-        echo '<script>window.location.href = "/Codigo/citas.php";</script>';
+        echo '<script>window.location.href = "./citas.php";</script>';
         exit();
     }
 
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($stmt->execute()) {
         echo '<script>alert("Cita reservada exitosamente.");</script>';
-        echo '<script>window.location.href = "/Codigo/citas.php";</script>';
+        echo '<script>window.location.href = "./citas.php";</script>';
     } else {
         echo 'Error: No se pudo guardar la cita en la base de datos.';
     }

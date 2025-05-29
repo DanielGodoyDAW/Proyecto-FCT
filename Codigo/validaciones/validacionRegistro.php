@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Redirige al formulario de registro con un alert
         echo "<script>
             alert('$erroresString');
-            window.location.href = '/Codigo/registro.php';
+            window.location.href = './registro.php';
         </script>";
         exit();
     } else {
@@ -164,12 +164,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             // Redirigir al usuario después del registro exitoso
-            header('Location: /Codigo/index.php');
+            header('Location: ./index.php');
             exit();
         } else {
             echo "<script>
                 alert('Error al registrar al usuario. Por favor, inténtalo de nuevo.');
-                window.location.href = '/Codigo/registro.php';
+                window.location.href = './registro.php';
             </script>";
         }
     }

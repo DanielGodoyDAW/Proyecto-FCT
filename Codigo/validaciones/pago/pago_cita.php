@@ -41,9 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./estilos/styleColores.css"> 
-        <link rel="stylesheet" href="./estilos/style.css">
-        <link rel="stylesheet" href="./estilos/stylePago.css">
+        <link rel="stylesheet" href="../../estilos/styleColores.css"> 
+        <link rel="stylesheet" href="../../estilos/style.css">
+        <link rel="stylesheet" href="../../estilos/stylePago.css">
         <title>Pago de Cita</title>
     </head>
     <body>
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button id="submit">Pagar</button>
             </form>
             <br>
-            <a href="./citas.php" class="cancel">Volver</a>
+            <a href="../../citas.php" class="cancel">Volver</a>
         </div>
 
         <script src="https://js.stripe.com/v3/"></script>
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (error) {
                     alert('Error en el pago: ' + error.message);
                 } else {
-                    window.location.href = '/Codigo/validaciones/citas/reservar_tramo.php?payment_intent=' + paymentIntent.id + '&fecha=<?php echo urlencode($fecha); ?>&hora=<?php echo urlencode($hora); ?>';
+                    window.location.href = '../citas/reservar_tramo.php?payment_intent=' + paymentIntent.id + '&fecha=<?php echo urlencode($fecha); ?>&hora=<?php echo urlencode($hora); ?>';
                 }
             });
         </script>

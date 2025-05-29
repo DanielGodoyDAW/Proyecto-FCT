@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verifica si el campo de correo está vacío
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "<script>alert('Correo inválido.'); window.location.href='/Codigo/index.php';</script>";
+        echo "<script>alert('Correo inválido.'); window.location.href='../../index.php';</script>";
         exit;
     }
 
@@ -29,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultadoCorreo = enviarCorreoRecuperacion($email, $token); // Llama a la función para enviar el correo
 
         if ($resultadoCorreo === true) {
-            echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo.'); window.location.href='/Codigo/index.php'</script>";
+            echo "<script>alert('Se ha enviado un enlace de recuperación a tu correo.'); window.location.href='../../index.php'</script>";
         } else {
-            echo "<script>alert('Error: $resultadoCorreo'); window.location.href='/Codigo/index.php?recuperar=true';</script>";
+            echo "<script>alert('Error: $resultadoCorreo'); window.location.href='../../index.php?recuperar=true';</script>";
         }
     } else {
-        echo "<script>alert('El correo no está registrado.'); window.location.href='/Codigo/index.php?recuperar=true';</script>";
+        echo "<script>alert('El correo no está registrado.'); window.location.href='../../index.php?recuperar=true';</script>";
     }
 }

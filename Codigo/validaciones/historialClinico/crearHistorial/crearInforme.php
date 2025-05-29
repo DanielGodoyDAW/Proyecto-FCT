@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./estilos/styleColores.css">
 <link rel="stylesheet" href="./estilos/style.css">
 <script defer src="./validaciones/historialClinico/ajusteTextarea.js"></script>
-<form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_Crear_Informe.php" method="post" enctype="multipart/form-data">
+<form action="./validar_Crear_Informe.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idHistorial" value="<?= htmlspecialchars($idHistorial) ?>">
 
     <table id="tabla_nuevo_informe">

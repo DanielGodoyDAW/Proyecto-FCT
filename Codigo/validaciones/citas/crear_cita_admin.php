@@ -59,6 +59,6 @@ try {
 }
 
 // Redirigir con mensaje
-echo "<script>alert('Cita creada con éxito.'); window.location.href = '/Codigo/citas.php';</script>";
+echo "<script>alert('Cita creada con éxito.'); window.location.href = './citas.php';</script>";
 exit;
 ?>

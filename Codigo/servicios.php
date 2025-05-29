@@ -33,19 +33,19 @@ if (isset($_SESSION['idPacientes'])) {
 </head>
 
 <body>
-    <?php require_once '../Codigo/plantillas/header.php'; ?>
+    <?php require_once './plantillas/header.php'; ?>
     <main class="container promociones">
         <div class="promociones-lista">
             <h2>Servicios</h2>
             <?php
             $mostrarEditar = false;
             $mostrarImagen = true;
-            require_once '../Codigo/validaciones/servicios/servicios_lista.php';
+            require_once './validaciones/servicios/servicios_lista.php';
             ?>
         </div>
 
     </main>
-    <?php require_once '../Codigo/plantillas/footer.php'; ?>
+    <?php require_once './plantillas/footer.php'; ?>
 </body>
 
 </html>

@@ -17,8 +17,8 @@
 
 @font-face {
     font-family: 'Amazing Grotesk';
-    src: url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf") format("woff2"),
-         url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf") format("woff");
+    src: url("../fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf") format("woff2"),
+         url("../fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf") format("woff");
     font-weight: normal;
     font-style: normal;
 }

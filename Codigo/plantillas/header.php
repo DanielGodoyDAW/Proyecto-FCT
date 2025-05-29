@@ -55,28 +55,28 @@ require_once __DIR__ . '/../conexion/conexion.php';
         <ul> 
             <!-- Opcion siempre visible cuando no estas logueado -->
             <?php if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/index.php'>Inicio<img src='/Codigo/iconos/home.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='./index.php'>Inicio<img src='./iconos/home.svg'></a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
                 // Opcion visible solo si el usuario es paciente o admin
-                echo "<li><a class='btnA navegacion' href='/Codigo/citas.php'>Citas<img src='/Codigo/iconos/citas.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='./citas.php'>Citas<img src='./iconos/citas.svg'></a></li>";
             } else {
                 // Opcion visible para invitados
-                echo "<li><a class='btnA navegacion' href='/Codigo/registro.php'>Registro<img src='/Codigo/iconos/registro.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='./registro.php'>Registro<img src='./iconos/registro.svg'></a></li>";
             } ?>
             <!-- solo si es admin -->
             <?php if (isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/admin.php'>Administrar<img src='/Codigo/iconos/admin.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='./admin.php'>Administrar<img src='./iconos/admin.svg'></a></li>";
             } ?>
             <!-- si es paciente o admin -->
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/servicios.php'>Servicios<img src='/Codigo/iconos/servicios.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='./servicios.php'>Servicios<img src='./iconos/servicios.svg'></a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/editar_perfil.php'>Editar Perfil<img src='/Codigo/iconos/perfil.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='./editar_perfil.php'>Editar Perfil<img src='./iconos/perfil.svg'></a></li>";
             } ?>
             <?php if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
-                echo "<li><a class='btnA navegacion' href='/Codigo/conexion/cerrar_sesion.php'>Cerrar Sesion<img src='/Codigo/iconos/logout.svg'></a></li>";
+                echo "<li><a class='btnA navegacion' href='./conexion/cerrar_sesion.php'>Cerrar Sesion<img src='./iconos/logout.svg'></a></li>";
             } ?>
         </ul>
     </nav>

@@ -22,7 +22,7 @@ if (isset($_POST['desbloquear']) && isset($_POST['desbloquear_citas'])) {
         $stmt->execute();
     }
 
-    echo '<script>window.location.href = "/Codigo/citas.php?seccionActiva=bloquearDEsbloCitas";</script>';
+    echo '<script>window.location.href = "./citas.php?seccionActiva=bloquearDEsbloCitas";</script>';
     exit;
 }
 

@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         echo "<script>
             alert('Historial actualizado correctamente.');
-            window.location.href = '/Codigo/admin.php?pagina=verHistorial&idPaciente=$idPaciente';
+            window.location.href = './admin.php?pagina=verHistorial&idPaciente=$idPaciente';
         </script>";
         exit;
     } else {

@@ -13,7 +13,7 @@ if (isset($_SESSION['idPacientes'])) {
 }
 
 if (!$idUsuario) {
-    echo '<script>alert("No se ha identificado el usuario."); window.location.href = "/Codigo/index.php";</script>';
+    echo '<script>alert("No se ha identificado el usuario."); window.location.href = "./index.php";</script>';
     exit;
 }
 
@@ -62,7 +62,7 @@ if ($fromPopup) {
         $stmt->bind_param("si", $nuevaHash, $idUsuario);
         $stmt->execute();
 
-        echo '<script>alert("Contraseña actualizada correctamente."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+        echo '<script>alert("Contraseña actualizada correctamente."); window.location.href = "./editar_perfil.php";</script>';
         exit;
     }
     exit;
@@ -79,7 +79,7 @@ if ($esAdmin) {
 
 // Validar DNI
 if (!$dniEditable || !preg_match('/^[0-9]{8}[A-Z]$/', $dniEditable)) {
-    echo '<script>alert("DNI no válido. Debe tener 8 números y 1 letra mayúscula."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo '<script>alert("DNI no válido. Debe tener 8 números y 1 letra mayúscula."); window.location.href = "./editar_perfil.php";</script>';
     exit;
 }
 
@@ -89,13 +89,13 @@ $stmt->bind_param("si", $dniEditable, $idUsuario);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
-    echo '<script>alert("El DNI ya está registrado por otro paciente."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo '<script>alert("El DNI ya está registrado por otro paciente."); window.location.href = "./editar_perfil.php";</script>';
     exit;
 }
 
 // Si es temporal y no rellenó el nuevo DNI
 if ($esTemporal && empty($nuevoDNI)) {
-    echo '<script>alert("Debes introducir tu DNI para completar tu perfil."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo '<script>alert("Debes introducir tu DNI para completar tu perfil."); window.location.href = "./editar_perfil.php";</script>';
     exit;
 }
 
@@ -147,11 +147,11 @@ $stmt->bind_param($tipos, ...$valores);
 // Ejecutar
 if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo;
-    $redirect = $esAdmin ? '/Codigo/admin.php?seccion=historial&sub=editar' : '/Codigo/editar_perfil.php';
+    $redirect = $esAdmin ? './admin.php?seccion=historial&sub=editar' : './editar_perfil.php';
     echo "<script>alert('Perfil actualizado correctamente.'); window.location.href = '$redirect';</script>";
     exit;
 } else {
-    echo '<script>alert("Error: No se pudo actualizar el perfil."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo '<script>alert("Error: No se pudo actualizar el perfil."); window.location.href = "./editar_perfil.php";</script>';
     exit;
 }
 ?>

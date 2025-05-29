@@ -56,10 +56,10 @@ if (isset($_SESSION['idPacientes'])) {
                 <div id="bloquearDEsbloCitas" class="contenido-admin activo">
                     <div class="filaAdmin">
                         <div class="columnaAdmin">
-                            <?php include '../Codigo/validaciones/calendario/calendarioReserva.php'; ?>
+                            <?php include './validaciones/calendario/calendarioReserva.php'; ?>
                         </div>
                         <div class="columnaAdmin">
-                            <?php require_once '../Codigo/validaciones/citas/citas_Bloqueadas.php'; ?>
+                            <?php require_once './validaciones/citas/citas_Bloqueadas.php'; ?>
                         </div>
                     </div>
                 <!-- Parte media para bloquear o desbloquear agenda -->
@@ -74,7 +74,7 @@ if (isset($_SESSION['idPacientes'])) {
                 <!-- Parte de abajo para asignar Citas a pacientes temporales -->
                     <div class="filaAdmin">
                         <div class="columnaAdmin-full">
-                            <?php require_once '../Codigo/validaciones/citas/citas_admin_gestion.php'; ?>
+                            <?php require_once './validaciones/citas/citas_admin_gestion.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ if (isset($_SESSION['idPacientes'])) {
                 <div id="listadoPacientesT" class="contenido-admin">
                     <div class="contenedorPacientesTemporales">
                         <h2>Pacientes Temporales</h2>
-                        <?php require_once '../Codigo/validaciones/citas/pacientes_temporales.php'; ?>
+                        <?php require_once './validaciones/citas/pacientes_temporales.php'; ?>
                     </div>
                 </div>
 
