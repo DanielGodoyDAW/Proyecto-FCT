@@ -24,10 +24,10 @@ if ($ultimoInforme) {
     $fechaFormateada = $formatter->format($fecha);
 
 ?>
-    <script defer src="./editarHistorial.js"></script>
-    <script defer src="../ajusteTextarea.js"></script>
-    <link rel="stylesheet" href="./estilos/styleColores.css">
-    <link rel="stylesheet" href="./estilos/style.css">
+    <script defer src="validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
+    <script src="validaciones/historialClinico/ajusteTextarea.js"></script>
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/style.css">
     <form action="../crearHistorial/validar_Editar_Informe.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
         <input type="hidden" name="idInforme" value="<?= $ultimoInforme['idInforme'] ?>">
@@ -106,11 +106,11 @@ if ($ultimoInforme) {
 <?php
     echo '<div class="crear-informe">';
     echo "<h3>Agregar nuevo informe</h3>";
-    include '../crearHistorial/crearInforme.php';
+    include __DIR__ . '/../crearHistorial/crearInforme.php';
     echo '</div>';
 } else {
     echo '<div class="crear-informe">';
     echo "<p>No se encontró ningún informe. Agregar nuevo</p>";
-    include '../crearHistorial/crearInforme.php';
+    include __DIR__ . '/../crearHistorial/crearInforme.php';
     echo '</div>';
 }

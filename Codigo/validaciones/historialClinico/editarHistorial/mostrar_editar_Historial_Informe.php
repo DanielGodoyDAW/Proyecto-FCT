@@ -51,11 +51,11 @@ if ($idHistorial) {
             </table>
         </form>
         <h2>Historial</h2>
-        <?php require_once './editarHistorial.php'; ?>
+        <?php require_once __DIR__ . '/editarHistorial.php'; ?>
     </div>
     <div class="div-edicion informe">
         <h2>Informe</h2>
-        <?php require_once './editarInforme.php'; ?>
+        <?php require_once __DIR__ . '/editarInforme.php'; ?>
     </div>
     <div class="acciones-historial">
         <button class="btnH" onclick="location.href='../../../admin.php'">⬅ Volver</button>
