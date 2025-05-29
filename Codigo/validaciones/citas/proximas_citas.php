@@ -118,7 +118,7 @@ if (isset($_SESSION["idPacientes"])) {
             <td>' . $cita['telefono'] . '</td>
             <td>
                 <a href="' . $wasap . '" target="_blank">
-                    <img class="redes" src="../../imagenes/whatsapp.png" alt="WhatsApp">
+                    <img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp">
                 </a>
             </td>
         </tr>';
