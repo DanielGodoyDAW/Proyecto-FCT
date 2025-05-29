@@ -32,7 +32,7 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
     $rutaDestino = $carpetaArchivos . $nombreArchivo;
     move_uploaded_file($_FILES['archivo']['tmp_name'], $rutaDestino);
 
-    $archivoRuta = '../../archivos/' . $nombreArchivo;
+    $archivoRuta = 'validaciones/historialClinico/archivos/' . $nombreArchivo;
 }
 
 
