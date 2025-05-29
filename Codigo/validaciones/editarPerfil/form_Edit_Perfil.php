@@ -169,7 +169,7 @@ $extensiones = [
 
     <head>
         <link rel="stylesheet" href="./estilos/styleEditPerfil.css">
-        <script src="./popupContrasena.js"></script>
+        <script src="validaciones/editarPerfil/popupContrasena.js"></script>
         <title>Cambiar Contraseña</title>
         <style>
             body {
@@ -197,7 +197,7 @@ $extensiones = [
 
     <body>
         <h1>Cambiar Contraseña</h1>
-        <form action="./procesar_Edit_Perfil.php" method="POST">
+        <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
             <input type="hidden" name="fromPopup" value="1">
             <table>
                 <tr>

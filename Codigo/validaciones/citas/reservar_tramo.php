@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
         if ($paymentIntent->status !== 'succeeded') {
             echo '<script>alert("El pago no se completó correctamente.");</script>';
-            echo '<script>window.location.href = "./citas.php";</script>';
+            echo '<script>window.location.href = "../../citas.php";</script>';
             exit();
         }
     } catch (\Stripe\Exception\ApiErrorException $e) {

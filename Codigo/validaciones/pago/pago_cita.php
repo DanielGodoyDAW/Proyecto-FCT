@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (error) {
                     alert('Error en el pago: ' + error.message);
                 } else {
-                    window.location.href = '../../citas/reservar_tramo.php?payment_intent=' + paymentIntent.id + '&fecha=<?php echo urlencode($fecha); ?>&hora=<?php echo urlencode($hora); ?>';
+                    window.location.href = '../citas/reservar_tramo.php?payment_intent=' + paymentIntent.id + '&fecha=<?php echo urlencode($fecha); ?>&hora=<?php echo urlencode($hora); ?>';
                 }
             });
         </script>
