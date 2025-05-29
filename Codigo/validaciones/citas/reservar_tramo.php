@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($result['total'] > 0) {
         echo '<script>alert("El tramo horario no está disponible.");</script>';
-        echo '<script>window.location.href = "./citas.php";</script>';
+        echo '<script>window.location.href = "../../citas.php";</script>';
         exit();
     }
 
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if ($stmt->execute()) {
         echo '<script>alert("Cita reservada exitosamente.");</script>';
-        echo '<script>window.location.href = "./citas.php";</script>';
+        echo '<script>window.location.href = "../../citas.php";</script>';
     } else {
         echo 'Error: No se pudo guardar la cita en la base de datos.';
     }

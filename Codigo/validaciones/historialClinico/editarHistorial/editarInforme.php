@@ -24,8 +24,8 @@ if ($ultimoInforme) {
     $fechaFormateada = $formatter->format($fecha);
 
 ?>
-    <script defer src="./validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
-    <script defer src="./validaciones/historialClinico/ajusteTextarea.js"></script>
+    <script defer src="./editarHistorial.js"></script>
+    <script defer src="../ajusteTextarea.js"></script>
     <link rel="stylesheet" href="./estilos/styleColores.css">
     <link rel="stylesheet" href="./estilos/style.css">
     <form action="../crearHistorial/validar_Editar_Informe.php" method="post" enctype="multipart/form-data">

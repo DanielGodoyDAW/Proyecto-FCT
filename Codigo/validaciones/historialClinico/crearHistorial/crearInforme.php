@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="./estilos/styleColores.css">
 <link rel="stylesheet" href="./estilos/style.css">
-<script defer src="./validaciones/historialClinico/ajusteTextarea.js"></script>
+<script defer src="../historialClinico/ajusteTextarea.js"></script>
 <form action="./validar_Crear_Informe.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idHistorial" value="<?= htmlspecialchars($idHistorial) ?>">
 

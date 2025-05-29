@@ -47,7 +47,7 @@ if (isset($_SESSION["idPacientes"])) {
             <td>' . $cita['nombre'] . '</td>
             <td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>
              <td>
-                <form action="./validaciones/citas/cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">
+                <form action="./cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">
                     <input type="hidden" name="idCita" value="' . $cita['idCita'] . '">
                     <button type="submit" class="btnCancelar">Cancelar</button>
                 </form>
@@ -118,7 +118,7 @@ if (isset($_SESSION["idPacientes"])) {
             <td>' . $cita['telefono'] . '</td>
             <td>
                 <a href="' . $wasap . '" target="_blank">
-                    <img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp">
+                    <img class="redes" src="../../imagenes/whatsapp.png" alt="WhatsApp">
                 </a>
             </td>
         </tr>';

@@ -58,7 +58,7 @@ if ($idHistorial) {
         <?php require_once './editarInforme.php'; ?>
     </div>
     <div class="acciones-historial">
-        <button class="btnH" onclick="location.href='./admin.php'">⬅ Volver</button>
+        <button class="btnH" onclick="location.href='../../../admin.php'">⬅ Volver</button>
         <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial e Informe</button>
     </div>
 </div>

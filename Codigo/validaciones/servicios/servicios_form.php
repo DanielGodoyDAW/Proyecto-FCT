@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="./estilos/stylePromo.css">
 <link rel="stylesheet" href="./estilos/style.css">
-<script src="./validaciones/servicios/editarServicio.js"></script>
+<script src="./editarServicio.js"></script>
 <form action="./procesar_servicios.php" method="POST" enctype="multipart/form-data">
     <table>
         <tr>

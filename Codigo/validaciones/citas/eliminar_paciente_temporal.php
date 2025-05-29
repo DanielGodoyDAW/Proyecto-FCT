@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 
 //verificacion extra si no eres admin
 if (!isset($_SESSION['idAdmin'])) {
-    header("Location: ./citas.php");
+    header("Location: ../../citas.php");
     exit;
 }
 
@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
         error_log("Error al enviar correo de eliminación: " . $mail->ErrorInfo);
     }
 
-    header("Location: ./citas.php?mensaje=Paciente+temporal+eliminado");
+    header("Location: ../../citas.php?mensaje=Paciente+temporal+eliminado");
     exit;
 } else {
     echo "Acceso denegado.";

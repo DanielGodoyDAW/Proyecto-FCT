@@ -97,7 +97,7 @@ if ($archivoRuta) {
 }
 
 if ($stmt->execute()) {
-    header("Location: ./admin.php?mensaje=Informe actualizado correctamente");
+    header("Location: ../../../admin.php?mensaje=Informe actualizado correctamente");
     exit;
 } else {
     echo "Error al actualizar el informe: " . $stmt->error;

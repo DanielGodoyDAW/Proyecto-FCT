@@ -84,7 +84,7 @@ $stmt->bind_param(
 );
 
 if ($stmt->execute()) {
-    header("Location: ./admin.php?mensaje=Informe creado correctamente");
+    header("Location: ../../../admin.php?mensaje=Informe creado correctamente");
     exit;
 } else {
     echo "Error al insertar el informe: " . $stmt->error;
