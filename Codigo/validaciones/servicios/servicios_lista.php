@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../conexion/conexion.php';
 $mostrarEditar = $mostrarEditar ?? false; // para mostrar editar si eres admin
 $mostrarImagen = $mostrarImagen ?? false; // para mostrar las imágenes en promociones
 
-echo '<link rel="stylesheet" href="./estilos/stylePromo.css">';
+echo '<link rel="stylesheet" href="estilos/stylePromo.css">';
 
 $sql = "SELECT * FROM promociones";
 $result = $conexion->query($sql);
@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
         echo '<td>' . htmlspecialchars($row['duracion']) . ' min</td>';
         if ($mostrarImagen) {
             if (!empty($row['imagen'])) {
-                echo '<td><img src=".' . htmlspecialchars($row['imagen']) . '" alt="Imagen del servicio" style="max-width: 100px; max-height: 100px;"></td>';
+                echo '<td><img src="imagenes/servicios/' . htmlspecialchars(basename($row['imagen'])) . '" alt="Imagen del servicio" style="max-width: 100px; max-height: 100px;"></td>';
             } else {
                 echo '<td>Sin imagen</td>';
             }
@@ -42,7 +42,7 @@ if ($result->num_rows > 0) {
         if ($mostrarEditar) {
             echo '<td>';
             echo '<button class="btnE" id="btn-color-V" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
-            echo '<form action="./eliminar_promocion.php" method="POST" style="display:inline;">';
+            echo '<form action="validaciones/servicios/eliminar_servicios.php" method="POST" style="display:inline;">';
             echo '<input type="hidden" name="idPromocion" value="' . $row['idPromocion'] . '">';
             echo '<button type="submit" class="btnE" id="btn-color-R" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este servicio?\');">Eliminar</button>';
             echo '</form>';
@@ -64,7 +64,7 @@ if ($result->num_rows > 0) {
         if ($mostrarEditar) {
             echo '<div class="acciones-botones">';
             echo '<button class="btnE" id="btn-color-V" onclick="editarPromocion(' . $row['idPromocion'] . ')">Editar</button>';
-            echo '<form action="./eliminar_promocion.php" method="POST">';
+            echo '<form action="validaciones/servicios/eliminar_servicios.php" method="POST">';
             echo '<input type="hidden" name="idPromocion" value="' . $row['idPromocion'] . '">';
             echo '<button type="submit" class="btnE" id="btn-color-R" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este servicio?\');">Eliminar</button>';
             echo '</form>';
