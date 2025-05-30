@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Si no se encuentra el token o ha expirado, mostrar un mensaje de error
     if ($result->num_rows === 0) {
-        echo "<script>alert('Token inválido o expirado.'); window.location.href='/Codigo/index.php';</script>";
+        echo "<script>alert('Token inválido o expirado.'); window.location.href='../../index.php';</script>";
         exit;
     }
 
@@ -40,5 +40,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $update->bind_param("ss", $hash, $token);
     $update->execute();
 
-    echo "<script>alert('Contraseña restablecida correctamente.'); window.location.href='http://localhost:3000/Codigo/index.php';</script>";
+    echo "<script>alert('Contraseña restablecida correctamente.'); window.location.href='../../index.php';</script>";
 }

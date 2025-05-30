@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="./estilos/stylePromo.css">
-<link rel="stylesheet" href="./estilos/style.css">
-<script src="./validaciones/servicios/editarServicio.js"></script>
-<form action="/Codigo/validaciones/servicios/procesar_servicios.php" method="POST" enctype="multipart/form-data">
+<link rel="stylesheet" href="estilos/stylePromo.css">
+<link rel="stylesheet" href="estilos/style.css">
+<script src="validaciones/servicios/editarServicio.js"></script>
+<form action="validaciones/servicios/procesar_servicios.php" method="POST" enctype="multipart/form-data">
     <table>
         <tr>
             <td><label for="titulo">Título:</label></td>
@@ -18,10 +18,10 @@
         <tr>
             <td><label for="imagen">Imagen:</label></td>
             <td>
-                < class="input-archivo">
+                <div class="input-archivo">
                     <label for="imagen">Seleccionar archivo</label>
                     <input type="file" id="imagen" name="imagen" accept="image/*" required>
-            .
+                </div>
             </td>
         </tr>
     </table>

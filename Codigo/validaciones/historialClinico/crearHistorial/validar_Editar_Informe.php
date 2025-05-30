@@ -32,7 +32,7 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
     $rutaDestino = $carpetaArchivos . $nombreArchivo;
     move_uploaded_file($_FILES['archivo']['tmp_name'], $rutaDestino);
 
-    $archivoRuta = '/Codigo/validaciones/historialClinico/archivos/' . $nombreArchivo;
+    $archivoRuta = 'validaciones/historialClinico/archivos/' . $nombreArchivo;
 }
 
 // Checkboxes
@@ -97,7 +97,7 @@ if ($archivoRuta) {
 }
 
 if ($stmt->execute()) {
-    header("Location: /Codigo/admin.php?mensaje=Informe actualizado correctamente");
+    header("Location: ../../../admin.php?mensaje=Informe actualizado correctamente");
     exit;
 } else {
     echo "Error al actualizar el informe: " . $stmt->error;

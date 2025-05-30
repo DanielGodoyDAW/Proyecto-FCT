@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../../../conexion/conexion.php';
+<?php
+require_once __DIR__ . '/../../../conexion/conexion.php';
+require_once __DIR__ . '/../../../utilidades.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 $idPaciente = $_SESSION['idPaciente'] ?? null;
@@ -36,10 +38,11 @@ if ($idHistorial) {
     $ultimoInforme = $result->fetch_assoc();
 }
 ?>
+
 <div class="container-edicion">
     <div class="div-edicion historial">
-        <h2>Edicion de dni</h2>
-        <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+        <h2>Edición de DNI</h2>
+        <form action="<?php echo ruta_relativa('validaciones/editarPerfil/procesar_Edit_Perfil.php'); ?>" method="POST">
             <input type="hidden" name="desde_admin" value="1">
             <input type="hidden" name="idPaciente" value="<?= $idPaciente ?>">
             <table>
@@ -50,15 +53,18 @@ if ($idHistorial) {
                 </tr>
             </table>
         </form>
+
         <h2>Historial</h2>
-        <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.php'; ?>
+        <?php require_once __DIR__ . '/editarHistorial.php'; ?>
     </div>
+
     <div class="div-edicion informe">
         <h2>Informe</h2>
-        <?php require_once '../Codigo/validaciones/historialClinico/editarHistorial/editarInforme.php'; ?>
+        <?php require_once __DIR__ . '/editarInforme.php'; ?>
     </div>
+
     <div class="acciones-historial">
-        <button class="btnH" onclick="location.href='/Codigo/admin.php'">⬅ Volver</button>
+        <button class="btnH" onclick="location.href='<?php echo ruta_relativa('admin.php'); ?>'">⬅ Volver</button>
         <button class="btnH" onclick="mostrarHistorial('ver')">👁 Ver Historial e Informe</button>
     </div>
 </div>

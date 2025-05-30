@@ -43,7 +43,7 @@ $fechaFormateada = $formatter->format($fecha);
  
 // Mostrar formulario
 echo '<h3>Horarios disponibles para ' . $fechaFormateada . ':</h3>';
-echo '<form method="POST" action="/Codigo/validaciones/citas/crear_cita_admin.php">';
+echo '<form method="POST" action="validaciones/citas/crear_cita_admin.php">';
 echo '<input type="hidden" name="fecha" value="' . $fechaSeleccionada . '">';
 
 foreach ($tramos as $hora) {

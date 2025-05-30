@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<div class="horarios-columna">';
         echo '<h4>Horario de Mañana:</h4>';
         if (!empty($tramosHorariosManana)) {
-            echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
+            echo '<form action="./reservar_tramo.php" method="post">';
             foreach ($tramosHorariosManana as $inicio => $fin) {
                 $isReservado = in_array($inicio . ":00", array_column($horariosReservados, 'hora'));
                 $isBloqueado = false; // Puedes agregar lógica para determinar si está bloqueado
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<h4>Horario de Tarde:</h4>';
         if (date("w", strtotime($fechaSeleccionada)) != 5) {
             if (!empty($tramosHorariosTarde)) {
-                echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
+                echo '<form action="./reservar_tramo.php" method="post">';
                 foreach ($tramosHorariosTarde as $inicio => $fin) {
                     $isReservado = in_array($inicio . ":00", array_column($horariosReservados, 'hora'));
                     $isBloqueado = false; 

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
+require_once __DIR__ . '/../../../utilidades.php';
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 $idPaciente = $_SESSION['idPaciente'] ?? null;
@@ -35,11 +36,10 @@ $patologiasPredefinidas = ["Diabetes", "Colesterol", "HTA", "Alt. Coagulacion", 
 $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefinidas);
 
 ?>
-<script defer src="./validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
-<script defer src="./validaciones/historialClinico/editarHistorial/agregarPatologia.js"></script>
-<link rel="stylesheet" href="./estilos/styleColores.css">
-<link rel="stylesheet" href="./estilos/style.css">
-<form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_historial.php" method="post" enctype="multipart/form-data">
+
+<link rel="stylesheet" href="estilos/styleColores.css">
+<link rel="stylesheet" href="estilos/style.css">
+<form action="validaciones/historialClinico/crearHistorial/validar_historial.php" method="post" enctype="multipart/form-data">
     <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
 
     <table id="tabla_historial_clinico">
@@ -113,3 +113,6 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
     </table>
     <button class="btnH" type="submit">Actualizar Historial</button>
 </form>
+<script src="<?= ruta_relativa('validaciones/historialClinico/ajusteTextarea.js') ?>"></script>
+<script src="<?= ruta_relativa('validaciones/historialClinico/editarHistorial/editarHistorial.js') ?>"></script>
+<script src="<?= ruta_relativa('validaciones/historialClinico/editarHistorial/agregarPatologia.js') ?>"></script>

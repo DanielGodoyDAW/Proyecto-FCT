@@ -34,8 +34,8 @@ ob_end_flush();
     <style>
         @font-face {
             font-family: 'Amazing Grotesk';
-            src: url('/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf') format('woff2'),
-                url('/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf') format('woff');
+            src: url('../fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf') format('woff2'),
+                url('../fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf') format('woff');
             font-weight: normal;
             font-style: normal;
         }
@@ -45,7 +45,7 @@ ob_end_flush();
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            background-image: url('/Codigo/imagenes/redimension3_fondo.png');
+            background-image: url('../../imagenes/redimension3_fondo.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -105,7 +105,7 @@ ob_end_flush();
 <body>
     <div class="containerRecuperar">
         <h2>Restablecer Contraseña</h2>
-        <form id="formRestablecer" class="formularioRestablecer" action="/Proyecto-FCT/Codigo/validaciones/recuperarContra/guardar_nueva_contra.php" method="post">
+        <form id="formRestablecer" class="formularioRestablecer" action="./guardar_nueva_contra.php" method="post">
             <table>
                 <tr>
                     <td><input type="hidden" name="token" value="<?php echo htmlspecialchars($token); ?>"></td>

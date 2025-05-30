@@ -88,9 +88,9 @@ $extensiones = [
 
 <link rel="stylesheet" href="./estilos/styleColores.css">
 <link rel="stylesheet" href="./estilos/styleEditPerfil.css">
-<script src="./validaciones/editarPerfil/popupContrasena.js"></script>
+<script src="./popupContrasena.js"></script>
 <div id="perfil">
-    <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+    <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
 
         <!-- Token CSRF para seguridad -->
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
@@ -169,7 +169,7 @@ $extensiones = [
 
     <head>
         <link rel="stylesheet" href="./estilos/styleEditPerfil.css">
-        <script src="./validaciones/editarPerfil/popupContrasena.js"></script>
+        <script src="validaciones/editarPerfil/popupContrasena.js"></script>
         <title>Cambiar Contraseña</title>
         <style>
             body {
@@ -197,7 +197,7 @@ $extensiones = [
 
     <body>
         <h1>Cambiar Contraseña</h1>
-        <form action="/Codigo/validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+        <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
             <input type="hidden" name="fromPopup" value="1">
             <table>
                 <tr>

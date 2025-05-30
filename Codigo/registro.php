@@ -18,7 +18,7 @@ $errores = $_SESSION['errores'] ?? [];
 <body>
     <?php require_once './plantillas/header.php'; ?>
     <!-- Formulario de registro con cada apartado y sus patrones -->
-    <form action="/Codigo/validaciones/validacionRegistro.php" method="post" id="validacionRegistro">
+    <form action="./validaciones/validacionRegistro.php" method="post" id="validacionRegistro">
         <div class="contenedorRegistro">
             <?php if (!empty($errores)) { ?>
                 <div id="error">

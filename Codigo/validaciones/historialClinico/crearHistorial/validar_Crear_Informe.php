@@ -32,7 +32,7 @@ if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK) 
     $rutaDestino = $carpetaArchivos . $nombreArchivo;
     move_uploaded_file($_FILES['archivo']['tmp_name'], $rutaDestino);
 
-    $archivoRuta = '/Codigo/validaciones/historialClinico/archivos/' . $nombreArchivo;
+    $archivoRuta = 'validaciones/historialClinico/archivos/' . $nombreArchivo;
 }
 
 
@@ -84,7 +84,7 @@ $stmt->bind_param(
 );
 
 if ($stmt->execute()) {
-    header("Location: /Codigo/admin.php?mensaje=Informe creado correctamente");
+    header("Location: ../../../admin.php?mensaje=Informe creado correctamente");
     exit;
 } else {
     echo "Error al insertar el informe: " . $stmt->error;

@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: var(--colorFondo) url('/Codigo/imagenes/redimension3_fondo.png') no-repeat center center fixed;
+    background: var(--colorFondo) url('../imagenes/redimension3_fondo.png') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     align-items: center;
