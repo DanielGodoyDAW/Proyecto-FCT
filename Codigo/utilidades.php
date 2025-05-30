@@ -4,3 +4,9 @@ function ruta_absoluta($rutaRelativa) {
     $scriptDir = dirname($scriptName);
     return $scriptDir . '/' . ltrim($rutaRelativa, '/');
 }
+
+function ruta_relativa($rutaRelativa) {
+    return '/Proyecto-FCT/Codigo/' . ltrim($rutaRelativa, '/');
+}
+
+?>

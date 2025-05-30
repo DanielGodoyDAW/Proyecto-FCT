@@ -1,19 +1,23 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../../conexion/conexion.php';
+require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 $idUsuario = null;
 $esAdmin = false;
 
 if (isset($_SESSION['idPacientes'])) {
     $idUsuario = $_SESSION['idPacientes'];
-} elseif (isset($_SESSION['idAdmin']) && isset($_POST['desde_admin']) && isset($_POST['idPaciente'])) {
+} elseif (isset($_SESSION['idAdmin'])) {
+    $idUsuario = $_SESSION['idAdmin'];
+    $esAdmin = true;
+} elseif (isset($_POST['desde_admin']) && isset($_POST['idPaciente'])) {
     $idUsuario = $_POST['idPaciente'];
     $esAdmin = true;
 }
 
 if (!$idUsuario) {
-    echo '<script>alert("No se ha identificado el usuario."); window.location.href = "../../index.php";</script>';
+    echo '<script>alert("No se ha identificado el usuario."); window.location.href = "../../editar_perfil.php";</script>';
     exit;
 }
 
@@ -147,11 +151,16 @@ $stmt->bind_param($tipos, ...$valores);
 // Ejecutar
 if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo;
-    $redirect = $esAdmin ? './admin.php?seccion=historial&sub=editar' : '../../editar_perfil.php';
+    if ($esAdmin && isset($_POST['desde_admin']) && isset($_POST['idPaciente'])) {
+        // Admin editando ficha de paciente desde el panel
+        $redirect = ruta_relativa('admin.php?seccion=historial&sub=editar');
+    } else {
+        // Paciente o admin editando su propio perfil
+        $redirect = ruta_relativa('editar_perfil.php');
+    }
     echo "<script>alert('Perfil actualizado correctamente.'); window.location.href = '$redirect';</script>";
     exit;
 } else {
     echo '<script>alert("Error: No se pudo actualizar el perfil."); window.location.href = "../../editar_perfil.php";</script>';
     exit;
 }
-?>
