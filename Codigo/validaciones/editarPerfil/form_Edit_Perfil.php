@@ -90,7 +90,7 @@ $extensiones = [
 <link rel="stylesheet" href="./estilos/styleEditPerfil.css">
 <script src="./popupContrasena.js"></script>
 <div id="perfil">
-    <form action="./procesar_Edit_Perfil.php" method="POST">
+    <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
 
         <!-- Token CSRF para seguridad -->
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">

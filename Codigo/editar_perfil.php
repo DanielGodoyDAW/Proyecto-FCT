@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
 <body>
     <?php require_once './plantillas/header.php'; ?>
     <main class="contenedor">
-        <?php require_once './validaciones/editarPerfil/form_Edit_Perfil.php'; ?>
+        <?php require_once 'validaciones/editarPerfil/form_Edit_Perfil.php'; ?>
     </main>
     <?php require_once './plantillas/footer.php'; ?>
 </body>
