@@ -18,10 +18,10 @@
         <tr>
             <td><label for="imagen">Imagen:</label></td>
             <td>
-                < class="input-archivo">
+                <div class="input-archivo">
                     <label for="imagen">Seleccionar archivo</label>
                     <input type="file" id="imagen" name="imagen" accept="image/*" required>
-            .
+                </div>
             </td>
         </tr>
     </table>
