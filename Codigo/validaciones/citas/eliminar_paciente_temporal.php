@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
     $stmtCheck->close();
 
     if (!$pacienteData || $pacienteData['es_temporal'] != 1) {
-        echo '<script>alert("No puedes eliminar pacientes normales desde aquí."); window.location.href = "./citas.php";</script>';
+        echo '<script>alert("No puedes eliminar pacientes normales desde aquí."); window.location.href = "../../citas.php";</script>';
         exit;
     }
 
@@ -107,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
     }
 
     header("Location: ../../citas.php?mensaje=Paciente+temporal+eliminado");
+    // echo "<script>alert('Paciente eliminado con éxito.'); window.location.href = '../../citas.php';</script>";
     exit;
 } else {
     echo "Acceso denegado.";

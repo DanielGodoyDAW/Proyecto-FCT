@@ -1,4 +1,5 @@
 <?php require_once __DIR__ . '/../../../conexion/conexion.php';
+require_once __DIR__ . '/../../../utilidades.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 $idPaciente = $_SESSION['idPaciente'] ?? null;
@@ -60,5 +61,5 @@ if (isset($_GET['idInforme'])) { ?>
 <?php } else { ?>
     <button class="btnH" onclick="mostrarHistorial('editar')">✏️ Editar Historial o Informe</button>
 <?php }
-echo "<button class='btnH' onclick=\"location.href='../../../admin.php'\">⬅ Volver</button>";
+echo "<button onclick=\"window.location.href='" . ruta_absoluta('admin.php') . "'\">⬅ Volver</button>";
 echo '</div>';
