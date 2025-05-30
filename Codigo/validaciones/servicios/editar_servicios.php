@@ -28,8 +28,8 @@ $promocion = $result->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <title>Editar Servicios</title>
-    <link rel="stylesheet" href="estilos/stylePromo.css">
-    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="../../estilos/stylePromo.css">
+    <link rel="stylesheet" href="../../estilos/styleColores.css">
 </head>
 
 <body>
