@@ -115,3 +115,4 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
 </form>
 <script src="<?= ruta_relativa('validaciones/historialClinico/ajusteTextarea.js') ?>"></script>
 <script src="<?= ruta_relativa('validaciones/historialClinico/editarHistorial/editarHistorial.js') ?>"></script>
+<script src="<?= ruta_relativa('validaciones/historialClinico/editarHistorial/agregarPatologia.js') ?>"></script>
