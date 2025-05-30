@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./estilos/styleColores.css">
-    <link rel="stylesheet" href="./estilos/styleAdmin.css">
-    <script defer src="./validaciones/subseccionesAdmin/subseccion.js"></script>
-    <script defer src="./validaciones/subseccionesAdmin/subMenuHistorial.js"></script>
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/styleAdmin.css">
+    <script defer src="validaciones/subseccionesAdmin/subseccion.js"></script>
+    <script defer src="validaciones/subseccionesAdmin/subMenuHistorial.js"></script>
+    <script defer src="validaciones/servicios/editarServicio.js"></script>
     <title>Administración</title>
 </head>
 

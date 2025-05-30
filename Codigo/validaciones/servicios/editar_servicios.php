@@ -28,14 +28,14 @@ $promocion = $result->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <title>Editar Servicios</title>
-    <link rel="stylesheet" href="./estilos/stylePromo.css">
-    <link rel="stylesheet" href="./estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/stylePromo.css">
+    <link rel="stylesheet" href="estilos/styleColores.css">
 </head>
 
 <body>
     <h2>Editar Servicio</h2>
     <div class="form-container">
-        <form action="procesar_editar_servicios.php" method="POST">
+        <form action="/validaciones/servicios/procesar_editar_servicios.php" method="POST">
             <table>
                 <tr>
                     <td><input type="hidden" name="idPromocion" value="<?php echo htmlspecialchars($idPromocion); ?>"></td>
