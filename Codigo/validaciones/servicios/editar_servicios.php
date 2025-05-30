@@ -35,7 +35,7 @@ $promocion = $result->fetch_assoc();
 <body>
     <h2>Editar Servicio</h2>
     <div class="form-container">
-        <form action="/validaciones/servicios/procesar_editar_servicios.php" method="POST">
+        <form action="procesar_editar_servicios.php" method="POST" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td><input type="hidden" name="idPromocion" value="<?php echo htmlspecialchars($idPromocion); ?>"></td>
@@ -46,21 +46,26 @@ $promocion = $result->fetch_assoc();
                 </tr>
                 <tr>
                     <td><label for="descripcion">Descripción:</label></td>
-                    <td><textarea id="descripcion" name="descripcion" required><?php echo htmlspecialchars($promocion['descripcion']); ?></textarea></td>
+                    <td><textarea id="descripcion" name="descripcion"><?php echo htmlspecialchars($promocion['descripcion']); ?></textarea></td>
                 </tr>
                 <tr>
                     <td><label for="duracion">Duracion:</label></td>
                     <td><input type="text" id="duracion" name="duracion" value="<?php echo htmlspecialchars($promocion['duracion']); ?>"></td>
                 </tr>
                 <tr>
-                    <td><label for="imagen">Imagen:</label></td>
-                    <td><input type="file" id="imagen" name="imagen" accept="image/*"></td>
+                    <td><label for="imagen">Cargar nueva imagen:</label></td>
+                    <td colspan="3">
+                        <div class="input-archivo">
+                            <label for="imagen">Seleccionar archivo</label>
+                            <input type="file" id="imagen" name="imagen" accept="image/*">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2"><label for="imagen">Imagen Actual:</label></td>
                     <td colspan="2">
                         <?php if (!empty($promocion['imagen'])) { ?>
-                            <img src="<?php echo '/Codigo' . htmlspecialchars($promocion['imagen']); ?>" alt="Imagen de la promoción" style="max-width: 100px; max-height: 100px;">
+                            <img src="<?php echo '../../' . htmlspecialchars($promocion['imagen']); ?>" alt="Imagen del servicio" style="max-width: 100px; max-height: 100px;">
                         <?php } else { ?>
                             Sin imagen
                         <?php } ?>
