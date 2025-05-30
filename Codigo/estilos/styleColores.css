@@ -1,18 +1,18 @@
 :root {
-    --colorFondo: #f0f0f0;
-    --colorTexto: #333;
-    --colorBoton: #08A3A9;
-    --colorBotonHover: #0f2788;
-    --colorBotonActivoHover: #0056b3;
-    --colorFondoClarito: #DFF5F6;
-    --colorFondoDivs: #E8F0F1;
-    --disponible: #155724;
-    --semiDisponible: #856404;
-    --noDisponible: #721c24;
-    --fueraServicio: #6c757d;
-    --colorCamposInvalidosFondo: #ffe6e6;
-    --colorCamposValidosFondo: #e6ffe6;
-    --colorActive: #008aca;
+    --colorFondo: #f0f0f0;          /* Color general de fondo */
+    --colorTexto: #333;             /* Color del texto principal */
+    --colorBoton: #08A3A9;          /* Color de fondo de botones */
+    --colorBotonHover: #0f2788;     /* Color al pasar el cursor sobre botones */
+    --colorBotonActivoHover: #0056b3; /* Color botones activos */
+    --colorFondoClarito: #DFF5F6;   /* Fondo claro alternativo */
+    --colorFondoDivs: #E8F0F1;      /* Color fondo para secciones/divs */
+    --disponible: #155724;          /* Indica disponibilidad */
+    --semiDisponible: #856404;      /* Indica disponibilidad limitada */
+    --noDisponible: #721c24;        /* Indica no disponible */
+    --fueraServicio: #6c757d;       /* Indica fuera de servicio */
+    --colorCamposInvalidosFondo: #ffe6e6; /* Campos formulario inválidos */
+    --colorCamposValidosFondo: #e6ffe6;   /* Campos formulario válidos */
+    --colorActive: #008aca;         /* Color activo en menú o elementos seleccionados */
 }
 
 @font-face {
