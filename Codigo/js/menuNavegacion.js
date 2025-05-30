@@ -1,10 +1,19 @@
+// Espera a que el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", () => {
-    const rutaActual = window.location.pathname; // Obtiene la ruta actual
-    const enlacesNavegacion = document.querySelectorAll(".navegacion"); // Selecciona todos los enlaces del menú
+    // Obtiene solo el nombre del archivo actual (por ejemplo, admin.php)
+    const rutaActual = window.location.pathname.split("/").pop();
 
-    enlacesNavegacion.forEach(link => { // Recorre cada enlace
-        if (link.getAttribute("href") === rutaActual) { // Si el enlace coincide con la ruta actual
-            link.classList.add("active"); // Añade la clase activa al enlace
+    // Selecciona todos los enlaces del menú que tengan la clase "navegacion"
+    const enlacesNavegacion = document.querySelectorAll(".navegacion");
+
+    // Recorre cada enlace y compara su href con la ruta actual
+    enlacesNavegacion.forEach(link => {
+        // Obtiene solo el nombre del archivo desde el href del enlace
+        const rutaLink = link.getAttribute("href").split("/").pop();
+
+        // Si el archivo coincide con la ruta actual, añade la clase "active"
+        if (rutaLink === rutaActual) {
+            link.classList.add("active");
         }
     });
 });

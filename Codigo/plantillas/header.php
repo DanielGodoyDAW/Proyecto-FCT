@@ -3,6 +3,7 @@ if (session_status() === PHP_SESSION_NONE) { //para corregir problemas de sessio
     session_start();
 }
 require_once __DIR__ . '/../conexion/conexion.php';
+require_once __DIR__ . '/../utilidades.php';
 ?>
 
 <header>
@@ -12,7 +13,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
     <h1>Clínica de Podología Carmen Godoy</h1>
     <link rel="stylesheet" href="estilos/styleColores.css">
     <link rel="stylesheet" href="estilos/style.css">
-    <script src="./js/menuNavegacion.js"></script>
+    <script src="<?= ruta_relativa('js/menuNavegacion.js') ?>"></script>
 
     <?php
     // Verificar si el usuario ha iniciado sesión
@@ -52,7 +53,7 @@ require_once __DIR__ . '/../conexion/conexion.php';
     ?>
 
     <nav>
-        <ul> 
+        <ul>
             <!-- Opcion siempre visible cuando no estas logueado -->
             <?php if (!isset($_SESSION['idPacientes']) && !isset($_SESSION['idAdmin'])) {
                 echo "<li><a class='btnA navegacion' href='./index.php'>Inicio<img src='./iconos/home.svg'></a></li>";
