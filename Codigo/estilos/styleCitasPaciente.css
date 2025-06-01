@@ -85,3 +85,56 @@ table.citas th {
         margin: 20px 0;
     }
 }
+
+@media (max-width: 425px) {
+    /* Ocultar tabla normal de citas */
+    table.citas {
+        display: none !important;
+    }
+
+    /* Mostrar tarjetas de citas solo en móvil */
+    .tarjeta-cita {
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: var(--colorFondoDivs);
+        padding: 10px;
+        margin-bottom: 15px;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .tarjeta-cita div {
+        margin: 5px 0;
+    }
+
+    .tarjeta-cita div strong {
+        display: inline-block;
+        width: 90px;
+    }
+
+    .tarjeta-cita .btnCancelar {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        padding: 8px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .tarjeta-cita .btnCancelar:hover {
+        background-color: #cc0000;
+    }
+
+    .tarjeta-cita .redes {
+        width: 24px;
+        height: 24px;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+}
