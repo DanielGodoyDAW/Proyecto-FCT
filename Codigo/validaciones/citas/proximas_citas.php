@@ -6,6 +6,9 @@
 require_once __DIR__ . '/../../conexion/conexion.php';
 require_once __DIR__ . '/../../utilidades.php';
 
+// Detecta si el usuario accede desde móvil
+$esDispositivoMovil = isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/Mobile|Android|iPhone|iPad/i', $_SERVER['HTTP_USER_AGENT']);
+
 if (isset($_SESSION["idPacientes"])) {
     // Si el usuario es un paciente, se muestran solo sus citas
     $idPaciente = $_SESSION["idPacientes"];
@@ -27,49 +30,51 @@ while ($row = $result->fetch_assoc()) {
     $proximasCitas[] = $row;
 }
 
-// Mostrar la tabla de citas (vista de escritorio)
-echo '<table class="citas" border="1">';
-echo '<tr><th>Fecha</th><th>Hora</th><th>Nombre</th><th>Apellidos</th>';
-if (!$esPaciente) echo '<th>Teléfono</th><th>WhatsApp</th>';
-echo ($esPaciente ? '<th>Cancelar</th>' : '') . '</tr>';
+if (!$esDispositivoMovil) {
+    // Mostrar la tabla de citas (vista de escritorio)
+    echo '<table class="citas" border="1">';
+    echo '<tr><th>Fecha</th><th>Hora</th><th>Nombre</th><th>Apellidos</th>';
+    if (!$esPaciente) echo '<th>Teléfono</th><th>WhatsApp</th>';
+    echo ($esPaciente ? '<th>Cancelar</th>' : '') . '</tr>';
 
-foreach ($proximasCitas as $cita) {
-    echo '<tr>';
-    echo '<td>' . formatearFecha($cita['fecha']) . '</td>';
-    echo '<td>' . $cita['hora'] . '</td>';
-    echo '<td>' . $cita['nombre'] . '</td>';
-    echo '<td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>';
+    foreach ($proximasCitas as $cita) {
+        echo '<tr>';
+        echo '<td>' . formatearFecha($cita['fecha']) . '</td>';
+        echo '<td>' . $cita['hora'] . '</td>';
+        echo '<td>' . $cita['nombre'] . '</td>';
+        echo '<td>' . $cita['apellido1'] . ' ' . $cita['apellido2'] . '</td>';
 
-    if (!$esPaciente) {
-        // Si es admin, mostrar teléfono y botón de WhatsApp
-        echo '<td>' . $cita['telefono'] . '</td>';
-        echo '<td><a href="' . formatearWhatsApp($cita['telefono']) . '" target="_blank"><img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp"></a></td>';
-    } else {
-        // Si es paciente, mostrar botón para cancelar cita
-        echo '<td><form action="./cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');"><input type="hidden" name="idCita" value="' . $cita['idCita'] . '"><button type="submit" class="btnCancelar">Cancelar</button></form></td>';
+        if (!$esPaciente) {
+            // Si es admin, mostrar teléfono y botón de WhatsApp
+            echo '<td>' . $cita['telefono'] . '</td>';
+            echo '<td><a href="' . formatearWhatsApp($cita['telefono']) . '" target="_blank"><img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp"></a></td>';
+        } else {
+            // Si es paciente, mostrar botón para cancelar cita
+            echo '<td><form action="./cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');"><input type="hidden" name="idCita" value="' . $cita['idCita'] . '"><button type="submit" class="btnCancelar">Cancelar</button></form></td>';
+        }
+        echo '</tr>';
     }
-    echo '</tr>';
-}
-echo '</table>';
+    echo '</table>';
+} else {
+    // Vista alternativa (responsive) para dispositivos móviles
+    foreach ($proximasCitas as $cita) {
+        echo '<div class="tarjeta-cita">';
+        echo '<div><strong>Fecha:</strong> ' . htmlspecialchars(formatearFecha($cita['fecha'])) . '</div>';
+        echo '<div><strong>Hora:</strong> ' . htmlspecialchars($cita['hora']) . '</div>';
+        echo '<div><strong>Nombre:</strong> ' . htmlspecialchars($cita['nombre']) . '</div>';
+        echo '<div><strong>Apellidos:</strong> ' . htmlspecialchars($cita['apellido1'] . ' ' . $cita['apellido2']) . '</div>';
 
-// Vista alternativa (responsive) para dispositivos móviles
-foreach ($proximasCitas as $cita) {
-    echo '<div class="tarjeta-cita">';
-    echo '<div><strong>Fecha:</strong> ' . htmlspecialchars(formatearFecha($cita['fecha'])) . '</div>';
-    echo '<div><strong>Hora:</strong> ' . htmlspecialchars($cita['hora']) . '</div>';
-    echo '<div><strong>Nombre:</strong> ' . htmlspecialchars($cita['nombre']) . '</div>';
-    echo '<div><strong>Apellidos:</strong> ' . htmlspecialchars($cita['apellido1'] . ' ' . $cita['apellido2']) . '</div>';
-
-    if (!$esPaciente) {
-        echo '<div><strong>Teléfono:</strong> ' . htmlspecialchars($cita['telefono']) . '</div>';
-        echo '<div><a href="' . formatearWhatsApp($cita['telefono']) . '" target="_blank"><img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp"></a></div>';
-    } else {
-        echo '<form action="./cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">';
-        echo '<input type="hidden" name="idCita" value="' . $cita['idCita'] . '">';
-        echo '<button type="submit" class="btnCancelar">Cancelar</button>';
-        echo '</form>';
+        if (!$esPaciente) {
+            echo '<div><strong>Teléfono:</strong> ' . htmlspecialchars($cita['telefono']) . '</div>';
+            echo '<div><a href="' . formatearWhatsApp($cita['telefono']) . '" target="_blank"><img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp"></a></div>';
+        } else {
+            echo '<form action="./cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">';
+            echo '<input type="hidden" name="idCita" value="' . $cita['idCita'] . '">';
+            echo '<button type="submit" class="btnCancelar">Cancelar</button>';
+            echo '</form>';
+        }
+        echo '</div>';
     }
-    echo '</div>';
 }
 
 ?>

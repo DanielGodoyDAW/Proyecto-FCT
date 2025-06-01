@@ -55,7 +55,7 @@ function mostrarCitasComoTabla(array $listaCitas, bool $esAdministrador = false)
     echo '</table>';
 }
 
-// Detecta si el usuario accede desde móvil (muy útil para adaptar el contenido)
+// Detecta si el usuario accede desde móvil
 $esDispositivoMovil = isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/Mobile|Android|iPhone|iPad/i', $_SERVER['HTTP_USER_AGENT']);
 
 // Consulta para administradores
