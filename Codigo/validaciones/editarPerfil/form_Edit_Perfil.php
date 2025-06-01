@@ -86,9 +86,9 @@ $extensiones = [
 
 ?>
 
-<link rel="stylesheet" href="./estilos/styleColores.css">
-<link rel="stylesheet" href="./estilos/styleEditPerfil.css">
-<script src="./popupContrasena.js"></script>
+<link rel="stylesheet" href="estilos/styleColores.css">
+<link rel="stylesheet" href="estilos/styleEditPerfil.css">
+<script src="validaciones/editarPerfil/popupContrasena.js"></script>
 <div id="perfil">
     <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
 
