@@ -156,11 +156,23 @@ if ($stmt->execute()) {
     $_SESSION['sexo'] = $sexo ?? $_SESSION['sexo'];
 
     if ($stmt->affected_rows === 0) {
-        echo "<script>alert('No se modificó nada porque los datos eran idénticos.'); window.location.href = '" . ruta_relativa('admin.php?seccion=historial&sub=editar') . "';</script>";
+        echo "<script>alert('No se modificó nada porque los datos eran idénticos.');";
+        if ($esAdmin && isset($_POST['desde_admin'])) {
+            echo "window.location.href = '" . ruta_relativa('admin.php?seccion=historial&sub=editar') . "';";
+        } else {
+            echo "window.location.href = '../../editar_perfil.php';";
+        }
+        echo "</script>";
         exit;
     }
 
-    echo "<script>alert('Perfil actualizado correctamente.'); window.location.href = '" . ruta_relativa('admin.php?seccion=historial&sub=editar') . "';</script>";
+    echo "<script>alert('Perfil actualizado correctamente.');";
+    if ($esAdmin && isset($_POST['desde_admin'])) {
+        echo "window.location.href = '" . ruta_relativa('admin.php?seccion=historial&sub=editar') . "';";
+    } else {
+        echo "window.location.href = '../../editar_perfil.php';";
+    }
+    echo "</script>";
     exit;
 } else {
     echo '<script>alert("Error al actualizar el perfil."); window.location.href = "../../editar_perfil.php";</script>';
