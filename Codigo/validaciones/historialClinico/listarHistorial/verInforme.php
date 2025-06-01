@@ -3,6 +3,7 @@
 
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
+require_once __DIR__ . '/../../../utilidades.php';
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 $idPaciente = $_SESSION['idPaciente'] ?? null;
@@ -37,17 +38,9 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($fila = $result->fetch_assoc()) {
-    $formatter = new \IntlDateFormatter(
-        'es_ES',
-        \IntlDateFormatter::LONG,
-        \IntlDateFormatter::NONE,
-        'Europe/Madrid',
-        \IntlDateFormatter::GREGORIAN,
-        "d 'de' MMMM 'de' yyyy"
-    );
-
-    $fecha = new DateTime($fila['fecha']);
-    $fechaFormateada = $formatter->format($fecha);
+    
+    // Formatear la fecha usando la función de utilidades
+    $fechaFormateada = formatearFecha($fila['fecha']);
 
     echo '<div class="columna">';
     echo '<h3>Informe del ' . htmlspecialchars($fechaFormateada) . '</h3>';

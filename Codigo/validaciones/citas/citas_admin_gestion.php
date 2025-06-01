@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 $fechaSeleccionada = $_POST['fecha'] ?? date('Y-m-d');
 
@@ -29,17 +30,8 @@ while ($row = $res->fetch_assoc()) {
     $reservadas[] = $row['hora'];
 }
 
-$formatter = new \IntlDateFormatter(
-    'es_ES', // Localización para español de España
-    \IntlDateFormatter::LONG,
-    \IntlDateFormatter::NONE,
-    'Europe/Madrid', // Zona horaria
-    \IntlDateFormatter::GREGORIAN,
-    "d 'de' MMMM 'de' yyyy" // Formato personalizado
-);
-
-$fecha = new DateTime($fechaSeleccionada);
-$fechaFormateada = $formatter->format($fecha);
+//fecha formateada con al función de utilidades
+$fechaFormateada = formatearFecha($fechaSeleccionada);
  
 // Mostrar formulario
 echo '<h3>Horarios disponibles para ' . $fechaFormateada . ':</h3>';

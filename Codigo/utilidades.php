@@ -10,4 +10,25 @@ function ruta_absoluta($rutaRelativa) {
 function ruta_relativa($rutaRelativa) {
     return '/Proyecto-FCT/Codigo/' . ltrim($rutaRelativa, '/'); // Devuelve ruta relativa al proyecto.
 }
+
+// Formatea una fecha al estilo 
+function formatearFecha($fecha) {
+    $formatter = new \IntlDateFormatter(
+        'es_ES',
+        \IntlDateFormatter::LONG,
+        \IntlDateFormatter::NONE,
+        'Europe/Madrid',
+        \IntlDateFormatter::GREGORIAN,
+        "d 'de' MMMM 'de' yyyy"
+    );
+    return $formatter->format(new DateTime($fecha));
+}
+
+// Genera el enlace de WhatsApp a partir de un número completo
+function formatearWhatsApp($telefonoCompleto) {
+    preg_match('/^(\+\d+)\s*(.*)$/', $telefonoCompleto, $matches);
+    $extension = $matches[1] ?? '+34';
+    $telefono = $matches[2] ?? '';
+    return 'https://wa.me/' . $extension . $telefono;
+}
 ?>

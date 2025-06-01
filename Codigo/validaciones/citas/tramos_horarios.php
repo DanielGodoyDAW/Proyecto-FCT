@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -72,17 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $formatter = new \IntlDateFormatter(
-            'es_ES', // Localización para español de España
-            \IntlDateFormatter::LONG,
-            \IntlDateFormatter::NONE,
-            'Europe/Madrid', // Zona horaria
-            \IntlDateFormatter::GREGORIAN,
-            "d 'de' MMMM 'de' yyyy" // Formato personalizado
-        );
-
-        $fecha = new DateTime($fechaSeleccionada);
-        $fechaFormateada = $formatter->format($fecha);
+        // Usando la función de utilidades para formatear la fecha
+        $fechaFormateada = formatearFecha($fechaSeleccionada);
 
 
         // Mostrar los horarios libres en dos columnas

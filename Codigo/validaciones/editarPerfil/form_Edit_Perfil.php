@@ -86,9 +86,8 @@ $extensiones = [
 
 ?>
 
-<link rel="stylesheet" href="./estilos/styleColores.css">
-<link rel="stylesheet" href="./estilos/styleEditPerfil.css">
-<script src="./popupContrasena.js"></script>
+<link rel="stylesheet" href="estilos/styleColores.css">
+<link rel="stylesheet" href="estilos/styleEditPerfil.css">
 <div id="perfil">
     <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
 
@@ -137,13 +136,13 @@ $extensiones = [
                 <?php } ?>
             </tr>
             <?php if (!$esTemporal) { ?>
-            <tr>
-                <td><label for="dni">DNI:</label></td>
-                <td>
-                    <input class="form-control" type="text" name="dni" value="<?= htmlspecialchars($pacientes['dni']) ?>" readonly>
-                    <small style="color:#666">Para cambiar este dato, contacta con la clínica.</small>
-                </td>
-            </tr>
+                <tr>
+                    <td><label for="dni">DNI:</label></td>
+                    <td>
+                        <input class="form-control" type="text" name="dni" value="<?= htmlspecialchars($pacientes['dni']) ?>" readonly>
+                        <small style="color:#666">Para cambiar este dato, contacta con la clínica.</small>
+                    </td>
+                </tr>
             <?php } ?>
             <?php if ($esTemporal) { ?>
                 <tr>
@@ -165,81 +164,33 @@ $extensiones = [
     </form>
 </div>
 <div id="cambiarPass">
-    <html>
-
-    <head>
-        <link rel="stylesheet" href="./estilos/styleEditPerfil.css">
-        <script src="validaciones/editarPerfil/popupContrasena.js"></script>
-        <title>Cambiar Contraseña</title>
-        <style>
-            body {
-                text-align: center;
-                padding: 20px;
-            }
-
-            input {
-                margin: 10px 0;
-                padding: 10px;
-                width: 80%;
-            }
-
-            button {
-                padding: 10px 20px;
-                margin: 10px;
-            }
-
-            table {
-                margin: 0 auto;
-                border-collapse: collapse;
-            }
-        </style>
-    </head>
-
-    <body>
-        <h1>Cambiar Contraseña</h1>
-        <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
-            <input type="hidden" name="fromPopup" value="1">
-            <table>
-                <tr>
-                    <td><label for="passwordActual">Contraseña Actual:</label></td>
-                    <td><input type="password" id="passwordActual" name="passwordActual" required></td>
-                </tr>
-                <tr>
-                    <td><label for="nuevaContrasena">Nueva Contraseña:</label></td>
-                    <td><input type="password" id="nuevaContrasena" name="nuevaContrasena" required></td>
-                </tr>
-                <tr>
-                    <td><label for="confirmarContrasena">Confirmar Nueva Contraseña:</label></td>
-                    <td><input type="password" id="confirmarContrasena" name="confirmarContrasena" required></td>
-                </tr>
-                <tr>
-                    <td><label for="mostrarContrasena">Mostrar contraseñas</label></td>
-                    <td><input type="checkbox" id="mostrarContrasena"> </td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center;">
-                        <button type="submit" class="popUpGuardar">Guardar</button>
-                        <button type="button" class="popUpCerrar" onclick="mostrarEdit()">Cancelar</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </body>
-    <script>
-        // Función para mostrar/ocultar la contraseña
-        document.getElementById('mostrarContrasena').addEventListener('change', function() {
-            // Cambia el tipo de los campos de contraseña según el estado del checkbox
-            const passwordFields = [
-                document.getElementById('passwordActual'),
-                document.getElementById('nuevaContrasena'),
-                document.getElementById('confirmarContrasena')
-            ];
-            //se rrecorre el array de los campos de contraseña y se cambia el tipo a password o text
-            passwordFields.forEach(field => {
-                field.type = this.checked ? 'text' : 'password';
-            });
-        });
-    </script>
-
-    </html>
+    <form action="validaciones/editarPerfil/procesar_Edit_Perfil.php" method="POST">
+        <h1 class="h1CambiarPass">Cambiar Contraseña</h1>
+        <input type="hidden" name="fromPopup" value="1">
+        <table class="tablaCambiarPass">
+            <tr>
+                <td><label for="passwordActual">Contraseña Actual:</label></td>
+                <td><input type="password" id="passwordActual" name="passwordActual" required></td>
+            </tr>
+            <tr>
+                <td><label for="nuevaContrasena">Nueva Contraseña:</label></td>
+                <td><input type="password" id="nuevaContrasena" name="nuevaContrasena" required></td>
+            </tr>
+            <tr>
+                <td><label for="confirmarContrasena">Confirmar Nueva Contraseña:</label></td>
+                <td><input type="password" id="confirmarContrasena" name="confirmarContrasena" required></td>
+            </tr>
+            <tr>
+                <td><label for="mostrarContrasena">Mostrar contraseñas</label></td>
+                <td><input type="checkbox" id="mostrarContrasena"> </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <button type="submit" class="popUpGuardar">Guardar</button>
+                    <button type="button" class="popUpCerrar" onclick="mostrarEdit()">Cancelar</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
+<script src="validaciones/editarPerfil/popupContrasena.js" defer></script>

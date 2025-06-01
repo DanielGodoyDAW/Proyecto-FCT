@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -29,23 +30,14 @@ if (isset($_POST['paciente'])) {
         echo "<h3>Ficha del Paciente</h3><ul>";
         foreach ($row as $campo => $valor) {
 
-            if(empty($valor)){ //si el valor es vacio no lo mostramos
+            if (empty($valor)) { //si el valor es vacio no lo mostramos
                 continue;
             }
-            //para formatear el campo de fecha a español
+            //para formatear el campo de fecha a español con la funcion de utilidades
             if ($campo === 'Fecha de nacimiento' && !empty($valor)) {
-                $formatter = new \IntlDateFormatter(
-                    'es_ES',
-                    \IntlDateFormatter::LONG,
-                    \IntlDateFormatter::NONE,
-                    'Europe/Madrid',
-                    \IntlDateFormatter::GREGORIAN,
-                    "d 'de' MMMM 'de' yyyy"
-                );
-                $fecha = new DateTime($valor);
-                $valor = $formatter->format($fecha);
+                $valor = formatearFecha($valor);
             }
-            if($campo === 'ID'){
+            if ($campo === 'ID') {
                 $_SESSION['idPaciente'] = $valor;
             }
             echo "<li><strong>" . htmlspecialchars($campo) . ":</strong> " . htmlspecialchars($valor) . "</li>";
@@ -59,4 +51,3 @@ if (isset($_POST['paciente'])) {
         echo "<p>No se encontró el paciente.</p>";
     }
 }
-?>
