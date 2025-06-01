@@ -168,6 +168,7 @@ $extensiones = [
     <html>
 
     <head>
+        <link rel="stylesheet" href="estilos/styleColores.css">
         <link rel="stylesheet" href="estilos/styleEditPerfil.css">
         <script src="validaciones/editarPerfil/popupContrasena.js"></script>
         <title>Cambiar Contraseña</title>
