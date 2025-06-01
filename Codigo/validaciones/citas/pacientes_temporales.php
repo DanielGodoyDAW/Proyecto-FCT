@@ -25,11 +25,11 @@ if ($resultado->num_rows > 0) {
         echo '<td><strong>Email:</strong><br>' . htmlspecialchars($row['email']) . '</td>';
         echo '<td><strong>DNI:</strong><br>' . htmlspecialchars($row['dni']) . '</td>';
         echo '<td><strong>Acción:</strong><br>
-    <form method="POST" action="validaciones/citas/eliminar_paciente_temporal.php" onsubmit="return confirm(\'¿Estás seguro de eliminar este paciente temporal?\');" style="display:inline;">
-        <input type="hidden" name="idPacientes" value="' . $row['idPacientes'] . '">
-        <button type="submit" class="btnCancelar">Eliminar</button>
-    </form>
-</td>';
+                <form method="POST" action="validaciones/citas/eliminar_paciente_temporal.php" onsubmit="return confirm(\'¿Estás seguro de eliminar este paciente temporal?\');" style="display:inline;">
+                    <input type="hidden" name="idPacientes" value="' . $row['idPacientes'] . '">
+                    <button type="submit" class="btnCancelar">Eliminar</button>
+                </form>
+              </td>';
         echo '</tr>';
     }
 

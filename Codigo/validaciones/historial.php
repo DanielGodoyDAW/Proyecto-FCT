@@ -4,9 +4,7 @@
 require_once __DIR__ . '/../conexion/conexion.php';
 require_once __DIR__ . '/../utilidades.php';
 
-/**
- * Renderiza las citas como tarjetas (para dispositivos móviles)
- */
+//citas para móviles
 function mostrarCitasComoTarjetas(array $listaCitas, bool $esAdministrador = false) {
     foreach ($listaCitas as $cita) {
         echo '<div class="tarjeta-cita">';
@@ -24,9 +22,7 @@ function mostrarCitasComoTarjetas(array $listaCitas, bool $esAdministrador = fal
     }
 }
 
-/**
- * Renderiza las citas en formato de tabla (para escritorio)
- */
+// citas en formato de escritorio
 function mostrarCitasComoTabla(array $listaCitas, bool $esAdministrador = false) {
     echo '<table class="citas" border="1">
         <tr>

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 $contenidoResultado = '';
 
@@ -37,7 +38,7 @@ if (isset($_SESSION['idPaciente'])) {
             // Si el texto tiene más de 1 carácter, lanza búsqueda AJAX
             if (query.length > 1) {
                 $.ajax({
-                    url: '/Proyecto-FCT/Codigo/validaciones/busqueda/buscar_paciente.php', // Script que busca pacientes en la base de datos
+                    url: "<?= ruta_relativa('validaciones/busqueda/buscar_paciente.php') ?>", // Script que busca pacientes en la base de datos
                     method: 'POST',
                     data: {
                         consulta: query // Envía el texto escrito al servidor
@@ -68,7 +69,7 @@ if (isset($_SESSION['idPaciente'])) {
 
             // Primero actualiza la sesión en el servidor
             $.ajax({
-                url: '/Proyecto-FCT/Codigo/validaciones/busqueda/guardar_id_paciente.php',
+                url: "<?= ruta_relativa('validaciones/busqueda/guardar_id_paciente.php') ?>",
                 method: 'POST',
                 data: {
                     id: pacienteSeleccionado
