@@ -546,6 +546,10 @@ nav ul li a img {
 /* Responsive para moviles*/
 
 @media (max-width: 768px) {
+    
+    body {
+        background-attachment: scroll;
+    }
 
     body,
     html {
