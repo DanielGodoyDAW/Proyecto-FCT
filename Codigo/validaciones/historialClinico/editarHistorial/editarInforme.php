@@ -12,17 +12,8 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
 
 if ($ultimoInforme) {
 
-    $formatter = new \IntlDateFormatter(
-        'es_ES',
-        \IntlDateFormatter::LONG,
-        \IntlDateFormatter::NONE,
-        'Europe/Madrid',
-        \IntlDateFormatter::GREGORIAN,
-        "d 'de' MMMM 'de' yyyy"
-    );
-
-    $fecha = new DateTime($ultimoInforme['fecha']);
-    $fechaFormateada = $formatter->format($fecha);
+    //fecha formateada con la funcion de utilidades
+    $fechaFormateada = formatearFecha($ultimoInforme['fecha']);
 
 ?>
     <script defer src="validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
