@@ -50,7 +50,10 @@ if (!$esDispositivoMovil) {
             echo '<td><a href="' . formatearWhatsApp($cita['telefono']) . '" target="_blank"><img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp"></a></td>';
         } else {
             // Si es paciente, mostrar botón para cancelar cita
-            echo '<td><form action="./cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');"><input type="hidden" name="idCita" value="' . $cita['idCita'] . '"><button type="submit" class="btnCancelar">Cancelar</button></form></td>';
+            echo '<td><form action="' . ruta_relativa('validaciones/citas/cancelar_cita.php') . '" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">';
+            echo '<input type="hidden" name="idCita" value="' . $cita['idCita'] . '">';
+            echo '<button type="submit" class="btnCancelar">Cancelar</button>';
+            echo '</form></td>';
         }
         echo '</tr>';
     }
@@ -68,7 +71,7 @@ if (!$esDispositivoMovil) {
             echo '<div><strong>Teléfono:</strong> ' . htmlspecialchars($cita['telefono']) . '</div>';
             echo '<div><a href="' . formatearWhatsApp($cita['telefono']) . '" target="_blank"><img class="redes" src="./imagenes/whatsapp.png" alt="WhatsApp"></a></div>';
         } else {
-            echo '<form action="./cancelar_cita.php" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">';
+            echo '<form action="' . ruta_relativa('validaciones/citas/cancelar_cita.php') . '" method="post" onsubmit="return confirm(\'¿Estás seguro de que deseas cancelar esta cita?\');">';
             echo '<input type="hidden" name="idCita" value="' . $cita['idCita'] . '">';
             echo '<button type="submit" class="btnCancelar">Cancelar</button>';
             echo '</form>';

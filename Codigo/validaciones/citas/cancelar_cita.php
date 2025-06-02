@@ -4,6 +4,7 @@ session_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 require_once __DIR__ . '/../../googleCalendar/google_calendar.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../utilidades.php';
 require_once __DIR__ . '/../../config/cargar_env.php';
 cargarEnv(__DIR__ . '/../../config/config.env');
 
