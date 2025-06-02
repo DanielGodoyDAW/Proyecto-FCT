@@ -38,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "El email no es válido.";
     } else {
         // Consulta a la base de datos para verificar si el email ya esta registrado
-        $email = mysqli_real_escape_string($conexion, $_POST['email']);
+        $email = strtolower(trim($_POST['email']));
+        $email = mysqli_real_escape_string($conexion, $email);
         $sqlEmail = "SELECT * FROM pacientes WHERE email = '$email'";
         $resultadoEmail = mysqli_query($conexion, $sqlEmail);
         if (mysqli_num_rows($resultadoEmail) > 0) {
@@ -124,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if (!empty($_POST['email'])) {
             $sql .= ", email = ?";
-            $parametros[] = $_POST['email'];
+            $parametros[] = strtolower(trim($_POST['email']));
             $tipos .= "s";
         }
         if (!empty($telefonoCompleto)) {
