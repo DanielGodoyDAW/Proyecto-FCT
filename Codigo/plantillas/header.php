@@ -7,7 +7,13 @@ require_once __DIR__ . '/../utilidades.php';
 ?>
 
 <header>
-    <a href="./index.php">
+    <?php
+    $destinoLogo = './index.php'; // por defecto
+    if (isset($_SESSION['idPacientes']) || isset($_SESSION['idAdmin'])) {
+        $destinoLogo = './citas.php'; // si hay sesión iniciada
+    }
+    ?>
+    <a href="<?= $destinoLogo ?>">
         <img class="logo" src="./imagenes/logo_sin_fondo.png" alt="icono">
     </a>
     <h1>Clínica de Podología Carmen Godoy</h1>
