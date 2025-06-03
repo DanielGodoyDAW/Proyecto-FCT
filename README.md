@@ -66,42 +66,10 @@ Aplicación web para la gestión integral de una clínica podológica. Permite l
  ┣ 📂googleCalendar
  ┃ ┗ 📜google_calendar.php
  ┣ 📂iconos
- ┃ ┣ 📜admin.svg
- ┃ ┣ 📜citas.svg
- ┃ ┣ 📜editar.svg
- ┃ ┣ 📜home.svg
- ┃ ┣ 📜logout.svg
- ┃ ┣ 📜perfil.svg
- ┃ ┣ 📜registro.svg
- ┃ ┗ 📜servicios.svg
  ┣ 📂imagenes
  ┃ ┣ 📂cursores
- ┃ ┃ ┣ 📜herida.cur
- ┃ ┃ ┣ 📜herida.png
- ┃ ┃ ┣ 📜pie.cur
- ┃ ┃ ┗ 📜pie.png
  ┃ ┣ 📂promociones
- ┃ ┃ ┣ 📜ervicio1.jpg
- ┃ ┃ ┣ 📜newsection3-640w.jpg
- ┃ ┃ ┣ 📜pie.png
- ┃ ┃ ┣ 📜servicio 3.jpg
- ┃ ┃ ┗ 📜servicio4.jpg
  ┃ ┣ 📂servicios
- ┃ ┃ ┣ 📜ervicio1.jpg
- ┃ ┃ ┣ 📜newsection3-640w.jpg
- ┃ ┃ ┣ 📜servicio 3.jpg
- ┃ ┃ ┗ 📜servicio4.jpg
- ┃ ┣ 📜face.png
- ┃ ┣ 📜facebook.png
- ┃ ┣ 📜fondo_web_1920.png
- ┃ ┣ 📜fondo_web_carmen.png
- ┃ ┣ 📜insta.png
- ┃ ┣ 📜instagram.png
- ┃ ┣ 📜logo.png
- ┃ ┣ 📜logo_sin_fondo.png
- ┃ ┣ 📜redimension3_fondo.png
- ┃ ┣ 📜wasap.png
- ┃ ┗ 📜whatsapp.png
  ┣ 📂js
  ┃ ┣ 📜menuNavegacion.js
  ┃ ┣ 📜registro.js
@@ -136,8 +104,6 @@ Aplicación web para la gestión integral de una clínica podológica. Permite l
  ┃ ┃ ┗ 📜procesar_Edit_Perfil.php
  ┃ ┣ 📂historialClinico
  ┃ ┃ ┣ 📂archivos
- ┃ ┃ ┃ ┣ 📜ervicio1.jpg
- ┃ ┃ ┃ ┗ 📜servicio 3.jpg
  ┃ ┃ ┣ 📂crearHistorial
  ┃ ┃ ┃ ┣ 📜crearInforme.php
  ┃ ┃ ┃ ┣ 📜submenuCrearHistorial.js
@@ -192,6 +158,7 @@ Aplicación web para la gestión integral de una clínica podológica. Permite l
  ┣ 📜registro.php
  ┣ 📜servicios.php
  ┗ 📜utilidades.php
+
 ```
 
 ---
