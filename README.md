@@ -81,16 +81,11 @@ Aplicación web para la gestión integral de una clínica podológica. Permite l
  ┃ ┃ ┣ 📜pie.cur
  ┃ ┃ ┗ 📜pie.png
  ┃ ┣ 📂promociones
- ┃ ┃ ┣ 📜camion.png
- ┃ ┃ ┣ 📜Captura de pantalla 2024-07-17 125250.png
- ┃ ┃ ┣ 📜Captura de pantalla 2024-07-17 130434.png
- ┃ ┃ ┣ 📜Captura de pantalla 2024-09-02 205440.png
  ┃ ┃ ┣ 📜ervicio1.jpg
  ┃ ┃ ┣ 📜newsection3-640w.jpg
  ┃ ┃ ┣ 📜pie.png
  ┃ ┃ ┣ 📜servicio 3.jpg
- ┃ ┃ ┣ 📜servicio4.jpg
- ┃ ┃ ┗ 📜superman.png
+ ┃ ┃ ┗ 📜servicio4.jpg
  ┃ ┣ 📂servicios
  ┃ ┃ ┣ 📜ervicio1.jpg
  ┃ ┃ ┣ 📜newsection3-640w.jpg
