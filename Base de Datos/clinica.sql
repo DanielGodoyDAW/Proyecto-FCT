@@ -1,4 +1,6 @@
 -- Estimacion de la Base de datos para la clínica de podología
+--Archivo para crear las sentencias y datos de la base de datos
+--El archivo que carga la base de datos es *** clinica_podologia.sql ***
 
 -- Tabla Admin
 CREATE TABLE Admin (

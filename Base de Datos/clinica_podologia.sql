@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-06-2025 a las 09:35:42
+-- Tiempo de generación: 03-06-2025 a las 09:58:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -103,7 +103,22 @@ INSERT INTO `citas` (`idCita`, `fecha`, `hora`, `estado`, `anotaciones`, `bloque
 (46, '2025-06-18', '09:00:00', 'Pendiente', NULL, 0, 0, '01i5nlp502ilglj2imv6rhl9c0', 2, NULL, NULL),
 (47, '2025-06-17', '10:00:00', 'pendiente', NULL, 0, 1, 'pa0cvfldi8uh1ths72kij6gt10', 13, 1, NULL),
 (48, '2025-06-18', '17:00:00', 'pendiente', NULL, 0, 1, '9c1773d2up8bg4jklqt7nuhnbc', 14, 1, NULL),
-(49, '2025-06-19', '12:30:00', 'pendiente', NULL, 0, 1, 'o80f49ov9spp6c3c9h5oninja8', 15, 1, NULL);
+(49, '2025-06-19', '12:30:00', 'pendiente', NULL, 0, 1, 'o80f49ov9spp6c3c9h5oninja8', 15, 1, NULL),
+(50, '2025-06-16', '18:30:00', 'Pendiente', NULL, 0, 0, '52e7n394d862oo85vkj3kqqfg0', 2, NULL, NULL),
+(51, '2025-06-23', '09:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(52, '2025-06-23', '09:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(53, '2025-06-23', '10:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(54, '2025-06-23', '10:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(55, '2025-06-23', '11:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(56, '2025-06-23', '11:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(57, '2025-06-23', '12:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(58, '2025-06-23', '12:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(59, '2025-06-23', '16:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(60, '2025-06-23', '16:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(61, '2025-06-23', '17:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(62, '2025-06-23', '17:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(63, '2025-06-23', '18:00:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL),
+(64, '2025-06-23', '18:30:00', 'Bloqueada', NULL, 1, 0, NULL, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -180,8 +195,9 @@ CREATE TABLE `informe` (
 --
 
 INSERT INTO `informe` (`idInforme`, `idHistorial`, `fecha`, `motivo`, `descripcion`, `observaciones`, `onicopatias`, `queratopatias`, `dermatopatias`, `prominenciasOseas`, `altDigitales`, `dx`, `tratamiento`, `receta`, `archivo`) VALUES
-(1, 2, '2025-05-12', 'prueba', '', '', 0, 0, 0, 0, 0, '0', '0', '', 'validaciones/historialClinico/archivos/servicio 3.jpg'),
-(2, 2, '2025-05-13', 'uña del pie', '', '', 0, 0, 0, 0, 0, '0', '0', '', 'validaciones/historialClinico/archivos/ervicio1.jpg');
+(1, 2, '2025-05-12', 'Uña encarnada', '', '', 0, 0, 0, 0, 0, '0', '0', '', 'validaciones/historialClinico/archivos/servicio 3.jpg'),
+(2, 2, '2025-05-13', 'uña del pie', '', '', 0, 0, 0, 0, 0, '0', '0', '', 'validaciones/historialClinico/archivos/ervicio1.jpg'),
+(3, 2, '2025-06-03', 'Cura de uña', '', '', 0, 0, 0, 0, 0, '0', '0', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -213,7 +229,7 @@ CREATE TABLE `pacientes` (
 
 INSERT INTO `pacientes` (`idPacientes`, `nombre`, `apellido1`, `apellido2`, `email`, `telefono`, `fechaNacim`, `sexo`, `dni`, `pass`, `token_recuperacion`, `token_expira`, `idHistorial`, `es_temporal`, `dni_original`) VALUES
 (1, 'Carmen', 'Godoy', 'Medina', 'carmengodoypodologia@gmail.com', '+34 643645579', '1999-04-06', 'M', '53896466Z', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe', NULL, NULL, 1, 0, '53896466Z'),
-(2, 'Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com', '+34 628738526', '1989-07-22', 'H', '53368486E', '$2y$10$bEjqJvYfkMvq7V6GLI6cp.Qo7vnHmMV086W.0wSSX/i23WAoRXwBO', 'c27f083a08d5932b38640b3967deb386d7f9097ddf09a05e2afdcb174a3594fb', '2025-06-02 13:26:20', 2, 0, '53368486E'),
+(2, 'Daniel', 'Godoy', 'Medina', 'danielgodoymedina@gmail.com', '+34 628738528', '1989-07-22', 'H', '53368486E', '$2y$10$bEjqJvYfkMvq7V6GLI6cp.Qo7vnHmMV086W.0wSSX/i23WAoRXwBO', 'c27f083a08d5932b38640b3967deb386d7f9097ddf09a05e2afdcb174a3594fb', '2025-06-02 13:26:20', 2, 0, '53368486E'),
 (3, 'Carlos', 'Castillo', NULL, 'carlos@calos.com', '+34 654676656', NULL, 'O', '23145634J', '$2y$10$GaUrWfmP.8zP/8/tuAu.suSUPAvFbckNaVT5b0yLnP5MWfM3hY5Oq', NULL, NULL, 3, 0, '23145634J'),
 (4, 'Alberto', 'Castro', '', 'temporal_6822092e34d66@carmen.godoy', '+34 678546678', '1900-01-01', 'O', 'TEMP4b254176', '$2y$10$qbA/kOH7VWZhFCYcaO.w1ulQxdkftuHdI/4SRJzzoO5l88ZaxnjMG', NULL, NULL, 4, 1, NULL),
 (11, 'Manuel', 'Jimenez', NULL, 'manu@manu.com', '+34 678987654', NULL, 'O', '51234567J', '$2y$10$sw58SPZBYZpw9j5mNAnW4uFMlU/u657oaQ9MLoz0CFLTCleix16tm', NULL, NULL, 11, 0, '51234567J'),
@@ -257,7 +273,10 @@ CREATE TABLE `promociones` (
 --
 
 INSERT INTO `promociones` (`idPromocion`, `titulo`, `descripcion`, `duracion`, `imagen`, `idAdmin`) VALUES
-(1, 'Papiloma', '', 30, '/imagenes/promociones/servicio 3.jpg', 1);
+(1, 'Papiloma', '', 30, '/imagenes/promociones/servicio 3.jpg', 1),
+(2, 'Eliminación de durezas', '', 30, '/imagenes/servicios/servicio4.jpg', 1),
+(3, 'Uña incarnada', '', 15, '/imagenes/servicios/ervicio1.jpg', 1),
+(4, 'Uñas engrosadas', '', 30, '/imagenes/servicios/ervicio1.jpg', 1);
 
 --
 -- Índices para tablas volcadas
@@ -320,7 +339,7 @@ ALTER TABLE `promociones`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `idCita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT de la tabla `historial`
@@ -332,7 +351,7 @@ ALTER TABLE `historial`
 -- AUTO_INCREMENT de la tabla `informe`
 --
 ALTER TABLE `informe`
-  MODIFY `idInforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idInforme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
@@ -344,7 +363,7 @@ ALTER TABLE `pacientes`
 -- AUTO_INCREMENT de la tabla `promociones`
 --
 ALTER TABLE `promociones`
-  MODIFY `idPromocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idPromocion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
