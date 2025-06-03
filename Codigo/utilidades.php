@@ -32,6 +32,7 @@ function formatearWhatsApp($telefonoCompleto) {
     return 'https://wa.me/' . $extension . $telefono;
 }
 
+// Carga las variables de entorno desde un archivo .env
 function cargarEnv($ruta = __DIR__ . '/../config.env') {
     if (!file_exists($ruta)) return;
     $lineas = file($ruta, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
