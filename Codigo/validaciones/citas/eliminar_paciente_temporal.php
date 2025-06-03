@@ -1,15 +1,17 @@
 <?php
-session_start(); 
+session_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
 require_once __DIR__ . '/../../googleCalendar/google_calendar.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../utilidades.php';
+cargarEnv();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 //verificacion extra si no eres admin
 if (!isset($_SESSION['idAdmin'])) {
-    header("Location: /Codigo/citas.php");
+    header("Location: ../../citas.php");
     exit;
 }
 
@@ -25,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
     $stmtCheck->close();
 
     if (!$pacienteData || $pacienteData['es_temporal'] != 1) {
-        echo '<script>alert("No puedes eliminar pacientes normales desde aquí."); window.location.href = "/Codigo/citas.php";</script>';
+        echo '<script>alert("No puedes eliminar pacientes normales desde aquí."); window.location.href = "../../citas.php";</script>';
         exit;
     }
 
@@ -87,14 +89,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
     try {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'dgodmed486@g.educaand.es'; 
-        $mail->Password = 'hjoi hosx csoe uqdr'; // Contraseña de app
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Host       = $_ENV['MAIL_HOST'];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $_ENV['MAIL_USERNAME'];
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];
+        $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
+        $mail->Port       = $_ENV['MAIL_PORT'];
 
-        $mail->setFrom('danielgodoymedina@gmail.com', 'Clinica de Podologia Carmen Godoy');
+        $mail->setFrom($_ENV['MAIL_FROM'], $_ENV['MAIL_FROM_NAME']);
         $mail->addAddress($adminEmail);
 
         $mail->isHTML(true);
@@ -106,9 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['idPacientes'])) {
         error_log("Error al enviar correo de eliminación: " . $mail->ErrorInfo);
     }
 
-    header("Location: /Codigo/citas.php?mensaje=Paciente+temporal+eliminado");
+    header("Location: ../../citas.php?mensaje=Paciente+temporal+eliminado");
+    // echo "<script>alert('Paciente eliminado con éxito.'); window.location.href = '../../citas.php';</script>";
     exit;
 } else {
     echo "Acceso denegado.";
 }
-?>

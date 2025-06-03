@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../conexion/conexion.php';
+require_once __DIR__ . '/../../../utilidades.php';
 
 // Verificar si se obtuvo del historial patologias hacemos un trim y un explode para convertirlo en array
 $patologiasMarcadas = isset($informe['patologias']) ? array_map('trim', explode(',', $informe['patologias'])) : [];
@@ -11,24 +12,15 @@ $patologiasPersonalizadas = array_diff($patologiasMarcadas, $patologiasPredefini
 
 if ($ultimoInforme) {
 
-    $formatter = new \IntlDateFormatter(
-        'es_ES',
-        \IntlDateFormatter::LONG,
-        \IntlDateFormatter::NONE,
-        'Europe/Madrid',
-        \IntlDateFormatter::GREGORIAN,
-        "d 'de' MMMM 'de' yyyy"
-    );
-
-    $fecha = new DateTime($ultimoInforme['fecha']);
-    $fechaFormateada = $formatter->format($fecha);
+    //fecha formateada con la funcion de utilidades
+    $fechaFormateada = formatearFecha($ultimoInforme['fecha']);
 
 ?>
-    <script defer src="/Codigo/validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
-    <script defer src="/Codigo/validaciones/historialClinico/ajusteTextarea.js"></script>
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-    <link rel="stylesheet" href="/Codigo/estilos/style.css">
-    <form action="/Codigo/validaciones/historialClinico/crearHistorial/validar_Editar_Informe.php" method="post" enctype="multipart/form-data">
+    <script defer src="validaciones/historialClinico/editarHistorial/editarHistorial.js"></script>
+    <script src="validaciones/historialClinico/ajusteTextarea.js"></script>
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/style.css">
+    <form action="<?= ruta_relativa('validaciones/historialClinico/crearHistorial/validar_Editar_Informe.php') ?>" method="post" enctype="multipart/form-data">
         <input type="hidden" name="idPaciente" value="<?= htmlspecialchars($idPaciente) ?>">
         <input type="hidden" name="idInforme" value="<?= $ultimoInforme['idInforme'] ?>">
         <h3>Editar Informe</h3>
@@ -101,16 +93,16 @@ if ($ultimoInforme) {
                 <td><textarea class="auto-ajustable" name="receta" id="receta"><?= htmlspecialchars($ultimoInforme['receta']) ?></textarea></td>
             </tr>
         </table>
-        <button class="btnH" type="submit">Actualizas Informe</button>
+        <button class="btnH" type="submit">Actualizar Informe</button>
     </form>
 <?php
     echo '<div class="crear-informe">';
     echo "<h3>Agregar nuevo informe</h3>";
-    include '../Codigo/validaciones/historialClinico/crearHistorial/crearInforme.php';
+    include __DIR__ . '/../crearHistorial/crearInforme.php';
     echo '</div>';
 } else {
     echo '<div class="crear-informe">';
     echo "<p>No se encontró ningún informe. Agregar nuevo</p>";
-    include '../Codigo/validaciones/historialClinico/crearHistorial/crearInforme.php';
+    include __DIR__ . '/../crearHistorial/crearInforme.php';
     echo '</div>';
 }

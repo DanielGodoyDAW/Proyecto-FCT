@@ -8,17 +8,17 @@ $errores = $_SESSION['errores'] ?? [];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/Codigo/js/registro.js"></script>
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-    <link rel="stylesheet" href="/Codigo/estilos/stylesRegistro.css">
-    <link rel="stylesheet" href="/Codigo/estilos/styleCalendario.css">
+    <script src="./js/registro.js"></script>
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/stylesRegistro.css">
+    <link rel="stylesheet" href="estilos/styleCalendario.css">
     <title>Registrarse</title>
 </head>
 
 <body>
     <?php require_once './plantillas/header.php'; ?>
     <!-- Formulario de registro con cada apartado y sus patrones -->
-    <form action="/Codigo/validaciones/validacionRegistro.php" method="post" id="validacionRegistro">
+    <form action="./validaciones/validacionRegistro.php" method="post" id="validacionRegistro">
         <div class="contenedorRegistro">
             <?php if (!empty($errores)) { ?>
                 <div id="error">

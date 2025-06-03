@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 $horariosManana = [
     "09:00:00", "09:30:00", "10:00:00", "10:30:00",
@@ -22,7 +23,7 @@ if (isset($_POST['desbloquear']) && isset($_POST['desbloquear_citas'])) {
         $stmt->execute();
     }
 
-    echo '<script>window.location.href = "/Codigo/citas.php?seccionActiva=bloquearDEsbloCitas";</script>';
+    echo '<script>window.location.href = "' . ruta_relativa('citas.php?seccionActiva=bloquearDEsbloCitas') . '";</script>';
     exit;
 }
 
@@ -38,8 +39,8 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
 
-<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-<link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
+<link rel="stylesheet" href="<?php echo ruta_relativa('estilos/styleColores.css'); ?>">
+<link rel="stylesheet" href="<?php echo ruta_relativa('estilos/styleAdmin.css'); ?>">
 <h3>Desbloquear Agenda</h3>
 <div class="desbloquear-container">
     <form method="POST">

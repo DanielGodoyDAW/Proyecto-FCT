@@ -1,3 +1,5 @@
+<!-- Archivo de configuración para la conexión con la base de datos MySQL -->
+
 <?php 
 $host = "localhost"; // Nombre del host
 $user = "root"; // Usuario de la base de datos

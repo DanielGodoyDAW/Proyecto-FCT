@@ -17,7 +17,7 @@ body {
     min-height: 100vh;
     margin: 0;
     /* background-color: var(--colorFondo); */
-    background-image: url('/Codigo/imagenes/redimension3_fondo.png');
+    background-image: url('../imagenes/redimension3_fondo.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -27,8 +27,8 @@ body {
 /*Agregacion de fuente externa para el texto de la web*/
 @font-face {
     font-family: 'Amazing Grotesk';
-    src: url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf") format("woff2"),
-        url("/Codigo/fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf") format("woff");
+    src: url("../fuenteTexto/amazing_grotesk/Amazing Grotesk Book.otf") format("woff2"),
+        url("../fuenteTexto/amazing_grotesk/Amazing Grotesk Ultra.otf") format("woff");
     font-weight: normal;
     font-style: normal;
 }

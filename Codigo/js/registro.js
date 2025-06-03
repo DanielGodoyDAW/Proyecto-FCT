@@ -7,7 +7,7 @@ function iniciar() {
 //funcion validar registro
 function validarRegistro(event) {
     if (validarNombre() && validarApellido1() && validarApellido2() && validarDNI() && validarEmail() && validarTlf() && validarExtension() && validarFecha() && validarSexo() && validarPass() && validarConfirmarPass()) {
-        alert("Formulario a la espera de verificación");
+        alert("Formulario a la espera de verificación, si todo es correcto, se te reenviara a inicio.");
         return true;
     } else {
         alert("Error en el formulario, por favor corrige los campos marcados.");
@@ -22,7 +22,7 @@ function validarNombre() {
         error(nombre);
         return false;
     } else {
-        nombre.classList.remove("error");
+        nombre.classList.remove("error"); 
         nombre.classList.add("success");
     }
     return true;

@@ -1,22 +1,14 @@
 <?php
 
 require_once __DIR__ . '/../../config/stripe_config.php'; // Configuración de Stripe
+require_once __DIR__ . '/../../utilidades.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha = $_POST['fecha'];
     $hora = $_POST['hora'];
 
-    // Formatear fecha en español
-    $formatter = new \IntlDateFormatter(
-        'es_ES',
-        \IntlDateFormatter::LONG,
-        \IntlDateFormatter::NONE,
-        'Europe/Madrid',
-        \IntlDateFormatter::GREGORIAN,
-        "d 'de' MMMM 'de' yyyy"
-    );
-    $fechaDateTime = new DateTime($fecha);
-    $fechaFormateada = $formatter->format($fechaDateTime);
+    // Formatear fecha en español usando la función de utilidades
+    $fechaFormateada = formatearFecha($fecha);
 
     try {
         $paymentIntent = \Stripe\PaymentIntent::create([
@@ -34,18 +26,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    ?>
+?>
 
     <!DOCTYPE html>
     <html lang="es">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/Codigo/estilos/style.css">
-        <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-        <link rel="stylesheet" href="/Codigo/estilos/stylePago.css">
+        <link rel="stylesheet" href="<?= ruta_relativa('estilos/styleColores.css') ?>">
+        <link rel="stylesheet" href="<?= ruta_relativa('estilos/style.css') ?>">
+        <link rel="stylesheet" href="<?= ruta_relativa('estilos/stylePago.css') ?>">
         <title>Pago de Cita</title>
     </head>
+
     <body>
 
         <div class="container">
@@ -55,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button id="submit">Pagar</button>
             </form>
             <br>
-            <a href="/Codigo/citas.php" class="cancel">Volver</a>
+            <a href="../../citas.php" class="cancel">Volver</a>
         </div>
 
         <script src="https://js.stripe.com/v3/"></script>
@@ -67,9 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     base: {
                         fontSize: '16px',
                         color: '#32325d',
-                        '::placeholder': { color: '#aab7c4' }
+                        '::placeholder': {
+                            color: '#aab7c4'
+                        }
                     },
-                    invalid: { color: '#fa755a', iconColor: '#fa755a' }
+                    invalid: {
+                        color: '#fa755a',
+                        iconColor: '#fa755a'
+                    }
                 }
             });
             card.mount('#card-element');
@@ -78,20 +77,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
 
-                const { paymentIntent, error } = await stripe.confirmCardPayment('<?php echo $clientSecret; ?>', {
-                    payment_method: { card: card },
+                const {
+                    paymentIntent,
+                    error
+                } = await stripe.confirmCardPayment('<?php echo $clientSecret; ?>', {
+                    payment_method: {
+                        card: card
+                    },
                 });
 
                 if (error) {
                     alert('Error en el pago: ' + error.message);
                 } else {
-                    window.location.href = '/Codigo/validaciones/citas/reservar_tramo.php?payment_intent=' + paymentIntent.id + '&fecha=<?php echo urlencode($fecha); ?>&hora=<?php echo urlencode($hora); ?>';
+                    window.location.href = '../citas/reservar_tramo.php?payment_intent=' + paymentIntent.id + '&fecha=<?php echo urlencode($fecha); ?>&hora=<?php echo urlencode($hora); ?>';
                 }
             });
         </script>
     </body>
+
     </html>
 
-    <?php
+<?php
 }
 ?>

@@ -1,105 +1,113 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
-$idUsuario = null;
 $esAdmin = false;
+$idAdmin = $_SESSION['idAdmin'] ?? null;
+$idPacienteSesion = $_SESSION['idPacientes'] ?? null;
 
-if (isset($_SESSION['idPacientes'])) {
-    $idUsuario = $_SESSION['idPacientes'];
-} elseif (isset($_SESSION['idAdmin']) && isset($_POST['desde_admin']) && isset($_POST['idPaciente'])) {
-    $idUsuario = $_POST['idPaciente'];
+if ($idAdmin) {
     $esAdmin = true;
 }
 
-if (!$idUsuario) {
-    echo '<script>alert("No se ha identificado el usuario."); window.location.href = "/Codigo/index.php";</script>';
+$idPacienteEditado = null;
+
+// Caso 1: admin editando perfil de paciente desde admin
+if ($esAdmin && isset($_POST['desde_admin']) && isset($_POST['idPaciente'])) {
+    $idPacienteEditado = (int) $_POST['idPaciente'];
+    $_SESSION['idPaciente'] = $idPacienteEditado;
+}
+// Caso 2: paciente editando su propio perfil
+elseif (!$esAdmin && $idPacienteSesion) {
+    $idPacienteEditado = $idPacienteSesion;
+}
+
+// Si aún no tenemos paciente válido
+if (!$idPacienteEditado) {
+    echo '<script>alert("No se ha identificado el paciente."); window.location.href = "../../editar_perfil.php";</script>';
     exit;
 }
 
-// Obtener datos del paciente
+// Obtener datos del paciente a modificar
 $stmt = $conexion->prepare("SELECT es_temporal, dni_original, pass, dni FROM Pacientes WHERE idPacientes = ?");
-$stmt->bind_param("i", $idUsuario);
+$stmt->bind_param("i", $idPacienteEditado);
 $stmt->execute();
 $paciente = $stmt->get_result()->fetch_assoc();
 
-$esTemporal = isset($paciente['es_temporal']) && $paciente['es_temporal'] == 1;
+$esTemporal = $paciente['es_temporal'] ?? 0;
 $dniOriginalBD = $paciente['dni_original'] ?? null;
 
-// Datos recibidos
+// Recoger datos del formulario
 $email = $_POST['email'] ?? null;
 $telefono = $_POST['telefono'] ?? '';
 $extension = $_POST['extension'] ?? '';
 $telefonoCompleto = trim($extension . ' ' . $telefono);
-$sexo = null;
+$sexo = $_POST['sexo'] ?? null;
 $fechaNacim = $_POST['fechaNacim'] ?? null;
+$dni = strtoupper(trim($_POST['dni'] ?? ''));
+$nuevoDNI = strtoupper(trim($_POST['nuevoDNI'] ?? ''));
 $fromPopup = isset($_POST['fromPopup']);
 $passwordActual = $_POST['passwordActual'] ?? null;
 $nuevaContrasena = $_POST['nuevaContrasena'] ?? null;
 $confirmarContrasena = $_POST['confirmarContrasena'] ?? null;
-$dni = strtoupper(trim($_POST['dni'] ?? ''));
-$nuevoDNI = strtoupper(trim($_POST['nuevoDNI'] ?? ''));
 
-if (!empty($_POST['sexo']) && in_array($_POST['sexo'], ['H', 'M', 'O'])) {
-    $sexo = $_POST['sexo'];
-}
-
-// Contraseña desde div oculto
+// Cambiar contraseña
 if ($fromPopup) {
-    if (!empty($passwordActual) && !empty($nuevaContrasena) && !empty($confirmarContrasena)) {
+    if ($passwordActual && $nuevaContrasena && $confirmarContrasena) {
         if ($nuevaContrasena !== $confirmarContrasena) {
-            echo '<script>alert("Las contraseñas no coinciden."); window.close();</script>';
+            echo '<script>alert("Las contraseñas no coinciden."); window.location.href = "../../editar_perfil.php";</script>';
             exit;
         }
 
         if (!password_verify($passwordActual, $paciente['pass'])) {
-            echo '<script>alert("La contraseña actual es incorrecta."); window.close();</script>';
+            echo '<script>alert("La contraseña actual es incorrecta."); window.location.href = "../../editar_perfil.php";</script>';
             exit;
         }
 
         $nuevaHash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
         $stmt = $conexion->prepare("UPDATE Pacientes SET pass = ? WHERE idPacientes = ?");
-        $stmt->bind_param("si", $nuevaHash, $idUsuario);
+        $stmt->bind_param("si", $nuevaHash, $idPacienteEditado);
         $stmt->execute();
 
-        echo '<script>alert("Contraseña actualizada correctamente."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+        echo '<script>alert("Contraseña actualizada correctamente."); window.location.href = "../../editar_perfil.php";</script>';
         exit;
     }
-    exit;
 }
 
-// Determinar cuál DNI vamos a aplicar
-if ($esAdmin) {
+// Establecer el DNI editable
+if ($esAdmin && isset($_POST['desde_admin'])) {
     $dniEditable = $dni;
-} elseif ($esTemporal && !empty($nuevoDNI)) {
+} elseif ($esTemporal && $nuevoDNI) {
     $dniEditable = $nuevoDNI;
 } else {
     $dniEditable = $paciente['dni'];
 }
 
-// Validar DNI
+// Validación de DNI
 if (!$dniEditable || !preg_match('/^[0-9]{8}[A-Z]$/', $dniEditable)) {
-    echo '<script>alert("DNI no válido. Debe tener 8 números y 1 letra mayúscula."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo '<script>alert("DNI no válido. Debe tener 8 números y 1 letra mayúscula."); window.location.href = "../../editar_perfil.php";</script>';
     exit;
 }
 
-// Comprobar si el DNI ya existe en otro usuario
+// Comprobar duplicado en otro paciente
 $stmt = $conexion->prepare("SELECT idPacientes FROM Pacientes WHERE dni = ? AND idPacientes != ?");
-$stmt->bind_param("si", $dniEditable, $idUsuario);
+$stmt->bind_param("si", $dniEditable, $idPacienteEditado);
 $stmt->execute();
 $result = $stmt->get_result();
+
 if ($result->num_rows > 0) {
-    echo '<script>alert("El DNI ya está registrado por otro paciente."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo "<script>alert('Ese DNI ya está registrado por otro paciente.'); window.location.href = '" . ruta_relativa('admin.php?seccion=historial&sub=editar') . "';</script>";
     exit;
 }
 
-// Si es temporal y no rellenó el nuevo DNI
+// Si paciente temporal y no rellenó el nuevo DNI
 if ($esTemporal && empty($nuevoDNI)) {
-    echo '<script>alert("Debes introducir tu DNI para completar tu perfil."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo '<script>alert("Debes introducir tu DNI para completar tu perfil."); window.location.href = "../../editar_perfil.php";</script>';
     exit;
 }
 
-// Construir UPDATE dinámico
+// Construir actualización dinámica
 $campos = [];
 $tipos = '';
 $valores = [];
@@ -109,12 +117,12 @@ if ($email) {
     $tipos .= 's';
     $valores[] = $email;
 }
-if (!empty($telefonoCompleto) && trim($telefonoCompleto) !== '+') {
+if ($telefonoCompleto && trim($telefonoCompleto) !== '+') {
     $campos[] = 'telefono = ?';
     $tipos .= 's';
     $valores[] = $telefonoCompleto;
 }
-if (!is_null($sexo)) {
+if (in_array($sexo, ['H', 'M', 'O'])) {
     $campos[] = 'sexo = ?';
     $tipos .= 's';
     $valores[] = $sexo;
@@ -138,20 +146,35 @@ if ($esTemporal) {
 }
 
 $tipos .= 'i';
-$valores[] = $idUsuario;
+$valores[] = $idPacienteEditado;
 
 $sql = "UPDATE Pacientes SET " . implode(', ', $campos) . " WHERE idPacientes = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param($tipos, ...$valores);
 
-// Ejecutar
 if ($stmt->execute()) {
-    $_SESSION['sexo'] = $sexo;
-    $redirect = $esAdmin ? '/Codigo/admin.php?seccion=historial&sub=editar' : '/Codigo/editar_perfil.php';
-    echo "<script>alert('Perfil actualizado correctamente.'); window.location.href = '$redirect';</script>";
+    $_SESSION['sexo'] = $sexo ?? $_SESSION['sexo'];
+
+    if ($stmt->affected_rows === 0) {
+        echo "<script>alert('No se modificó nada porque los datos eran idénticos.');";
+        if ($esAdmin && isset($_POST['desde_admin'])) {
+            echo "window.location.href = '" . ruta_relativa('admin.php?seccion=historial&sub=editar') . "';";
+        } else {
+            echo "window.location.href = '../../editar_perfil.php';";
+        }
+        echo "</script>";
+        exit;
+    }
+
+    echo "<script>alert('Perfil actualizado correctamente.');";
+    if ($esAdmin && isset($_POST['desde_admin'])) {
+        echo "window.location.href = '" . ruta_relativa('admin.php?seccion=historial&sub=editar') . "';";
+    } else {
+        echo "window.location.href = '../../editar_perfil.php';";
+    }
+    echo "</script>";
     exit;
 } else {
-    echo '<script>alert("Error: No se pudo actualizar el perfil."); window.location.href = "/Codigo/editar_perfil.php";</script>';
+    echo '<script>alert("Error al actualizar el perfil."); window.location.href = "../../editar_perfil.php";</script>';
     exit;
 }
-?>

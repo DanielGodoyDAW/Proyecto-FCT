@@ -40,17 +40,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verifica si el archivo es una imagen válida
         if ($tipoImagen !== 'image/jpeg' && $tipoImagen !== 'image/png') {
             echo '<script>alert("Error: Solo se permiten imágenes JPEG y PNG."); window.history.back();</script>';
+            exit;
         }
 
         // Verifica el tamaño de la imagen (2MB máximo)
         $tamano = 2 * 1024 * 1024; // 2MB
         if ($tamanoImagen > $tamano) {
             echo '<script>alert("Error: La imagen es demasiado grande. El tamaño máximo permitido es 2MB."); window.history.back();</script>';
+            exit;
         }
 
         // Verifica si el archivo ya existe
-        if (!move_uploaded_file($rutaTemporal, $directorioAbsoluto . $nombreImagen)) {
+        if (move_uploaded_file($rutaTemporal, $directorioAbsoluto . $nombreImagen)) {
+            $rutaImagen = $directorioRelativo . $nombreImagen;
+        } else {
             echo '<script>alert("Error: No se pudo mover la imagen a la carpeta de destino."); window.history.back();</script>';
+            exit;
         }
 
         // Si se subió una nueva imagen, eliminamos la anterior

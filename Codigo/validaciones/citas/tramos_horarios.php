@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -72,17 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $formatter = new \IntlDateFormatter(
-            'es_ES', // Localización para español de España
-            \IntlDateFormatter::LONG,
-            \IntlDateFormatter::NONE,
-            'Europe/Madrid', // Zona horaria
-            \IntlDateFormatter::GREGORIAN,
-            "d 'de' MMMM 'de' yyyy" // Formato personalizado
-        );
-
-        $fecha = new DateTime($fechaSeleccionada);
-        $fechaFormateada = $formatter->format($fecha);
+        // Usando la función de utilidades para formatear la fecha
+        $fechaFormateada = formatearFecha($fechaSeleccionada);
 
 
         // Mostrar los horarios libres en dos columnas
@@ -94,8 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<div class="horarios-columna">';
         echo '<h4>Horario de Mañana:</h4>';
         if (!empty($horariosLibresManana)) {
-            echo '<form action="/Codigo/validaciones/pago/pago_cita.php" method="post">';
-            //echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
+            echo '<form action="validaciones/pago/pago_cita.php" method="post">';
             foreach ($horariosLibresManana as $inicio => $fin) {
                 echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
             }
@@ -111,8 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<h4>Horario de Tarde:</h4>';
         if (date("w", strtotime($fechaSeleccionada)) != 5) {
             if (!empty($horariosLibresTarde)) {
-                echo '<form action="/Codigo/validaciones/pago/pago_cita.php" method="post">';
-                //echo '<form action="/Codigo/validaciones/citas/reservar_tramo.php" method="post">';
+                echo '<form action="validaciones/pago/pago_cita.php" method="post">';
                 foreach ($horariosLibresTarde as $inicio => $fin) {
                     echo '<button type="submit" name="hora" value="' . $inicio . '" class="btn-horario">' . $inicio . ' - ' . $fin . '</button><br>';
                 }

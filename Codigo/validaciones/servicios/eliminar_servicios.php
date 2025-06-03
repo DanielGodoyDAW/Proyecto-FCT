@@ -8,13 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idPromocion'])) {
     $stmt->bind_param("i", $idPromocion);
 
     if ($stmt->execute()) {
-        header("Location: /Codigo/admin.php?mensaje=Servicio eliminado correctamente");
+        header("Location: ../../admin.php?mensaje=Servicio eliminado correctamente");
     } else {
-        header("Location: /Codigo/admin.php?mensaje=Error al eliminar el servicio");
+        header("Location: ../../admin.php?mensaje=Error al eliminar el servicio");
     }
     exit;
 } else {
-    header("Location: /Codigo/admin.php?mensaje=ID de servicio no proporcionado");
+    header("Location: ../../admin.php?mensaje=ID de servicio no proporcionado");
     exit;
 }
 ?>

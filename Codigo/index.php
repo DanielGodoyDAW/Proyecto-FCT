@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica de Podologia</title>
-    <link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-    <link rel="stylesheet" href="/Codigo/estilos/style.css">
-    <script src="/Codigo/validaciones/recuperarContra/recuperar_contrasena.js"></script>
+    <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="stylesheet" href="estilos/style.css">
+    <script src="./validaciones/recuperarContra/recuperar_contrasena.js"></script>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
         <!-- div oculto para el apartado de recuperar contraseña -->
         <div class="contenedorLogin" id="recuperar">
             <h2>Recuperar Contraseña</h2>
-            <form action="/Codigo/validaciones/recuperarContra/procesar_recuperacion.php" method="post">
+            <form action="./validaciones/recuperarContra/procesar_recuperacion.php" method="post">
                 <table class="tablaLogin">
                     <tr>
                         <td><label for="email">Introduce tu correo electrónico:</label></td>

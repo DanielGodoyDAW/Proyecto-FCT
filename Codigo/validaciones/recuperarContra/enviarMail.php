@@ -1,7 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
-require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
+cargarEnv();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -37,14 +38,14 @@ function enviarCorreoRecuperacion($email, $token)
 
         try {
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'dgodmed486@g.educaand.es';
-            $mail->Password = 'hjoi hosx csoe uqdr';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
+            $mail->Host       = $_ENV['MAIL_HOST'];
+            $mail->SMTPAuth   = true;
+            $mail->Username   = $_ENV['MAIL_USERNAME'];
+            $mail->Password   = $_ENV['MAIL_PASSWORD'];
+            $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
+            $mail->Port       = $_ENV['MAIL_PORT'];
 
-            $mail->setFrom('danielgodoymedina@gmail.com', 'Clinica de Podologia Carmen Godoy');
+            $mail->setFrom($_ENV['MAIL_FROM'], $_ENV['MAIL_FROM_NAME']);
             $mail->addAddress($email);
 
             $mail->isHTML(true);
@@ -53,13 +54,16 @@ function enviarCorreoRecuperacion($email, $token)
             // Usa URL encode para que el token llegue correctamente con caracteres unicode
             $tokenEncoded = urlencode($token);
 
+            //dirrección al enlace de restablecimiento de contraseña
+            $url = "http://localhost/Proyecto-FCT/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded";
+
             $mail->Body = "
                  <html>
                  <body>
                     <p>Estimado/a $nombreCompleto,</p>
                     <p>Has solicitado la recuperación de tu contraseña.</p>
                     <p>Haz clic en el siguiente enlace para restablecerla:</p>
-                    <p><a href='http://localhost/Proyecto-FCT/Codigo/validaciones/recuperarContra/restablecer_contrasena.php?token=$tokenEncoded'>
+                    <p><a href='$url'>
                         Restablecer contraseña
                     </a></p>
                     <p>Si no solicitaste este cambio, puedes ignorar este mensaje.</p>

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion/conexion.php';
+require_once __DIR__ . '/../../utilidades.php';
 
 //declaramos los tramos de horarios
 $horariosManana = [
@@ -29,7 +30,7 @@ if (isset($_POST['bloquear']) && isset($_POST['bloquear_citas'])) {
         }
     }
 
-    echo '<script>window.location.href = "/Codigo/citas.php?seccionActiva=bloquearDEsbloCitas";</script>';
+    echo '<script>window.location.href = "' . ruta_relativa('citas.php?seccionActiva=bloquearDEsbloCitas') . '";</script>';
     exit;
 }
 
@@ -45,8 +46,8 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
 
-<link rel="stylesheet" href="/Codigo/estilos/styleColores.css">
-<link rel="stylesheet" href="/Codigo/estilos/styleAdmin.css">
+<link rel="stylesheet" href="<?php echo ruta_relativa('estilos/styleColores.css'); ?>">
+<link rel="stylesheet" href="<?php echo ruta_relativa('estilos/styleAdmin.css'); ?>">
 <h3>Bloquear Agenda</h3>
 <div class="bloquear-container">
     <form method="POST">

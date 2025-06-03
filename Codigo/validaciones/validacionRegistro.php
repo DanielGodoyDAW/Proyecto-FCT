@@ -38,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "El email no es válido.";
     } else {
         // Consulta a la base de datos para verificar si el email ya esta registrado
-        $email = mysqli_real_escape_string($conexion, $_POST['email']);
+        $email = strtolower(trim($_POST['email']));
+        $email = mysqli_real_escape_string($conexion, $email);
         $sqlEmail = "SELECT * FROM pacientes WHERE email = '$email'";
         $resultadoEmail = mysqli_query($conexion, $sqlEmail);
         if (mysqli_num_rows($resultadoEmail) > 0) {
@@ -101,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Redirige al formulario de registro con un alert
         echo "<script>
             alert('$erroresString');
-            window.location.href = '/Codigo/registro.php';
+            window.location.href = '../registro.php';
         </script>";
         exit();
     } else {
@@ -124,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if (!empty($_POST['email'])) {
             $sql .= ", email = ?";
-            $parametros[] = $_POST['email'];
+            $parametros[] = strtolower(trim($_POST['email']));
             $tipos .= "s";
         }
         if (!empty($telefonoCompleto)) {
@@ -164,12 +165,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             // Redirigir al usuario después del registro exitoso
-            header('Location: /Codigo/index.php');
+            header('Location: ../index.php');
             exit();
         } else {
             echo "<script>
                 alert('Error al registrar al usuario. Por favor, inténtalo de nuevo.');
-                window.location.href = '/Codigo/registro.php';
+                window.location.href = '../registro.php';
             </script>";
         }
     }

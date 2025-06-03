@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/../../../conexion/conexion.php';
+<?php
+require_once __DIR__ . '/../../../conexion/conexion.php';
+require_once __DIR__ . '/../../../utilidades.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 $idPaciente = $_SESSION['idPaciente'] ?? null;
@@ -31,7 +33,7 @@ if ($idHistorial) {
 </div>
 <div>
     <h2>Informe</h2>
-    <form method="GET" action="/Codigo/admin.php#ver">
+    <form method="GET" action="<?= ruta_relativa('admin.php') ?>#ver">
         <input type="hidden" name="seccion" value="historial">
         <input type="hidden" name="sub" value="ver">
         <label for="idInforme">Selecciona un informe:</label>
@@ -55,10 +57,10 @@ if ($idHistorial) {
 </div>
 <?php
 echo '<div style="text-align:right; margin-top:10px;">';
-if (isset($_GET['idInforme'])) { ?>
-    <button class="btnH" onclick="window.location.href='admin.php?seccion=historial&sub=editar&idInforme=<?= $_GET['idInforme'] ?>#editar'">✏️ Editar Historial o Informe</button>
-<?php } else { ?>
-    <button class="btnH" onclick="mostrarHistorial('editar')">✏️ Editar Historial o Informe</button>
-<?php }
-echo "<button class='btnH' onclick=\"location.href='/Codigo/admin.php'\">⬅ Volver</button>";
+if (isset($_GET['idInforme'])) {
+    echo '<button class="btnH" onclick="window.location.href=\'' . ruta_relativa('admin.php?seccion=historial&sub=editar&idInforme=' . $_GET['idInforme'] . '#editar') . '\'">✏️ Editar Historial o Informe</button>';
+} else {
+    echo '<button class="btnH" onclick="mostrarHistorial(\'editar\')">✏️ Editar Historial o Informe</button>';
+}
+echo '<button class="btnH" onclick="window.location.href=\'' . ruta_relativa('admin.php') . '\'">⬅ Volver</button>';
 echo '</div>';
