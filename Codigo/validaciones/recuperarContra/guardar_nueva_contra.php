@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar si la nueva contraseña es igual a la actual
     $paciente = $result->fetch_assoc();
-    $hashActual = $paciente['pass'];
+    $passActual = $paciente['pass'];
 
-    if (password_verify($password, $hashActual)) {
+    if (password_verify($password, $passActual)) {
         echo "<script>alert('La nueva contraseña no puede ser igual a la anterior.'); window.history.back();</script>";
         exit;
     }
