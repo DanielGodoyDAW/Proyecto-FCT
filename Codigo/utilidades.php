@@ -12,6 +12,13 @@ function ruta_relativa($rutaRelativa) { // Esta función genera una ruta relativ
     return $base . '/' . ltrim($rutaRelativa, '/');
 }
 
+// funcion para obtener la URL base del proyecto a la hora de generar enlaces
+function url_base() {
+    $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'];
+    $base = explode('/Codigo', $_SERVER['SCRIPT_NAME'])[0] . '/Codigo';
+    return $protocolo . $host . $base;
+}
 
 // Formatea una fecha al estilo 
 function formatearFecha($fecha) {
