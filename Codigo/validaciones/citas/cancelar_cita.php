@@ -61,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idCita'])) {
     // Obtener nombre del paciente
     $paciente = 'Desconocido';
     if (isset($_SESSION['idPacientes'])) {
-        $stmt = $conexion->prepare("SELECT CONCAT(nombre, ' ', apellido1, ' ', apellido2) AS nombreCompleto FROM Pacientes WHERE idPacientes = ?");
+        //concat_ws ignora los valores NULL y los espacios extra automáticamente
+        $stmt = $conexion->prepare("SELECT CONCAT_WS(' ', nombre, apellido1, apellido2) AS nombreCompleto FROM Pacientes WHERE idPacientes = ?"); 
         $stmt->bind_param("i", $_SESSION['idPacientes']);
         $stmt->execute();
         $result = $stmt->get_result();
