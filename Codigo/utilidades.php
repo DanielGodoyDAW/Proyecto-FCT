@@ -8,7 +8,8 @@ function ruta_absoluta($rutaRelativa) {
 }
 
 function ruta_relativa($rutaRelativa) {
-    return '/Proyecto-FCT/Codigo/' . ltrim($rutaRelativa, '/'); // Devuelve ruta relativa al proyecto.
+    $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+    return $base . '/' . ltrim($rutaRelativa, '/'); // Devuelve ruta relativa al proyecto.
 }
 
 // Formatea una fecha al estilo 

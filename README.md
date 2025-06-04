@@ -220,5 +220,5 @@ Desarrollador del sistema como parte de prácticas del Grado Superior de Desarro
 
 ## 📄 Licencia
 
-Este proyecto ha sido desarrollado con fines educativos como parte del módulo de FCT del Grado Superior de Desarrollo de Aplicaciones Web.  
+Este proyecto ha sido desarrollado con fines educativos como parte del módulo Proyecto Integado del Grado Superior de Desarrollo de Aplicaciones Web.  
 No está destinado a producción sin revisión profesional de seguridad.
