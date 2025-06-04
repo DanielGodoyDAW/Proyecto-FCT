@@ -45,6 +45,15 @@ $extension = $_POST['extension'] ?? '';
 $telefonoCompleto = trim($extension . ' ' . $telefono);
 $sexo = $_POST['sexo'] ?? null;
 $fechaNacim = $_POST['fechaNacim'] ?? null;
+//Verificar si la fecha de nacimiento no es futura
+$fechaHoy = date('Y-m-d');
+if ($fechaNacim && $fechaNacim > $fechaHoy) {
+    echo "<script>
+        alert('La fecha de nacimiento no puede ser futura.');
+        window.location.href = '" . ruta_relativa('editar_perfil.php') . "';
+    </script>";
+    exit;
+}
 $dni = strtoupper(trim($_POST['dni'] ?? ''));
 $nuevoDNI = strtoupper(trim($_POST['nuevoDNI'] ?? ''));
 $fromPopup = isset($_POST['fromPopup']);
