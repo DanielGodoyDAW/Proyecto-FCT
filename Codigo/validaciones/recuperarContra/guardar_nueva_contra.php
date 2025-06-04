@@ -32,6 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // Verificar si la nueva contraseña es igual a la actual
+    $paciente = $result->fetch_assoc();
+    $hashActual = $paciente['pass'];
+
+    if (password_verify($password, $hashActual)) {
+        echo "<script>alert('La nueva contraseña no puede ser igual a la anterior.'); window.history.back();</script>";
+        exit;
+    }
+
     // Si el token es válido, proceder a actualizar la contraseña
     $hash = password_hash($password, PASSWORD_BCRYPT);
 
