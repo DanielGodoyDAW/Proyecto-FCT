@@ -7,10 +7,11 @@ function ruta_absoluta($rutaRelativa) {
     return $scriptDir . '/' . ltrim($rutaRelativa, '/'); // Devuelve ruta absoluta.
 }
 
-function ruta_relativa($rutaRelativa) {
-    $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
-    return $base . '/' . ltrim($rutaRelativa, '/'); // Devuelve ruta relativa al proyecto.
+function ruta_relativa($rutaRelativa) { // Esta función genera una ruta relativa 
+    $base = explode('/Codigo', $_SERVER['SCRIPT_NAME'])[0] . '/Codigo';
+    return $base . '/' . ltrim($rutaRelativa, '/');
 }
+
 
 // Formatea una fecha al estilo 
 function formatearFecha($fecha) {
