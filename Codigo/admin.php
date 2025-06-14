@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/styleColores.css">
     <link rel="stylesheet" href="estilos/styleAdmin.css">
+    <link rel="icon" href="imagenes/logo_sin_fondo.ico" type="image/x-icon">
     <script defer src="validaciones/subseccionesAdmin/subseccion.js"></script>
     <script defer src="validaciones/subseccionesAdmin/subMenuHistorial.js"></script>
     <script defer src="validaciones/servicios/editarServicio.js"></script>

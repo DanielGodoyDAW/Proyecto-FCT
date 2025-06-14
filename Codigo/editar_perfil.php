@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/styleColores.css">
     <link rel="stylesheet" href="estilos/styleEditPerfil.css">
+    <link rel="icon" href="imagenes/logo_sin_fondo.ico" type="image/x-icon">
     <title>Editar Perfil</title>
 </head>
 
