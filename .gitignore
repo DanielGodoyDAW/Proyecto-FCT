@@ -25,6 +25,7 @@ Thumbs.db
 /backup/
 /debug/
 
-/Base de datos
-/clinica_podologica.sql
+/Base de datos/*
+!/Base de datos/BD_Prueba.sql
+/clinica_podologia.sql
 /clinica.sql
