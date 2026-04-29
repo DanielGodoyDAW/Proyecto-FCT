@@ -27,6 +27,7 @@ if (isset($_SESSION['idPacientes'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/styleColores.css">
+    <link rel="icon" href="imagenes/logo_sin_fondo.ico" type="image/x-icon">
     <?php if (isset($_SESSION["idAdmin"])) { ?>
         <link rel="stylesheet" href="estilos/styleCitasAdmin.css">
     <?php } else { ?>

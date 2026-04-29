@@ -87,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </script>";
         exit;
     } else {
+        //addslashes sirve para escapar caracteres especiales dentro del alert()
         echo "<script>alert('Error al actualizar historial: " . addslashes($stmt->error) . "'); window.history.back();</script>";
         exit;
     }

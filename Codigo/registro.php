@@ -9,6 +9,7 @@ $errores = $_SESSION['errores'] ?? [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./js/registro.js"></script>
+    <link rel="icon" href="imagenes/logo_sin_fondo.ico" type="image/x-icon">
     <link rel="stylesheet" href="estilos/styleColores.css">
     <link rel="stylesheet" href="estilos/stylesRegistro.css">
     <link rel="stylesheet" href="estilos/styleCalendario.css">
