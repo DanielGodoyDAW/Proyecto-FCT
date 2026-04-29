@@ -20,11 +20,11 @@ Aplicación web para la gestión integral de una clínica podológica. Permite l
 ### 🔐 Credenciales de prueba
 
 **Administrador**  
-- Usuario: `carmengodoypodologia@gmail.com`  
+- Usuario: `ana.martinez@ejemplo.com`  
 - Contraseña: `Contra+1234`
 
 **Paciente**  
-- Usuario: `danielgodoymedina@gmail.com`  
+- Usuario: `juan.perez@ejemplo.com`  
 - Contraseña: `Contra+1234`
 
 ---
