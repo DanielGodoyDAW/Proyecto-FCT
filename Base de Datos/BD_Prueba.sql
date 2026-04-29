@@ -14,7 +14,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `admin` (`nombre`, `apellido1`, `apellido2`, `email`, `telefono`, `pass`) VALUES
-('Ana',   'Martinez',  'Lopez',    'ana.martinez@ejemplo.com',   '600000001', '$2y$10$fakeadminhash1');
+('Ana',   'Martinez',  'Lopez',    'ana.martinez@ejemplo.com',   '600000001', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe');
 
 
 -- Tabla historial
@@ -62,8 +62,8 @@ CREATE TABLE `pacientes` (
 
 INSERT INTO `pacientes` (`nombre`, `apellido1`, `apellido2`, `email`, `telefono`, `fechaNacim`, `sexo`, `dni`, `pass`, `idHistorial`)
 VALUES
-('Juan',     'Perez',      'Santos',   'juan.perez@ejemplo.com',   '700000001', '1990-01-15', 'H', 'X0000000A', '$2y$10$fakepachash1', 1),
-('Maria',    'Ruiz',       'Diaz',     'maria.ruiz@ejemplo.com',   '700000002', '1986-07-04', 'M', 'X0000000B', '$2y$10$fakepachash2', 2);
+('Juan',     'Perez',      'Santos',   'juan.perez@ejemplo.com',   '700000001', '1990-01-15', 'H', 'X0000000A', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe', 1),
+('Maria',    'Ruiz',       'Diaz',     'maria.ruiz@ejemplo.com',   '700000002', '1986-07-04', 'M', 'X0000000B', '$2y$10$kFSxdLZGwlL9CwjvZ.dLce/LwI6WLxVHLuyBNlTV/0vc550Y7InFe', 2);
 
 -- Tabla citas
 CREATE TABLE `citas` (
