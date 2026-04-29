@@ -24,3 +24,7 @@ Thumbs.db
 /tests/
 /backup/
 /debug/
+
+/Base de datos
+/clinica_podologica.sql
+/clinica.sql
